@@ -316,3 +316,43 @@
     @media (min-width: 769px) {
         .nav-toggle { display: none; }
     }
+
+ /* Popup Styles */
+        .popup {
+            position: fixed;
+            background: #111;
+            color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 0, 204, 0.7);
+            z-index: 1000;
+        }
+        .popup-entry {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+        .popup-corner {
+            bottom: 20px;
+            right: 20px;
+            font-size: 14px;
+        }
+        .popup-image {
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+        }
+        .popup img {
+            max-width: 200px;
+            border-radius: 10px;
+        }
+        .close-btn {
+            background: #ff00cc;
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
