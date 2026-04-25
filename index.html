@@ -1,274 +1,64 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Connor — building ML datasets to unlock new capabilities in frontier models.">
-    <meta name="author" content="Connor / كنّر">
-    <meta property="og:title" content="كنّر · Connor">
-    <meta property="og:description" content="Building datasets that unlock what the frontier cannot yet do.">
+    <meta name="description" content="Connor — building the datasets that unlock what frontier models cannot yet do.">
+    <meta name="author" content="Connor">
+    <meta property="og:title" content="Connor · كنّر">
+    <meta property="og:description" content="Building the datasets that unlock what the frontier cannot yet do.">
     <meta property="og:type" content="website">
-    <meta name="theme-color" content="#0a0a0a">
+    <meta name="theme-color" content="#0a0908">
 
-    <title>كنّر · Connor</title>
+    <title>Connor · كنّر</title>
 
     <!--
-        ▓  السلام عليكم، يا من نَظرَ إلى المصدر.
-        ▓  Peace to you, who looked at the source.
+        ▓  hello, reader of the source.
         ▓
-        ▓  في هذه الصفحة خرطوشٌ، وفي الخرطوش اسمي.
-        ▓  اِقرأْ كلّ علامةٍ بالترتيب، ثم نادِ في الكونسول:
+        ▓  the cartouche on the page spells my name in old signs.
+        ▓  type 'decode' in the terminal to see the cipher key,
+        ▓  then type the name itself to open something.
         ▓
-        ▓      حلّ('???')
+        ▓  or, in this very console:
+        ▓      حلّ('...')      ·       𓎛('...')
         ▓
-        ▓  — كنّر
+        ▓  — Connor
     -->
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+Egyptian+Hieroglyphs&family=Reem+Kufi:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@400&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+Egyptian+Hieroglyphs&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<!-- طبقة الخلفية — ambient hieroglyph drift -->
-<canvas id="الخلفية" aria-hidden="true"></canvas>
+<canvas id="𓆣" aria-hidden="true"></canvas>
 
-<!-- شريط التنقّل — nav -->
-<nav class="nav" aria-label="primary">
-    <a href="#" class="nav-mark" aria-label="home">
-        <span class="glyph">𓂀</span>
-    </a>
-    <ul class="nav-links">
-        <li><a href="#about"><span class="ar">عن</span><span class="en">about</span></a></li>
-        <li><a href="#work"><span class="ar">عمل</span><span class="en">work</span></a></li>
-        <li><a href="#contact"><span class="ar">تواصل</span><span class="en">contact</span></a></li>
-    </ul>
-</nav>
+<main class="terminal" id="terminal">
 
-<main>
+    <!-- prints itself when the page boots -->
+    <div id="output" aria-live="polite"></div>
 
-<!-- ١ · القسم الأوّل · hero -->
-<section class="hero" id="hero">
-
-    <div class="hero-grid">
-
-        <div class="hero-name">
-            <h1 class="name-ar" lang="ar" dir="rtl" aria-label="Connor in Arabic">كنّر</h1>
-            <div class="name-en">
-                <span class="given">Connor</span>
-                <span class="meta">b. 2003 · Riyadh→SF</span>
-            </div>
-
-            <p class="tagline" lang="en">
-                Building the datasets that unlock what the frontier cannot yet do.
-            </p>
-            <p class="tagline-ar" lang="ar" dir="rtl">
-                أصنعُ بياناتٍ تُطلقُ في النماذجِ قدراتٍ لم تكن.
-            </p>
-
-            <div class="type-line" aria-live="polite">
-                <span id="الكاتب"></span><span class="caret" aria-hidden="true">▊</span>
-            </div>
-        </div>
-
-        <!--
-            الخرطوش — the cartouche.
-            Each glyph below has a data-letter. Read them in order
-            (ignoring the cartouche brackets) and you have the word.
-        -->
-        <figure class="cartouche" aria-label="Name of Connor rendered in Egyptian hieroglyphs">
-            <span class="cart-end cart-left"  aria-hidden="true">𓍷</span>
-            <span class="cart-glyph" data-حرف="C" title="C · basket">𓎡</span>
-            <span class="cart-glyph" data-حرف="O" title="O · quail chick (w)">𓅱</span>
-            <span class="cart-glyph" data-حرف="N" title="N · water ripple">𓈖</span>
-            <span class="cart-glyph" data-حرف="N" title="N · water ripple">𓈖</span>
-            <span class="cart-glyph" data-حرف="O" title="O · quail chick (w)">𓅱</span>
-            <span class="cart-glyph" data-حرف="R" title="R · mouth">𓂋</span>
-            <span class="cart-end cart-right" aria-hidden="true">𓍶</span>
-            <figcaption>
-                <span class="ar" lang="ar" dir="rtl">اِسمي</span>
-                <span class="en">my name, written in the old way</span>
-            </figcaption>
-        </figure>
-
-    </div>
-
-    <a href="#about" class="scroll-cue" aria-label="scroll">
-        <span class="ar" lang="ar" dir="rtl">اِنزل</span>
-        <span class="chev">↓</span>
-    </a>
-</section>
-
-
-<!-- ٢ · عن · about -->
-<section class="about" id="about">
-
-    <header class="sec-head">
-        <span class="sec-num">01</span>
-        <h2>
-            <span class="ar" lang="ar" dir="rtl">عن</span>
-            <span class="divider" aria-hidden="true">/</span>
-            <span class="en">about</span>
-        </h2>
-        <span class="sec-glyph" aria-hidden="true">𓋹</span>
-    </header>
-
-    <div class="about-grid">
-
-        <article class="col-en" lang="en">
-            <p>I'm Connor, 21. I grew up between two alphabets and never trusted either one to hold the whole truth alone.</p>
-            <p>I build machine-learning datasets — the unglamorous material that decides what the next model can and cannot do. Most of the gap between what frontier AI promises and what it delivers lives inside the data. I want to close it.</p>
-            <p>Currently raising a seed round to do this at the scale it deserves.</p>
-        </article>
-
-        <div class="col-rule" aria-hidden="true"></div>
-
-        <article class="col-ar" lang="ar" dir="rtl">
-            <p>اسمي كنّر، عمري واحدٌ وعشرون. نشأتُ بين أبجديّتين، ولم أثق بإحداهما وحدها على الحقيقة.</p>
-            <p>أبني بياناتِ تعلّمٍ آليّ — المادّة الخامّ التي تقرّر ما يقدر عليه النموذج القادم وما لا يقدر. معظمُ الفجوةِ بين ما تَعِد به النماذج وما تفعله يسكنُ داخل البيانات. أريد أن أُغلقها.</p>
-            <p>أجمعُ الآن جولةَ تمويلٍ أوّليّة لأفعلَ هذا على النطاق الذي يستحقّه.</p>
-        </article>
-
-    </div>
-</section>
-
-
-<!-- ٣ · عمل · work -->
-<section class="work" id="work">
-
-    <header class="sec-head">
-        <span class="sec-num">02</span>
-        <h2>
-            <span class="ar" lang="ar" dir="rtl">عمل</span>
-            <span class="divider" aria-hidden="true">/</span>
-            <span class="en">work</span>
-        </h2>
-        <span class="sec-glyph" aria-hidden="true">𓊽</span>
-    </header>
-
-    <div class="cards">
-
-        <article class="card">
-            <header class="card-head">
-                <span class="card-glyph" aria-hidden="true">𓂧</span>
-                <span class="card-num">I</span>
-            </header>
-            <h3>
-                <span class="en">Frontier datasets</span>
-                <span class="ar" lang="ar" dir="rtl">بياناتُ حدٍّ أماميّ</span>
-            </h3>
-            <p>
-                Curated, adversarial, and domain-deep. The kind of data you
-                can't scrape — only design.
-            </p>
-            <footer>
-                <span class="tag">ML</span>
-                <span class="tag">data</span>
-                <span class="tag">pre-seed</span>
-            </footer>
-        </article>
-
-        <article class="card">
-            <header class="card-head">
-                <span class="card-glyph" aria-hidden="true">𓆣</span>
-                <span class="card-num">II</span>
-            </header>
-            <h3>
-                <span class="en">Raising a seed</span>
-                <span class="ar" lang="ar" dir="rtl">جولةٌ أوّليّة</span>
-            </h3>
-            <p>
-                If you back founders early, and you think the data layer is
-                the layer, talk to me.
-            </p>
-            <footer>
-                <a class="tag tag-link" href="https://x.com/SocialAcolyte" target="_blank" rel="noopener">dm on x ↗</a>
-            </footer>
-        </article>
-
-        <article class="card">
-            <header class="card-head">
-                <span class="card-glyph" aria-hidden="true">𓏏</span>
-                <span class="card-num">III</span>
-            </header>
-            <h3>
-                <span class="en">Thesis</span>
-                <span class="ar" lang="ar" dir="rtl">الأطروحة</span>
-            </h3>
-            <p>
-                A written argument for why data, not architecture, is the
-                remaining bottleneck on frontier capability.
-            </p>
-            <footer>
-                <a class="tag tag-link" href="buisness strategy.pdf" download>download pdf ↓</a>
-            </footer>
-        </article>
-
-    </div>
-</section>
-
-
-<!-- ٤ · تواصل · contact / footer -->
-<footer class="contact" id="contact">
-
-    <header class="sec-head">
-        <span class="sec-num">03</span>
-        <h2>
-            <span class="ar" lang="ar" dir="rtl">تواصل</span>
-            <span class="divider" aria-hidden="true">/</span>
-            <span class="en">contact</span>
-        </h2>
-        <span class="sec-glyph" aria-hidden="true">𓁹</span>
-    </header>
-
-    <ul class="socials" aria-label="social links">
-        <li>
-            <!-- ضع رابطَكَ هنا — replace with your real LinkedIn URL -->
-            <a href="https://www.linkedin.com/in/" target="_blank" rel="noopener" aria-label="LinkedIn">
-                <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true">
-                    <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.95v5.66H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.28 2.38 4.28 5.47v6.27zM5.34 7.43a2.06 2.06 0 110-4.12 2.06 2.06 0 010 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.23 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.46c.98 0 1.77-.77 1.77-1.72V1.72C24 .77 23.21 0 22.23 0z"/>
-                </svg>
-                <span>LinkedIn</span>
-            </a>
-        </li>
-        <li>
-            <a href="https://github.com/SocialAcolyte" target="_blank" rel="noopener" aria-label="GitHub">
-                <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true">
-                    <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.38 7.86 10.9.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.36-3.87-1.36-.52-1.32-1.27-1.68-1.27-1.68-1.04-.71.08-.69.08-.69 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.68 1.24 3.33.95.1-.74.4-1.24.72-1.52-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.04 0 0 .97-.31 3.18 1.18a11 11 0 012.9-.39c.98 0 1.97.13 2.9.39 2.2-1.49 3.17-1.18 3.17-1.18.63 1.58.23 2.75.11 3.04.74.8 1.18 1.82 1.18 3.08 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0023.5 12c0-6.35-5.15-11.5-11.5-11.5z"/>
-                </svg>
-                <span>GitHub</span>
-            </a>
-        </li>
-        <li>
-            <a href="https://x.com/SocialAcolyte" target="_blank" rel="noopener" aria-label="X / Twitter">
-                <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true">
-                    <path d="M18.244 2H21.5l-7.5 8.58L23 22h-6.91l-4.62-6.04L6.1 22H2.84l8.05-9.21L1.5 2h7.08l4.17 5.52L18.244 2zm-2.42 18h1.9L7.25 4H5.24l10.58 16z"/>
-                </svg>
-                <span>X</span>
-            </a>
-        </li>
-    </ul>
-
-    <!-- توقيع خفيّ — subtle signature hinting at the egg -->
-    <p class="sig">
-        <span class="sig-glyph" aria-hidden="true">𓂀</span>
-        <span class="sig-ar" lang="ar" dir="rtl">الذي يَنظرُ، يَجد.</span>
-        <span class="sig-en"> / he who looks, finds.</span>
-    </p>
-
-    <p class="fine">
-        <span>© 2026 · كنّر · Connor</span>
-        <span class="dot">·</span>
-        <span>صُنعَ بالحبر الأسود</span>
-    </p>
-</footer>
+    <!-- the live prompt -->
+    <form id="line" class="line" autocomplete="off">
+        <span class="prompt" aria-hidden="true">𓂀&nbsp;~&nbsp;$&nbsp;</span>
+        <input
+            id="cmd"
+            type="text"
+            spellcheck="false"
+            autocomplete="off"
+            autocapitalize="off"
+            autocorrect="off"
+            aria-label="terminal input"
+        />
+        <span class="caret" aria-hidden="true">▊</span>
+    </form>
 
 </main>
 
-<!-- طبقة الكشف — easter egg overlay, filled by JS on reveal -->
-<div id="الكشف" class="reveal" aria-hidden="true"></div>
+<!-- easter egg overlay, populated by js -->
+<div id="𓂀" class="reveal" aria-hidden="true"></div>
 
 <script src="script.js" defer></script>
 
