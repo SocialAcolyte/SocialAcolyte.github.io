@@ -128,6 +128,7 @@
 
     function افتح() {
         if (مفتوح) return;
+        if (!خرطوش || !مكشوف) return;   /* the puzzle only lives on the home page */
         مفتوح = true;
         خرطوش.classList.add('مفتوح');
         مكشوف.classList.add('ظاهر');

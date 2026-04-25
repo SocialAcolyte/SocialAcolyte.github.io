@@ -452,3 +452,167 @@ html, body {
     .قائمة a { transition: none; }
     .قائمة a:hover .سهم { transform: none; }
 }
+
+/* ════════════════════════════════════════════════════════════════
+ * سيرة — CV / résumé page
+ * ════════════════════════════════════════════════════════════════ */
+
+.رئيسي.سيرة {
+    max-width: 720px;
+    padding: 12vh 36px 200px;
+    gap: 52px;
+}
+
+/* contact line under the hero name */
+.جهات {
+    margin: 4px 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    color: var(--حِبر-٢);
+}
+.جهات a {
+    color: var(--حِبر-٢);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 2px;
+    transition: color var(--وقت), border-color var(--وقت);
+}
+.جهات a:hover {
+    color: var(--ذهب);
+    border-bottom-color: var(--ذهب-خفيف);
+}
+.جهات .dot { color: var(--حِبر-٣); }
+
+/* sections */
+.فرع {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+/* a "block" — org or category, with bullets beneath */
+.بند {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.منظمة {
+    margin: 0;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 1.2;
+    color: var(--حِبر);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 14px;
+}
+.موقف {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--حِبر-٣);
+}
+
+.ملاحظة {
+    margin: 0;
+    font-style: italic;
+    font-size: 16px;
+    color: var(--حِبر-٢);
+    line-height: 1.5;
+}
+
+.نقاط {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.نقاط li {
+    position: relative;
+    padding-left: 22px;
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--حِبر);
+}
+.نقاط li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--حِبر-٣);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+}
+.نقاط .سنة {
+    display: inline-block;
+    margin-left: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--حِبر-٣);
+    white-space: nowrap;
+}
+.نقاط em { font-style: italic; color: var(--حِبر); }
+
+/* closing statement */
+.ختام {
+    border-top: 1px solid var(--حِبر-٣);
+    padding-top: 24px;
+    max-width: 600px;
+}
+.ختام p {
+    margin: 0;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 19px;
+    line-height: 1.55;
+    color: var(--حِبر);
+    font-style: italic;
+}
+.ختام strong {
+    font-style: normal;
+    font-weight: 500;
+    color: var(--حِبر);
+    border-bottom: 1px solid var(--ذهب-خفيف);
+}
+
+/* back link */
+.رجوع {
+    display: inline-block;
+    margin-top: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--حِبر-٢);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 2px;
+    transition: color var(--وقت), border-color var(--وقت);
+    width: fit-content;
+}
+.رجوع:hover {
+    color: var(--ذهب);
+    border-bottom-color: var(--ذهب-خفيف);
+}
+
+@media (max-width: 720px) {
+    .رئيسي.سيرة {
+        padding: 10vh 22px 240px;
+        gap: 40px;
+    }
+    .منظمة { font-size: 19px; }
+    .نقاط li { font-size: 15px; }
+    .ختام p { font-size: 17px; }
+    .فرع { gap: 26px; }
+}
