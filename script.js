@@ -109,8 +109,8 @@
         '   ▓  اِقرأها بالترتيب، ثم نادِ:',
         '   ▓  read them in order, then call:',
         '   ▓',
-        '   ▓        حل("?????")',
-        '   ▓                                         — كنّر',
+        '   ▓        حل("???????")',
+        '   ▓                                         — المُريد',
         '',
     ].join('\n');
 
@@ -121,7 +121,7 @@
 
     /* ─── ٣  حل — the easter egg ───────────────────────────────── */
 
-    const جواب_صحيح = 'CONNOR';
+    const جواب_صحيح = 'ACOLYTE';
     const خرطوش    = document.getElementById('خرطوش');
     const مكشوف    = document.getElementById('مكشوف');
     let   مفتوح    = false;
