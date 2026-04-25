@@ -3,16 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Connor Hood — CV. ML datasets, robotics, web.">
+    <meta name="description" content="Connor H. — CV">
     <meta name="theme-color" content="#060606">
-    <title>Connor Hood · CV · Social Acolyte</title>
-
-    <!--
-        ▓
-        ▓   هذه السيرة. اِقرأ.
-        ▓   this is the cv. read on.
-        ▓
-    -->
+    <title>Connor H. · CV</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,31 +14,63 @@
 </head>
 <body>
 
+<!-- الخلفية — ambient drift of glyphs -->
 <canvas id="الخلفية" aria-hidden="true"></canvas>
-
-<a href="/" class="نظرة" title="رجوع — back" aria-label="back to home">
-    <span class="glyph">←</span>
-</a>
 
 <main class="رئيسي سيرة">
 
-    <header class="رأس">
-        <h1 class="الاسم" lang="ar" dir="rtl">كنّر هود</h1>
-        <p class="ترجمة">Connor Hood &nbsp;·&nbsp; Social Acolyte</p>
-        <p class="جهات">
+    <header class="رأس" style="text-align: left; direction: ltr;">
+        <h1 class="الاسم" style="font-family: 'Cormorant Garamond', serif; direction: ltr; text-align: left; font-size: clamp(64px, 10vw, 96px); letter-spacing: 0;">Connor H.</h1>
+        <nav class="جهات" aria-label="contact">
             <a href="mailto:42connor@gmail.com">42connor@gmail.com</a>
             <span class="dot" aria-hidden="true">·</span>
-            <a href="https://x.com/SocialAcolyte" rel="me">x</a>
+            <a href="https://x.com/SocialAcolyte" rel="me">SocialAcolyte (X)</a>
             <span class="dot" aria-hidden="true">·</span>
-            <a href="https://github.com/SocialAcolyte" rel="me">github</a>
-            <span class="dot" aria-hidden="true">·</span>
-            <a href="https://www.linkedin.com/in/connor-m-hood/" rel="me">linkedin</a>
-        </p>
+            <a href="https://www.linkedin.com/in/connor-m-hood/" rel="me">Connor Hood (LinkedIn)</a>
+        </nav>
     </header>
 
-    <!-- ─── تعليم · education ─────────────────────────────── -->
-    <section class="فرع" aria-labelledby="عنوان-تعليم">
-        <h2 id="عنوان-تعليم" class="عنوان">تعليم &nbsp;·&nbsp; education</h2>
+    <!-- ─── Experience ──────────────────────────────────── -->
+    <section class="فرع">
+        <h2 class="عنوان">Experience</h2>
+
+        <div class="بند">
+            <h3 class="منظمة">Software Engineering Experience</h3>
+            <ul class="نقاط">
+                <li>Personal Project on large scale ML datasets including webscrapping-curating sets (varied numerical base systems) and language/action datasets (synchronous ASL hand data video)</li>
+                <li>Post training data collection system operation and management (mocap)</li>
+                <li>VLA (vision language action) model improvements with a focus on ‘lossy’ compound model behavior to improve performance for general robotics models</li>
+                <li>AI minecraft bot development for physicalised ‘agent’ deployment in videogames using the Mindcraft library</li>
+                <li>Extensive website development with React, Tailwind</li>
+                <li>Implemented Fork on MetaMask to optimise for co-sig functionality and OpenClaw integration as well as previous UX/UI work in the wallet space</li>
+                <li>AI native development of landing/hero pages, backend database logic, query handling, concurrent operations and triage logic, and algorithm design</li>
+                <li><em>And others not named</em></li>
+            </ul>
+        </div>
+
+        <div class="بند">
+            <h3 class="منظمة">Science & Technology Education</h3>
+            <ul class="نقاط">
+                <li>Space flight news Voice actor and co-founder showcasing a passion for science, technology and for tech focused education</li>
+                <li>Guest speaker and lecturer for psychology <span class="سنة">2023</span> and technology and AI <span class="سنة">2024</span> at venturer retreat</li>
+            </ul>
+        </div>
+
+        <div class="بند">
+            <h3 class="منظمة">Production, Manufacturing & Logistics <span class="موقف">Various sectors</span></h3>
+            <p class="ملاحظة">Extensive experience in production, manufacturing and warehouse work in several key sectors, including:</p>
+            <ul class="نقاط">
+                <li>Biomedical production (Thermofisher) <span class="سنة">Mar - Oct</span></li>
+                <li>Food and beverages sectors: Coopers Brewery <span class="سنة">2022-2024</span>, Haighs Chocolates <span class="سنة">2024</span>, Senector <span class="سنة">2023</span></li>
+                <li>Construction supplies (Bluescope Steel) <span class="سنة">2021-2022</span></li>
+                <li><em>And several others not named</em></li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ─── Education & Awards ──────────────────────────── -->
+    <section class="فرع">
+        <h2 class="عنوان">Education & Awards</h2>
 
         <div class="بند">
             <h3 class="منظمة">Open Access College</h3>
@@ -62,80 +87,34 @@
         </div>
 
         <div class="بند">
-            <h3 class="منظمة">Scouts SA RPL <span class="موقف">volunteer · 2022–25</span></h3>
+            <h3 class="منظمة">Scouts SA RPL <span class="موقف">Volunteer</span> <span class="سنة">2022 - 2025</span></h3>
             <ul class="نقاط">
                 <li>Queen Scout Award <span class="سنة">2022</span></li>
                 <li>Special Service Award <span class="سنة">2025</span></li>
-                <li>Certificate III in Business <span class="سنة">2025</span></li>
-                <li>Certificate III in Active Volunteering <span class="سنة">2023</span></li>
+                <li>Certificate 3 in Business <span class="سنة">2025</span></li>
+                <li>Certificate 3 in Active Volunteering <span class="سنة">2023</span></li>
             </ul>
         </div>
 
         <div class="بند">
             <h3 class="منظمة">Other notable awards</h3>
             <ul class="نقاط">
-                <li>Rotary Youth Leadership Awards (RYLA) <span class="سنة">2023</span></li>
+                <li>Rotary Youth Leadership awards (RYLA) <span class="سنة">2023</span></li>
                 <li>National Volunteer Week <span class="سنة">2024</span></li>
             </ul>
         </div>
     </section>
 
-    <!-- ─── خبرة · experience ─────────────────────────────── -->
-    <section class="فرع" aria-labelledby="عنوان-خبرة">
-        <h2 id="عنوان-خبرة" class="عنوان">خبرة &nbsp;·&nbsp; experience</h2>
-
-        <div class="بند">
-            <h3 class="منظمة">Software engineering</h3>
-            <ul class="نقاط">
-                <li>Personal project on large-scale ML datasets — web-scraped + curated sets across varied numerical base systems, plus language/action datasets (synchronous ASL hand-data video).</li>
-                <li>Post-training data collection system operation and management (mocap).</li>
-                <li>VLA (vision-language-action) model improvements — focus on "lossy" compound behavior to improve performance in general robotics models.</li>
-                <li>AI Minecraft bot development for physicalised agent deployment in videogames, via the Mindcraft library.</li>
-                <li>Extensive website development with React + Tailwind.</li>
-                <li>Implemented Fork on MetaMask to optimise for co-sig functionality and OpenClaw integration; prior UX/UI work in the wallet space.</li>
-                <li>AI-native development of landing/hero pages, backend database logic, query handling, concurrent operations, triage logic, and algorithm design.</li>
-                <li>And others not named.</li>
-            </ul>
-        </div>
-
-        <div class="بند">
-            <h3 class="منظمة">Science &amp; technology education</h3>
-            <ul class="نقاط">
-                <li>Voice actor and co-founder, <em>Space Flight News</em> — showcasing a passion for science, technology, and tech-focused education.</li>
-                <li>Guest speaker and lecturer at Venturer Retreat — psychology <span class="سنة">2023</span>, technology &amp; AI <span class="سنة">2024</span>.</li>
-            </ul>
-        </div>
-
-        <div class="بند">
-            <h3 class="منظمة">Production, manufacturing &amp; logistics</h3>
-            <p class="ملاحظة">Extensive experience in production, manufacturing, and warehouse work, across several key sectors:</p>
-            <ul class="نقاط">
-                <li>Biomedical — Thermofisher <span class="سنة">Mar–Oct</span></li>
-                <li>Food &amp; beverage — Coopers Brewery <span class="سنة">2022–24</span>, Haigh's Chocolates <span class="سنة">2024</span>, Senector <span class="سنة">2023</span></li>
-                <li>Construction supplies — Bluescope Steel <span class="سنة">2021–22</span></li>
-                <li>And several others not named.</li>
-            </ul>
-        </div>
-    </section>
-
-    <!-- ─── ختام · closing ────────────────────────────────── -->
-    <section class="ختام">
+    <!-- ─── Closing ─────────────────────────────────────── -->
+    <div class="ختام">
         <p>
-            Looking for work in <strong>ML datasets</strong>, <strong>education</strong>,
-            <strong>robotics</strong>, and <strong>full-stack web development</strong> — to
-            cross-pollinate my experience in production and assembly-line work with my
-            software engineering background and my desire to help make a great future.
+            <strong>Looking for work</strong> in ML datasets, Education, Robotics and full stack web development to cross pollinate my experience in production and assembly line work with my Software Engineering background and my desire to help make a great future.
         </p>
-    </section>
+    </div>
 
-    <a href="/" class="رجوع">← back to /</a>
+    <a href="index.html" class="رجوع">cd ..</a>
 
 </main>
-
-<aside class="حكمة" aria-label="upanishadic verse">
-    <span class="dev" lang="sa">तमसो मा ज्योतिर्गमय।</span>
-    <span class="ترجمة-حكمة">tamaso mā jyotir gamaya · lead from dark to light</span>
-</aside>
 
 <script src="script.js" defer></script>
 </body>
