@@ -15,11 +15,11 @@
         ▓   السلام عليكم، يا من نَظرَ إلى المصدر.
         ▓   peace to you who looked at the source.
         ▓
-        ▓   في الزاوية خرطوشٌ — كلّ علامةٍ فيه حرف.
-        ▓   in the corner is a cartouche — each glyph is a letter.
+        ▓   اِسمي مكتوبٌ بالحروف المصرية، لكنّه ليس ظاهرًا بَعد.
+        ▓   my name is written in egyptian glyphs — but not visible yet.
         ▓
-        ▓   اِقرأْ بالترتيب، ثم نادِ في الكونسول:
-        ▓   read in order, then call in the console:
+        ▓   اقرأ الصفحة، خمّن الكلمة، ثم نادِ في الكونسول:
+        ▓   read the page, guess the word, then call in the console:
         ▓
         ▓        حل('???????')
         ▓
@@ -29,7 +29,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:wght@300;400;500&family=JetBrains+Mono:wght@400&family=Noto+Sans+Egyptian+Hieroglyphs&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:wght@300;400;500&family=JetBrains+Mono:wght@400&family=Noto+Sans+Devanagari:wght@400&family=Noto+Sans+Egyptian+Hieroglyphs&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -60,12 +60,65 @@
             معظمُ الفجوةِ بين ما يَعِدُ به الذكاءُ الاصطناعيّ وما يُسلّمُه يسكنُ داخل البيانات —
             أريد أن أُغلقها.
         </p>
+    </section>
 
-        <p class="حال">
-            <span class="en">seed round &nbsp;—&nbsp; open</span>
-            <span class="sep">·</span>
-            <span class="ar" lang="ar" dir="rtl">جولةٌ أوّليّة، مفتوحة للحديث</span>
+    <!-- ─── فلسفة · philosophy ────────────────────────────── -->
+    <section class="فلسفة" aria-labelledby="عنوان-فلسفة">
+        <h2 id="عنوان-فلسفة" class="عنوان">فلسفة &nbsp;·&nbsp; philosophy</h2>
+        <p class="en">
+            Frontier capability is bottlenecked by data, not compute. The next leap won't be a new
+            architecture — it will be data designed by people who knew exactly what was missing.
+            I build that data, and I build it as a <span class="ar-inline" lang="ar" dir="rtl">مُريد</span>:
+            a disciple who studies the work hard enough to deserve to lead it.
         </p>
+        <p class="ar" lang="ar" dir="rtl">
+            الحدُّ الأمامي مُقيَّدٌ بالبيانات لا بالحساب. القفزةُ القادمة لن تكون بنيةً جديدة،
+            بل بياناتٍ صمَّمها مَنْ يَعرف ما الذي ينقصها بالضبط. أصنعُ تلك البيانات،
+            وأصنعها كـمُريدٍ: تلميذٌ يدرسُ العمل بقدرٍ يستحقُّ به أن يقوده.
+        </p>
+    </section>
+
+    <!-- ─── أعمال · work ──────────────────────────────────── -->
+    <!-- swap with your actual projects — keep the (year · name · one-liner · ↗) shape -->
+    <section class="أعمال" aria-labelledby="عنوان-أعمال">
+        <h2 id="عنوان-أعمال" class="عنوان">أعمال &nbsp;·&nbsp; selected work</h2>
+        <ol class="قائمة">
+            <li>
+                <a href="#">
+                    <span class="سنة">2025</span>
+                    <span class="اسم">[ project one ]</span>
+                    <span class="وصف">one-line description of the work — what it is, who it's for.</span>
+                    <span class="سهم" aria-hidden="true">↗</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="سنة">2024</span>
+                    <span class="اسم">[ project two ]</span>
+                    <span class="وصف">one-line description of the work — what it is, who it's for.</span>
+                    <span class="سهم" aria-hidden="true">↗</span>
+                </a>
+            </li>
+            <li>
+                <a href="/buisness strategy.pdf" download>
+                    <span class="سنة">2024</span>
+                    <span class="اسم">data-layer thesis</span>
+                    <span class="وصف">why the next frontier is decided by data, not compute. (pdf)</span>
+                    <span class="سهم" aria-hidden="true">↘</span>
+                </a>
+            </li>
+        </ol>
+    </section>
+
+    <!-- ─── تواصل · contact ───────────────────────────────── -->
+    <section class="تواصل" aria-labelledby="عنوان-تواصل">
+        <h2 id="عنوان-تواصل" class="عنوان">تواصل &nbsp;·&nbsp; contact</h2>
+        <a class="حال" href="https://x.com/SocialAcolyte">
+            <span class="en-حال">seed round &nbsp;—&nbsp; open</span>
+            <span class="sep" aria-hidden="true">·</span>
+            <span class="ar" lang="ar" dir="rtl">جولةٌ أوّليّة، مفتوحة للحديث</span>
+            <span class="سهم" aria-hidden="true">↗ dm</span>
+        </a>
     </section>
 
     <nav class="روابط" aria-label="elsewhere">
@@ -73,15 +126,26 @@
         <span class="dot" aria-hidden="true">·</span>
         <a href="https://github.com/SocialAcolyte" rel="me">github</a>
         <span class="dot" aria-hidden="true">·</span>
-        <a href="https://www.linkedin.com/in/socialacolyte" rel="me">linkedin</a>
+        <a href="https://www.linkedin.com/in/connor-m-hood/" rel="me">linkedin</a>
         <span class="dot" aria-hidden="true">·</span>
         <a href="/resume.pdf" download>cv</a>
         <span class="dot" aria-hidden="true">·</span>
         <a href="#" class="موقع">site</a>
     </nav>
 
-    <!-- مكشوف — only revealed when the easter egg is solved. -->
+    <!-- مكشوف — only revealed when the easter egg is solved. cartouche lives inside. -->
     <aside class="مكشوف" id="مكشوف" aria-hidden="true">
+        <div class="خرطوش" id="خرطوش" aria-label="cartouche · the name in glyphs">
+            <span class="cap" aria-hidden="true">𓍷</span>
+            <span class="g" data-letter="A" title="A · 𓄿 vulture">𓄿</span>
+            <span class="g" data-letter="C" title="C · 𓎡 basket">𓎡</span>
+            <span class="g" data-letter="O" title="O · 𓅱 quail chick">𓅱</span>
+            <span class="g" data-letter="L" title="L · 𓃭 lion">𓃭</span>
+            <span class="g" data-letter="Y" title="Y · 𓇌 double reed">𓇌</span>
+            <span class="g" data-letter="T" title="T · 𓏏 bread loaf">𓏏</span>
+            <span class="g" data-letter="E" title="E · 𓇋 reed leaf">𓇋</span>
+            <span class="cap" aria-hidden="true">𓍶</span>
+        </div>
         <p class="ar" lang="ar" dir="rtl">كلُّ مُريدٍ كان قائدًا. كلُّ قائدٍ كان مُريدًا.</p>
         <p class="en"><em>every acolyte was once a leader. every leader was once an acolyte.</em></p>
         <p class="small">↪ thanks for looking</p>
@@ -89,17 +153,10 @@
 
 </main>
 
-<!-- خرطوش — cartouche signature, bottom-right, faint until found -->
-<aside class="خرطوش" id="خرطوش" aria-label="cartouche · spell the name">
-    <span class="cap" aria-hidden="true">𓍷</span>
-    <span class="g" data-letter="A" title="A · 𓄿 vulture">𓄿</span>
-    <span class="g" data-letter="C" title="C · 𓎡 basket">𓎡</span>
-    <span class="g" data-letter="O" title="O · 𓅱 quail chick">𓅱</span>
-    <span class="g" data-letter="L" title="L · 𓃭 lion">𓃭</span>
-    <span class="g" data-letter="Y" title="Y · 𓇌 double reed">𓇌</span>
-    <span class="g" data-letter="T" title="T · 𓏏 bread loaf">𓏏</span>
-    <span class="g" data-letter="E" title="E · 𓇋 reed leaf">𓇋</span>
-    <span class="cap" aria-hidden="true">𓍶</span>
+<!-- ─── حكمة · the corner verse, in sanskrit ──────────────── -->
+<aside class="حكمة" aria-label="upanishadic verse">
+    <span class="dev" lang="sa">तमसो मा ज्योतिर्गमय।</span>
+    <span class="ترجمة-حكمة">tamaso mā jyotir gamaya · lead from dark to light · bṛhadāraṇyaka up.</span>
 </aside>
 
 <script src="script.js" defer></script>

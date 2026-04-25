@@ -1,9 +1,10 @@
 /*
  *  ▓  السلام عليكم.
- *  ▓  three scripts share this canvas:
+ *  ▓  four scripts share this canvas:
  *  ▓    Latin       (Cormorant Garamond + JetBrains Mono)
  *  ▓    Arabic      (Amiri)
  *  ▓    Egyptian    (Noto Sans Egyptian Hieroglyphs — ambient + cartouche)
+ *  ▓    Devanagari  (Noto Sans Devanagari — the corner verse)
  *  ▓
  *  ▓  dark always. gold rare. nothing cheesy.
  */
@@ -73,12 +74,12 @@ html, body {
 .رئيسي {
     position: relative;
     z-index: 2;
-    max-width: 580px;
+    max-width: 600px;
     margin: 0 auto;
-    padding: 18vh 36px 140px;
+    padding: 16vh 36px 200px;
     display: flex;
     flex-direction: column;
-    gap: 56px;
+    gap: 64px;
 }
 
 /* ─── hero ───────────────────────────────────────────────────── */
@@ -116,17 +117,19 @@ html, body {
     display: flex;
     flex-direction: column;
     gap: 26px;
-    max-width: 500px;
+    max-width: 520px;
 }
 
-.نص .en {
+.نص .en,
+.فلسفة .en {
     font-size: 19px;
     line-height: 1.55;
     color: var(--حِبر);
     margin: 0;
 }
 
-.نص .ar {
+.نص .ar,
+.فلسفة .ar {
     font-family: 'Amiri', serif;
     font-size: 19px;
     line-height: 1.85;
@@ -135,27 +138,140 @@ html, body {
     direction: rtl;
 }
 
-.نص .حال {
-    margin: 14px 0 0;
+.ar-inline {
+    font-family: 'Amiri', serif;
+    font-size: 1.1em;
+    color: var(--ذهب);
+    direction: rtl;
+    unicode-bidi: isolate;
+}
+
+/* ─── عنوان — section heading ────────────────────────────────── */
+
+.عنوان {
+    margin: 0 0 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--حِبر-٣);
+}
+
+/* ─── فلسفة · أعمال · تواصل  — section frames ───────────────── */
+
+.فلسفة,
+.أعمال,
+.تواصل {
+    max-width: 520px;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.فلسفة { gap: 26px; }
+
+/* ─── أعمال — work list ─────────────────────────────────────── */
+
+.قائمة {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+.قائمة li {
+    border-top: 1px solid var(--حِبر-٣);
+}
+.قائمة li:last-child {
+    border-bottom: 1px solid var(--حِبر-٣);
+}
+.قائمة a {
+    display: grid;
+    grid-template-columns: 52px auto 1fr auto;
+    gap: 16px;
+    align-items: baseline;
+    padding: 14px 0;
+    color: var(--حِبر);
+    text-decoration: none;
+    transition: background var(--وقت);
+}
+.قائمة a:hover .سهم {
+    color: var(--ذهب);
+    transform: translate(2px, -2px);
+}
+.قائمة a:hover .اسم { color: var(--ذهب); }
+
+.قائمة .سنة {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--حِبر-٣);
+}
+.قائمة .اسم {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--حِبر);
+    white-space: nowrap;
+    transition: color var(--وقت);
+}
+.قائمة .وصف {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    font-style: italic;
+    color: var(--حِبر-٢);
+    line-height: 1.4;
+}
+.قائمة .سهم {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--حِبر-٣);
+    transition: color var(--وقت), transform var(--وقت);
+}
+
+/* ─── تواصل — the seed-round line, real link ────────────────── */
+
+.حال {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 12px;
+    width: fit-content;
+    color: var(--حِبر);
+    text-decoration: none;
+    border-bottom: 1px solid var(--حِبر-٣);
+    padding: 4px 0;
     font-family: 'JetBrains Mono', monospace;
     font-size: 11px;
     letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: var(--حِبر-٢);
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    align-items: baseline;
+    transition: border-color var(--وقت), color var(--وقت);
 }
-.نص .حال .ar {
+.حال:hover {
+    border-bottom-color: var(--ذهب);
+    color: var(--ذهب);
+}
+.حال:hover .ar,
+.حال:hover .سهم { color: var(--ذهب); }
+.حال .en-حال { color: var(--حِبر); }
+.حال .ar {
     font-family: 'Amiri', serif;
     font-size: 14px;
     text-transform: none;
     letter-spacing: 0;
     color: var(--حِبر-٢);
     line-height: 1.4;
+    transition: color var(--وقت);
 }
-.نص .حال .sep { color: var(--حِبر-٣); }
+.حال .sep { color: var(--حِبر-٣); }
+.حال .سهم {
+    color: var(--ذهب);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    transition: color var(--وقت);
+}
 
 /* ─── الروابط — links row ───────────────────────────────────── */
 
@@ -168,6 +284,7 @@ html, body {
     font-size: 12px;
     letter-spacing: 0.05em;
     color: var(--حِبر-٢);
+    margin-top: 4px;
 }
 .روابط a {
     color: var(--حِبر-٢);
@@ -182,52 +299,11 @@ html, body {
 }
 .روابط .dot { color: var(--حِبر-٣); }
 
-/* ─── الخرطوش — cartouche signature, fixed bottom-right ─────── */
-
-.خرطوش {
-    position: fixed;
-    right: 32px;
-    bottom: 32px;
-    z-index: 5;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-    font-family: 'Noto Sans Egyptian Hieroglyphs', serif;
-    font-size: 22px;
-    color: var(--حِبر-٣);
-    cursor: help;
-    transition: color 1.4s ease, transform var(--وقت) ease;
-    user-select: none;
-}
-.خرطوش:hover { color: var(--حِبر-٢); }
-.خرطوش .g {
-    display: block;
-    line-height: 1.1;
-}
-.خرطوش .cap {
-    color: var(--ذهب-خفيف);
-    font-size: 19px;
-    line-height: 1;
-}
-
-.خرطوش.مفتوح {
-    color: var(--ذهب);
-    animation: نبض 2.6s ease-in-out 1;
-}
-.خرطوش.مفتوح .cap { color: var(--ذهب); }
-
-@keyframes نبض {
-    0%   { text-shadow: 0 0 0 transparent; }
-    35%  { text-shadow: 0 0 22px rgba(201, 169, 97, 0.55); }
-    100% { text-shadow: 0 0 0 transparent; }
-}
-
-/* ─── مكشوف — easter egg reveal ─────────────────────────────── */
+/* ─── مكشوف — easter egg reveal (cartouche lives inside) ────── */
 
 .مكشوف {
-    margin-top: 8px;
-    max-width: 500px;
+    margin-top: 12px;
+    max-width: 520px;
     opacity: 0;
     transform: translateY(8px);
     transition: opacity 1.6s ease, transform 1.6s ease;
@@ -260,29 +336,119 @@ html, body {
     text-transform: uppercase;
 }
 
+/* ─── الخرطوش — cartouche (inside مكشوف, hidden until solved) ─ */
+
+.خرطوش {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
+    margin: 0 0 22px;
+    font-family: 'Noto Sans Egyptian Hieroglyphs', serif;
+    font-size: 30px;
+    line-height: 1;
+    color: var(--حِبر-٣);
+    user-select: none;
+    transition: color 1.4s ease;
+}
+.خرطوش .g { display: inline-block; }
+.خرطوش .cap {
+    color: var(--ذهب-خفيف);
+    font-size: 26px;
+}
+
+.خرطوش.مفتوح {
+    color: var(--ذهب);
+    animation: نبض 2.6s ease-in-out 1;
+}
+.خرطوش.مفتوح .cap { color: var(--ذهب); }
+
+@keyframes نبض {
+    0%   { text-shadow: 0 0 0 transparent; }
+    35%  { text-shadow: 0 0 22px rgba(201, 169, 97, 0.55); }
+    100% { text-shadow: 0 0 0 transparent; }
+}
+
+/* ─── حكمة — the corner verse, in Sanskrit ───────────────────── */
+
+.حكمة {
+    position: fixed;
+    right: 32px;
+    bottom: 28px;
+    z-index: 5;
+    max-width: 320px;
+    text-align: right;
+    pointer-events: auto;
+    opacity: 0.78;
+    transition: opacity var(--وقت), color var(--وقت);
+}
+.حكمة:hover { opacity: 1; }
+.حكمة .dev {
+    display: block;
+    font-family: 'Noto Sans Devanagari', serif;
+    font-size: 16px;
+    line-height: 1.4;
+    color: var(--حِبر-٢);
+    letter-spacing: 0.01em;
+    transition: color var(--وقت);
+}
+.حكمة:hover .dev { color: var(--حِبر); }
+.حكمة .ترجمة-حكمة {
+    display: block;
+    margin-top: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--حِبر-٣);
+    line-height: 1.5;
+}
+
 /* ─── responsive ─────────────────────────────────────────────── */
 
 @media (max-width: 720px) {
     .رئيسي {
-        padding: 14vh 24px 160px;
-        gap: 40px;
+        padding: 12vh 22px 240px;
+        gap: 48px;
         max-width: 100%;
     }
     .ترجمة { letter-spacing: 0.28em; }
-    .نص .en, .نص .ar { font-size: 17px; }
+    .نص .en, .نص .ar,
+    .فلسفة .en, .فلسفة .ar { font-size: 17px; }
+
+    .قائمة a {
+        grid-template-columns: 44px auto auto;
+        grid-template-rows: auto auto;
+        row-gap: 4px;
+    }
+    .قائمة .وصف {
+        grid-column: 1 / -1;
+        font-size: 15px;
+    }
+    .قائمة .سهم { display: none; }
+
     .روابط { row-gap: 6px; font-size: 11px; }
+
     .خرطوش {
+        font-size: 24px;
+        gap: 4px;
+    }
+    .خرطوش .cap { font-size: 21px; }
+
+    .حكمة {
         right: 16px;
         bottom: 16px;
-        font-size: 18px;
-        flex-direction: row;
-        gap: 2px;
+        max-width: 70vw;
     }
-    .خرطوش .cap { font-size: 16px; }
+    .حكمة .dev { font-size: 14px; }
+    .حكمة .ترجمة-حكمة { font-size: 8px; }
+
     .نظرة { top: 14px; right: 16px; font-size: 18px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
     .خرطوش.مفتوح { animation: none; }
     .مكشوف { transition: opacity 0.2s ease; }
+    .قائمة a { transition: none; }
+    .قائمة a:hover .سهم { transform: none; }
 }
