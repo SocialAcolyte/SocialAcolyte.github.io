@@ -1,272 +1,337 @@
-document.addEventListener('DOMContentLoaded', () => {
+/* ================================================================
+ *   كنّر · Connor
+ *   خطّ النصّ — the script
+ *
+ *   ملاحظةٌ للقارئ:
+ *     إنْ وصلتَ إلى هنا، فأنتَ قريبٌ من السرّ.
+ *     في الأعلى خرطوشٌ، وفي الخرطوشِ اسمٌ.
+ *     اِجمعِ الحروفَ، ثمّ نادِ في الكونسول:
+ *
+ *         حلّ('...')
+ *
+ *   a note to the reader:
+ *     if you are here, you are close to the secret.
+ *     there is a cartouche above. inside it is a name.
+ *     gather the letters, then call in the console:
+ *
+ *         حلّ('...')
+ * ================================================================ */
 
-    const preloader = document.getElementById('preloader');
-    const cursor = document.querySelector('.cursor');
-    const navToggle = document.querySelector('.nav-toggle');
-    const navMenu = document.querySelector('.nav-menu');
+'use strict';
 
-    // --- Preloader ---
-    window.addEventListener('load', () => {
-        preloader.classList.add('hidden');
-    });
+/* ------------------------------------------------------------------
+ * ١ · الإعدادات — configuration
+ * ------------------------------------------------------------------ */
 
-    // --- Custom Cursor ---
-    document.addEventListener('mousemove', (e) => {
-        cursor.style.left = `${e.clientX}px`;
-        cursor.style.top = `${e.clientY}px`;
-    });
+const الإعدادات = {
+    السرّ:   'CONNOR',
+    الرموز:  '𓂀𓆣𓋹𓁹𓊽𓀀𓋴𓂧𓏏𓅓𓎡𓅱𓈖𓂋𓏭𓇳𓊖𓃭𓅓𓆑',
+    عدد_الجسيمات: 28,
 
-    // --- Navigation Toggle ---
-    if (navToggle && navMenu) {
-        navToggle.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-            // Optional: Toggle icon between bars and close
-            const icon = navToggle.querySelector('i');
-            if (navMenu.classList.contains('active')) {
-                icon.classList.remove('fa-bars');
-                icon.classList.add('fa-times');
-            } else {
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
-            }
-        });
+    عبارات: [
+        { ع: 'من رأى، لم يَرَ كلَّ شيء.',           إ: 'who saw, did not see everything.' },
+        { ع: 'البياناتُ هي الحجرُ، لا النموذج.',    إ: 'the data is the stone. the model is the dust.' },
+        { ع: 'كلُّ حدٍّ أماميّ كان يوماً ظلاماً.',   إ: 'every frontier was once dark.' },
+        { ع: 'لا تَخَف من الصفحة البيضاء.',         إ: 'do not fear the blank page.' },
+        { ع: 'اِقرأ ما كُتب، ثم اقرأ ما لم يُكتب.',  إ: 'read what is written, then what is not.' },
+    ],
+};
 
-        // Close menu when a link is clicked (for SPA feel)
-        navMenu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                 if (navMenu.classList.contains('active')) {
-                    navMenu.classList.remove('active');
-                    navToggle.querySelector('i').classList.remove('fa-times');
-                    navToggle.querySelector('i').classList.add('fa-bars');
-                 }
-            });
-        });
+
+/* ------------------------------------------------------------------
+ * ٢ · طبقة الخلفية — ambient hieroglyph drift
+ *     رموزٌ تطفو صعوداً كالرمل في الظلّ.
+ *     glyphs drift upward like sand in shadow.
+ * ------------------------------------------------------------------ */
+
+class جسيم {
+    constructor(العرض, الارتفاع) {
+        this.تَهَيَّأ(العرض, الارتفاع, true);
     }
+    تَهَيَّأ(العرض, الارتفاع, أوّلَ_مرّة = false) {
+        this.س = Math.random() * العرض;
+        this.ص = أوّلَ_مرّة
+            ? Math.random() * الارتفاع
+            : الارتفاع + Math.random() * 60;
+        this.حجم   = 14 + Math.random() * 26;
+        this.سرعة  = 0.06 + Math.random() * 0.22;
+        this.شفافيّة = 0.03 + Math.random() * 0.08;
+        this.انجراف = (Math.random() - 0.5) * 0.12;
+        this.الرمز = الإعدادات.الرموز[
+            Math.floor(Math.random() * الإعدادات.الرموز.length)
+        ];
+    }
+    حدّث(العرض, الارتفاع) {
+        this.ص -= this.سرعة;
+        this.س += this.انجراف;
+        if (this.ص < -40)       this.تَهَيَّأ(العرض, الارتفاع);
+        if (this.س < -40)       this.س = العرض + 20;
+        if (this.س > العرض+40)  this.س = -20;
+    }
+    ارسم(قلم) {
+        قلم.globalAlpha = this.شفافيّة;
+        قلم.font = `${this.حجم}px "Noto Sans Egyptian Hieroglyphs", serif`;
+        قلم.fillText(this.الرمز, this.س, this.ص);
+    }
+}
+
+const ابدأ_الخلفية = () => {
+    const اللوحة = document.getElementById('الخلفية');
+    if (!اللوحة) return;
+    const قلم = اللوحة.getContext('2d');
+    let العرض = 0, الارتفاع = 0;
+
+    const لائم_المقاس = () => {
+        const ن = window.devicePixelRatio || 1;
+        العرض    = اللوحة.clientWidth  = window.innerWidth;
+        الارتفاع = اللوحة.clientHeight = window.innerHeight;
+        اللوحة.width  = العرض * ن;
+        اللوحة.height = الارتفاع * ن;
+        قلم.setTransform(ن, 0, 0, ن, 0, 0);
+        قلم.fillStyle = '#e8e6e3';
+    };
+    لائم_المقاس();
+    window.addEventListener('resize', لائم_المقاس);
+
+    const الجسيمات = Array.from(
+        { length: الإعدادات.عدد_الجسيمات },
+        () => new جسيم(window.innerWidth, window.innerHeight)
+    );
+
+    const حلقة = () => {
+        قلم.clearRect(0, 0, العرض, الارتفاع);
+        for (const ج of الجسيمات) {
+            ج.حدّث(العرض, الارتفاع);
+            ج.ارسم(قلم);
+        }
+        requestAnimationFrame(حلقة);
+    };
+    حلقة();
+};
 
 
-    // --- Section Fade-in on Scroll ---
-    const sections = document.querySelectorAll('section');
-    const observerOptions = {
-        root: null, // relative to viewport
-        rootMargin: '0px',
-        threshold: 0.1 // 10% of section visible
+/* ------------------------------------------------------------------
+ * ٣ · الكاتب — bilingual typewriter, cycles through `عبارات`
+ *     نكتبُ حرفاً، ثمّ نَسكت، ثمّ نَمحو.
+ *     we write a letter, we pause, we erase.
+ * ------------------------------------------------------------------ */
+
+const ابدأ_الكاتب = () => {
+    const المقصد = document.getElementById('الكاتب');
+    if (!المقصد) return;
+
+    let فهرس = 0;
+    let منوي = 'اكتب';       // 'اكتب' | 'توقّف' | 'امحُ' | 'تالٍ'
+    let حرفٌ = 0;
+
+    const المُهلة = {
+        اكتب: 48,
+        امحُ: 24,
+        توقّف: 2400,
+        تالٍ: 500,
     };
 
-    const sectionObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                // Optional: Stop observing once visible if you don't need it to fade out
-                // observer.unobserve(entry.target);
-            }
-            // Optional: Add else block here to remove 'visible' if you want fade-out on scroll up
-        });
-    }, observerOptions);
+    const خطوة = () => {
+        const { ع } = الإعدادات.عبارات[فهرس];
 
-    sections.forEach(section => {
-        sectionObserver.observe(section);
-    });
-
-
-    // --- Three.js Background ---
-    let scene, camera, renderer, mesh;
-    const canvas = document.getElementById('bg-canvas');
-
-    function initThree() {
-        scene = new THREE.Scene();
-        camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true }); // alpha: true for transparency if needed behind popups etc.
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setClearColor(0x000000, 0); // Transparent background
-
-        // Example 3D Object: Rotating Icosahedron
-        const geometry = new THREE.IcosahedronGeometry(1.5, 0); // Radius 1.5, detail 0
-        // const material = new THREE.MeshBasicMaterial({ color: 0xff00cc, wireframe: true }); // Wireframe magenta
-        const material = new THREE.MeshNormalMaterial(); // Colors based on normal vectors - cool effect
-        mesh = new THREE.Mesh(geometry, material);
-        scene.add(mesh);
-
-        camera.position.z = 4; // Move camera back
-
-        animateThree();
-    }
-
-    function animateThree() {
-        requestAnimationFrame(animateThree);
-
-        // Rotation Animation
-        if (mesh) {
-            mesh.rotation.x += 0.003;
-            mesh.rotation.y += 0.003;
+        if (منوي === 'اكتب') {
+            حرفٌ++;
+            المقصد.textContent = ع.slice(0, حرفٌ);
+            المقصد.setAttribute('dir', 'rtl');
+            if (حرفٌ >= ع.length) منوي = 'توقّف';
+            return setTimeout(خطوة, المُهلة.اكتب + Math.random() * 40);
         }
 
-        renderer.render(scene, camera);
-    }
-
-    function onWindowResize() {
-        if (camera && renderer) {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
+        if (منوي === 'توقّف') {
+            منوي = 'امحُ';
+            return setTimeout(خطوة, المُهلة.توقّف);
         }
-    }
 
-    window.addEventListener('resize', onWindowResize);
-
-    // Initialize Three.js only if the library is loaded
-    if (typeof THREE !== 'undefined') {
-        initThree();
-    } else {
-        console.error("Three.js library not loaded.");
-        // Fallback: Maybe set a static background color or simple CSS animation
-        document.body.style.backgroundColor = '#0a0a0a';
-    }
-
-
-    // --- Gallery Image Click Particle Explosion ---
-    const particleCanvas = document.getElementById('particles-canvas');
-    const particleCtx = particleCanvas.getContext('2d');
-    particleCanvas.width = window.innerWidth;
-    particleCanvas.height = window.innerHeight;
-    let explosionParticles = [];
-
-    class ExplosionParticle {
-        constructor(x, y) {
-            this.x = x;
-            this.y = y;
-            this.size = Math.random() * 4 + 1; // Smaller particles
-            const angle = Math.random() * Math.PI * 2;
-            const speed = Math.random() * 4 + 1; // Random speed
-            this.speedX = Math.cos(angle) * speed;
-            this.speedY = Math.sin(angle) * speed;
-            this.life = 100; // Duration
-            this.color = `hsl(${Math.random() * 60 + 280}, 100%, ${Math.random() * 30 + 50}%)`; // Pinks, purples, whites
+        if (منوي === 'امحُ') {
+            حرفٌ--;
+            المقصد.textContent = ع.slice(0, حرفٌ);
+            if (حرفٌ <= 0) منوي = 'تالٍ';
+            return setTimeout(خطوة, المُهلة.امحُ);
         }
-        update() {
-            this.x += this.speedX;
-            this.y += this.speedY;
-            // Add some friction/gravity effect (optional)
-            this.speedY += 0.03;
-            this.speedX *= 0.99;
-            this.speedY *= 0.99;
-            this.life -= 1.5; // Fade faster
-            this.size *= 0.98; // Shrink
-        }
-        draw() {
-            particleCtx.fillStyle = this.color;
-            particleCtx.globalAlpha = Math.max(0, this.life / 100); // Fade out
-            particleCtx.beginPath();
-            particleCtx.arc(this.x, this.y, Math.max(0, this.size), 0, Math.PI * 2);
-            particleCtx.fill();
-            particleCtx.globalAlpha = 1.0; // Reset alpha
-        }
-    }
 
-    document.querySelectorAll('.gallery img').forEach(img => {
-        img.addEventListener('click', (e) => {
-            const rect = img.getBoundingClientRect();
-            // Calculate center relative to the viewport
-            const x = rect.left + rect.width / 2;
-            const y = rect.top + rect.height / 2;
+        if (منوي === 'تالٍ') {
+            فهرس = (فهرس + 1) % الإعدادات.عبارات.length;
+            منوي = 'اكتب';
+            return setTimeout(خطوة, المُهلة.تالٍ);
+        }
+    };
 
-            const explosionCount = window.innerWidth < 768 ? 30 : 60; // More particles
-            for (let i = 0; i < explosionCount; i++) {
-                explosionParticles.push(new ExplosionParticle(x, y));
-            }
-             // Ensure animation loop is running
-            if (!isAnimatingExplosion) {
-                animateExplosion();
-            }
+    خطوة();
+};
+
+
+/* ------------------------------------------------------------------
+ * ٤ · إضاءة البطاقات — card spotlight follows cursor
+ *     ظِلٌّ ذهبيٌّ يتبعُ أصبعَ الفأرة.
+ * ------------------------------------------------------------------ */
+
+const ابدأ_البطاقات = () => {
+    const البطاقات = document.querySelectorAll('.card');
+    البطاقات.forEach(بطاقة => {
+        بطاقة.addEventListener('mousemove', (ح) => {
+            const حيز = بطاقة.getBoundingClientRect();
+            const مس = ((ح.clientX - حيز.left) / حيز.width)  * 100;
+            const مص = ((ح.clientY - حيز.top)  / حيز.height) * 100;
+            بطاقة.style.setProperty('--mx', `${مس}%`);
+            بطاقة.style.setProperty('--my', `${مص}%`);
         });
     });
-
-    let isAnimatingExplosion = false;
-    function animateExplosion() {
-        isAnimatingExplosion = true;
-        particleCtx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);
-
-        explosionParticles = explosionParticles.filter(p => p.life > 0 && p.size > 0.1); // Remove dead particles
-        explosionParticles.forEach(p => {
-            p.update();
-            p.draw();
-        });
-
-        // Only continue animation if particles exist
-        if (explosionParticles.length > 0) {
-            requestAnimationFrame(animateExplosion);
-        } else {
-             isAnimatingExplosion = false;
-             // Optional: clear canvas one last time if needed
-              // particleCtx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);
-        }
-    }
-
-     // Ensure canvas resizes with window for particles
-     window.addEventListener('resize', () => {
-        particleCanvas.width = window.innerWidth;
-        particleCanvas.height = window.innerHeight;
-    });
+};
 
 
-    // --- Popups Logic ---
-    // Function to close any popup
-    window.closePopup = function(id) { // Make it globally accessible
-        const popup = document.getElementById(id);
-        if (popup) {
-            // Add a class to trigger fade-out animation if defined in CSS
-            // popup.classList.add('closing');
-            // setTimeout(() => { popup.style.display = 'none'; popup.classList.remove('closing'); }, 500); // Match CSS transition time
-            popup.style.display = 'none'; // Simple hide
-        }
-    }
+/* ------------------------------------------------------------------
+ * ٥ · ظهور الأقسام — fade sections in on scroll
+ * ------------------------------------------------------------------ */
 
-    // Show entry popup immediately (already visible via CSS/HTML)
-    // If you prefer JS control:
-    // const entryPopup = document.getElementById('entry-popup');
-    // if (entryPopup) entryPopup.style.display = 'block';
-
-
-    // Show corner popup after delay
-    const cornerPopup = document.getElementById('corner-popup');
-    if (cornerPopup) {
-        setTimeout(() => {
-            cornerPopup.style.display = 'block';
-        }, 5000); // 5 seconds delay
-    }
-
-    // Meme popup on 'm' key press
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'm' || e.key === 'M') { // Check for lowercase or uppercase 'm'
-             const memePopup = document.getElementById('image-popup');
-             const memeImage = document.getElementById('meme-image');
-             if (memePopup && memeImage) {
-                 // Consider making image paths more robust if 'images/' is not always the root
-                const memes = ['images/43.JPG', 'images/69.JPG', 'images/32.JPG']; // Add more memes here
-                // Ensure the path is correct relative to the HTML file or use absolute paths
-                const randomMeme = memes[Math.floor(Math.random() * memes.length)];
-                console.log("Selected meme:", randomMeme); // Debugging
-                memeImage.src = randomMeme;
-                memePopup.style.display = 'block';
-             }
-        }
-    });
-
-    // Close popups if clicking outside the content area (optional)
-    document.querySelectorAll('.popup').forEach(popup => {
-        popup.addEventListener('click', (e) => {
-            // Check if the click target is the popup background itself, not its content
-            if (e.target === popup) {
-                closePopup(popup.id);
+const ابدأ_الظهور = () => {
+    const الأقسام = document.querySelectorAll('section, footer.contact');
+    const مُراقِب = new IntersectionObserver((دخولات) => {
+        for (const د of دخولات) {
+            if (د.isIntersecting) {
+                د.target.classList.add('in-view');
+                مُراقِب.unobserve(د.target);
             }
-        });
-    });
+        }
+    }, { threshold: 0.08 });
+    الأقسام.forEach(ق => مُراقِب.observe(ق));
+};
 
-    // --- Ozempic Popup Content Consideration ---
-    // The text content in '#entry-popup' and '#corner-popup' is quite specific.
-    // If this site is for a professional portfolio or broader audience,
-    // you might want to revise "Remember to take your ozempic", "Ok daddy",
-    // and "You can always be thinner, look better".
-    // Example alternative for entry: "Welcome!", button: "Enter"
-    // Example alternative for corner: "Site Tips: Press 'M' for a surprise!", button: "Got it"
 
-}); // End DOMContentLoaded
+/* ------------------------------------------------------------------
+ * ٦ · الكشف — the reveal (easter egg payload)
+ *     إنْ نطقتَ اسمي، فتحتُ لكَ البابَ الأخير.
+ *     if you speak my name, I open the last door.
+ * ------------------------------------------------------------------ */
+
+const رسم_العين = `
+  <svg class="reveal-eye" viewBox="0 0 300 220" aria-hidden="true">
+    <path d="
+      M 20 95
+      Q 90 35, 170 55
+      Q 230 65, 275 95
+      M 70 95
+      Q 100 55, 150 55
+      Q 210 55, 245 95
+      Q 210 135, 150 135
+      Q 100 135, 70 95 Z
+      M 150 78
+      Q 172 78, 172 98
+      Q 172 118, 150 118
+      Q 128 118, 128 98
+      Q 128 78, 150 78 Z
+      M 150 135
+      L 158 175
+      L 135 180
+      M 180 128
+      Q 215 158, 205 200
+      Q 190 218, 175 200
+      Q 165 180, 182 160
+    "/>
+  </svg>
+`;
+
+const بناء_الكشف = () => {
+    const ط = document.getElementById('الكشف');
+    if (!ط) return;
+    ط.innerHTML = `
+        ${رسم_العين}
+        <p class="reveal-verse" dir="rtl" lang="ar">
+            السلامُ عليكَ، يا قارئَ الشيفرة.<br>
+            أنتَ من القِلّة.
+        </p>
+        <p class="reveal-sub" lang="en">
+            peace to you, reader of the cipher. you are of the few.
+        </p>
+        <div class="reveal-glyphs" aria-hidden="true">𓂀 · 𓋹 · 𓊽 · 𓆣 · 𓁹</div>
+        <p class="reveal-dismiss">click anywhere, or press esc</p>
+    `;
+    ط.classList.add('open');
+    ط.setAttribute('aria-hidden', 'false');
+
+    const أغلق = () => {
+        ط.classList.remove('open');
+        ط.setAttribute('aria-hidden', 'true');
+        document.removeEventListener('keydown', عند_المفتاح);
+        ط.removeEventListener('click', أغلق);
+        setTimeout(() => { ط.innerHTML = ''; }, 1000);
+    };
+    const عند_المفتاح = (ح) => { if (ح.key === 'Escape') أغلق(); };
+
+    ط.addEventListener('click', أغلق);
+    document.addEventListener('keydown', عند_المفتاح);
+};
+
+// الدالّة المكشوفة للعالم · the function exposed on window
+window.حلّ = function (المفتاح) {
+    if (!المفتاح) {
+        console.log(
+            '%c اِقرأ الخرطوش في الأعلى. كلُّ علامةٍ تحتَها حرف. اِجمعها.',
+            'color:#c9a961; font:14px "Amiri", serif'
+        );
+        console.log(
+            '%c read the cartouche above. each glyph hides a letter.',
+            'color:#7a7770; font:12px monospace'
+        );
+        return undefined;
+    }
+    const مُنَظَّف = String(المفتاح).trim().toUpperCase();
+    if (مُنَظَّف === الإعدادات.السرّ) {
+        بناء_الكشف();
+        return '𓂀';
+    }
+    console.log(
+        '%c ليس بعد. انظر مرّةً أخرى.',
+        'color:#7a7770; font:13px "Amiri", serif'
+    );
+    return undefined;
+};
+
+// اسم مستعار باللاتينيّة، للذين لا تتوفّر لهم لوحة عربيّة
+// latin alias for folks without an Arabic keyboard
+window.hal = window.حلّ;
+
+
+/* ------------------------------------------------------------------
+ * ٧ · تحيّة الكونسول — the console welcome (the bread crumb)
+ * ------------------------------------------------------------------ */
+
+const طبع_التحيّة = () => {
+    const ن_برونز = 'color:#c9a961; font:14px "JetBrains Mono", monospace; letter-spacing:0.1em';
+    const ن_عربي  = 'color:#e8e6e3; font:18px "Amiri", serif; line-height:1.8';
+    const ن_مكتوم = 'color:#7a7770; font:12px "JetBrains Mono", monospace';
+    const ن_هيرو  = 'color:#c9a961; font:36px "Noto Sans Egyptian Hieroglyphs", serif';
+
+    console.log('%c\n  𓂀\n', ن_هيرو);
+    console.log('%cالسلامُ عليكَ، أيّها الناظرُ في المصدر.', ن_عربي);
+    console.log('%cpeace to you, who looks at the source.', ن_مكتوم);
+    console.log('%c', '');
+    console.log('%cفي الخرطوشِ فوق، اسمي بالرموز القديمة.', ن_عربي);
+    console.log('%cاِقرأ كلَّ علامةٍ بالترتيب، ثم نادِ:', ن_عربي);
+    console.log('%c\n    حلّ(\'...\')\n', ن_برونز);
+    console.log('%c(أو "hal(...)" إن لم تكن لوحتُكَ عربيّة)', ن_مكتوم);
+    console.log('%c—————————————————————————————', ن_مكتوم);
+};
+
+
+/* ------------------------------------------------------------------
+ * ٨ · التهيئة — init, the one place where everything starts
+ * ------------------------------------------------------------------ */
+
+const التهيئة = () => {
+    ابدأ_الخلفية();
+    ابدأ_الكاتب();
+    ابدأ_البطاقات();
+    ابدأ_الظهور();
+    طبع_التحيّة();
+};
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', التهيئة);
+} else {
+    التهيئة();
+}
