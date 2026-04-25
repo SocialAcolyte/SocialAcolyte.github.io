@@ -3,83 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connor · كنّر · कॉनर · ⲕⲱⲛⲛⲱⲣ</title>
+    <meta name="description" content="Connor — building the datasets that decide what frontier models can do.">
+    <meta property="og:title" content="كنّر · Connor">
+    <meta property="og:description" content="Building the datasets that decide what the frontier can do.">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#060606">
+    <title>كنّر · Connor</title>
 
     <!--
-        ▓  नमस्ते  ·  السلام  ·  ⲭⲉⲣⲉ
-        ▓  hello to whoever is reading the source.
         ▓
-        ▓  three scripts, one mind.
-        ▓  — Connor · कॉनर · كنّر · ⲕⲱⲛⲛⲱⲣ
+        ▓   السلام عليكم، يا من نَظرَ إلى المصدر.
+        ▓   peace to you who looked at the source.
+        ▓
+        ▓   في الزاوية خرطوشٌ — كلّ علامةٍ فيه حرف.
+        ▓   in the corner is a cartouche — each glyph is a letter.
+        ▓
+        ▓   اِقرأْ بالترتيب، ثم نادِ في الكونسول:
+        ▓   read in order, then call in the console:
+        ▓
+        ▓        حل('?????')
+        ▓
+        ▓                                       — كنّر
+        ▓
     -->
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&family=Noto+Sans+Arabic:wght@400&family=Noto+Sans+Devanagari:wght@400&family=Noto+Sans+Coptic&display=swap" rel="stylesheet">
-    <style>
-        html, body {
-            margin: 0;
-            height: 100vh;
-            background: #000;
-            color: #fff;
-            display: flex;
-            align-items: flex-end;
-        }
-        pre {
-            margin: 0;
-            padding: 0 60px 60px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 21px;
-            line-height: 2;
-            white-space: pre-wrap;
-        }
-        a {
-            color: #fff;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        .ar {
-            font-family: 'Noto Sans Arabic', serif;
-            direction: rtl;
-            unicode-bidi: isolate;
-        }
-        .sa {
-            font-family: 'Noto Sans Devanagari', serif;
-        }
-        .cop {
-            font-family: 'Noto Sans Coptic', serif;
-        }
-        .cursor {
-            animation: blink 1s steps(1) infinite;
-        }
-        @keyframes blink {
-            50% { opacity: 0; }
-        }
-        @media (max-width: 768px) {
-            pre {
-                padding: 0 30px 50px;
-                font-size: 18px;
-            }
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:wght@300;400;500&family=JetBrains+Mono:wght@400&family=Noto+Sans+Egyptian+Hieroglyphs&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<pre>
-<span class="sa">नमस्ते</span>  ·  <span class="ar">السلام</span>  ·  <span class="cop">ⲭⲉⲣⲉ</span>
 
-My name is Connor — <span class="sa">कॉनर</span> · <span class="ar">كنّر</span> · <span class="cop">ⲕⲱⲛⲛⲱⲣ</span> — i am 21
+<!-- الخلفية — ambient drift of glyphs, ultra-low contrast -->
+<canvas id="الخلفية" aria-hidden="true"></canvas>
 
-I am working on really special ML datasets to unlock new capabilities in frontier models
-<span class="ar">أصنعُ بياناتٍ تُطلقُ في النماذجِ قدراتٍ لم تكن.</span>
+<!-- نظرة — the eye, top-right. title hints in arabic. -->
+<a href="#" class="نظرة" title="اُنظر — look" aria-label="look">
+    <span class="glyph">𓂀</span>
+</a>
 
-I am raising a seed round — <a href="https://x.com/SocialAcolyte">dm me</a>
+<main class="رئيسي">
 
-Thesis — <a href="/buisness strategy.pdf" download>download pdf</a>
+    <header class="رأس">
+        <h1 class="الاسم" lang="ar" dir="rtl">كنّر</h1>
+        <p class="ترجمة">Connor &nbsp;·&nbsp; b. 2003</p>
+    </header>
 
-[ <a href="https://x.com/SocialAcolyte">twitter</a> · <a href="https://github.com/SocialAcolyte">github</a> · <a href="/resume.pdf" download>resume</a> · <a href="#">site</a> ]
+    <section class="نص">
+        <p class="en">
+            I build the datasets that decide what frontier models can and cannot do.
+            Most of the gap between what AI promises and what it delivers lives inside the data —
+            I want to close it.
+        </p>
+        <p class="ar" lang="ar" dir="rtl">
+            أصنعُ البياناتِ التي تُقرّرُ ما يَقْدِرُ عليه النموذجُ الأمامي وما لا يَقْدِر.
+            معظمُ الفجوةِ بين ما يَعِدُ به الذكاءُ الاصطناعيّ وما يُسلّمُه يسكنُ داخل البيانات —
+            أريد أن أُغلقها.
+        </p>
 
-<span class="cursor">_</span></pre>
+        <p class="حال">
+            <span class="en">seed round &nbsp;—&nbsp; open</span>
+            <span class="sep">·</span>
+            <span class="ar" lang="ar" dir="rtl">جولةٌ أوّليّة، مفتوحة للحديث</span>
+        </p>
+    </section>
+
+    <nav class="روابط" aria-label="elsewhere">
+        <a href="https://x.com/SocialAcolyte" rel="me">twitter</a>
+        <span class="dot" aria-hidden="true">·</span>
+        <a href="https://github.com/SocialAcolyte" rel="me">github</a>
+        <span class="dot" aria-hidden="true">·</span>
+        <a href="https://www.linkedin.com/in/socialacolyte" rel="me">linkedin</a>
+        <span class="dot" aria-hidden="true">·</span>
+        <a href="/resume.pdf" download>cv</a>
+        <span class="dot" aria-hidden="true">·</span>
+        <a href="#" class="موقع">site</a>
+    </nav>
+
+    <!-- مكشوف — only revealed when the easter egg is solved. -->
+    <aside class="مكشوف" id="مكشوف" aria-hidden="true">
+        <p class="ar" lang="ar" dir="rtl">في كلِّ خرطوشٍ اسمٌ. وفي كلِّ اسمٍ خرطوش.</p>
+        <p class="en"><em>in every cartouche, a name. in every name, a cartouche.</em></p>
+        <p class="small">↪ thanks for looking</p>
+    </aside>
+
+</main>
+
+<!-- خرطوش — cartouche signature, bottom-right, faint until found -->
+<aside class="خرطوش" id="خرطوش" aria-label="cartouche · spell my name">
+    <span class="cap" aria-hidden="true">𓍷</span>
+    <span class="g" data-letter="C" title="C · 𓎡 basket">𓎡</span>
+    <span class="g" data-letter="O" title="O · 𓅱 quail chick">𓅱</span>
+    <span class="g" data-letter="N" title="N · 𓈖 water">𓈖</span>
+    <span class="g" data-letter="N" title="N · 𓈖 water">𓈖</span>
+    <span class="g" data-letter="O" title="O · 𓅱 quail chick">𓅱</span>
+    <span class="g" data-letter="R" title="R · 𓂋 mouth">𓂋</span>
+    <span class="cap" aria-hidden="true">𓍶</span>
+</aside>
+
+<script src="script.js" defer></script>
 </body>
 </html>
