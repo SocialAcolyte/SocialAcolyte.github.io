@@ -83,10 +83,12 @@ const ابدأ_الخلفية = () => {
 
     const لائم_المقاس = () => {
         const ن = window.devicePixelRatio || 1;
-        العرض    = اللوحة.clientWidth  = window.innerWidth;
-        الارتفاع = اللوحة.clientHeight = window.innerHeight;
+        العرض    = window.innerWidth;
+        الارتفاع = window.innerHeight;
         اللوحة.width  = العرض * ن;
         اللوحة.height = الارتفاع * ن;
+        اللوحة.style.width  = العرض + 'px';
+        اللوحة.style.height = الارتفاع + 'px';
         قلم.setTransform(ن, 0, 0, ن, 0, 0);
         قلم.fillStyle = '#e8e6e3';
     };
