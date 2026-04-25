@@ -1,93 +1,81 @@
 /* ------------------------------------------------------------------ */
-/*  Connor · كنّر                                                     */
-/*  الورقة · the stylesheet                                           */
+/*  كنّر · Connor — الورقة الأساسيّة                                  */
+/*  stylesheet · dark, bilingual, minimal                             */
 /*                                                                    */
-/*  محطّةٌ في ظلام.                                                   */
-/*  a terminal, in the dark.                                          */
+/*  الألوان قليلة، والحركة أقلّ.                                      */
+/*  the palette is few, the motion fewer.                             */
 /* ------------------------------------------------------------------ */
 
-
-/* ١ · الجذر — root tokens
- *
- *   𓊃   the dark      · background
- *   𓈖   the light     · primary text
- *   𓅓   the muted     · secondary
- *   𓏇   the faint     · tertiary
- *   𓆣   the edge      · border
- *   𓂀   the brass     · accent (prompt, links, keywords)
- *   𓂀𓋹  brass at low life · accent glow
- *   𓋹𓋹  the breath curve · easing
- *   𓋹𓏏  short breath
- *   𓋹𓂋  long breath
- */
+/* ١ · الجذر — root custom properties, Arabic-named */
 :root {
-    --𓊃:    #0a0908;
-    --𓊃𓊽:  #050403;
-    --𓈖:    #e8e4dc;
-    --𓅓:    #7a7468;
-    --𓏇:    #4a4640;
-    --𓆣:    #1a1814;
-    --𓂀:    #c9a961;
-    --𓂀𓋹:  rgba(201, 169, 97, 0.12);
+    --لون-الخلفية:       #0a0a0a;
+    --لون-الخلفية-أدكن:  #050505;
+    --لون-النص:          #e8e6e3;
+    --لون-المكتوم:       #7a7770;
+    --لون-الخفيف:        #3a3836;
+    --لون-الحدّ:         #1c1c1c;
+    --لون-البرونز:       #c9a961;
+    --لون-البرونز-خفيف:  rgba(201, 169, 97, 0.14);
 
-    --خط-أحاديّ: 'JetBrains Mono', ui-monospace, 'Cascadia Code', Menlo, Consolas, monospace;
-    --خط-عربيّ:  'Amiri', serif;
-    --خط-هيرو:  'Noto Sans Egyptian Hieroglyphs', serif;
+    --خط-عنوان:     'Cormorant Garamond', 'Amiri', serif;
+    --خط-جسم:       'Inter', system-ui, sans-serif;
+    --خط-أحاديّ:     'JetBrains Mono', ui-monospace, monospace;
+    --خط-عربيّ:      'Reem Kufi', 'Amiri', serif;
+    --خط-عربيّ-جليل: 'Amiri', serif;
+    --خط-هيرو:      'Noto Sans Egyptian Hieroglyphs', serif;
 
-    --𓋹𓋹: cubic-bezier(0.22, 0.61, 0.36, 1);
-    --𓋹𓏏: 200ms;
-    --𓋹𓂋: 800ms;
-
-    --عرض: 88ch;
+    --تنفّس: cubic-bezier(0.22, 0.61, 0.36, 1);
+    --نفس-طويل: 900ms;
+    --نفس-قصير: 260ms;
 }
 
 
-/* ٢ · الأساسيّات */
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+/* ٢ · الأساسيّات — reset + base */
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 html { scroll-behavior: smooth; }
 
 body {
-    background: var(--𓊃);
-    color: var(--𓈖);
-    font-family: var(--خط-أحاديّ);
-    font-size: 14.5px;
-    line-height: 1.7;
+    background: var(--لون-الخلفية);
+    color: var(--لون-النص);
+    font-family: var(--خط-جسم);
+    font-weight: 300;
+    line-height: 1.65;
+    font-feature-settings: 'kern', 'liga', 'calt';
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
-    min-height: 100vh;
     overflow-x: hidden;
+    min-height: 100vh;
     position: relative;
-    cursor: text;          /* anywhere you click, the input wants focus */
 }
 
-/* a soft vignette + a barely-there scanline texture */
+/* طبقة حبيبات خفيفة — subtle noise via radial vignette */
 body::before {
     content: '';
     position: fixed;
     inset: 0;
     background:
-        radial-gradient(ellipse at 50% 0%,   rgba(201, 169, 97, 0.05), transparent 60%),
-        radial-gradient(ellipse at 50% 100%, rgba(0, 0, 0, 0.6),       transparent 60%),
-        repeating-linear-gradient(
-            0deg,
-            rgba(255, 255, 255, 0.012) 0,
-            rgba(255, 255, 255, 0.012) 1px,
-            transparent                 1px,
-            transparent                 3px
-        );
+        radial-gradient(ellipse at 50% 0%, rgba(201, 169, 97, 0.035), transparent 60%),
+        radial-gradient(ellipse at 50% 100%, rgba(10, 10, 10, 0.8), transparent 60%);
     pointer-events: none;
     z-index: 1;
 }
 
+a {
+    color: inherit;
+    text-decoration: none;
+    transition: color var(--نفس-قصير) var(--تنفّس),
+                opacity var(--نفس-قصير) var(--تنفّس);
+}
+
 ::selection {
-    background: var(--𓂀);
-    color: var(--𓊃);
+    background: var(--لون-البرونز);
+    color: var(--لون-الخلفية);
 }
 
 
-/* ٣ · طبقة الخلفية */
-#𓆣 {
+/* ٣ · طبقة الخلفية المتحرّكة — ambient canvas */
+#الخلفية {
     position: fixed;
     inset: 0;
     width: 100%;
@@ -97,129 +85,642 @@ body::before {
     pointer-events: none;
 }
 
+main, nav, .reveal { position: relative; z-index: 2; }
 
-/* ٤ · المحطّة — the terminal */
-.terminal {
+/* ظهور الأقسام — section fade-in on scroll */
+section, footer.contact {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 900ms var(--تنفّس),
+                transform 900ms var(--تنفّس);
+}
+section.in-view, footer.contact.in-view {
+    opacity: 1;
+    transform: translateY(0);
+}
+/* الأول يظهر فوراً — hero is above the fold, show immediately */
+.hero { opacity: 1; transform: none; }
+
+
+/* ٤ · شريط التنقّل — nav */
+.nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 28px clamp(24px, 6vw, 72px);
+    z-index: 50;
+    mix-blend-mode: difference;
+}
+
+.nav-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    transition: border-color var(--نفس-قصير) var(--تنفّس),
+                background var(--نفس-قصير) var(--تنفّس);
+}
+.nav-mark:hover {
+    border-color: var(--لون-البرونز);
+    background: var(--لون-البرونز-خفيف);
+}
+.nav-mark .glyph {
+    font-family: var(--خط-هيرو);
+    font-size: 22px;
+    color: var(--لون-النص);
+    line-height: 1;
+    transform: translateY(-1px);
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: clamp(20px, 4vw, 48px);
+}
+.nav-links a {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 10px;
+    font-family: var(--خط-أحاديّ);
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: lowercase;
+    color: var(--لون-المكتوم);
     position: relative;
-    z-index: 2;
-    max-width: var(--عرض);
-    margin: 0 auto;
-    padding: clamp(40px, 8vh, 96px) clamp(20px, 4vw, 56px) 60px;
+    padding-bottom: 4px;
+}
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: 0;
+    width: 0; height: 1px;
+    background: var(--لون-البرونز);
+    transition: width var(--نفس-قصير) var(--تنفّس);
+}
+.nav-links a:hover {
+    color: var(--لون-النص);
+}
+.nav-links a:hover::after {
+    width: 100%;
+}
+.nav-links .ar {
+    font-family: var(--خط-عربيّ);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0;
+    color: var(--لون-النص);
+    opacity: 0.82;
+}
+
+
+/* ٥ · القسم البطل — hero */
+.hero {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    padding: 120px clamp(24px, 6vw, 96px) 80px;
+    position: relative;
 }
 
-#output {
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    margin-bottom: 6px;
+.hero-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    align-items: center;
+    gap: clamp(40px, 8vw, 120px);
+    max-width: 1280px;
+    margin: 0 auto;
+    width: 100%;
 }
 
-#output .row { display: block; }
+/* اسم — name block */
+.hero-name { display: flex; flex-direction: column; gap: 22px; }
 
-
-/* ٥ · العلامات داخل المخرجات — semantic spans inside output */
-.t-prompt   { color: var(--𓂀); }
-.t-cmd      { color: var(--𓈖); font-weight: 500; }
-.t-key      { color: var(--𓂀); }
-.t-dim      { color: var(--𓅓); }
-.t-fade     { color: var(--𓏇); }
-.t-glyph    { font-family: var(--خط-هيرو); color: var(--𓂀); }
-.t-glyph-d  { font-family: var(--خط-هيرو); color: var(--𓅓); }
-.t-ar       { font-family: var(--خط-عربيّ); color: var(--𓅓); font-size: 1.15em; }
-.t-em       { color: var(--𓂀); font-style: normal; }
-.t-big      {
-    color: var(--𓈖);
-    font-weight: 600;
-    font-size: 1.4em;
-    letter-spacing: 0.18em;
-}
-.t-rule {
-    color: var(--𓏇);
+.name-ar {
+    font-family: var(--خط-عربيّ-جليل);
+    font-weight: 400;
+    font-size: clamp(96px, 18vw, 220px);
+    line-height: 0.9;
     letter-spacing: 0;
-}
-.t-link {
-    color: var(--𓂀);
-    text-decoration: none;
-    border-bottom: 1px dotted var(--𓏇);
-    transition: border-color var(--𓋹𓏏) var(--𓋹𓋹),
-                background var(--𓋹𓏏) var(--𓋹𓋹);
-}
-.t-link:hover {
-    border-color: var(--𓂀);
-    background: var(--𓂀𓋹);
-}
-.t-cipher {
-    cursor: help;
-    transition: color var(--𓋹𓏏) var(--𓋹𓋹);
-}
-.t-cipher:hover { color: var(--𓂀); }
-.t-cipher::after {
-    /* tiny helper that surfaces the latin letter on hover via title attr;
-     * the browser also shows the title natively. */
+    color: var(--لون-النص);
+    margin-left: -0.06em;   /* visual align against Latin */
+    text-shadow: 0 0 80px rgba(201, 169, 97, 0.08);
 }
 
+.name-en {
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+    margin-top: -8px;
+    padding-left: 4px;
+}
+.name-en .given {
+    font-family: var(--خط-عنوان);
+    font-size: clamp(28px, 3.2vw, 44px);
+    font-weight: 400;
+    font-style: italic;
+    color: var(--لون-النص);
+    letter-spacing: 0.01em;
+}
+.name-en .meta {
+    font-family: var(--خط-أحاديّ);
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    color: var(--لون-المكتوم);
+    text-transform: lowercase;
+    padding-left: 14px;
+    border-left: 1px solid var(--لون-الحدّ);
+}
 
-/* ٦ · سطر الأمر — the live prompt line */
-.line {
+.tagline,
+.tagline-ar {
+    max-width: 52ch;
+    font-size: clamp(15px, 1.3vw, 17px);
+    color: var(--لون-النص);
+    opacity: 0.86;
+    margin-top: 12px;
+    font-weight: 300;
+}
+.tagline { font-family: var(--خط-جسم); }
+.tagline-ar {
+    font-family: var(--خط-عربيّ);
+    font-weight: 400;
+    font-size: clamp(16px, 1.35vw, 18.5px);
+    line-height: 1.85;
+    opacity: 0.74;
+}
+
+.type-line {
+    margin-top: 28px;
+    font-family: var(--خط-أحاديّ);
+    font-size: 13px;
+    color: var(--لون-المكتوم);
+    letter-spacing: 0.04em;
+    min-height: 24px;
     display: flex;
     align-items: center;
-    margin-top: 4px;
-    /* the visible caret is animated; hide the native one */
+    gap: 2px;
 }
-
-.prompt {
-    color: var(--𓂀);
-    user-select: none;
-    flex-shrink: 0;
-}
-
-#cmd {
-    flex: 1;
-    background: transparent;
-    border: 0;
-    outline: 0;
-    color: var(--𓈖);
-    font: inherit;
-    padding: 0;
-    margin: 0;
-    caret-color: transparent;       /* hide native, show our own */
-    min-width: 0;
-}
-
+#الكاتب { color: var(--لون-النص); opacity: 0.9; }
 .caret {
-    color: var(--𓂀);
-    width: 1ch;
-    margin-left: -2px;
+    color: var(--لون-البرونز);
     animation: وَميض 1.05s steps(1) infinite;
-    user-select: none;
-    flex-shrink: 0;
-    transition: opacity var(--𓋹𓏏) var(--𓋹𓋹);
+    margin-left: 2px;
+    transform: translateY(-1px);
 }
 @keyframes وَميض { 50% { opacity: 0; } }
 
-/* hide the live prompt during the boot sequence */
-.line.hidden { visibility: hidden; pointer-events: none; }
+
+/* ٦ · الخرطوش — cartouche */
+.cartouche {
+    justify-self: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    padding: 28px 22px;
+    border: 1px solid var(--لون-الحدّ);
+    border-radius: 2px;
+    background:
+        linear-gradient(180deg, rgba(201, 169, 97, 0.025), transparent 70%),
+        rgba(255, 255, 255, 0.008);
+    position: relative;
+    min-width: min(360px, 85vw);
+    box-shadow:
+        inset 0 0 40px rgba(201, 169, 97, 0.03),
+        0 0 0 1px rgba(201, 169, 97, 0.02);
+    animation: تنفّس 7s var(--تنفّس) infinite;
+}
+@keyframes تنفّس {
+    0%, 100% { box-shadow: inset 0 0 40px rgba(201, 169, 97, 0.03), 0 0 0 1px rgba(201, 169, 97, 0.02); }
+    50%      { box-shadow: inset 0 0 60px rgba(201, 169, 97, 0.06), 0 0 0 1px rgba(201, 169, 97, 0.08); }
+}
+
+.cartouche > span {
+    font-family: var(--خط-هيرو);
+    font-size: clamp(30px, 3.4vw, 44px);
+    line-height: 1.1;
+    color: var(--لون-النص);
+    display: inline-flex;
+}
+
+.cart-end {
+    color: var(--لون-المكتوم);
+    opacity: 0.8;
+}
+.cart-left  { align-self: flex-start; margin-bottom: -22px; font-size: 1.1em; }
+.cart-right { align-self: flex-end;   margin-top: -22px;    font-size: 1.1em; }
+
+.cart-glyph {
+    position: relative;
+    cursor: help;
+    transition: color var(--نفس-قصير) var(--تنفّس),
+                transform var(--نفس-قصير) var(--تنفّس);
+}
+.cart-glyph::after {
+    content: attr(data-حرف);
+    position: absolute;
+    left: 50%;
+    bottom: -22px;
+    transform: translateX(-50%);
+    font-family: var(--خط-أحاديّ);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--لون-البرونز);
+    opacity: 0;
+    transition: opacity var(--نفس-قصير) var(--تنفّس),
+                bottom  var(--نفس-قصير) var(--تنفّس);
+    pointer-events: none;
+}
+.cart-glyph:hover {
+    color: var(--لون-البرونز);
+    transform: translateY(-2px);
+}
+.cart-glyph:hover::after {
+    opacity: 1;
+    bottom: -26px;
+}
+
+.cartouche figcaption {
+    font-family: var(--خط-أحاديّ);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    color: var(--لون-المكتوم);
+    text-align: center;
+    padding-top: 10px;
+    border-top: 1px solid var(--لون-الحدّ);
+    width: 100%;
+    text-transform: lowercase;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+.cartouche figcaption .ar {
+    font-family: var(--خط-عربيّ);
+    font-size: 13px;
+    letter-spacing: 0;
+    color: var(--لون-النص);
+    opacity: 0.7;
+}
 
 
-/* ٧ · الكشف — easter egg overlay */
+/* ٧ · إشارة التمرير — scroll cue */
+.scroll-cue {
+    position: absolute;
+    bottom: 34px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--خط-أحاديّ);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--لون-المكتوم);
+    text-transform: lowercase;
+    opacity: 0.7;
+    transition: opacity var(--نفس-قصير) var(--تنفّس),
+                transform var(--نفس-قصير) var(--تنفّس);
+}
+.scroll-cue .ar {
+    font-family: var(--خط-عربيّ);
+    font-size: 13px;
+    letter-spacing: 0;
+    opacity: 0.85;
+}
+.scroll-cue .chev {
+    animation: قفزة 2.2s ease-in-out infinite;
+}
+@keyframes قفزة {
+    0%, 100% { transform: translateY(0); opacity: 0.6; }
+    50%      { transform: translateY(6px); opacity: 1; }
+}
+.scroll-cue:hover {
+    opacity: 1;
+    color: var(--لون-النص);
+}
+
+
+/* ٨ · ترويسة قسم — section header */
+.sec-head {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 56px;
+    flex-wrap: wrap;
+}
+.sec-num {
+    font-family: var(--خط-أحاديّ);
+    font-size: 12px;
+    letter-spacing: 0.24em;
+    color: var(--لون-المكتوم);
+}
+.sec-head h2 {
+    font-family: var(--خط-عنوان);
+    font-weight: 400;
+    font-size: clamp(32px, 4vw, 48px);
+    font-style: italic;
+    color: var(--لون-النص);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+.sec-head h2 .ar {
+    font-family: var(--خط-عربيّ);
+    font-style: normal;
+    font-weight: 500;
+    font-size: 0.85em;
+}
+.sec-head h2 .divider {
+    color: var(--لون-الخفيف);
+    font-weight: 200;
+}
+.sec-head h2 .en {
+    text-transform: lowercase;
+}
+.sec-glyph {
+    margin-left: auto;
+    font-family: var(--خط-هيرو);
+    font-size: clamp(22px, 2.4vw, 30px);
+    color: var(--لون-الخفيف);
+    opacity: 0.55;
+    transition: opacity var(--نفس-قصير) var(--تنفّس),
+                color var(--نفس-قصير) var(--تنفّس);
+}
+.sec-head:hover .sec-glyph {
+    opacity: 1;
+    color: var(--لون-البرونز);
+}
+
+
+/* ٩ · قسم عن — about */
+.about {
+    padding: clamp(80px, 12vh, 160px) clamp(24px, 6vw, 96px);
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1px 1fr;
+    gap: clamp(28px, 4vw, 64px);
+    align-items: start;
+}
+
+.col-en p,
+.col-ar p {
+    font-size: clamp(15px, 1.2vw, 17px);
+    margin-bottom: 1.2em;
+    color: var(--لون-النص);
+    opacity: 0.88;
+}
+.col-en p { font-family: var(--خط-جسم); }
+.col-ar {
+    font-family: var(--خط-عربيّ);
+    text-align: right;
+}
+.col-ar p {
+    font-size: clamp(16px, 1.3vw, 18.5px);
+    line-height: 1.95;
+    font-weight: 400;
+    opacity: 0.82;
+}
+
+.col-rule {
+    width: 1px;
+    height: 100%;
+    min-height: 180px;
+    background: linear-gradient(180deg, transparent, var(--لون-الحدّ) 20%, var(--لون-الحدّ) 80%, transparent);
+    justify-self: center;
+}
+
+
+/* ١٠ · قسم عمل — work */
+.work {
+    padding: clamp(80px, 12vh, 160px) clamp(24px, 6vw, 96px);
+    max-width: 1280px;
+    margin: 0 auto;
+    background: var(--لون-الخلفية-أدكن);
+    border-top: 1px solid var(--لون-الحدّ);
+    border-bottom: 1px solid var(--لون-الحدّ);
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1px;
+    background: var(--لون-الحدّ);
+    border: 1px solid var(--لون-الحدّ);
+}
+
+.card {
+    background: var(--لون-الخلفية);
+    padding: 36px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    min-height: 260px;
+    transition: background var(--نفس-قصير) var(--تنفّس);
+    position: relative;
+    overflow: hidden;
+}
+.card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(600px circle at var(--mx, 50%) var(--my, 0%), rgba(201, 169, 97, 0.06), transparent 40%);
+    opacity: 0;
+    transition: opacity var(--نفس-قصير) var(--تنفّس);
+    pointer-events: none;
+}
+.card:hover::before { opacity: 1; }
+
+.card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--لون-الحدّ);
+}
+.card-glyph {
+    font-family: var(--خط-هيرو);
+    font-size: 24px;
+    color: var(--لون-المكتوم);
+    transition: color var(--نفس-قصير) var(--تنفّس);
+}
+.card:hover .card-glyph { color: var(--لون-البرونز); }
+
+.card-num {
+    font-family: var(--خط-أحاديّ);
+    font-size: 11px;
+    letter-spacing: 0.24em;
+    color: var(--لون-الخفيف);
+}
+
+.card h3 {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-family: var(--خط-عنوان);
+    font-weight: 500;
+    font-size: 22px;
+    font-style: italic;
+    color: var(--لون-النص);
+}
+.card h3 .ar {
+    font-family: var(--خط-عربيّ);
+    font-style: normal;
+    font-weight: 500;
+    font-size: 17px;
+    color: var(--لون-النص);
+    opacity: 0.74;
+}
+
+.card p {
+    font-size: 14.5px;
+    line-height: 1.7;
+    color: var(--لون-النص);
+    opacity: 0.78;
+    flex-grow: 1;
+}
+
+.card footer {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: auto;
+}
+.tag {
+    font-family: var(--خط-أحاديّ);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: lowercase;
+    padding: 5px 10px;
+    border: 1px solid var(--لون-الحدّ);
+    color: var(--لون-المكتوم);
+    border-radius: 2px;
+}
+.tag-link {
+    color: var(--لون-النص);
+    border-color: var(--لون-الخفيف);
+    transition: border-color var(--نفس-قصير) var(--تنفّس),
+                color var(--نفس-قصير) var(--تنفّس),
+                background var(--نفس-قصير) var(--تنفّس);
+}
+.tag-link:hover {
+    border-color: var(--لون-البرونز);
+    color: var(--لون-البرونز);
+    background: var(--لون-البرونز-خفيف);
+}
+
+
+/* ١١ · تواصل / ذيل — contact / footer */
+.contact {
+    padding: clamp(80px, 12vh, 140px) clamp(24px, 6vw, 96px) 60px;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.socials {
+    list-style: none;
+    display: flex;
+    gap: 1px;
+    border: 1px solid var(--لون-الحدّ);
+    background: var(--لون-الحدّ);
+    max-width: 720px;
+}
+.socials li { flex: 1; background: var(--لون-الخلفية); }
+.socials a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    padding: 22px 18px;
+    color: var(--لون-النص);
+    transition: background var(--نفس-قصير) var(--تنفّس),
+                color var(--نفس-قصير) var(--تنفّس);
+}
+.socials a span {
+    font-family: var(--خط-أحاديّ);
+    font-size: 13px;
+    letter-spacing: 0.16em;
+    text-transform: lowercase;
+}
+.socials a:hover {
+    background: var(--لون-البرونز-خفيف);
+    color: var(--لون-البرونز);
+}
+
+/* التوقيع — signature line, the visible nudge */
+.sig {
+    margin-top: 56px;
+    font-family: var(--خط-أحاديّ);
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    color: var(--لون-المكتوم);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.sig-glyph {
+    font-family: var(--خط-هيرو);
+    font-size: 18px;
+    color: var(--لون-البرونز);
+    opacity: 0.6;
+    transition: opacity var(--نفس-قصير) var(--تنفّس),
+                text-shadow var(--نفس-قصير) var(--تنفّس);
+    cursor: default;
+}
+.sig-glyph:hover {
+    opacity: 1;
+    text-shadow: 0 0 18px rgba(201, 169, 97, 0.4);
+}
+.sig-ar {
+    font-family: var(--خط-عربيّ);
+    font-size: 14px;
+    letter-spacing: 0;
+    color: var(--لون-البرونز);
+    opacity: 0.72;
+}
+.sig-en { color: var(--لون-المكتوم); text-transform: lowercase; }
+
+.fine {
+    margin-top: 18px;
+    font-family: var(--خط-أحاديّ);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    color: var(--لون-الخفيف);
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.fine .dot { color: var(--لون-الحدّ); }
+
+
+/* ١٢ · طبقة الكشف — easter egg reveal overlay */
 .reveal {
     position: fixed;
     inset: 0;
-    background: rgba(5, 4, 3, 0.96);
+    background: rgba(5, 5, 5, 0.96);
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 32px;
+    gap: 40px;
     padding: 40px;
     z-index: 9999;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 800ms var(--𓋹𓋹);
+    transition: opacity 900ms var(--تنفّس);
     text-align: center;
 }
 .reveal.open {
@@ -228,9 +729,10 @@ body::before {
 }
 
 .reveal-eye {
-    width: min(300px, 60vw);
-    color: var(--𓂀);
-    filter: drop-shadow(0 0 30px rgba(201, 169, 97, 0.22));
+    width: min(340px, 62vw);
+    height: auto;
+    color: var(--لون-البرونز);
+    filter: drop-shadow(0 0 40px rgba(201, 169, 97, 0.25));
 }
 .reveal-eye path {
     fill: none;
@@ -240,46 +742,48 @@ body::before {
     stroke-linejoin: round;
     stroke-dasharray: 1400;
     stroke-dashoffset: 1400;
-    animation: رسم 2.4s var(--𓋹𓋹) forwards;
+    animation: رسم 2.4s var(--تنفّس) forwards;
 }
-@keyframes رسم { to { stroke-dashoffset: 0; } }
+@keyframes رسم {
+    to { stroke-dashoffset: 0; }
+}
 
 .reveal-verse {
-    font-family: var(--خط-عربيّ);
-    font-size: clamp(22px, 3vw, 30px);
+    font-family: var(--خط-عربيّ-جليل);
+    font-size: clamp(22px, 3vw, 32px);
     line-height: 1.8;
-    color: var(--𓈖);
+    color: var(--لون-النص);
     max-width: 36ch;
     opacity: 0;
-    animation: ظهور 1.4s var(--𓋹𓋹) 1.6s forwards;
+    animation: ظهور 1.4s var(--تنفّس) 1.6s forwards;
     direction: rtl;
 }
 .reveal-sub {
-    font-family: var(--خط-أحاديّ);
-    font-size: clamp(11px, 1vw, 13px);
-    letter-spacing: 0.24em;
-    text-transform: uppercase;
-    color: var(--𓅓);
-    max-width: 56ch;
+    font-family: var(--خط-عنوان);
+    font-style: italic;
+    font-size: clamp(15px, 1.3vw, 18px);
+    color: var(--لون-المكتوم);
+    max-width: 40ch;
     opacity: 0;
-    animation: ظهور 1.4s var(--𓋹𓋹) 2.1s forwards;
+    animation: ظهور 1.4s var(--تنفّس) 2.1s forwards;
 }
 .reveal-glyphs {
     font-family: var(--خط-هيرو);
-    font-size: clamp(22px, 2.6vw, 30px);
-    color: var(--𓂀);
-    letter-spacing: 0.28em;
+    font-size: clamp(24px, 3vw, 34px);
+    color: var(--لون-البرونز);
+    letter-spacing: 0.2em;
     opacity: 0;
-    animation: ظهور 1.6s var(--𓋹𓋹) 2.6s forwards;
+    animation: ظهور 1.6s var(--تنفّس) 2.6s forwards;
 }
 .reveal-dismiss {
     font-family: var(--خط-أحاديّ);
-    font-size: 10px;
-    letter-spacing: 0.26em;
-    text-transform: uppercase;
-    color: var(--𓏇);
+    font-size: 11px;
+    letter-spacing: 0.24em;
+    text-transform: lowercase;
+    color: var(--لون-الخفيف);
     opacity: 0;
-    animation: ظهور 1.2s var(--𓋹𓋹) 3.2s forwards;
+    animation: ظهور 1.2s var(--تنفّس) 3.2s forwards;
+    margin-top: 20px;
 }
 @keyframes ظهور {
     from { opacity: 0; transform: translateY(6px); }
@@ -287,11 +791,36 @@ body::before {
 }
 
 
-/* ٨ · الاستجابة — responsive */
+/* ١٣ · الاستجابة — responsive */
+@media (max-width: 900px) {
+    .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 60px;
+    }
+    .cartouche { margin-top: 20px; }
+    .about-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    .col-rule {
+        width: 100%;
+        height: 1px;
+        min-height: 0;
+        background: linear-gradient(90deg, transparent, var(--لون-الحدّ) 20%, var(--لون-الحدّ) 80%, transparent);
+    }
+    .col-ar { text-align: right; }
+}
+
 @media (max-width: 600px) {
-    body { font-size: 13px; line-height: 1.65; }
-    .terminal { padding-left: 16px; padding-right: 16px; }
-    .t-big { font-size: 1.25em; letter-spacing: 0.14em; }
+    .nav { padding: 20px 24px; }
+    .nav-links { gap: 18px; }
+    .nav-links .en { display: none; }
+    .name-en { flex-direction: column; gap: 2px; align-items: flex-start; }
+    .name-en .meta { padding-left: 0; border-left: none; }
+    .cards { grid-template-columns: 1fr; }
+    .socials { flex-direction: column; }
+    .socials a { justify-content: flex-start; }
+    .sec-glyph { margin-left: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
