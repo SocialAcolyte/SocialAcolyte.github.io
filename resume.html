@@ -3,116 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Connor H. — CV">
-    <meta name="theme-color" content="#060606">
-    <title>Connor H. · CV</title>
+    <meta name="description" content="Connor H. -- Technical CV Datasheet">
+    <meta name="theme-color" content="#030305">
+    <title>Connor H. // CV Datasheet</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:wght@300;400;500&family=JetBrains+Mono:wght@400&family=Noto+Sans+Devanagari:wght@400&family=Noto+Sans+Egyptian+Hieroglyphs&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<!-- الخلفية — ambient drift of glyphs -->
+<!-- Interactive background grid particles -->
 <canvas id="الخلفية" aria-hidden="true"></canvas>
 
 <main class="رئيسي سيرة">
 
-    <header class="رأس" style="text-align: left; direction: ltr;">
-        <h1 class="الاسم" style="font-family: 'Cormorant Garamond', serif; direction: ltr; text-align: left; font-size: clamp(64px, 10vw, 96px); letter-spacing: 0;">Connor H.</h1>
+    <!-- CV Header Info Sheet -->
+    <header class="رأس" style="text-align: left; align-items: flex-start;">
+        <h1 class="الاسم">Connor <span>H.</span></h1>
+        <p class="ترجمة">Flight Control & ML Systems Curation Specialist // CV Datasheet</p>
         <nav class="جهات" aria-label="contact">
             <a href="mailto:42connor@gmail.com">42connor@gmail.com</a>
-            <span class="dot" aria-hidden="true">·</span>
-            <a href="https://x.com/SocialAcolyte" rel="me">SocialAcolyte (X)</a>
-            <span class="dot" aria-hidden="true">·</span>
-            <a href="https://www.linkedin.com/in/connor-m-hood/" rel="me">Connor Hood (LinkedIn)</a>
+            <span class="dot">//</span>
+            <a href="https://x.com/SocialAcolyte" rel="me">socialacolyte [x]</a>
+            <span class="dot">//</span>
+            <a href="https://www.linkedin.com/in/connor-m-hood/" rel="me">connor-hood [linkedin]</a>
         </nav>
     </header>
 
-    <!-- ─── Experience ──────────────────────────────────── -->
-    <section class="فرع">
-        <h2 class="عنوان">Experience</h2>
+    <!-- SECTION_01 // SOFTWARE & SYSTEMS ENGINEERING -->
+    <section class="system-panel فرع">
+        <h2 class="عنوان">SYS_ENGINEERING // ML_AND_COMPUTE</h2>
 
         <div class="بند">
-            <h3 class="منظمة">Software Engineering Experience</h3>
+            <div class="cv-header-row">
+                <h3 class="منظمة">Software & Curation Systems</h3>
+                <span class="موقف">ACTIVE SYSTEMS PIPELINE</span>
+            </div>
             <ul class="نقاط">
-                <li>Personal Project on large scale ML datasets including webscrapping-curating sets (varied numerical base systems) and language/action datasets (synchronous ASL hand data video)</li>
-                <li>Post training data collection system operation and management (mocap)</li>
-                <li>VLA (vision language action) model improvements with a focus on ‘lossy’ compound model behavior to improve performance for general robotics models</li>
-                <li>AI minecraft bot development for physicalised ‘agent’ deployment in videogames using the Mindcraft library</li>
-                <li>Extensive website development with React, Tailwind</li>
-                <li>Implemented Fork on MetaMask to optimise for co-sig functionality and OpenClaw integration as well as previous UX/UI work in the wallet space</li>
-                <li>AI native development of landing/hero pages, backend database logic, query handling, concurrent operations and triage logic, and algorithm design</li>
-                <li><em>And others not named</em></li>
+                <li>Personal development on large scale ML datasets including webscraping-curating sets (varied numerical base systems) and language/action datasets (synchronous ASL hand data video)</li>
+                <li>Post training data collection system operation and management (mocap systems)</li>
+                <li>VLA (vision-language-action) model optimizations with a focus on lossy compound model behavior to improve performance in general robotics systems</li>
+                <li>AI minecraft bot development for physicalised agent deployment in simulated videogame environments, using the mindcraft library</li>
+                <li>Extensive client website development with React, Tailwind CSS integration</li>
+                <li>Implemented fork on MetaMask to optimize for co-sig functionality and OpenClaw integration as well as previous UX/UI wallet architecture development</li>
+                <li>AI native engineering of high-density landing pages, backend database schemas, concurrent operations query handling, triage logic, and custom algorithm design</li>
+                <li>And other proprietary operations not named</li>
             </ul>
         </div>
 
         <div class="بند">
-            <h3 class="منظمة">Science & Technology Education</h3>
+            <div class="cv-header-row">
+                <h3 class="منظمة">Science & Technology Education</h3>
+                <span class="موقف">LECTURE & OUTREACH</span>
+            </div>
             <ul class="نقاط">
-                <li>Space flight news Voice actor and co-founder showcasing a passion for science, technology and for tech focused education</li>
-                <li>Guest speaker and lecturer for psychology <span class="سنة">2023</span> and technology and AI <span class="سنة">2024</span> at venturer retreat</li>
-            </ul>
-        </div>
-
-        <div class="بند">
-            <h3 class="منظمة">Production, Manufacturing & Logistics <span class="موقف">Various sectors</span></h3>
-            <p class="ملاحظة">Extensive experience in production, manufacturing and warehouse work in several key sectors, including:</p>
-            <ul class="نقاط">
-                <li>Biomedical production (Thermofisher) <span class="سنة">Mar - Oct</span></li>
-                <li>Food and beverages sectors: Coopers Brewery <span class="سنة">2022-2024</span>, Haighs Chocolates <span class="سنة">2024</span>, Senector <span class="سنة">2023</span></li>
-                <li>Construction supplies (Bluescope Steel) <span class="سنة">2021-2022</span></li>
-                <li><em>And several others not named</em></li>
+                <li>Space flight news voice actor and co-founder, promoting public passion for aerospace science, advanced technology, and engineering education</li>
+                <li>Guest speaker and lecturer for psychology <span class="سنة">2023</span> and technology/artificial intelligence <span class="سنة">2024</span> at venturer retreat</li>
             </ul>
         </div>
     </section>
 
-    <!-- ─── Education & Awards ──────────────────────────── -->
-    <section class="فرع">
-        <h2 class="عنوان">Education & Awards</h2>
+    <!-- SECTION_02 // BIO-MANUFACTURING, PRODUCTION & LOGISTICS -->
+    <section class="system-panel فرع">
+        <h2 class="عنوان">SYS_LOGISTICS // BIO_AND_PROD</h2>
 
         <div class="بند">
-            <h3 class="منظمة">Open Access College</h3>
+            <div class="cv-header-row">
+                <h3 class="منظمة">Production, Manufacturing & Assembly Operations</h3>
+                <span class="موقف">VARIOUS HIGH-VOLUME SECTORS</span>
+            </div>
+            <p class="ملاحظة">Extensive, hands-on physical pipeline experience across high-performance manufacturing, warehouse logistics, and industrial sectors:</p>
             <ul class="نقاط">
-                <li>High school graduation certificate <span class="سنة">2022</span></li>
-            </ul>
-        </div>
-
-        <div class="بند">
-            <h3 class="منظمة">Flinders University</h3>
-            <ul class="نقاط">
-                <li>University preparatory program <span class="سنة">2023</span></li>
-            </ul>
-        </div>
-
-        <div class="بند">
-            <h3 class="منظمة">Scouts SA RPL <span class="موقف">Volunteer</span> <span class="سنة">2022 - 2025</span></h3>
-            <ul class="نقاط">
-                <li>Queen Scout Award <span class="سنة">2022</span></li>
-                <li>Special Service Award <span class="سنة">2025</span></li>
-                <li>Certificate 3 in Business <span class="سنة">2025</span></li>
-                <li>Certificate 3 in Active Volunteering <span class="سنة">2023</span></li>
-            </ul>
-        </div>
-
-        <div class="بند">
-            <h3 class="منظمة">Other notable awards</h3>
-            <ul class="نقاط">
-                <li>Rotary Youth Leadership awards (RYLA) <span class="سنة">2023</span></li>
-                <li>National Volunteer Week <span class="سنة">2024</span></li>
+                <li>Biomedical raw materials production and pipeline monitoring at Thermofisher <span class="سنة">Mar - Oct 2024</span></li>
+                <li>Industrial food & beverage sectors: Coopers Brewery <span class="سنة">2022-2024</span>, Haighs Chocolates <span class="سنة">2024</span>, Senector <span class="سنة">2023</span></li>
+                <li>Heavy industrial construction supplies, shipping and supply-chain logistics at Bluescope Steel <span class="سنة">2021-2022</span></li>
+                <li>And other assembly line pipeline operations not named</li>
             </ul>
         </div>
     </section>
 
-    <!-- ─── Closing ─────────────────────────────────────── -->
-    <div class="ختام">
+    <!-- SECTION_03 // EDUCATION, CREDENTIALS & AWARDS -->
+    <section class="system-panel فرع">
+        <h2 class="عنوان">CREDENTIALS // AWARDS_AND_EDU</h2>
+
+        <div class="بند">
+            <div class="cv-header-row">
+                <h3 class="منظمة">Academic Training</h3>
+                <span class="موقف">QUALIFICATIONS</span>
+            </div>
+            <ul class="نقاط">
+                <li>Flinders University -- University preparatory program (UPP) <span class="سنة">Completed 2023</span></li>
+                <li>Open Access College -- High school graduation certification <span class="سنة">Completed 2022</span></li>
+            </ul>
+        </div>
+
+        <div class="بند">
+            <div class="cv-header-row">
+                <h3 class="منظمة">Scouts SA RPL Leadership</h3>
+                <span class="موقف">VOLUNTEER COMMAND // 2022 - 2025</span>
+            </div>
+            <ul class="نقاط">
+                <li>Queen Scout Award -- Highest scout leadership credential <span class="سنة">Awarded 2022</span></li>
+                <li>Special Service Award -- Recognition of exceptional operational support <span class="سنة">Awarded 2025</span></li>
+                <li>Certificate 3 in Business administration <span class="سنة">Completed 2025</span></li>
+                <li>Certificate 3 in Active Volunteering and command logistics <span class="سنة">Completed 2023</span></li>
+            </ul>
+        </div>
+
+        <div class="بند">
+            <div class="cv-header-row">
+                <h3 class="منظمة">Other Notable Accolades</h3>
+                <span class="موقف">RECOGNITIONS</span>
+            </div>
+            <ul class="نقاط">
+                <li>Rotary Youth Leadership Awards (RYLA) delegation <span class="سنة">2023</span></li>
+                <li>National Volunteer Week citation for community engineering <span class="سنة">2024</span></li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Target Objective Statement -->
+    <footer class="system-panel ختام">
         <p>
-            <strong>Looking for work</strong> in ML datasets, Education, Robotics and full stack web development to cross pollinate my experience in production and assembly line work with my Software Engineering background and my desire to help make a great future.
+            <strong>Objective Status: Seeking Allocation</strong> in ML datasets curation, educational outreach, robotics control, and full-stack web architectures. Purpose: to cross-pollinate my extensive, practical experience in industrial assembly line logistics with my software systems engineering background to build highly reliable future infrastructures.
         </p>
-    </div>
+    </footer>
 
-    <a href="index.html" class="رجوع">cd ..</a>
+    <div>
+        <a href="index.html" class="رجوع">[<< RETURN TO TERMINAL]</a>
+    </div>
 
 </main>
 

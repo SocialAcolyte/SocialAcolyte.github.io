@@ -3,168 +3,224 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Social Acolyte — building the datasets that decide what frontier models can do.">
-    <meta property="og:title" content="Social Acolyte · المُريد">
-    <meta property="og:description" content="Building the datasets that decide what the frontier can do.">
+    <meta name="description" content="Social Acolyte -- Advanced ML dataset orchestration and high-fidelity tactical compute systems.">
+    <meta property="og:title" content="Social Acolyte // GN&C Compute">
+    <meta property="og:description" content="Decentralized compute resources and high-performance ML dataset engineering.">
     <meta property="og:type" content="website">
-    <meta name="theme-color" content="#060606">
-    <title>Social Acolyte · المُريد</title>
+    <meta name="theme-color" content="#030305">
+    <title>Social Acolyte // GN&C Compute</title>
 
     <!--
-        ▓
-        ▓   السلام عليكم، يا من نَظرَ إلى المصدر.
-        ▓   peace to you who looked at the source.
-        ▓
-        ▓   اِسمي مكتوبٌ بالحروف المصرية، لكنّه ليس ظاهرًا بَعد.
-        ▓   my name is written in egyptian glyphs — but not visible yet.
-        ▓
-        ▓   اقرأ الصفحة، خمّن الكلمة، ثم نادِ في الكونسول:
-        ▓   read the page, guess the word, then call in the console:
-        ▓
-        ▓        حل('???????')
-        ▓
-        ▓                                       — المُريد
-        ▓
+        ======================================================================
+        NASA | DEEP SPACE NETWORK | GUIDANCE SYSTEM TERMINAL
+        ======================================================================
+        INERTIAL MEASUREMENT UNIT DETECTING DRIFT AT GYRO COORDINATES.
+        
+        AVIONICS TELEMETRY ENCRYPTED. 
+        TO INITIATE SYSTEM CALIBRATION AND RE-ALIGN IMU PLATFORM:
+        
+        OPEN DEVELOPER CONSOLE AND EXECUTE KEYWORD TRANSPONDER:
+        
+            fcs.align("COMMAND_KEY")
+            
+        CHALLENGE SPECIFICATION:
+        Locate the record speed set by the SR-71 Blackbird over the Atlantic.
+        Provide the Mach number as the command key, formatted in capital letters.
+        Example: If speed is Mach 9.99, call: fcs.align("MACH9.99")
+        
+        - ground control division
+        ======================================================================
     -->
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:wght@300;400;500&family=JetBrains+Mono:wght@400&family=Noto+Sans+Devanagari:wght@400&family=Noto+Sans+Egyptian+Hieroglyphs&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<!-- الخلفية — ambient drift of glyphs, ultra-low contrast -->
+<!-- High-performance canvas particle network representing compute nodes -->
 <canvas id="الخلفية" aria-hidden="true"></canvas>
 
-<!-- نظرة — the eye, top-right. title hints in arabic. -->
-<a href="#" class="نظرة" title="اُنظر — look" aria-label="look">
-    <span class="glyph">𓂀</span>
+<!-- System Calibration Trigger (Top Right Interface Button) -->
+<a href="#" class="نظرة" title="System Diagnostic Utility" aria-label="system diagnostic">
+    [FCS]
 </a>
 
 <main class="رئيسي">
 
+    <!-- Telemetry Status Panel / Header -->
     <header class="رأس">
-        <h1 class="الاسم" lang="ar" dir="rtl">المُريد</h1>
-        <p class="ترجمة">Social Acolyte &nbsp;·&nbsp; b. 2004</p>
+        <div class="رأس-top">
+            <div>
+                <h1 class="الاسم">Social <span>Acolyte</span></h1>
+                <p class="ترجمة">Avionics & ML Dataset Engineering // Est. 2004</p>
+            </div>
+        </div>
+        
+        <!-- Live System Diagnostics -->
+        <div class="telemetry-board">
+            <div class="telemetry-item">
+                <span class="label">NODE_STATUS</span>
+                <span class="value active" id="stat-node">SYS_ONLINE</span>
+            </div>
+            <div class="telemetry-item">
+                <span class="label">TRANS_FREQ</span>
+                <span class="value" id="stat-freq">344.20 MHZ</span>
+            </div>
+            <div class="telemetry-item">
+                <span class="label">COMPUTE_INDEX</span>
+                <span class="value" id="stat-compute">98.42 GigaFlops</span>
+            </div>
+            <div class="telemetry-item">
+                <span class="label">IMU_ALIGN</span>
+                <span class="value" id="stat-align">UNALIGNED</span>
+            </div>
+        </div>
     </header>
 
-    <section class="نص">
+    <!-- Core Philosophy: Orchestration Thesis -->
+    <section class="system-panel" aria-labelledby="sec-thesis">
+        <h2 id="sec-thesis" class="عنوان">Orchestration Thesis // Data Bottleneck</h2>
         <p class="en">
-            I build the datasets that decide what frontier models can and cannot do.
-            Most of the gap between what AI promises and what it delivers lives inside the data —
-            I want to close it.
+            Frontier capability is bottlenecked by data curation, not compute clustering. 
+            The next computational leap will not be a minor architecture shift -- it will be determined by high-fidelity datasets designed by engineers who pinpoint precisely what parameters are missing from general behavior model boundaries.
         </p>
-        <p class="ar" lang="ar" dir="rtl">
-            أصنعُ البياناتِ التي تُقرّرُ ما يَقْدِرُ عليه النموذجُ الأمامي وما لا يَقْدِر.
-            معظمُ الفجوةِ بين ما يَعِدُ به الذكاءُ الاصطناعيّ وما يُسلّمُه يسكنُ داخل البيانات —
-            أريد أن أُغلقها.
-        </p>
+        <div class="code-container">
+            // COMPUTE_ORCHESTRATION_INTERFACE<br>
+            const socialAcolyte = {<br>
+            &nbsp;&nbsp;role: "Data disciple studying frontier limits to build what is next",<br>
+            &nbsp;&nbsp;methodology: "Rigorous curation via automated pipeline custom architectures",<br>
+            &nbsp;&nbsp;target: "Resolve behavioral entropy in general learning architectures"<br>
+            };
+        </div>
     </section>
 
-    <!-- ─── فلسفة · philosophy ────────────────────────────── -->
-    <section class="فلسفة" aria-labelledby="عنوان-فلسفة">
-        <h2 id="عنوان-فلسفة" class="عنوان">فلسفة &nbsp;·&nbsp; philosophy</h2>
-        <p class="en">
-            Frontier capability is bottlenecked by data, not compute. The next leap won't be a new
-            architecture — it will be data designed by people who knew exactly what was missing.
-            I build that data, and I build it as a <span class="ar-inline" lang="ar" dir="rtl">مُريد</span>:
-            a disciple who studies the work hard enough to deserve to lead it.
-        </p>
-        <p class="ar" lang="ar" dir="rtl">
-            الحدُّ الأمامي مُقيَّدٌ بالبيانات لا بالحساب. القفزةُ القادمة لن تكون بنيةً جديدة،
-            بل بياناتٍ صمَّمها مَنْ يَعرف ما الذي ينقصها بالضبط. أصنعُ تلك البيانات،
-            وأصنعها كـمُريدٍ: تلميذٌ يدرسُ العمل بقدرٍ يستحقُّ به أن يقوده.
-        </p>
-    </section>
-
-    <!-- ─── أعمال · work ──────────────────────────────────── -->
-    <section class="أعمال" aria-labelledby="عنوان-أعمال">
-        <h2 id="عنوان-أعمال" class="عنوان">أعمال &nbsp;·&nbsp; selected work</h2>
+    <!-- Selected Works / Pipelines -->
+    <section class="system-panel" aria-labelledby="sec-work">
+        <h2 id="sec-work" class="عنوان">Selected Compute Work // Data Pipelines</h2>
         <ol class="قائمة">
             <li>
                 <a href="#">
-                    <span class="سنة">2025</span>
+                    <span class="سنة">2025 // ACTIVE</span>
                     <span class="اسم">curated ML data</span>
-                    <span class="وصف">large-scale dataset work — web-scraped multi-base numerical sets, synchronous ASL hand-data video, mocap pipelines.</span>
-                    <span class="سهم" aria-hidden="true">↗</span>
+                    <span class="وصف">large-scale dataset architectures: web-scraped multi-base numerical sets, synchronous ASL hands, mocap pipelines</span>
+                    <span class="سهم" aria-hidden="true">[RUN >>]</span>
                 </a>
             </li>
             <li>
                 <a href="#">
-                    <span class="سنة">2024</span>
-                    <span class="اسم">vla × robotics</span>
-                    <span class="وصف">vision-language-action model work — taming lossy compound behavior in general robotics models.</span>
-                    <span class="سهم" aria-hidden="true">↗</span>
+                    <span class="سنة">2024 // STABLE</span>
+                    <span class="اسم">vla x robotics</span>
+                    <span class="وصف">vision-language-action performance optimizations: resolving lossy compound behavior in general robotics models</span>
+                    <span class="سهم" aria-hidden="true">[RUN >>]</span>
                 </a>
             </li>
             <li>
                 <a href="https://github.com/kolbytn/mindcraft" rel="noopener">
-                    <span class="سنة">2024</span>
+                    <span class="سنة">2024 // STABLE</span>
                     <span class="اسم">mindcraft agent</span>
-                    <span class="وصف">embodied AI agent deployed inside a videogame world, built on the mindcraft library.</span>
-                    <span class="سهم" aria-hidden="true">↗</span>
+                    <span class="وصف">embodied artificial intelligence agent deployed in simulated physical worlds, using the mindcraft library</span>
+                    <span class="سهم" aria-hidden="true">[RUN >>]</span>
                 </a>
             </li>
             <li>
                 <a href="/buisness strategy.pdf" download>
-                    <span class="سنة">2024</span>
+                    <span class="سنة">2024 // REPO</span>
                     <span class="اسم">data-layer thesis</span>
-                    <span class="وصف">why the next frontier is decided by data, not compute. (pdf)</span>
-                    <span class="سهم" aria-hidden="true">↘</span>
+                    <span class="وصف">aerospace logic: why the next frontier is decided strictly by dataset density, not raw processor compute</span>
+                    <span class="سهم" aria-hidden="true">[DOWNLOAD]</span>
                 </a>
             </li>
         </ol>
     </section>
 
-    <!-- ─── تواصل · contact ───────────────────────────────── -->
-    <section class="تواصل" aria-labelledby="عنوان-تواصل">
-        <h2 id="عنوان-تواصل" class="عنوان">تواصل &nbsp;·&nbsp; contact</h2>
+    <!-- Avionics Flight Blueprint (Hidden until FCS Easter Egg is solved) -->
+    <section class="system-panel مكشوف" id="fcs-blueprint" aria-labelledby="sec-blueprint">
+        <h2 id="sec-blueprint" class="عنوان">Tactical Avionics Schematic // LM-SR72 Blackbird</h2>
+        <div class="schematic-box">
+            <!-- Sleek High-Fidelity SVG Space/Aircraft Wireframe Diagram -->
+            <svg class="schematic-graphic" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+                <!-- Background grid lines -->
+                <line x1="10" y1="10" x2="190" y2="10" stroke="rgba(0, 240, 255, 0.05)" stroke-width="0.5" />
+                <line x1="10" y1="30" x2="190" y2="30" stroke="rgba(0, 240, 255, 0.05)" stroke-width="0.5" />
+                <line x1="10" y1="50" x2="190" y2="50" stroke="rgba(0, 240, 255, 0.05)" stroke-width="0.5" />
+                <line x1="10" y1="70" x2="190" y2="70" stroke="rgba(0, 240, 255, 0.05)" stroke-width="0.5" />
+                <line x1="10" y1="90" x2="190" y2="90" stroke="rgba(0, 240, 255, 0.05)" stroke-width="0.5" />
+                <line x1="10" y1="110" x2="190" y2="110" stroke="rgba(0, 240, 255, 0.05)" stroke-width="0.5" />
+                <line x1="50" y1="10" x2="50" y2="110" stroke="rgba(0, 240, 255, 0.05)" stroke-width="0.5" />
+                <line x1="100" y1="10" x2="100" y2="110" stroke="rgba(0, 240, 255, 0.05)" stroke-width="0.5" />
+                <line x1="150" y1="10" x2="150" y2="110" stroke="rgba(0, 240, 255, 0.05)" stroke-width="0.5" />
+
+                <!-- Spacecraft Wireframe Shape -->
+                <path d="M 100 15 L 108 45 L 138 90 L 100 80 L 62 90 L 92 45 Z" fill="none" stroke="#00f0ff" stroke-width="0.85" />
+                <!-- Engine exhaust lines -->
+                <line x1="88" y1="91" x2="88" y2="108" stroke="#2563eb" stroke-width="0.75" stroke-dasharray="2,2" />
+                <line x1="112" y1="91" x2="112" y2="108" stroke="#2563eb" stroke-width="0.75" stroke-dasharray="2,2" />
+                
+                <!-- Crosshairs and lock indicators -->
+                <circle cx="100" cy="55" r="35" fill="none" stroke="rgba(0, 240, 255, 0.15)" stroke-width="0.5" stroke-dasharray="4,4" />
+                <circle cx="100" cy="55" r="4" fill="none" stroke="#00f0ff" stroke-width="0.75" />
+                <line x1="100" y1="20" x2="100" y2="90" stroke="rgba(0, 240, 255, 0.2)" stroke-width="0.5" />
+                <line x1="60" y1="55" x2="140" y2="55" stroke="rgba(0, 240, 255, 0.2)" stroke-width="0.5" />
+                
+                <!-- Coordinate Vector Points -->
+                <circle cx="108" cy="45" r="1.5" fill="#00f0ff" />
+                <circle cx="92" cy="45" r="1.5" fill="#00f0ff" />
+                <circle cx="138" cy="90" r="1.5" fill="#00f0ff" />
+                <circle cx="62" cy="90" r="1.5" fill="#00f0ff" />
+                
+                <!-- Telemetry text overlay in SVG -->
+                <text x="12" y="24" font-family="'JetBrains Mono', monospace" font-size="5" fill="#00f0ff" opacity="0.8">TGT // LOCK</text>
+                <text x="12" y="32" font-family="'JetBrains Mono', monospace" font-size="5" fill="#94a3b8" opacity="0.6">ALT // 84,200 FT</text>
+                <text x="145" y="24" font-family="'JetBrains Mono', monospace" font-size="5" fill="#00f0ff" opacity="0.8">VEL // MACH 3.32</text>
+                <text x="145" y="32" font-family="'JetBrains Mono', monospace" font-size="5" fill="#94a3b8" opacity="0.6">DST // ORBITAL</text>
+            </svg>
+
+            <!-- Diagnostics log feed -->
+            <div class="schematic-data">
+                <div class="data-log" id="fcs-log">
+                    [SYSTEM DECRYPT INITIALIZED...]<br>
+                    [ACQUIRING INTERTIAL MATRIX DATA...]<br>
+                    <span class="success">FCS STATUS: SECURE</span><br>
+                    <span class="highlight">IMU PLATFORM SYSTEM CALIBRATED</span><br>
+                    READY FOR TRANS-ORBITAL FLIGHT GUIDANCE DATASETS.<br>
+                    ---------------------------------------<br>
+                    [STREAMING ACTIVE DATA STREAMS...]<br>
+                    ROLL VECTOR: +0.021 RAD // PITCH VECTOR: +0.048 RAD<br>
+                    GUIDANCE TELEMETRY FEED LOCK: OK<br>
+                    DECENTRALIZED WORK COMPLETED. WELL DONE GROUND CONTROL.
+                </div>
+            </div>
+        </div>
+        <p class="en">
+            FCS flight computer online. The aircraft is aligned and telemetry transmission is established. Data streaming active.
+        </p>
+    </section>
+
+    <!-- Seed Round Status / CTA -->
+    <section class="system-panel" aria-labelledby="sec-contact">
+        <h2 id="sec-contact" class="عنوان">System Interface // Ground Connection</h2>
         <a class="حال" href="https://x.com/SocialAcolyte">
-            <span class="en-حال">seed round &nbsp;—&nbsp; open</span>
-            <span class="sep" aria-hidden="true">·</span>
-            <span class="ar" lang="ar" dir="rtl">جولةٌ أوّليّة، مفتوحة للحديث</span>
-            <span class="سهم" aria-hidden="true">↗ dm</span>
+            <span class="en-حال">seed compute round -- open for allocation</span>
+            <span class="سهم">[CONNECT CLIENT >>]</span>
         </a>
     </section>
 
-    <nav class="روابط" aria-label="elsewhere">
+    <!-- Navigation Footer -->
+    <nav class="روابط" aria-label="system-links">
         <a href="https://x.com/SocialAcolyte" rel="me">twitter</a>
-        <span class="dot" aria-hidden="true">·</span>
+        <span class="dot">//</span>
         <a href="https://github.com/SocialAcolyte" rel="me">github</a>
-        <span class="dot" aria-hidden="true">·</span>
+        <span class="dot">//</span>
         <a href="https://www.linkedin.com/in/connor-m-hood/" rel="me">linkedin</a>
-        <span class="dot" aria-hidden="true">·</span>
-        <a href="/resume.html">cv</a>
-        <span class="dot" aria-hidden="true">·</span>
-        <a href="#" class="موقع">site</a>
+        <span class="dot">//</span>
+        <a href="/resume.html">cv-datasheet</a>
+        <span class="dot">//</span>
+        <a href="#" class="mوقع">terminal</a>
     </nav>
 
-    <!-- مكشوف — only revealed when the easter egg is solved. cartouche lives inside. -->
-    <aside class="مكشوف" id="مكشوف" aria-hidden="true">
-        <div class="خرطوش" id="خرطوش" aria-label="cartouche · the name in glyphs">
-            <span class="cap" aria-hidden="true">𓍷</span>
-            <span class="g" data-letter="A" title="A · 𓄿 vulture">𓄿</span>
-            <span class="g" data-letter="C" title="C · 𓎡 basket">𓎡</span>
-            <span class="g" data-letter="O" title="O · 𓅱 quail chick">𓅱</span>
-            <span class="g" data-letter="L" title="L · 𓃭 lion">𓃭</span>
-            <span class="g" data-letter="Y" title="Y · 𓇌 double reed">𓇌</span>
-            <span class="g" data-letter="T" title="T · 𓏏 bread loaf">𓏏</span>
-            <span class="g" data-letter="E" title="E · 𓇋 reed leaf">𓇋</span>
-            <span class="cap" aria-hidden="true">𓍶</span>
-        </div>
-        <p class="ar" lang="ar" dir="rtl">كلُّ مُريدٍ كان قائدًا. كلُّ قائدٍ كان مُريدًا.</p>
-        <p class="en"><em>every acolyte was once a leader. every leader was once an acolyte.</em></p>
-        <p class="small">↪ thanks for looking</p>
-    </aside>
-
 </main>
-
-<!-- ─── حكمة · the corner verse, in sanskrit ──────────────── -->
-<aside class="حكمة" aria-label="upanishadic verse">
-    <span class="dev" lang="sa">तमसो मा ज्योतिर्गमय।</span>
-    <span class="ترجمة-حكمة">tamaso mā jyotir gamaya · lead from dark to light · bṛhadāraṇyaka up.</span>
-</aside>
 
 <script src="script.js" defer></script>
 </body>

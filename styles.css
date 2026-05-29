@@ -1,47 +1,84 @@
 /*
- *  ▓  السلام عليكم.
- *  ▓  four scripts share this canvas:
- *  ▓    Latin       (Cormorant Garamond + JetBrains Mono)
- *  ▓    Arabic      (Amiri)
- *  ▓    Egyptian    (Noto Sans Egyptian Hieroglyphs — ambient + cartouche)
- *  ▓    Devanagari  (Noto Sans Devanagari — the corner verse)
- *  ▓
- *  ▓  dark always. gold rare. nothing cheesy.
+ *  ======================================================================
+ *  LOCKHEED-MARTIN & PRIME INTELLECT CORE STYLING
+ *  PROJECT: SOCIAL ACOLYTE FLIGHT CONTROLS & COMPUTE DASHBOARD
+ *  ZERO-EMOJI ENFORCEMENT PROTOCOL SYSTEM
+ *  ======================================================================
  */
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;700&display=swap');
+
 :root {
-    --خلفية:     #060606;
-    --حِبر:       #ece8e0;
-    --حِبر-٢:     #8a857d;
-    --حِبر-٣:     #3a3733;
-    --ذهب:        #c9a961;
-    --ذهب-خفيف:  #6e5a30;
-    --وقت:        0.6s;
+    --bg-obsidian: #030305;
+    --bg-card: #08080c;
+    --bg-card-hover: #0e0e14;
+    --neon-cyan: #00f0ff;
+    --neon-cyan-glow: rgba(0, 240, 255, 0.45);
+    --electric-blue: #2563eb;
+    --electric-blue-glow: rgba(37, 99, 235, 0.3);
+    
+    --text-high: #f8fafc;
+    --text-mid: #94a3b8;
+    --text-low: #475569;
+    --text-accent: #00f0ff;
+    
+    --border-dim: rgba(255, 255, 255, 0.05);
+    --border-mid: rgba(255, 255, 255, 0.12);
+    --border-accent: rgba(0, 240, 255, 0.2);
+    
+    --font-mono: 'JetBrains Mono', monospace;
+    --font-sans: 'Inter', sans-serif;
+    
+    --transition-speed: 0.25s;
+    --grid-step: 24px;
 }
 
-* { box-sizing: border-box; }
-
-html, body {
+* {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    background: var(--خلفية);
-    color: var(--حِبر);
+}
+
+html, body {
+    width: 100%;
     min-height: 100vh;
-    font-family: 'Cormorant Garamond', Georgia, serif;
-    font-weight: 300;
+    background-color: var(--bg-obsidian);
+    color: var(--text-mid);
+    font-family: var(--font-sans);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.6;
+    overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    overflow-x: hidden;
-    text-rendering: optimizeLegibility;
+    
+    /* Technical micro-dot grid background */
+    background-image: radial-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    background-size: var(--grid-step) var(--grid-step);
 }
 
 ::selection {
-    background: var(--ذهب-خفيف);
-    color: var(--حِبر);
+    background-color: var(--electric-blue-glow);
+    color: var(--text-high);
 }
 
-/* ─── الخلفية — ambient drift canvas ─────────────────────────── */
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-obsidian);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--text-low);
+    border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--neon-cyan);
+}
 
+/* Ambient Particles Canvas */
 #الخلفية {
     position: fixed;
     inset: 0;
@@ -49,570 +86,558 @@ html, body {
     pointer-events: none;
 }
 
-/* ─── نظرة — the eye, top-right hint ─────────────────────────── */
-
-.نظرة {
-    position: fixed;
-    top: 26px;
-    right: 30px;
-    z-index: 10;
-    color: var(--حِبر-٣);
-    text-decoration: none;
-    font-family: 'Noto Sans Egyptian Hieroglyphs', serif;
-    font-size: 22px;
-    line-height: 1;
-    transition: color var(--وقت) ease, transform var(--وقت) ease;
-}
-.نظرة:hover {
-    color: var(--ذهب);
-    transform: translateY(-1px);
-}
-.نظرة .glyph { display: inline-block; }
-
-/* ─── layout ─────────────────────────────────────────────────── */
-
+/* Layout Framework */
 .رئيسي {
     position: relative;
     z-index: 2;
-    max-width: 600px;
+    max-width: 900px;
     margin: 0 auto;
-    padding: 16vh 36px 200px;
+    padding: 8vh 24px 120px;
     display: flex;
     flex-direction: column;
-    gap: 64px;
+    gap: 40px;
 }
 
-/* ─── hero ───────────────────────────────────────────────────── */
-
+/* Dashboard Header & Telemetry Status Board */
 .رأس {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 20px;
+    border: 1px solid var(--border-dim);
+    background: var(--bg-card);
+    padding: 30px;
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+}
+
+.رأس::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--electric-blue), var(--neon-cyan));
+}
+
+.رأس-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 16px;
 }
 
 .الاسم {
-    font-family: 'Amiri', serif;
-    font-weight: 400;
-    font-size: clamp(84px, 14vw, 132px);
-    line-height: 1;
-    margin: 0;
-    color: var(--حِبر);
-    letter-spacing: -0.01em;
-    text-align: right;
-    direction: rtl;
+    font-family: var(--font-mono);
+    font-size: clamp(32px, 6vw, 42px);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--text-high);
+    text-transform: uppercase;
+}
+
+.الاسم span {
+    color: var(--neon-cyan);
+    text-shadow: 0 0 10px var(--neon-cyan-glow);
 }
 
 .ترجمة {
-    margin: 0;
-    font-family: 'JetBrains Mono', monospace;
+    font-family: var(--font-mono);
     font-size: 11px;
-    letter-spacing: 0.34em;
+    letter-spacing: 0.15em;
+    color: var(--text-low);
     text-transform: uppercase;
-    color: var(--حِبر-٢);
 }
 
-/* ─── body text ──────────────────────────────────────────────── */
+/* Telemetry Dashboard Grid */
+.telemetry-board {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 12px;
+    border-top: 1px solid var(--border-dim);
+    padding-top: 20px;
+}
 
-.نص {
+.telemetry-item {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    padding: 8px 12px;
+    background: rgba(255, 255, 255, 0.01);
+    border: 1px solid var(--border-dim);
+    border-radius: 2px;
+}
+
+.telemetry-item .label {
+    display: block;
+    color: var(--text-low);
+    margin-bottom: 2px;
+}
+
+.telemetry-item .value {
+    font-weight: 700;
+    color: var(--text-high);
+}
+
+.telemetry-item .value.active {
+    color: var(--neon-cyan);
+    text-shadow: 0 0 4px var(--neon-cyan-glow);
+}
+
+/* Modular Panels & Cards */
+.system-panel {
+    background: var(--bg-card);
+    border: 1px solid var(--border-dim);
+    border-radius: 4px;
+    padding: 30px;
     display: flex;
     flex-direction: column;
-    gap: 26px;
-    max-width: 520px;
+    gap: 20px;
+    position: relative;
+    transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
 }
 
-.نص .en,
-.فلسفة .en {
-    font-size: 19px;
-    line-height: 1.55;
-    color: var(--حِبر);
-    margin: 0;
+.system-panel:hover {
+    border-color: var(--border-accent);
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.03);
 }
-
-.نص .ar,
-.فلسفة .ar {
-    font-family: 'Amiri', serif;
-    font-size: 19px;
-    line-height: 1.85;
-    color: var(--حِبر);
-    margin: 0;
-    direction: rtl;
-}
-
-.ar-inline {
-    font-family: 'Amiri', serif;
-    font-size: 1.1em;
-    color: var(--ذهب);
-    direction: rtl;
-    unicode-bidi: isolate;
-}
-
-/* ─── عنوان — section heading ────────────────────────────────── */
 
 .عنوان {
-    margin: 0 0 18px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    font-weight: 400;
-    letter-spacing: 0.32em;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-high);
+    letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: var(--حِبر-٣);
-}
-
-/* ─── فلسفة · أعمال · تواصل  — section frames ───────────────── */
-
-.فلسفة,
-.أعمال,
-.تواصل {
-    max-width: 520px;
     display: flex;
-    flex-direction: column;
-    gap: 22px;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid var(--border-dim);
+    padding-bottom: 10px;
 }
 
-.فلسفة { gap: 26px; }
+.عنوان::before {
+    content: '[+]';
+    color: var(--neon-cyan);
+}
 
-/* ─── أعمال — work list ─────────────────────────────────────── */
+/* Philosophy Section: Orchestration Thesis */
+.en {
+    font-size: 14.5px;
+    line-height: 1.7;
+    color: var(--text-mid);
+}
 
+.code-container {
+    background: rgba(0, 0, 0, 0.2);
+    border-left: 2px solid var(--neon-cyan);
+    padding: 16px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-mid);
+    overflow-x: auto;
+}
+
+.code-container span {
+    color: var(--neon-cyan);
+}
+
+/* Project Pipelines Section */
 .قائمة {
     list-style: none;
-    margin: 0;
-    padding: 0;
     display: flex;
     flex-direction: column;
+    gap: 12px;
 }
+
 .قائمة li {
-    border-top: 1px solid var(--حِبر-٣);
+    background: rgba(255, 255, 255, 0.01);
+    border: 1px solid var(--border-dim);
+    border-radius: 3px;
+    transition: all var(--transition-speed);
 }
-.قائمة li:last-child {
-    border-bottom: 1px solid var(--حِبر-٣);
+
+.قائمة li:hover {
+    border-color: var(--border-accent);
+    background: var(--bg-card-hover);
+    transform: translateX(4px);
 }
+
 .قائمة a {
     display: grid;
-    grid-template-columns: 52px auto 1fr auto;
-    gap: 16px;
-    align-items: baseline;
-    padding: 14px 0;
-    color: var(--حِبر);
+    grid-template-columns: 80px 180px 1fr 90px;
+    gap: 20px;
+    align-items: center;
+    padding: 16px 20px;
+    color: var(--text-mid);
     text-decoration: none;
-    transition: background var(--وقت);
 }
-.قائمة a:hover .سهم {
-    color: var(--ذهب);
-    transform: translate(2px, -2px);
-}
-.قائمة a:hover .اسم { color: var(--ذهب); }
 
 .قائمة .سنة {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: var(--font-mono);
     font-size: 11px;
-    letter-spacing: 0.1em;
-    color: var(--حِبر-٣);
-}
-.قائمة .اسم {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--حِبر);
-    white-space: nowrap;
-    transition: color var(--وقت);
-}
-.قائمة .وصف {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 16px;
-    font-style: italic;
-    color: var(--حِبر-٢);
-    line-height: 1.4;
-}
-.قائمة .سهم {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 13px;
-    color: var(--حِبر-٣);
-    transition: color var(--وقت), transform var(--وقت);
+    color: var(--text-low);
 }
 
-/* ─── تواصل — the seed-round line, real link ────────────────── */
+.قائمة .اسم {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-high);
+    text-transform: uppercase;
+}
+
+.قائمة .وصف {
+    font-size: 13px;
+    color: var(--text-mid);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.قائمة .سهم {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--neon-cyan);
+    text-align: right;
+    text-transform: uppercase;
+    transition: letter-spacing var(--transition-speed);
+}
+
+.قائمة li:hover .سهم {
+    letter-spacing: 0.15em;
+}
+
+/* Contact & Seed Status Row */
+.تواصل {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
 
 .حال {
-    display: inline-flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: 12px;
-    width: fit-content;
-    color: var(--حِبر);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid var(--border-accent);
+    background: rgba(0, 240, 255, 0.02);
+    border-radius: 4px;
+    padding: 16px 24px;
+    color: var(--text-high);
     text-decoration: none;
-    border-bottom: 1px solid var(--حِبر-٣);
-    padding: 4px 0;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.22em;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
-    transition: border-color var(--وقت), color var(--وقت);
+    transition: all var(--transition-speed);
 }
+
 .حال:hover {
-    border-bottom-color: var(--ذهب);
-    color: var(--ذهب);
+    background: rgba(0, 240, 255, 0.06);
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.1);
+    border-color: var(--neon-cyan);
 }
-.حال:hover .ar,
-.حال:hover .سهم { color: var(--ذهب); }
-.حال .en-حال { color: var(--حِبر); }
-.حال .ar {
-    font-family: 'Amiri', serif;
-    font-size: 14px;
-    text-transform: none;
-    letter-spacing: 0;
-    color: var(--حِبر-٢);
-    line-height: 1.4;
-    transition: color var(--وقت);
+
+.حال .en-حال {
+    font-weight: 700;
+    color: var(--neon-cyan);
 }
-.حال .sep { color: var(--حِبر-٣); }
+
 .حال .سهم {
-    color: var(--ذهب);
-    font-size: 11px;
-    letter-spacing: 0.16em;
-    transition: color var(--وقت);
+    color: var(--text-high);
+    font-weight: 700;
 }
 
-/* ─── الروابط — links row ───────────────────────────────────── */
-
+/* Navigation Links */
 .روابط {
     display: flex;
     flex-wrap: wrap;
-    align-items: baseline;
-    gap: 10px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    letter-spacing: 0.05em;
-    color: var(--حِبر-٢);
-    margin-top: 4px;
+    gap: 20px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    border-top: 1px solid var(--border-dim);
+    padding-top: 24px;
+    margin-top: 10px;
 }
+
 .روابط a {
-    color: var(--حِبر-٢);
+    color: var(--text-mid);
     text-decoration: none;
-    border-bottom: 1px solid transparent;
-    padding-bottom: 2px;
-    transition: color var(--وقت), border-color var(--وقت);
+    transition: color var(--transition-speed);
 }
+
 .روابط a:hover {
-    color: var(--ذهب);
-    border-bottom-color: var(--ذهب-خفيف);
+    color: var(--neon-cyan);
 }
-.روابط .dot { color: var(--حِبر-٣); }
 
-/* ─── مكشوف — easter egg reveal (cartouche lives inside) ────── */
+.روابط .dot {
+    color: var(--text-low);
+}
 
+/* Avionics Flight Schematic Panel (Easter Egg Reveal) */
 .مكشوف {
-    margin-top: 12px;
-    max-width: 520px;
-    opacity: 0;
-    transform: translateY(8px);
-    transition: opacity 1.6s ease, transform 1.6s ease;
-    pointer-events: none;
+    margin-top: 10px;
+    display: none;
+    flex-direction: column;
+    gap: 20px;
+    animation: revealPanel 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
+
 .مكشوف.ظاهر {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-}
-.مكشوف .ar {
-    font-family: 'Amiri', serif;
-    font-size: 20px;
-    line-height: 1.7;
-    margin: 0 0 6px;
-    color: var(--حِبر);
-    direction: rtl;
-}
-.مكشوف .en {
-    font-size: 16px;
-    margin: 0;
-    color: var(--حِبر-٢);
-}
-.مكشوف .small {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.22em;
-    margin-top: 14px;
-    color: var(--حِبر-٣);
-    text-transform: uppercase;
-}
-
-/* ─── الخرطوش — cartouche (inside مكشوف, hidden until solved) ─ */
-
-.خرطوش {
     display: flex;
-    flex-direction: row;
+}
+
+@keyframes revealPanel {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.schematic-box {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--neon-cyan);
+    border-radius: 4px;
+    padding: 24px;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 24px;
     align-items: center;
-    gap: 6px;
-    margin: 0 0 22px;
-    font-family: 'Noto Sans Egyptian Hieroglyphs', serif;
-    font-size: 30px;
-    line-height: 1;
-    color: var(--حِبر-٣);
-    user-select: none;
-    transition: color 1.4s ease;
-}
-.خرطوش .g { display: inline-block; }
-.خرطوش .cap {
-    color: var(--ذهب-خفيف);
-    font-size: 26px;
 }
 
-.خرطوش.مفتوح {
-    color: var(--ذهب);
-    animation: نبض 2.6s ease-in-out 1;
-}
-.خرطوش.مفتوح .cap { color: var(--ذهب); }
-
-@keyframes نبض {
-    0%   { text-shadow: 0 0 0 transparent; }
-    35%  { text-shadow: 0 0 22px rgba(201, 169, 97, 0.55); }
-    100% { text-shadow: 0 0 0 transparent; }
+.schematic-graphic {
+    width: 100%;
+    height: auto;
+    max-height: 280px;
 }
 
-/* ─── حكمة — the corner verse, in Sanskrit ───────────────────── */
+.schematic-data {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
 
-.حكمة {
-    position: fixed;
-    right: 32px;
-    bottom: 28px;
-    z-index: 5;
-    max-width: 320px;
-    text-align: right;
-    pointer-events: auto;
-    opacity: 0.78;
-    transition: opacity var(--وقت), color var(--وقت);
-}
-.حكمة:hover { opacity: 1; }
-.حكمة .dev {
-    display: block;
-    font-family: 'Noto Sans Devanagari', serif;
-    font-size: 16px;
-    line-height: 1.4;
-    color: var(--حِبر-٢);
-    letter-spacing: 0.01em;
-    transition: color var(--وقت);
-}
-.حكمة:hover .dev { color: var(--حِبر); }
-.حكمة .ترجمة-حكمة {
-    display: block;
-    margin-top: 6px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--حِبر-٣);
+.data-log {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border-dim);
+    border-radius: 2px;
+    padding: 12px;
+    height: 160px;
+    overflow-y: auto;
+    color: var(--text-mid);
+    font-size: 10px;
     line-height: 1.5;
 }
 
-/* ─── responsive ─────────────────────────────────────────────── */
-
-@media (max-width: 720px) {
-    .رئيسي {
-        padding: 12vh 22px 240px;
-        gap: 48px;
-        max-width: 100%;
-    }
-    .ترجمة { letter-spacing: 0.28em; }
-    .نص .en, .نص .ar,
-    .فلسفة .en, .فلسفة .ar { font-size: 17px; }
-
-    .قائمة a {
-        grid-template-columns: 44px auto auto;
-        grid-template-rows: auto auto;
-        row-gap: 4px;
-    }
-    .قائمة .وصف {
-        grid-column: 1 / -1;
-        font-size: 15px;
-    }
-    .قائمة .سهم { display: none; }
-
-    .روابط { row-gap: 6px; font-size: 11px; }
-
-    .خرطوش {
-        font-size: 24px;
-        gap: 4px;
-    }
-    .خرطوش .cap { font-size: 21px; }
-
-    .حكمة {
-        right: 16px;
-        bottom: 16px;
-        max-width: 70vw;
-    }
-    .حكمة .dev { font-size: 14px; }
-    .حكمة .ترجمة-حكمة { font-size: 8px; }
-
-    .نظرة { top: 14px; right: 16px; font-size: 18px; }
+.data-log span.success {
+    color: var(--neon-cyan);
 }
 
-@media (prefers-reduced-motion: reduce) {
-    .خرطوش.مفتوح { animation: none; }
-    .مكشوف { transition: opacity 0.2s ease; }
-    .قائمة a { transition: none; }
-    .قائمة a:hover .سهم { transform: none; }
+.data-log span.highlight {
+    color: var(--text-high);
 }
 
-/* ════════════════════════════════════════════════════════════════
- * سيرة — CV / résumé page
- * ════════════════════════════════════════════════════════════════ */
-
-.رئيسي.سيرة {
-    max-width: 720px;
-    padding: 12vh 36px 200px;
-    gap: 52px;
+/* CV Layout Styles (resume.html support) */
+.سيرة {
+    max-width: 900px;
 }
 
-/* contact line under the hero name */
 .جهات {
-    margin: 4px 0 0;
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    letter-spacing: 0.05em;
-    color: var(--حِبر-٢);
+    gap: 16px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    margin-top: 10px;
 }
-.جهات a {
-    color: var(--حِبر-٢);
-    text-decoration: none;
-    border-bottom: 1px solid transparent;
-    padding-bottom: 2px;
-    transition: color var(--وقت), border-color var(--وقت);
-}
-.جهات a:hover {
-    color: var(--ذهب);
-    border-bottom-color: var(--ذهب-خفيف);
-}
-.جهات .dot { color: var(--حِبر-٣); }
 
-/* sections */
+.جهات a {
+    color: var(--text-high);
+    text-decoration: none;
+    transition: color var(--transition-speed);
+}
+
+.جهات a:hover {
+    color: var(--neon-cyan);
+}
+
+.جهات .dot {
+    color: var(--text-low);
+}
+
 .فرع {
     display: flex;
     flex-direction: column;
-    gap: 32px;
+    gap: 30px;
 }
 
-/* a "block" — org or category, with bullets beneath */
 .بند {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
+    padding-bottom: 24px;
+    border-bottom: 1px dotted var(--border-dim);
+}
+
+.بند:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.cv-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 8px;
 }
 
 .منظمة {
-    margin: 0;
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 500;
-    font-size: 22px;
-    line-height: 1.2;
-    color: var(--حِبر);
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: 14px;
-}
-.موقف {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    font-weight: 400;
-    letter-spacing: 0.22em;
+    font-family: var(--font-mono);
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-high);
     text-transform: uppercase;
-    color: var(--حِبر-٣);
+}
+
+.موقف {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--neon-cyan);
+    font-weight: 500;
+    letter-spacing: 0.05em;
 }
 
 .ملاحظة {
-    margin: 0;
+    font-size: 13px;
+    color: var(--text-mid);
     font-style: italic;
-    font-size: 16px;
-    color: var(--حِبر-٢);
-    line-height: 1.5;
+    background: rgba(255, 255, 255, 0.01);
+    padding: 8px 12px;
+    border-left: 2px solid var(--border-dim);
 }
 
 .نقاط {
     list-style: none;
-    margin: 0;
-    padding: 0;
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
+
 .نقاط li {
+    font-size: 13px;
+    color: var(--text-mid);
     position: relative;
-    padding-left: 22px;
-    font-size: 16px;
-    line-height: 1.55;
-    color: var(--حِبر);
+    padding-left: 20px;
 }
+
 .نقاط li::before {
-    content: '→';
+    content: '[+]';
     position: absolute;
     left: 0;
-    top: 0;
-    color: var(--حِبر-٣);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 13px;
+    color: var(--neon-cyan);
+    font-family: var(--font-mono);
+    font-size: 10px;
 }
+
 .نقاط .سنة {
-    display: inline-block;
-    margin-left: 6px;
-    font-family: 'JetBrains Mono', monospace;
+    font-family: var(--font-mono);
     font-size: 11px;
-    letter-spacing: 0.1em;
-    color: var(--حِبر-٣);
-    white-space: nowrap;
+    color: var(--text-low);
+    margin-left: 6px;
 }
-.نقاط em { font-style: italic; color: var(--حِبر); }
 
-/* closing statement */
 .ختام {
-    border-top: 1px solid var(--حِبر-٣);
+    border-top: 1px solid var(--border-dim);
     padding-top: 24px;
-    max-width: 600px;
-}
-.ختام p {
-    margin: 0;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 19px;
-    line-height: 1.55;
-    color: var(--حِبر);
-    font-style: italic;
-}
-.ختام strong {
-    font-style: normal;
-    font-weight: 500;
-    color: var(--حِبر);
-    border-bottom: 1px solid var(--ذهب-خفيف);
 }
 
-/* back link */
+.ختام p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text-mid);
+}
+
+.ختام strong {
+    color: var(--neon-cyan);
+    font-weight: 600;
+}
+
 .رجوع {
     display: inline-block;
-    margin-top: 12px;
-    font-family: 'JetBrains Mono', monospace;
+    font-family: var(--font-mono);
     font-size: 11px;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--حِبر-٢);
+    color: var(--text-mid);
     text-decoration: none;
-    border-bottom: 1px solid transparent;
-    padding-bottom: 2px;
-    transition: color var(--وقت), border-color var(--وقت);
-    width: fit-content;
-}
-.رجوع:hover {
-    color: var(--ذهب);
-    border-bottom-color: var(--ذهب-خفيف);
+    border: 1px solid var(--border-dim);
+    padding: 8px 16px;
+    border-radius: 2px;
+    transition: all var(--transition-speed);
 }
 
-@media (max-width: 720px) {
-    .رئيسي.سيرة {
-        padding: 10vh 22px 240px;
-        gap: 40px;
+.رجوع:hover {
+    color: var(--neon-cyan);
+    border-color: var(--neon-cyan);
+    background: rgba(0, 240, 255, 0.02);
+}
+
+/* Tiny Eye / Core Drift Controller (Top-right of homepage) */
+.نظرة {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--border-dim);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-low);
+    text-decoration: none;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    transition: all var(--transition-speed);
+}
+
+.نظرة:hover {
+    color: var(--neon-cyan);
+    border-color: var(--neon-cyan);
+    background: rgba(0, 240, 255, 0.02);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .رئيسي {
+        padding: 40px 16px 80px;
     }
-    .منظمة { font-size: 19px; }
-    .نقاط li { font-size: 15px; }
-    .ختام p { font-size: 17px; }
-    .فرع { gap: 26px; }
+    
+    .قائمة a {
+        grid-template-columns: 1fr;
+        gap: 8px;
+        padding: 16px;
+    }
+    
+    .قائمة .سهم {
+        text-align: left;
+        margin-top: 4px;
+    }
+    
+    .schematic-box {
+        grid-template-columns: 1fr;
+    }
+    
+    .cv-header-row {
+        flex-direction: column;
+        gap: 4px;
+    }
 }

@@ -1,177 +1,287 @@
 /*
- *  ▓  السلام عليكم.
- *  ▓  this file is written with arabic identifiers because beauty matters.
- *  ▓
- *  ▓  three concerns:
- *  ▓    ١  ambient drift of glyphs in the background (very low alpha)
- *  ▓    ٢  console greeting + a hint to the easter egg
- *  ▓    ٣  window.حل  — call it with the right answer to unlock
+ *  ======================================================================
+ *  LOCKHEED-MARTIN / PRIME INTELLECT FLIGHT COMPUTER LOGIC
+ *  PROJECT: SOCIAL ACOLYTE AVIONICS CONTROLS & NEURAL PIPELINES
+ *  ZERO-EMOJI SYSTEM PROTOCOL
+ *  ======================================================================
  */
 
 (() => {
     'use strict';
 
-    /* ─── ١  الخلفية — ambient hieroglyph drift ─────────────────── */
+    /* --- 1. Compute Node Grid / Canvas Particles Simulation --- */
 
-    const لوحة  = document.getElementById('الخلفية');
-    const سياق  = لوحة.getContext('2d');
+    const canvas = document.getElementById('الخلفية');
+    const ctx = canvas.getContext('2d');
 
-    const الحروف = [
-        '𓂀','𓊽','𓋹','𓍑','𓎡','𓅱','𓈖','𓂋','𓁶','𓆣',
-        '𓏏','𓊵','𓇋','𓆑','𓏛','𓂝','𓎟','𓀀','𓀞','𓁹',
-    ];
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
-    const نسبة_البكسل = Math.min(window.devicePixelRatio || 1, 2);
+    let width = 0;
+    let height = 0;
+    let particles = [];
+    let lineDistLimit = 95;
+    let densityModifier = 1;
+    let mouse = { x: null, y: null, active: false };
 
-    let عرض = 0;
-    let ارتفاع = 0;
-    let جسيمات = [];
-    let كثافة = 1;          /* lifted briefly when easter egg solved */
-
-    function اختر_حرفًا() {
-        return الحروف[(Math.random() * الحروف.length) | 0];
-    }
-
-    function جسيم_جديد(تشتيت = false) {
-        return {
-            x: Math.random() * عرض,
-            y: تشتيت ? Math.random() * ارتفاع : -40 - Math.random() * 80,
-            رمز: اختر_حرفًا(),
-            حجم: 14 + Math.random() * 18,
-            سرعة: 0.06 + Math.random() * 0.16,
-            وميض: Math.random() * Math.PI * 2,
-            دوران: (Math.random() - 0.5) * 0.0008,
-        };
-    }
-
-    function ضبط_المقاس() {
-        /* never assign to clientWidth/clientHeight — they're read-only.
-           size via CSS, then back the canvas with a scaled bitmap. */
-        عرض   = window.innerWidth;
-        ارتفاع = window.innerHeight;
-
-        لوحة.style.width  = عرض   + 'px';
-        لوحة.style.height = ارتفاع + 'px';
-        لوحة.width  = عرض   * نسبة_البكسل;
-        لوحة.height = ارتفاع * نسبة_البكسل;
-
-        سياق.setTransform(1, 0, 0, 1, 0, 0);
-        سياق.scale(نسبة_البكسل, نسبة_البكسل);
-
-        /* sparse density — roughly one glyph per 16,000 px² */
-        const عدد = Math.max(8, Math.floor((عرض * ارتفاع) / 16000));
-        جسيمات = Array.from({ length: عدد }, () => جسيم_جديد(true));
-    }
-
-    function ٱرسم() {
-        سياق.clearRect(0, 0, عرض, ارتفاع);
-        سياق.textBaseline = 'top';
-
-        for (const ج of جسيمات) {
-            ج.y    += ج.سرعة;
-            ج.وميض += 0.012;
-
-            if (ج.y > ارتفاع + 50) {
-                Object.assign(ج, جسيم_جديد(false));
-            }
-
-            const وميض_موحد = (Math.sin(ج.وميض) + 1) / 2;
-            const ألفا = (0.022 + 0.030 * وميض_موحد) * كثافة;
-
-            سياق.fillStyle = `rgba(201, 169, 97, ${ألفا})`;
-            سياق.font      = `${ج.حجم}px 'Noto Sans Egyptian Hieroglyphs', serif`;
-            سياق.fillText(ج.رمز, ج.x, ج.y);
+    class NodeParticle {
+        constructor(initial = false) {
+            this.x = Math.random() * width;
+            this.y = initial ? Math.random() * height : -10 - Math.random() * 20;
+            this.vx = (Math.random() - 0.5) * 0.45;
+            this.vy = 0.15 + Math.random() * 0.45;
+            this.radius = 1.2 + Math.random() * 1.6;
+            this.baseSpeedFactor = 1;
         }
 
-        if (كثافة > 1) كثافة = Math.max(1, كثافة - 0.008);
+        update() {
+            // Apply speed velocity
+            this.x += this.vx * this.baseSpeedFactor * densityModifier;
+            this.y += this.vy * this.baseSpeedFactor * densityModifier;
 
-        requestAnimationFrame(ٱرسم);
+            // Handle screen edge wrapping
+            if (this.x < -10) this.x = width + 10;
+            if (this.x > width + 10) this.x = -10;
+            if (this.y > height + 10) {
+                this.y = -10;
+                this.x = Math.random() * width;
+            }
+
+            // Mouse Gravitational Lensing / Attraction
+            if (mouse.active && mouse.x !== null && mouse.y !== null) {
+                const dx = mouse.x - this.x;
+                const dy = mouse.y - this.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                if (distance < 150) {
+                    const force = (150 - distance) / 1500;
+                    this.x += (dx / distance) * force * 15;
+                    this.y += (dy / distance) * force * 15;
+                }
+            }
+        }
+
+        draw() {
+            ctx.fillStyle = `rgba(0, 240, 255, ${0.12 * densityModifier})`;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+            ctx.fill();
+        }
     }
 
-    let مهلة_تغيير_الحجم;
-    window.addEventListener('resize', () => {
-        clearTimeout(مهلة_تغيير_الحجم);
-        مهلة_تغيير_الحجم = setTimeout(ضبط_المقاس, 120);
+    function resizeCanvas() {
+        width = window.innerWidth;
+        height = window.innerHeight;
+
+        canvas.style.width = width + 'px';
+        canvas.style.height = height + 'px';
+        canvas.width = width * dpr;
+        canvas.height = height * dpr;
+
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.scale(dpr, dpr);
+
+        const particleCount = Math.max(18, Math.floor((width * height) / 14000));
+        particles = [];
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new NodeParticle(true));
+        }
+    }
+
+    function drawVectorGrid() {
+        ctx.clearRect(0, 0, width, height);
+
+        // Update & Draw Particles
+        for (let i = 0; i < particles.length; i++) {
+            particles[i].update();
+            particles[i].draw();
+        }
+
+        // Draw Interconnecting Vector Lines
+        for (let i = 0; i < particles.length; i++) {
+            for (let j = i + 1; j < particles.length; j++) {
+                const dx = particles[i].x - particles[j].x;
+                const dy = particles[i].y - particles[j].y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+
+                if (dist < lineDistLimit) {
+                    const alpha = (1 - (dist / lineDistLimit)) * 0.08 * densityModifier;
+                    ctx.strokeStyle = `rgba(0, 240, 255, ${alpha})`;
+                    ctx.lineWidth = 0.6;
+                    ctx.beginPath();
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(particles[j].x, particles[j].y);
+                    ctx.stroke();
+                }
+            }
+        }
+
+        requestAnimationFrame(drawVectorGrid);
+    }
+
+    // Set up mouse events for gravitational lensing
+    window.addEventListener('mousemove', (e) => {
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+        mouse.active = true;
     });
 
-    ضبط_المقاس();
-    requestAnimationFrame(ٱرسم);
+    window.addEventListener('mouseleave', () => {
+        mouse.active = false;
+    });
 
-    /* ─── ٢  ترحيب — console greeting ──────────────────────────── */
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(resizeCanvas, 150);
+    });
 
-    const ترحيب = [
+    resizeCanvas();
+    requestAnimationFrame(drawVectorGrid);
+
+
+    /* --- 2. NASA / Lockheed Skunk Works Console Bootstrap --- */
+
+    const bootSequence = [
+        '======================================================================',
+        'LOCKHEED MARTIN | ADVANCED DEVELOPMENT PROGRAMS (SKUNK WORKS)',
+        'FLIGHT CONTROL SYSTEM (FCS) v8.42 - GROUND TELEMETRY ACCESS',
+        '======================================================================',
+        'STATUS: SECURE_INERTIAL_PLATFORM_LOCKED',
+        'TRANS_FREQ: DSN_LINK_STBY',
+        'ALIGN_STATE: IMU_DRIFT_DETECTOR',
         '',
-        '   ▓  السلام عليكم.   peace.',
-        '   ▓',
-        '   ▓  في الزاوية خرطوشٌ — كلّ علامةٍ فيه حرف.',
-        '   ▓  in the corner is a cartouche — each glyph is a letter.',
-        '   ▓',
-        '   ▓  اِقرأها بالترتيب، ثم نادِ:',
-        '   ▓  read them in order, then call:',
-        '   ▓',
-        '   ▓        حل("???????")',
-        '   ▓                                         — المُريد',
+        'WARNING: FCS GYRO PLATFORM CONTAINS DRIFT DEVIATIONS.',
+        'GROUND CONTROLS MUST MANUAL ALIGN TRANSPONDER CALIBRATION.',
         '',
+        'TO EXECUTE AUTOMATIC SENSOR REALIGNMENT SEQUENCE:',
+        'RUN TRANSPONDER DECRYPTION IN CONSOLE:',
+        '',
+        '      fcs.align("COMMAND_KEY")',
+        '',
+        'DECRYPTION PARAMETER HINT:',
+        'Identify the legendary world speed record (Mach number) set',
+        'by the Lockheed SR-71 Blackbird in its historic transatlantic flight.',
+        'Format the key as "MACH" followed by the decimals (e.g. "MACH3.3" or "MACH3.32").',
+        '======================================================================',
     ].join('\n');
 
     console.log(
-        '%c' + ترحيب,
-        'color:#c9a961; font-family:"JetBrains Mono", monospace; font-size:12px; line-height:1.55;'
+        '%c' + bootSequence,
+        'color:#00f0ff; font-family:"JetBrains Mono", monospace; font-size:11px; line-height:1.45;'
     );
 
-    /* ─── ٣  حل — the easter egg ───────────────────────────────── */
 
-    const جواب_صحيح = 'ACOLYTE';
-    const خرطوش    = document.getElementById('خرطوش');
-    const مكشوف    = document.getElementById('مكشوف');
-    let   مفتوح    = false;
+    /* --- 3. Interactive Transponder Telemetry Alignment Challenge --- */
 
-    function افتح() {
-        if (مفتوح) return;
-        if (!خرطوش || !مكشوف) return;   /* the puzzle only lives on the home page */
-        مفتوح = true;
-        خرطوش.classList.add('مفتوح');
-        مكشوف.classList.add('ظاهر');
-        مكشوف.setAttribute('aria-hidden', 'false');
-        كثافة = 4.2;
+    const solutionA = 'MACH3.32';
+    const solutionB = 'MACH3.3';
+
+    let alignmentComplete = false;
+
+    function triggerAvionicsUnlock() {
+        if (alignmentComplete) return;
+        
+        const fcsPanel = document.getElementById('fcs-blueprint');
+        const statAlign = document.getElementById('stat-align');
+        const statNode = document.getElementById('stat-node');
+        const statCompute = document.getElementById('stat-compute');
+        const statFreq = document.getElementById('stat-freq');
+
+        if (!fcsPanel) return;
+
+        alignmentComplete = true;
+
+        // Visual Canvas Acceleration
+        densityModifier = 2.8;
+        lineDistLimit = 130;
+
+        // System state interface update
+        fcsPanel.classList.add('ظاهر');
+        
+        if (statAlign) {
+            statAlign.textContent = 'ALIGNED';
+            statAlign.classList.add('active');
+        }
+        if (statNode) {
+            statNode.textContent = 'SYS_ACTIVE';
+            statNode.classList.add('active');
+        }
+        if (statCompute) {
+            statCompute.textContent = 'MAX_BANDWIDTH';
+            statCompute.classList.add('active');
+        }
+        if (statFreq) {
+            statFreq.textContent = '742.80 MHZ';
+            statFreq.classList.add('active');
+        }
+
+        // Write simulated live telemetry data scrolling feed
+        const logBox = document.getElementById('fcs-log');
+        if (logBox) {
+            let logLines = [
+                '[CALIBRATING ACCELEROMETER CODES... OK]',
+                '[SYNCHRONIZING DSN TRANSCEIVERS WITH USA-ADELAIDE-42... OK]',
+                '<span class="success">[SYSTEM LOCK AT 742.80 MHZ TRANSMISSION]</span>',
+                '<span class="highlight">[ALIGNMENT COMPLETE: SECURE BLUEPRINT UNLOCKED]</span>',
+                'PITCH SENSOR STABLE AT zero deviation',
+                'ROLL COEFFICIENTS ALIGNED TO AVIONICS MATRIX',
+                'FLIGHT CONTROL LAUNCH SYSTEM ENGAGED.',
+                'STREAMING AVIONICS FLIGHT SPECS // ALL NETWORKS ONLINE.'
+            ];
+            
+            let index = 0;
+            const logInterval = setInterval(() => {
+                if (index < logLines.length) {
+                    logBox.innerHTML += '<br>' + logLines[index];
+                    logBox.scrollTop = logBox.scrollHeight;
+                    index++;
+                } else {
+                    clearInterval(logInterval);
+                }
+            }, 600);
+        }
     }
 
-    window.حل = function (جواب) {
-        if (typeof جواب !== 'string') {
+    window.fcs = {
+        align: function (commandKey) {
+            if (typeof commandKey !== 'string') {
+                console.log(
+                    '%c[FCS WARN] Transponder align requires string format, e.g. fcs.align("MACH3.3")',
+                    'color:#475569; font-family:"JetBrains Mono", monospace; font-size:11px;'
+                );
+                return undefined;
+            }
+
+            const cleanKey = commandKey.toUpperCase().replace(/\s+/g, '');
+            if (cleanKey === solutionA || cleanKey === solutionB) {
+                triggerAvionicsUnlock();
+                console.log(
+                    '%c[FCS SUCCESS] TRANSIGNAL MATCHED. GYROS ALIGNED. BLUEPRINT DECRYPTED. DSN ONLINE. [SUCCESS]',
+                    'color:#00f0ff; font-family:"JetBrains Mono", monospace; font-size:11px; font-weight:700;'
+                );
+                return 'FCS_ALIGN_OK';
+            }
+
             console.log(
-                '%c↪  نادِ بكلمة:  حل("الجواب")\n   call with a word: حل("answer")',
-                'color:#8a857d; font-family:"JetBrains Mono",monospace; font-size:12px;'
+                '%c[FCS ERROR] COMMAND SIGNAL MISMATCH. TRANSPONDER OUT OF PHASE. ALIGNMENT FAILS.',
+                'color:#475569; font-family:"JetBrains Mono", monospace; font-size:11px;'
             );
-            return undefined;
+            return null;
         }
-        const منقى = جواب.toUpperCase().replace(/[^A-Z]/g, '');
-        if (منقى === جواب_صحيح) {
-            افتح();
-            console.log(
-                '%c✓  صحيح. تشكر.   correct. thank you for looking. 𓂀',
-                'color:#c9a961; font-family:"JetBrains Mono",monospace; font-size:12px;'
-            );
-            return '𓂀';
-        }
-        console.log(
-            '%c✗  ليس بَعد. جرّب ثانيةً.   not yet. try again.',
-            'color:#8a857d; font-family:"JetBrains Mono",monospace; font-size:12px;'
-        );
-        return null;
     };
-    /* a quieter alias for non-arabic keyboards */
-    window.solve = window.حل;
 
-    /* ─── tiny eye, top-right: a soft pull on the drift ────────── */
+    // Standard fallback trigger for other terminal keywords
+    window.solve = window.fcs.align;
 
-    const عين = document.querySelector('.نظرة');
-    if (عين) {
-        عين.addEventListener('click', (حدث) => {
-            حدث.preventDefault();
-            كثافة = Math.max(كثافة, 2.4);
+    /* --- Core Drift Interactive Calibration Button --- */
+    const fcsBtn = document.querySelector('.نظرة');
+    if (fcsBtn) {
+        fcsBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            // Flare canvas speed temporarily
+            densityModifier = Math.min(densityModifier + 0.5, 4.0);
             console.log(
-                '%c↪  اُنظر في المصدر.   look in the source.',
-                'color:#c9a961; font-family:"JetBrains Mono",monospace; font-size:12px;'
+                '%c[FCS INFO] Diagnostic pulse dispatched. Verify terminal console for ground control bootstrap instructions.',
+                'color:#00f0ff; font-family:"JetBrains Mono", monospace; font-size:11px;'
             );
         });
     }
