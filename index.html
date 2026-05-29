@@ -3,207 +3,280 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Social Acolyte -- Advanced ML dataset orchestration and high-fidelity tactical compute systems.">
-    <meta property="og:title" content="Social Acolyte // GN&C Compute">
-    <meta property="og:description" content="Decentralized compute resources and high-performance ML dataset engineering.">
+    <meta name="description" content="Social Acolyte -- Advanced ML pipeline curation, VLA robotics kinematics, and distributed compute systems.">
+    <meta property="og:title" content="Social Acolyte // Guidance & Curation Compute">
+    <meta property="og:description" content="High-performance ML dataset engineering and distributed systems control.">
     <meta property="og:type" content="website">
-    <meta name="theme-color" content="#030305">
-    <title>Social Acolyte // GN&C Compute</title>
+    <meta name="theme-color" content="#08090b">
+    <title>Social Acolyte // Guidance & Curation Compute</title>
 
     <!--
         ======================================================================
-        NASA | DEEP SPACE NETWORK | GUIDANCE SYSTEM TERMINAL
+        LOCKHEED MARTIN | ADVANCED DEVELOPMENT PROGRAMS (SKUNK WORKS)
+        FLIGHT CONTROL SYSTEMS DIVISION -- GN&C AVIONICS SYSTEM 8
         ======================================================================
-        INERTIAL MEASUREMENT UNIT DETECTING DRIFT AT GYRO COORDINATES.
         
-        AVIONICS TELEMETRY ENCRYPTED. 
-        TO INITIATE SYSTEM CALIBRATION AND RE-ALIGN IMU PLATFORM:
+        INERTIAL MEASUREMENT SYSTEM DRIFT DETECTED AT SENSOR CHANNELS.
+        GUIDANCE COMPUTER TELEMETRY INTERNALLY ENCRYPTED.
         
-        OPEN DEVELOPER CONSOLE AND EXECUTE KEYWORD TRANSPONDER:
+        TO INITIATE TRANSPONDER ALIGNMENT AND REALIGN THE GYROSCOPES:
         
-            fcs.align("COMMAND_KEY")
+        OPEN THE WEB DEVELOPER CONSOLE AND EXECUTE THE ALIGNMENT COMMAND:
+        
+            fcs.align("TRANSPONDER_KEY")
             
-        CHALLENGE SPECIFICATION:
-        Locate the record speed set by the SR-71 Blackbird over the Atlantic.
-        Provide the Mach number as the command key, formatted in capital letters.
-        Example: If speed is Mach 9.99, call: fcs.align("MACH9.99")
+        KEY ACQUISITION PARAMETER:
+        Identify the absolute transatlantic speed record (Mach velocity)
+        recorded by the SR-71 Blackbird.
+        Format key in capital letters, e.g. "MACH3.3" or "MACH3.32".
         
-        - ground control division
+        ----------------------------------------------------------------------
+        IMU LOGICAL GATEWAYS // DSN LINK STBY
         ======================================================================
     -->
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<!-- High-performance canvas particle network representing compute nodes -->
+<!-- Dynamic canvas trajectory orbit coordinate system -->
 <canvas id="الخلفية" aria-hidden="true"></canvas>
 
-<!-- System Calibration Trigger (Top Right Interface Button) -->
-<a href="#" class="نظرة" title="System Diagnostic Utility" aria-label="system diagnostic">
-    [FCS]
+<!-- Telemetry Calibration Link (Top Right Interface) -->
+<a href="#" class="نظرة" title="System Guidance Transponder" aria-label="guidance calibration">
+    FCS STATUS // UNALIGNED
 </a>
 
 <main class="رئيسي">
 
-    <!-- Telemetry Status Panel / Header -->
+    <!-- Systems Engineering Header -->
     <header class="رأس">
         <div class="رأس-top">
             <div>
                 <h1 class="الاسم">Social <span>Acolyte</span></h1>
-                <p class="ترجمة">Avionics & ML Dataset Engineering // Est. 2004</p>
+                <p class="ترجمة">Guidance Systems, ML Pipeline Curation & Robotics // Est. 2004</p>
             </div>
         </div>
         
-        <!-- Live System Diagnostics -->
+        <!-- Live System Telemetry -->
         <div class="telemetry-board">
             <div class="telemetry-item">
-                <span class="label">NODE_STATUS</span>
-                <span class="value active" id="stat-node">SYS_ONLINE</span>
+                <span class="label">TRANS_CHANNEL</span>
+                <span class="value" id="stat-node">DSN_GN&amp;C_PRIMARY</span>
             </div>
             <div class="telemetry-item">
-                <span class="label">TRANS_FREQ</span>
-                <span class="value" id="stat-freq">344.20 MHZ</span>
+                <span class="label">FREQUENCY</span>
+                <span class="value" id="stat-freq">344.20 MHZ // STBY</span>
             </div>
             <div class="telemetry-item">
-                <span class="label">COMPUTE_INDEX</span>
-                <span class="value" id="stat-compute">98.42 GigaFlops</span>
+                <span class="label">COMPUTE_RESOURCE</span>
+                <span class="value" id="stat-compute">SECURE_SANDBOX</span>
             </div>
             <div class="telemetry-item">
-                <span class="label">IMU_ALIGN</span>
-                <span class="value" id="stat-align">UNALIGNED</span>
+                <span class="label">IMU_PLATFORM</span>
+                <span class="value" id="stat-align">UNALIGNED (DRIFT)</span>
             </div>
         </div>
     </header>
 
-    <!-- Core Philosophy: Orchestration Thesis -->
+    <!-- Curation Architecture Thesis -->
     <section class="system-panel" aria-labelledby="sec-thesis">
-        <h2 id="sec-thesis" class="عنوان">Orchestration Thesis // Data Bottleneck</h2>
+        <h2 id="sec-thesis" class="عنوان">Systems Engineering Thesis // Curation Bottleneck</h2>
         <p class="en">
-            Frontier capability is bottlenecked by data curation, not compute clustering. 
-            The next computational leap will not be a minor architecture shift -- it will be determined by high-fidelity datasets designed by engineers who pinpoint precisely what parameters are missing from general behavior model boundaries.
+            Frontier machine learning capability is bottlenecked by data curation architecture, not raw compute scale. The next generation of intelligence will not be unlocked by minor model modifications, but by high-precision training and action datasets. 
         </p>
-        <div class="code-container">
-            // COMPUTE_ORCHESTRATION_INTERFACE<br>
-            const socialAcolyte = {<br>
-            &nbsp;&nbsp;role: "Data disciple studying frontier limits to build what is next",<br>
-            &nbsp;&nbsp;methodology: "Rigorous curation via automated pipeline custom architectures",<br>
-            &nbsp;&nbsp;target: "Resolve behavioral entropy in general learning architectures"<br>
-            };
-        </div>
+        <p class="en">
+            We design, scale, and curate advanced datasets by modeling precise behavioral limits and implementing discipling pipelines to resolve compound entropy in vision-language-action (VLA) architectures.
+        </p>
     </section>
 
-    <!-- Selected Works / Pipelines -->
+    <!-- Scientific Pipeline Ledger -->
     <section class="system-panel" aria-labelledby="sec-work">
-        <h2 id="sec-work" class="عنوان">Selected Compute Work // Data Pipelines</h2>
-        <ol class="قائمة">
-            <li>
-                <a href="#">
-                    <span class="سنة">2025 // ACTIVE</span>
-                    <span class="اسم">curated ML data</span>
-                    <span class="وصف">large-scale dataset architectures: web-scraped multi-base numerical sets, synchronous ASL hands, mocap pipelines</span>
-                    <span class="سهم" aria-hidden="true">[RUN >>]</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <span class="سنة">2024 // STABLE</span>
-                    <span class="اسم">vla x robotics</span>
-                    <span class="وصف">vision-language-action performance optimizations: resolving lossy compound behavior in general robotics models</span>
-                    <span class="سهم" aria-hidden="true">[RUN >>]</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://github.com/kolbytn/mindcraft" rel="noopener">
-                    <span class="سنة">2024 // STABLE</span>
-                    <span class="اسم">mindcraft agent</span>
-                    <span class="وصف">embodied artificial intelligence agent deployed in simulated physical worlds, using the mindcraft library</span>
-                    <span class="سهم" aria-hidden="true">[RUN >>]</span>
-                </a>
-            </li>
-            <li>
-                <a href="/buisness strategy.pdf" download>
-                    <span class="سنة">2024 // REPO</span>
-                    <span class="اسم">data-layer thesis</span>
-                    <span class="وصف">aerospace logic: why the next frontier is decided strictly by dataset density, not raw processor compute</span>
-                    <span class="سهم" aria-hidden="true">[DOWNLOAD]</span>
-                </a>
-            </li>
-        </ol>
+        <h2 id="sec-work" class="عنوان">Project Pipelines // Systems Ledger</h2>
+        
+        <table class="pipeline-ledger">
+            <thead>
+                <tr>
+                    <th class="col-id">ID</th>
+                    <th class="col-title">System</th>
+                    <th class="col-desc">Specification</th>
+                    <th class="col-action">Link</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="col-id">PL-01</td>
+                    <td class="col-title">curated ML data</td>
+                    <td class="col-desc">Large-scale dataset design: multi-base numerical scraping, synchronous ASL video translation, and motion-capture kinematic processing pipelines.</td>
+                    <td class="col-action"><a href="#">[RUN // STABLE]</a></td>
+                </tr>
+                <tr>
+                    <td class="col-id">PL-02</td>
+                    <td class="col-title">vla x robotics</td>
+                    <td class="col-desc">Vision-Language-Action optimization: investigating and resolving lossy compound feedback behaviors in general robotic manipulation models.</td>
+                    <td class="col-action"><a href="#">[RUN // ACTIVE]</a></td>
+                </tr>
+                <tr>
+                    <td class="col-id">PL-03</td>
+                    <td class="col-title">mindcraft agent</td>
+                    <td class="col-desc">Embodied autonomous agent deployed inside a simulated physicalized gaming engine, built on the mindcraft coordinate integration library.</td>
+                    <td class="col-action"><a href="https://github.com/kolbytn/mindcraft" rel="noopener">[RUN // REPO]</a></td>
+                </tr>
+                <tr>
+                    <td class="col-id">PL-04</td>
+                    <td class="col-title">data-layer thesis</td>
+                    <td class="col-desc">Aerospace logic: analytical documentation detailing why the next technological frontier is determined by dataset curation over pure hardware compute.</td>
+                    <td class="col-action"><a href="/buisness strategy.pdf" download>[DOWNLOAD // PDF]</a></td>
+                </tr>
+            </tbody>
+        </table>
     </section>
 
-    <!-- Avionics Flight Blueprint (Hidden until FCS Easter Egg is solved) -->
+    <!-- Breathtaking Inline SVG Schematic of the SR-71 Blackbird (FCS Easter Egg Panel) -->
     <section class="system-panel مكشوف" id="fcs-blueprint" aria-labelledby="sec-blueprint">
-        <h2 id="sec-blueprint" class="عنوان">Tactical Avionics Schematic // LM-SR72 Blackbird</h2>
+        <h2 id="sec-blueprint" class="عنوان">Technical Blueprint // Lockheed Martin SR-71 Blackbird</h2>
         <div class="schematic-box">
-            <!-- Sleek High-Fidelity SVG Space/Aircraft Wireframe Diagram -->
-            <svg class="schematic-graphic" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
-                <!-- Background grid lines -->
-                <line x1="10" y1="10" x2="190" y2="10" stroke="rgba(0, 240, 255, 0.05)" stroke-width="0.5" />
-                <line x1="10" y1="30" x2="190" y2="30" stroke="rgba(0, 240, 255, 0.05)" stroke-width="0.5" />
-                <line x1="10" y1="50" x2="190" y2="50" stroke="rgba(0, 240, 255, 0.05)" stroke-width="0.5" />
-                <line x1="10" y1="70" x2="190" y2="70" stroke="rgba(0, 240, 255, 0.05)" stroke-width="0.5" />
-                <line x1="10" y1="90" x2="190" y2="90" stroke="rgba(0, 240, 255, 0.05)" stroke-width="0.5" />
-                <line x1="10" y1="110" x2="190" y2="110" stroke="rgba(0, 240, 255, 0.05)" stroke-width="0.5" />
-                <line x1="50" y1="10" x2="50" y2="110" stroke="rgba(0, 240, 255, 0.05)" stroke-width="0.5" />
-                <line x1="100" y1="10" x2="100" y2="110" stroke="rgba(0, 240, 255, 0.05)" stroke-width="0.5" />
-                <line x1="150" y1="10" x2="150" y2="110" stroke="rgba(0, 240, 255, 0.05)" stroke-width="0.5" />
+            
+            <!-- Hand-crafted, hyper-detailed mechanical schematic vectors of the Blackbird -->
+            <svg class="schematic-graphic" viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg">
+                <!-- Drafting Sheet Grid Lines -->
+                <line x1="10" y1="10" x2="310" y2="10" stroke="rgba(255, 255, 255, 0.03)" stroke-width="0.3" />
+                <line x1="10" y1="30" x2="310" y2="30" stroke="rgba(255, 255, 255, 0.03)" stroke-width="0.3" />
+                <line x1="10" y1="50" x2="310" y2="50" stroke="rgba(255, 255, 255, 0.03)" stroke-width="0.3" />
+                <line x1="10" y1="70" x2="310" y2="70" stroke="rgba(255, 255, 255, 0.03)" stroke-width="0.3" />
+                <line x1="10" y1="90" x2="310" y2="90" stroke="rgba(255, 255, 255, 0.03)" stroke-width="0.3" />
+                <line x1="10" y1="110" x2="310" y2="110" stroke="rgba(255, 255, 255, 0.03)" stroke-width="0.3" />
+                <line x1="10" y1="130" x2="310" y2="130" stroke="rgba(255, 255, 255, 0.03)" stroke-width="0.3" />
+                <line x1="10" y1="150" x2="310" y2="150" stroke="rgba(255, 255, 255, 0.03)" stroke-width="0.3" />
+                <line x1="10" y1="170" x2="310" y2="170" stroke="rgba(255, 255, 255, 0.03)" stroke-width="0.3" />
+                <line x1="10" y1="190" x2="310" y2="190" stroke="rgba(255, 255, 255, 0.03)" stroke-width="0.3" />
+                
+                <line x1="40" y1="10" x2="40" y2="190" stroke="rgba(255, 255, 255, 0.03)" stroke-width="0.3" />
+                <line x1="80" y1="10" x2="80" y2="190" stroke="rgba(255, 255, 255, 0.03)" stroke-width="0.3" />
+                <line x1="120" y1="10" x2="120" y2="190" stroke="rgba(255, 255, 255, 0.03)" stroke-width="0.3" />
+                <line x1="160" y1="10" x2="160" y2="190" stroke="rgba(255, 255, 255, 0.03)" stroke-width="0.3" />
+                <line x1="200" y1="10" x2="200" y2="190" stroke="rgba(255, 255, 255, 0.03)" stroke-width="0.3" />
+                <line x1="240" y1="10" x2="240" y2="190" stroke="rgba(255, 255, 255, 0.03)" stroke-width="0.3" />
+                <line x1="280" y1="10" x2="280" y2="190" stroke="rgba(255, 255, 255, 0.03)" stroke-width="0.3" />
 
-                <!-- Spacecraft Wireframe Shape -->
-                <path d="M 100 15 L 108 45 L 138 90 L 100 80 L 62 90 L 92 45 Z" fill="none" stroke="#00f0ff" stroke-width="0.85" />
-                <!-- Engine exhaust lines -->
-                <line x1="88" y1="91" x2="88" y2="108" stroke="#2563eb" stroke-width="0.75" stroke-dasharray="2,2" />
-                <line x1="112" y1="91" x2="112" y2="108" stroke="#2563eb" stroke-width="0.75" stroke-dasharray="2,2" />
+                <!-- Aircraft Plan View (Top Profile) -->
+                <!-- Fuselage center line -->
+                <line x1="20" y1="100" x2="300" y2="100" stroke="rgba(0, 229, 255, 0.15)" stroke-width="0.5" stroke-dasharray="3,3" />
+
+                <!-- Nose Chine and Fuselage outline -->
+                <path d="M 20 100 
+                         Q 50 94, 80 92 
+                         Q 110 90, 140 90
+                         L 160 76
+                         L 168 76
+                         L 174 88
+                         L 190 88
+                         L 242 50
+                         L 254 50
+                         L 250 88
+                         L 264 88
+                         L 272 100" fill="none" stroke="#00e5ff" stroke-width="0.8" />
+                         
+                <path d="M 20 100 
+                         Q 50 106, 80 108 
+                         Q 110 110, 140 110
+                         L 160 124
+                         L 168 124
+                         L 174 112
+                         L 190 112
+                         L 242 150
+                         L 254 150
+                         L 250 112
+                         L 264 112
+                         L 272 100" fill="none" stroke="#00e5ff" stroke-width="0.8" />
+
+                <!-- Engine Nacelles (Left and Right) -->
+                <!-- Left Engine -->
+                <rect x="156" y="68" width="80" height="10" fill="none" stroke="#00e5ff" stroke-width="0.75" />
+                <path d="M 156 73 L 138 73 L 156 69 Z" fill="none" stroke="#00e5ff" stroke-width="0.6" /> <!-- Inlet Spike -->
+                <line x1="236" y1="68" x2="252" y2="70" stroke="#00e5ff" stroke-width="0.6" />
+                <line x1="236" y1="78" x2="252" y2="76" stroke="#00e5ff" stroke-width="0.6" />
+                <!-- Right Engine -->
+                <rect x="156" y="122" width="80" height="10" fill="none" stroke="#00e5ff" stroke-width="0.75" />
+                <path d="M 156 127 L 138 127 L 156 131 Z" fill="none" stroke="#00e5ff" stroke-width="0.6" /> <!-- Inlet Spike -->
+                <line x1="236" y1="122" x2="252" y2="120" stroke="#00e5ff" stroke-width="0.6" />
+                <line x1="236" y1="132" x2="252" y2="130" stroke="#00e5ff" stroke-width="0.6" />
+
+                <!-- Wing Inner Fillets and Structural Rib Lines -->
+                <line x1="168" y1="88" x2="236" y2="88" stroke="rgba(0, 229, 255, 0.4)" stroke-width="0.5" />
+                <line x1="168" y1="112" x2="236" y2="112" stroke="rgba(0, 229, 255, 0.4)" stroke-width="0.5" />
                 
-                <!-- Crosshairs and lock indicators -->
-                <circle cx="100" cy="55" r="35" fill="none" stroke="rgba(0, 240, 255, 0.15)" stroke-width="0.5" stroke-dasharray="4,4" />
-                <circle cx="100" cy="55" r="4" fill="none" stroke="#00f0ff" stroke-width="0.75" />
-                <line x1="100" y1="20" x2="100" y2="90" stroke="rgba(0, 240, 255, 0.2)" stroke-width="0.5" />
-                <line x1="60" y1="55" x2="140" y2="55" stroke="rgba(0, 240, 255, 0.2)" stroke-width="0.5" />
+                <line x1="180" y1="88" x2="220" y2="60" stroke="rgba(255, 255, 255, 0.08)" stroke-width="0.5" />
+                <line x1="200" y1="88" x2="235" y2="60" stroke="rgba(255, 255, 255, 0.08)" stroke-width="0.5" />
+                <line x1="180" y1="112" x2="220" y2="140" stroke="rgba(255, 255, 255, 0.08)" stroke-width="0.5" />
+                <line x1="200" y1="112" x2="235" y2="140" stroke="rgba(255, 255, 255, 0.08)" stroke-width="0.5" />
+
+                <!-- Structural Callout Line Anchors & Muted Dimension Indicators -->
+                <!-- Callout A: Pratt & Whitney J58 Engines -->
+                <line x1="196" y1="73" x2="196" y2="35" stroke="rgba(0, 229, 255, 0.4)" stroke-width="0.5" />
+                <line x1="196" y1="35" x2="160" y2="35" stroke="rgba(0, 229, 255, 0.4)" stroke-width="0.5" />
+                <circle cx="196" cy="73" r="1.2" fill="#00e5ff" />
+                <text x="76" y="38" font-family="'JetBrains Mono', monospace" font-size="6" fill="#00e5ff" opacity="0.95">J58 HYBRID TURBOJET / RAMJET</text>
+
+                <!-- Callout B: AST-3 Astro-Inertial Guidance Unit -->
+                <line x1="94" y1="94" x2="94" y2="60" stroke="rgba(0, 229, 255, 0.4)" stroke-width="0.5" />
+                <line x1="94" y1="60" x2="70" y2="60" stroke="rgba(0, 229, 255, 0.4)" stroke-width="0.5" />
+                <circle cx="94" cy="94" r="1.2" fill="#00e5ff" />
+                <text x="12" y="63" font-family="'JetBrains Mono', monospace" font-size="6" fill="#00e5ff" opacity="0.95">AST-3 AVIONICS PLATFORM</text>
+
+                <!-- Callout C: Inconel-X Heat Skin -->
+                <line x1="220" y1="100" x2="220" y2="165" stroke="rgba(0, 229, 255, 0.4)" stroke-width="0.5" />
+                <line x1="220" y1="165" x2="175" y2="165" stroke="rgba(0, 229, 255, 0.4)" stroke-width="0.5" />
+                <circle cx="220" cy="100" r="1.2" fill="#00e5ff" />
+                <text x="96" y="168" font-family="'JetBrains Mono', monospace" font-size="6" fill="#00e5ff" opacity="0.95">INCONEL-X METALLIC SKIN</text>
                 
-                <!-- Coordinate Vector Points -->
-                <circle cx="108" cy="45" r="1.5" fill="#00f0ff" />
-                <circle cx="92" cy="45" r="1.5" fill="#00f0ff" />
-                <circle cx="138" cy="90" r="1.5" fill="#00f0ff" />
-                <circle cx="62" cy="90" r="1.5" fill="#00f0ff" />
+                <!-- Crosshairs lock indicators -->
+                <circle cx="20" cy="100" r="8" fill="none" stroke="rgba(0, 229, 255, 0.2)" stroke-width="0.5" />
+                <line x1="20" y1="90" x2="20" y2="110" stroke="rgba(0, 229, 255, 0.1)" stroke-width="0.5" />
+                <line x1="10" y1="100" x2="30" y2="100" stroke="rgba(0, 229, 255, 0.1)" stroke-width="0.5" />
                 
-                <!-- Telemetry text overlay in SVG -->
-                <text x="12" y="24" font-family="'JetBrains Mono', monospace" font-size="5" fill="#00f0ff" opacity="0.8">TGT // LOCK</text>
-                <text x="12" y="32" font-family="'JetBrains Mono', monospace" font-size="5" fill="#94a3b8" opacity="0.6">ALT // 84,200 FT</text>
-                <text x="145" y="24" font-family="'JetBrains Mono', monospace" font-size="5" fill="#00f0ff" opacity="0.8">VEL // MACH 3.32</text>
-                <text x="145" y="32" font-family="'JetBrains Mono', monospace" font-size="5" fill="#94a3b8" opacity="0.6">DST // ORBITAL</text>
+                <!-- Aircraft dimensions text overlay in SVG -->
+                <text x="250" y="24" font-family="'JetBrains Mono', monospace" font-size="5.5" fill="#00e5ff">LM // SR-71</text>
+                <text x="250" y="32" font-family="'JetBrains Mono', monospace" font-size="4.5" fill="#475569">L_MAX // 107.4 FT</text>
+                <text x="250" y="38" font-family="'JetBrains Mono', monospace" font-size="4.5" fill="#475569">W_MAX // 55.6 FT</text>
             </svg>
 
-            <!-- Diagnostics log feed -->
+            <!-- Dynamic Telemetry Log Box -->
             <div class="schematic-data">
                 <div class="data-log" id="fcs-log">
-                    [SYSTEM DECRYPT INITIALIZED...]<br>
-                    [ACQUIRING INTERTIAL MATRIX DATA...]<br>
-                    <span class="success">FCS STATUS: SECURE</span><br>
-                    <span class="highlight">IMU PLATFORM SYSTEM CALIBRATED</span><br>
-                    READY FOR TRANS-ORBITAL FLIGHT GUIDANCE DATASETS.<br>
+                    [SYSTEM_TRANSPONDER_HANDSHAKE_READY]<br>
+                    [ACQUIRING IMU CALIBRATION PARAMETERS...]<br>
+                    <span class="success">FCS STAT: SECURE</span><br>
+                    <span class="highlight">IMU PLATFORM REGISTER DRIFT ELIMINATED</span><br>
+                    TRANSPONDER FREQ LOCK: 742.80 MHZ (STABLE)<br>
                     ---------------------------------------<br>
-                    [STREAMING ACTIVE DATA STREAMS...]<br>
-                    ROLL VECTOR: +0.021 RAD // PITCH VECTOR: +0.048 RAD<br>
-                    GUIDANCE TELEMETRY FEED LOCK: OK<br>
-                    DECENTRALIZED WORK COMPLETED. WELL DONE GROUND CONTROL.
+                    <span class="muted">[STREAMING PASSIVE FLIGHT LOGS...]</span><br>
+                    VELOCITY VECTOR: MACH 3.32 (CRUISE)<br>
+                    ALTITUDE TELEMETRY: 84,200 FT<br>
+                    ENGINE HYBRID SPIKES: 26 INCHES RETRACTED<br>
+                    AST-3 ASTRO-INERTIAL LOCK: SOL-IV ALPHA CYGNI<br>
+                    PITCH COEFFICIENT: +0.024 RAD<br>
+                    ROLL COEFFICIENT: +0.000 RAD (STABLE)<br>
+                    YAW DRIFT MATRIX: +0.000 RAD (STABLE)<br>
+                    ---------------------------------------<br>
+                    SYSTEM UNLOCKED. TELEMETRY SECURE. WELL DONE.
                 </div>
             </div>
         </div>
         <p class="en">
-            FCS flight computer online. The aircraft is aligned and telemetry transmission is established. Data streaming active.
+            Transponder lock established. Core flight systems aligned with zero gyro drift. Active telemetry pipeline connected to ground station USA-ADELAIDE-42.
         </p>
     </section>
 
-    <!-- Seed Round Status / CTA -->
+    <!-- Seed Round Status / Connection Interface -->
     <section class="system-panel" aria-labelledby="sec-contact">
-        <h2 id="sec-contact" class="عنوان">System Interface // Ground Connection</h2>
+        <h2 id="sec-contact" class="عنوان">System Connection // Ground Allocation</h2>
         <a class="حال" href="https://x.com/SocialAcolyte">
-            <span class="en-حال">seed compute round -- open for allocation</span>
-            <span class="سهم">[CONNECT CLIENT >>]</span>
+            <span class="en-حال">Seed Allocation Curation Round -- Active</span>
+            <span class="سهم">[CONNECT CLIENT NODE // SSH]</span>
         </a>
     </section>
 
@@ -215,7 +288,7 @@
         <span class="dot">//</span>
         <a href="https://www.linkedin.com/in/connor-m-hood/" rel="me">linkedin</a>
         <span class="dot">//</span>
-        <a href="/resume.html">cv-datasheet</a>
+        <a href="/resume.html">cv-specsheet</a>
         <span class="dot">//</span>
         <a href="#" class="mوقع">terminal</a>
     </nav>

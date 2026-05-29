@@ -1,15 +1,15 @@
 /*
  *  ======================================================================
- *  LOCKHEED-MARTIN / PRIME INTELLECT FLIGHT COMPUTER LOGIC
- *  PROJECT: SOCIAL ACOLYTE AVIONICS CONTROLS & NEURAL PIPELINES
- *  ZERO-EMOJI SYSTEM PROTOCOL
+ *  LOCKHEED-MARTIN / SKUNK WORKS FLIGHT SYSTEM CONTROLLER
+ *  THEME: TACTICAL AVIONICS & MATHEMATICAL VECTOR GRID
+ *  ZERO-EMOJI AND ZERO-CLICHÉ SYSTEM ARCHITECTURE
  *  ======================================================================
  */
 
 (() => {
     'use strict';
 
-    /* --- 1. Compute Node Grid / Canvas Particles Simulation --- */
+    /* --- 1. Canvas Mathematical Trajectory Orbit & Coordinate Grid --- */
 
     const canvas = document.getElementById('الخلفية');
     const ctx = canvas.getContext('2d');
@@ -18,53 +18,124 @@
 
     let width = 0;
     let height = 0;
-    let particles = [];
-    let lineDistLimit = 95;
-    let densityModifier = 1;
+    let trajectories = [];
+    let speedModifier = 1.0;
     let mouse = { x: null, y: null, active: false };
 
-    class NodeParticle {
-        constructor(initial = false) {
-            this.x = Math.random() * width;
-            this.y = initial ? Math.random() * height : -10 - Math.random() * 20;
-            this.vx = (Math.random() - 0.5) * 0.45;
-            this.vy = 0.15 + Math.random() * 0.45;
-            this.radius = 1.2 + Math.random() * 1.6;
-            this.baseSpeedFactor = 1;
+    // Represents a mathematical orbital vector trail
+    class TrajectoryOrbit {
+        constructor(index, total) {
+            this.index = index;
+            this.total = total;
+            this.reset();
+        }
+
+        reset() {
+            // Position along the coordinate vector paths
+            this.progress = Math.random();
+            this.speed = 0.0003 + Math.random() * 0.0006;
+            this.baseRadius = 150 + (this.index / this.total) * 280;
+            this.eccentricity = 0.2 + Math.random() * 0.3; // Elliptical distortion
+            this.angleOffset = (this.index / this.total) * Math.PI * 2;
+            this.phase = Math.random() * Math.PI * 2;
         }
 
         update() {
-            // Apply speed velocity
-            this.x += this.vx * this.baseSpeedFactor * densityModifier;
-            this.y += this.vy * this.baseSpeedFactor * densityModifier;
-
-            // Handle screen edge wrapping
-            if (this.x < -10) this.x = width + 10;
-            if (this.x > width + 10) this.x = -10;
-            if (this.y > height + 10) {
-                this.y = -10;
-                this.x = Math.random() * width;
-            }
-
-            // Mouse Gravitational Lensing / Attraction
-            if (mouse.active && mouse.x !== null && mouse.y !== null) {
-                const dx = mouse.x - this.x;
-                const dy = mouse.y - this.y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-                if (distance < 150) {
-                    const force = (150 - distance) / 1500;
-                    this.x += (dx / distance) * force * 15;
-                    this.y += (dy / distance) * force * 15;
-                }
-            }
+            this.progress += this.speed * speedModifier;
+            if (this.progress > 1) this.progress = 0;
+            this.phase += 0.005;
         }
 
         draw() {
-            ctx.fillStyle = `rgba(0, 240, 255, ${0.12 * densityModifier})`;
+            this.update();
+
+            const centerX = width / 2;
+            const centerY = height / 2;
+            const currentAngle = this.progress * Math.PI * 2 + this.angleOffset;
+
+            // Basic Keplerian elliptical orbit coordinates
+            let targetX = centerX + Math.cos(currentAngle) * this.baseRadius;
+            let targetY = centerY + Math.sin(currentAngle) * this.baseRadius * (1 - this.eccentricity);
+
+            // Gravitational Lensing / Mouse Deflection
+            if (mouse.active && mouse.x !== null && mouse.y !== null) {
+                const dx = mouse.x - targetX;
+                const dy = mouse.y - targetY;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                if (distance < 180) {
+                    const lensingIntensity = (180 - distance) / 180;
+                    // Deflect orbit path slightly toward the gravitational body (cursor)
+                    targetX += (dx / distance) * lensingIntensity * 36;
+                    targetY += (dy / distance) * lensingIntensity * 36;
+                }
+            }
+
+            // Draw Orbit Trail Vector Line
             ctx.beginPath();
-            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+            ctx.strokeStyle = `rgba(0, 229, 255, ${0.045 * speedModifier})`;
+            ctx.lineWidth = 0.75;
+            
+            // Draw full ellipse outline path
+            ctx.ellipse(
+                centerX, 
+                centerY, 
+                this.baseRadius, 
+                this.baseRadius * (1 - this.eccentricity), 
+                this.angleOffset, 
+                0, 
+                Math.PI * 2
+            );
+            ctx.stroke();
+
+            // Draw active compute data-node on the orbit path
+            ctx.beginPath();
+            ctx.fillStyle = `rgba(0, 229, 255, ${0.35 * speedModifier})`;
+            ctx.arc(targetX, targetY, 1.8, 0, Math.PI * 2);
             ctx.fill();
         }
+    }
+
+    function drawBlueprintBorderMetrics() {
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.02)';
+        ctx.lineWidth = 1;
+        
+        // Horizontal and Vertical border rules
+        ctx.beginPath();
+        ctx.moveTo(12, 12);
+        ctx.lineTo(width - 12, 12);
+        ctx.lineTo(width - 12, height - 12);
+        ctx.lineTo(12, height - 12);
+        ctx.closePath();
+        ctx.stroke();
+
+        // Architectural dimension coordinate labels
+        ctx.font = "9px 'JetBrains Mono', monospace";
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.12)';
+        
+        // Draw coordinate axes indicators
+        const step = 80;
+        for (let x = step; x < width; x += step) {
+            ctx.fillText(`X:${x}`, x - 12, 22);
+            ctx.fillText(`X:${x}`, x - 12, height - 18);
+        }
+        for (let y = step; y < height; y += step) {
+            ctx.fillText(`Y:${y}`, 18, y + 3);
+            ctx.fillText(`Y:${y}`, width - 42, y + 3);
+        }
+    }
+
+    function drawTelemetryGrid() {
+        ctx.clearRect(0, 0, width, height);
+
+        // Render Coordinate blueprint metrics first
+        drawBlueprintBorderMetrics();
+
+        // Render Orbit Trajectories
+        for (let i = 0; i < trajectories.length; i++) {
+            trajectories[i].draw();
+        }
+
+        requestAnimationFrame(drawTelemetryGrid);
     }
 
     function resizeCanvas() {
@@ -79,45 +150,14 @@
         ctx.setTransform(1, 0, 0, 1, 0, 0);
         ctx.scale(dpr, dpr);
 
-        const particleCount = Math.max(18, Math.floor((width * height) / 14000));
-        particles = [];
-        for (let i = 0; i < particleCount; i++) {
-            particles.push(new NodeParticle(true));
+        const trajectoryCount = Math.max(8, Math.floor(width / 120));
+        trajectories = [];
+        for (let i = 0; i < trajectoryCount; i++) {
+            trajectories.push(new TrajectoryOrbit(i, trajectoryCount));
         }
     }
 
-    function drawVectorGrid() {
-        ctx.clearRect(0, 0, width, height);
-
-        // Update & Draw Particles
-        for (let i = 0; i < particles.length; i++) {
-            particles[i].update();
-            particles[i].draw();
-        }
-
-        // Draw Interconnecting Vector Lines
-        for (let i = 0; i < particles.length; i++) {
-            for (let j = i + 1; j < particles.length; j++) {
-                const dx = particles[i].x - particles[j].x;
-                const dy = particles[i].y - particles[j].y;
-                const dist = Math.sqrt(dx * dx + dy * dy);
-
-                if (dist < lineDistLimit) {
-                    const alpha = (1 - (dist / lineDistLimit)) * 0.08 * densityModifier;
-                    ctx.strokeStyle = `rgba(0, 240, 255, ${alpha})`;
-                    ctx.lineWidth = 0.6;
-                    ctx.beginPath();
-                    ctx.moveTo(particles[i].x, particles[i].y);
-                    ctx.lineTo(particles[j].x, particles[j].y);
-                    ctx.stroke();
-                }
-            }
-        }
-
-        requestAnimationFrame(drawVectorGrid);
-    }
-
-    // Set up mouse events for gravitational lensing
+    // Capture cursor coordinates
     window.addEventListener('mousemove', (e) => {
         mouse.x = e.clientX;
         mouse.y = e.clientY;
@@ -128,57 +168,60 @@
         mouse.active = false;
     });
 
-    let resizeTimeout;
+    let resizeDebounce;
     window.addEventListener('resize', () => {
-        clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(resizeCanvas, 150);
+        clearTimeout(resizeDebounce);
+        resizeDebounce = setTimeout(resizeCanvas, 120);
     });
 
     resizeCanvas();
-    requestAnimationFrame(drawVectorGrid);
+    requestAnimationFrame(drawTelemetryGrid);
 
 
-    /* --- 2. NASA / Lockheed Skunk Works Console Bootstrap --- */
+    /* --- 2. High-Fidelity Aerospace Telemetry Console Bootloader --- */
 
     const bootSequence = [
         '======================================================================',
         'LOCKHEED MARTIN | ADVANCED DEVELOPMENT PROGRAMS (SKUNK WORKS)',
-        'FLIGHT CONTROL SYSTEM (FCS) v8.42 - GROUND TELEMETRY ACCESS',
+        'TACTICAL FCS GN&C DIAGNOSTICS -- GROUND PORT USA-ADELAIDE-42',
         '======================================================================',
-        'STATUS: SECURE_INERTIAL_PLATFORM_LOCKED',
-        'TRANS_FREQ: DSN_LINK_STBY',
-        'ALIGN_STATE: IMU_DRIFT_DETECTOR',
+        'STATUS: CORE_SYSTEM_STBY // ALIGNMENT_IMU_DRIFT_DETECTOR',
+        'TRANS_FREQ: DSN_TRANSCEIVERS_LINK_STBY (344.20 MHZ)',
+        'MEM_ALLOCATION: [OCTAL] 073210 -> 077420 STBY',
+        'SENSORS INDEXING:',
+        '  - PITCH GYRO MISALIGNMENT: +0.048 DEG/HR',
+        '  - ROLL GYRO MISALIGNMENT:  -0.032 DEG/HR',
+        '  - YAW GYRO MISALIGNMENT:   +0.012 DEG/HR',
         '',
-        'WARNING: FCS GYRO PLATFORM CONTAINS DRIFT DEVIATIONS.',
-        'GROUND CONTROLS MUST MANUAL ALIGN TRANSPONDER CALIBRATION.',
+        'WARNING: FLIGHT SYSTEMS BLUEPRINT BLOCKED DUE TO IMU DRIFT DEVIATION.',
+        'GROUND CONTROLLER SYSTEM CALIBRATION REQUIRED.',
         '',
-        'TO EXECUTE AUTOMATIC SENSOR REALIGNMENT SEQUENCE:',
-        'RUN TRANSPONDER DECRYPTION IN CONSOLE:',
+        'TO CONFIGURE ALIGNMENT MATRIX AND RETRIEVE DETAILED AIRCRAFT SCHEMATICS:',
+        'EXECUTE COMMAND ALIGNMENT PROCEDURE IN TERMINAL CONSOLE:',
         '',
         '      fcs.align("COMMAND_KEY")',
         '',
-        'DECRYPTION PARAMETER HINT:',
-        'Identify the legendary world speed record (Mach number) set',
-        'by the Lockheed SR-71 Blackbird in its historic transatlantic flight.',
-        'Format the key as "MACH" followed by the decimals (e.g. "MACH3.3" or "MACH3.32").',
+        'DECRYPTION PARAMETER SPECIFICATION:',
+        'Locate the world speed record (Mach number) achieved by the SR-71 Blackbird.',
+        'Format parameter in capital letters (e.g. "MACH3.3" or "MACH3.32").',
         '======================================================================',
     ].join('\n');
 
     console.log(
         '%c' + bootSequence,
-        'color:#00f0ff; font-family:"JetBrains Mono", monospace; font-size:11px; line-height:1.45;'
+        'color:#00e5ff; font-family:"JetBrains Mono", monospace; font-size:11px; line-height:1.45;'
     );
 
 
-    /* --- 3. Interactive Transponder Telemetry Alignment Challenge --- */
+    /* --- 3. Interactive Transponder Telemetry Alignment System --- */
 
     const solutionA = 'MACH3.32';
     const solutionB = 'MACH3.3';
 
-    let alignmentComplete = false;
+    let isAligned = false;
 
-    function triggerAvionicsUnlock() {
-        if (alignmentComplete) return;
+    function executeAvionicsUnlock() {
+        if (isAligned) return;
         
         const fcsPanel = document.getElementById('fcs-blueprint');
         const statAlign = document.getElementById('stat-align');
@@ -188,44 +231,44 @@
 
         if (!fcsPanel) return;
 
-        alignmentComplete = true;
+        isAligned = true;
 
         // Visual Canvas Acceleration
-        densityModifier = 2.8;
-        lineDistLimit = 130;
+        speedModifier = 2.4;
 
-        // System state interface update
+        // Unlock system panels
         fcsPanel.classList.add('ظاهر');
         
+        // Update live interface data values
         if (statAlign) {
-            statAlign.textContent = 'ALIGNED';
+            statAlign.textContent = 'ALIGNED (IMU LOCK)';
             statAlign.classList.add('active');
         }
         if (statNode) {
-            statNode.textContent = 'SYS_ACTIVE';
+            statNode.textContent = 'ACTIVE (DSN LINK)';
             statNode.classList.add('active');
         }
         if (statCompute) {
-            statCompute.textContent = 'MAX_BANDWIDTH';
+            statCompute.textContent = 'SECURE_CORE_ALIGNED';
             statCompute.classList.add('active');
         }
         if (statFreq) {
-            statFreq.textContent = '742.80 MHZ';
+            statFreq.textContent = '742.80 MHZ (SECURE)';
             statFreq.classList.add('active');
         }
 
-        // Write simulated live telemetry data scrolling feed
+        // Write simulated live telemetry calibration data lines in UI
         const logBox = document.getElementById('fcs-log');
         if (logBox) {
             let logLines = [
-                '[CALIBRATING ACCELEROMETER CODES... OK]',
-                '[SYNCHRONIZING DSN TRANSCEIVERS WITH USA-ADELAIDE-42... OK]',
-                '<span class="success">[SYSTEM LOCK AT 742.80 MHZ TRANSMISSION]</span>',
-                '<span class="highlight">[ALIGNMENT COMPLETE: SECURE BLUEPRINT UNLOCKED]</span>',
-                'PITCH SENSOR STABLE AT zero deviation',
-                'ROLL COEFFICIENTS ALIGNED TO AVIONICS MATRIX',
-                'FLIGHT CONTROL LAUNCH SYSTEM ENGAGED.',
-                'STREAMING AVIONICS FLIGHT SPECS // ALL NETWORKS ONLINE.'
+                '[FCS INFO] Calibration initialization vector dispatched...',
+                '[FCS INFO] Synced transponders with Adelaide ground array USA-ADELAIDE-42...',
+                '<span class="success">[FCS SUCCESS] IMU gyro platforms stabilized at zero drift matrix.</span>',
+                '<span class="highlight">[FCS LOCK] SR-71 avionics schematic decryption complete. [OK]</span>',
+                '[TELEMETRY UPDATE] Pitch: 0.000 rad | Roll: 0.000 rad | Yaw: 0.000 rad',
+                '[TELEMETRY UPDATE] Astro-inertial navigation locked: SOL-IV ALPHA CYGNI',
+                '[TELEMETRY UPDATE] Ramjet J58 powerplants status: Idle cruise thrust',
+                '<span class="success">FCS STATUS: ACTIVE FLIGHT PATH UNLOCKED. DATA STREAM SECURED.</span>'
             ];
             
             let index = 0;
@@ -237,7 +280,7 @@
                 } else {
                     clearInterval(logInterval);
                 }
-            }, 600);
+            }, 500);
         }
     }
 
@@ -245,7 +288,7 @@
         align: function (commandKey) {
             if (typeof commandKey !== 'string') {
                 console.log(
-                    '%c[FCS WARN] Transponder align requires string format, e.g. fcs.align("MACH3.3")',
+                    '%c[FCS WARN] Transponder alignment requires a string parameter, e.g. fcs.align("MACH3.3")',
                     'color:#475569; font-family:"JetBrains Mono", monospace; font-size:11px;'
                 );
                 return undefined;
@@ -253,35 +296,35 @@
 
             const cleanKey = commandKey.toUpperCase().replace(/\s+/g, '');
             if (cleanKey === solutionA || cleanKey === solutionB) {
-                triggerAvionicsUnlock();
+                executeAvionicsUnlock();
                 console.log(
-                    '%c[FCS SUCCESS] TRANSIGNAL MATCHED. GYROS ALIGNED. BLUEPRINT DECRYPTED. DSN ONLINE. [SUCCESS]',
-                    'color:#00f0ff; font-family:"JetBrains Mono", monospace; font-size:11px; font-weight:700;'
+                    '%c[FCS SUCCESS] CALIBRATION VECTOR MATCHED. IMU PLATFORM SECURED. BLUEPRINTS DRAWN. [SECURE]',
+                    'color:#00e5ff; font-family:"JetBrains Mono", monospace; font-size:11px; font-weight:700;'
                 );
-                return 'FCS_ALIGN_OK';
+                return 'FCS_ALIGNMENT_SUCCESS';
             }
 
             console.log(
-                '%c[FCS ERROR] COMMAND SIGNAL MISMATCH. TRANSPONDER OUT OF PHASE. ALIGNMENT FAILS.',
+                '%c[FCS ERROR] DECRYPTION REJECTED. TRANSPONDER KEY OUT OF PHASE. ALIGNMENT ABORTED.',
                 'color:#475569; font-family:"JetBrains Mono", monospace; font-size:11px;'
             );
             return null;
         }
     };
 
-    // Standard fallback trigger for other terminal keywords
+    // Keep quieter alias
     window.solve = window.fcs.align;
 
-    /* --- Core Drift Interactive Calibration Button --- */
+    /* --- Tactical eye trigger --- */
     const fcsBtn = document.querySelector('.نظرة');
     if (fcsBtn) {
         fcsBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            // Flare canvas speed temporarily
-            densityModifier = Math.min(densityModifier + 0.5, 4.0);
+            // Pulse trajectory velocities
+            speedModifier = Math.min(speedModifier + 0.4, 3.5);
             console.log(
-                '%c[FCS INFO] Diagnostic pulse dispatched. Verify terminal console for ground control bootstrap instructions.',
-                'color:#00f0ff; font-family:"JetBrains Mono", monospace; font-size:11px;'
+                '%c[FCS INFO] Calibration diagnostics dispatched. Inspect developer console for transponder instructions.',
+                'color:#00e5ff; font-family:"JetBrains Mono", monospace; font-size:11px;'
             );
         });
     }
