@@ -1,37 +1,28 @@
 /*
  *  ======================================================================
- *  AEROSPACE TECHNICAL SCHEMATIC CORE DESIGN SYSTEM
- *  THEME: OBSIDIAN MATTE / SURGICAL CYAN / TECHNICAL BLUEPRINT
- *  ZERO-EMOJI AND ZERO-CLICHÉ ENGINEERING PROTOCOL
+ *  BESPOKE PURE-BLACK MASTERPIECE DESIGN SYSTEM
+ *  THEME: PURE VOID / PLATINUM WHITE / INDUSTRIAL MONOCHROME
+ *  ZERO-EMOJI AND ZERO-CLICHÉ SYSTEM ARCHITECTURE
  *  ======================================================================
  */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600&family=JetBrains+Mono:wght@100;200;300;400;700&display=swap');
 
 :root {
-    --bg-obsidian: #08090b;
-    --bg-panel: #0c0e12;
-    --bg-panel-hover: #12151b;
-    
+    --bg-void: #000000;
+    --text-high: #ffffff;
+    --text-mid: #a1a1aa;
+    --text-low: #3f3f46;
+    --text-dark: #18181b;
     --cyan-clinical: #00e5ff;
-    --cyan-glow: rgba(0, 229, 255, 0.2);
-    --blue-dark: #0f172a;
-    --blue-electric: #1e3a8a;
-    
-    --text-high: #f8fafc;
-    --text-mid: #94a3b8;
-    --text-low: #475569;
-    --text-accent: #00e5ff;
     
     --border-thin: rgba(255, 255, 255, 0.05);
     --border-mid: rgba(255, 255, 255, 0.12);
-    --border-accent: rgba(0, 229, 255, 0.25);
     
     --font-mono: 'JetBrains Mono', monospace;
     --font-sans: 'Inter', sans-serif;
     
-    --transition-speed: 0.15s;
-    --grid-step: 16px;
+    --transition-speed: 0.2s;
 }
 
 * {
@@ -43,42 +34,38 @@
 html, body {
     width: 100%;
     min-height: 100vh;
-    background-color: var(--bg-obsidian);
+    background-color: var(--bg-void);
     color: var(--text-mid);
     font-family: var(--font-sans);
-    font-weight: 300;
+    font-weight: 200;
     font-size: 13.5px;
-    line-height: 1.6;
+    line-height: 1.7;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    
-    /* Fine-drawn blueprint dot grid background */
-    background-image: radial-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-    background-size: var(--grid-step) var(--grid-step);
 }
 
 ::selection {
-    background-color: rgba(0, 229, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.08);
     color: var(--text-high);
 }
 
 /* Scrollbar System */
 ::-webkit-scrollbar {
-    width: 4px;
-    height: 4px;
+    width: 3px;
+    height: 3px;
 }
 ::-webkit-scrollbar-track {
-    background: var(--bg-obsidian);
+    background: var(--bg-void);
 }
 ::-webkit-scrollbar-thumb {
     background: var(--text-low);
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--cyan-clinical);
+    background: var(--text-mid);
 }
 
-/* Canvas Vector Trajectory Grid */
+/* Canvas Mathematical Vector Attractor Background */
 #الخلفية {
     position: fixed;
     inset: 0;
@@ -86,177 +73,137 @@ html, body {
     pointer-events: none;
 }
 
-/* Master Layout Framework */
+/* Spacious Centered Layout */
 .رئيسي {
     position: relative;
     z-index: 2;
-    max-width: 960px;
+    max-width: 800px;
     margin: 0 auto;
-    padding: 60px 24px 120px;
+    padding: 12vh 24px 160px;
     display: flex;
     flex-direction: column;
-    gap: 32px;
+    gap: 72px;
 }
 
-/* Technical Specification Header Panel */
+/* Spacious Minimalist Header */
 .رأس {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 20px;
-    background: var(--bg-panel);
-    border: 1px solid var(--border-thin);
-    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
     position: relative;
-}
-
-/* Subtle corner drafting ticks to evoke a physical blueprint */
-.رأس::before, .system-panel::before {
-    content: '';
-    position: absolute;
-    top: -1px;
-    left: 20px;
-    width: 40px;
-    height: 1px;
-    background: rgba(255, 255, 255, 0.15);
-}
-
-.رأس::after, .system-panel::after {
-    content: '';
-    position: absolute;
-    left: -1px;
-    top: 20px;
-    width: 1px;
-    height: 40px;
-    background: rgba(255, 255, 255, 0.15);
 }
 
 .رأس-top {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    border-bottom: 1px solid var(--border-thin);
-    padding-bottom: 16px;
     flex-wrap: wrap;
-    gap: 16px;
+    gap: 12px;
 }
 
 .الاسم {
-    font-family: var(--font-mono);
-    font-size: 26px;
-    font-weight: 700;
-    letter-spacing: -0.02em;
+    font-family: var(--font-sans);
+    font-size: clamp(28px, 6vw, 36px);
+    font-weight: 500;
+    letter-spacing: -0.04em;
     color: var(--text-high);
     text-transform: uppercase;
 }
 
 .الاسم span {
-    color: var(--cyan-clinical);
-    font-weight: 300;
+    font-weight: 100;
+    color: var(--text-mid);
 }
 
 .ترجمة {
     font-family: var(--font-mono);
     font-size: 10px;
-    letter-spacing: 0.08em;
+    font-weight: 200;
+    letter-spacing: 0.06em;
     color: var(--text-low);
     text-transform: uppercase;
 }
 
-/* Telemetry Dashboard Data Grid */
+/* Silent System Status indicators */
 .telemetry-board {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 16px;
-}
-
-.telemetry-item {
+    display: flex;
+    gap: 24px;
     font-family: var(--font-mono);
-    font-size: 10.5px;
-    padding: 10px 14px;
-    background: rgba(0, 0, 0, 0.15);
-    border: 1px solid var(--border-thin);
-}
-
-.telemetry-item .label {
-    display: block;
+    font-size: 9.5px;
     color: var(--text-low);
     text-transform: uppercase;
-    font-size: 9px;
-    margin-bottom: 4px;
     letter-spacing: 0.05em;
+    border-top: 1px solid var(--border-thin);
+    padding-top: 14px;
 }
 
-.telemetry-item .value {
-    font-weight: 500;
+.telemetry-item span.value {
     color: var(--text-mid);
 }
 
-.telemetry-item .value.active {
+.telemetry-item span.value.active {
     color: var(--cyan-clinical);
 }
 
-/* Structural Wireframe Grid Panels */
+/* Spacious Content Panels */
 .system-panel {
-    background: var(--bg-panel);
-    border: 1px solid var(--border-thin);
-    padding: 30px 24px;
     display: flex;
     flex-direction: column;
     gap: 20px;
     position: relative;
-    transition: border-color var(--transition-speed);
-}
-
-.system-panel:hover {
-    border-color: rgba(255, 255, 255, 0.08);
 }
 
 .عنوان {
     font-family: var(--font-mono);
-    font-size: 11px;
-    font-weight: 700;
+    font-size: 10.5px;
+    font-weight: 300;
     color: var(--text-high);
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    display: flex;
-    align-items: center;
-    gap: 12px;
 }
 
 .عنوان::before {
-    content: '//';
-    color: var(--cyan-clinical);
+    content: '// ';
+    color: var(--text-low);
 }
 
-/* Grounded, Mature Prose */
-.en {
-    font-family: var(--font-sans);
-    font-size: 13.5px;
-    line-height: 1.65;
-    color: var(--text-mid);
-    max-width: 820px;
+/* Master Introspection Matrix Canvas Area */
+.matrix-container {
+    width: 100%;
+    position: relative;
+    border: 1px solid var(--border-thin);
+    background: rgba(255, 255, 255, 0.005);
+    padding: 12px;
+    overflow: hidden;
 }
 
-/* Scientific Pipeline Ledger (Replaces project cards) */
+.matrix-canvas {
+    width: 100%;
+    height: 320px;
+    display: block;
+    cursor: crosshair;
+}
+
+/* Quiet, Monospaced Systems Ledger */
 .pipeline-ledger {
     width: 100%;
     border-collapse: collapse;
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 10.5px;
     margin-top: 8px;
 }
 
 .pipeline-ledger th, .pipeline-ledger td {
     text-align: left;
-    padding: 12px;
+    padding: 14px 8px;
     border-bottom: 1px solid var(--border-thin);
 }
 
 .pipeline-ledger th {
     color: var(--text-low);
-    font-weight: 700;
+    font-weight: 300;
     text-transform: uppercase;
-    font-size: 10px;
+    font-size: 9px;
     letter-spacing: 0.05em;
 }
 
@@ -265,41 +212,41 @@ html, body {
 }
 
 .pipeline-ledger tbody tr:hover {
-    background: var(--bg-panel-hover);
+    background: rgba(255, 255, 255, 0.01);
 }
 
 .pipeline-ledger .col-id {
-    color: var(--cyan-clinical);
+    color: var(--text-low);
 }
 
 .pipeline-ledger .col-title {
     color: var(--text-high);
-    font-weight: 500;
+    font-weight: 400;
     text-transform: uppercase;
 }
 
 .pipeline-ledger .col-desc {
     font-family: var(--font-sans);
-    font-size: 12.5px;
+    font-size: 12px;
     color: var(--text-mid);
+    font-weight: 200;
 }
 
 .pipeline-ledger .col-action a {
-    color: var(--text-mid);
+    color: var(--text-low);
     text-decoration: none;
     border: 1px solid var(--border-thin);
-    padding: 4px 8px;
+    padding: 3px 6px;
     display: inline-block;
     transition: all var(--transition-speed);
 }
 
 .pipeline-ledger .col-action a:hover {
-    border-color: var(--cyan-clinical);
+    border-color: var(--text-mid);
     color: var(--text-high);
-    background: rgba(0, 229, 255, 0.02);
 }
 
-/* Allocation Connection Row */
+/* Allocation Row */
 .تواصل {
     display: flex;
     flex-direction: column;
@@ -309,47 +256,45 @@ html, body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border: 1px solid var(--border-thin);
-    background: rgba(0, 0, 0, 0.15);
-    padding: 16px 24px;
-    color: var(--text-high);
+    border-bottom: 1px solid var(--border-thin);
+    padding: 16px 0;
+    color: var(--text-mid);
     text-decoration: none;
     font-family: var(--font-mono);
-    font-size: 11.5px;
+    font-size: 11px;
     letter-spacing: 0.05em;
     text-transform: uppercase;
     transition: all var(--transition-speed);
 }
 
 .حال:hover {
-    border-color: var(--cyan-clinical);
-    background: var(--bg-panel-hover);
+    border-bottom-color: var(--text-high);
+    color: var(--text-high);
 }
 
 .حال .en-حال {
-    color: var(--cyan-clinical);
-    font-weight: 500;
-}
-
-.حال .سهم {
     color: var(--text-low);
     transition: color var(--transition-speed);
 }
 
-.حال:hover .سهم {
-    color: var(--text-high);
+.حال:hover .en-حال {
+    color: var(--text-mid);
 }
 
-/* Blueprint Footer Navigation */
+.حال .سهم {
+    color: var(--text-low);
+}
+
+/* Spacious Minimal Footer */
 .روابط {
     display: flex;
     flex-wrap: wrap;
-    gap: 16px;
+    gap: 20px;
     font-family: var(--font-mono);
-    font-size: 10.5px;
+    font-size: 10px;
     text-transform: uppercase;
     border-top: 1px solid var(--border-thin);
-    padding-top: 20px;
+    padding-top: 24px;
 }
 
 .روابط a {
@@ -363,16 +308,16 @@ html, body {
 }
 
 .روابط .dot {
-    color: var(--border-thin);
+    color: var(--text-dark);
 }
 
-/* Hidden Avionics Diagram Panel */
+/* Hidden Avionics Blueprint Panel */
 .مكشوف {
-    margin-top: 8px;
+    margin-top: 16px;
     display: none;
     flex-direction: column;
     gap: 20px;
-    animation: revealPanel 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: revealPanel 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .مكشوف.ظاهر {
@@ -391,11 +336,10 @@ html, body {
 }
 
 .schematic-box {
-    background: rgba(0, 0, 0, 0.2);
     border: 1px solid var(--border-thin);
     padding: 24px;
     display: grid;
-    grid-template-columns: 3fr 2fr;
+    grid-template-columns: 5fr 4fr;
     gap: 24px;
     align-items: center;
 }
@@ -412,19 +356,20 @@ html, body {
 }
 
 .data-log {
-    background: rgba(0, 0, 0, 0.4);
+    background: #020202;
     border: 1px solid var(--border-thin);
-    padding: 14px;
+    padding: 12px;
     height: 220px;
     overflow-y: auto;
     font-family: var(--font-mono);
-    font-size: 9.5px;
-    line-height: 1.5;
+    font-size: 9px;
+    line-height: 1.55;
     color: var(--text-mid);
 }
 
 .data-log span.success {
-    color: var(--cyan-clinical);
+    color: var(--text-high);
+    font-weight: 700;
 }
 
 .data-log span.highlight {
@@ -435,18 +380,22 @@ html, body {
     color: var(--text-low);
 }
 
-/* Formal CV Datasheet Layout (resume.html support) */
+/* Spacious Systems CV Datasheet Layout (resume.html support) */
+.سيرة {
+    max-width: 800px;
+}
+
 .جهات {
     display: flex;
     flex-wrap: wrap;
     gap: 16px;
     font-family: var(--font-mono);
-    font-size: 10.5px;
+    font-size: 10px;
     margin-top: 8px;
 }
 
 .جهات a {
-    color: var(--text-mid);
+    color: var(--text-low);
     text-decoration: none;
     transition: color var(--transition-speed);
 }
@@ -456,14 +405,14 @@ html, body {
 }
 
 .جهات .dot {
-    color: var(--text-low);
+    color: var(--text-dark);
 }
 
 .cv-ledger {
     width: 100%;
     border-collapse: collapse;
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 10.5px;
 }
 
 .cv-ledger tr {
@@ -475,30 +424,29 @@ html, body {
 }
 
 .cv-ledger td {
-    padding: 16px 12px;
+    padding: 20px 8px;
     vertical-align: top;
     text-align: left;
 }
 
 .cv-ledger .col-period {
-    width: 160px;
+    width: 140px;
     color: var(--text-low);
-    font-weight: 500;
 }
 
 .cv-ledger .col-role-org {
-    width: 240px;
+    width: 220px;
 }
 
 .cv-ledger .org-name {
     color: var(--text-high);
-    font-weight: 700;
+    font-weight: 500;
     text-transform: uppercase;
 }
 
 .cv-ledger .role-title {
-    color: var(--cyan-clinical);
-    font-size: 10px;
+    color: var(--text-mid);
+    font-size: 9.5px;
     margin-top: 2px;
 }
 
@@ -506,13 +454,14 @@ html, body {
     font-family: var(--font-sans);
     font-size: 12.5px;
     color: var(--text-mid);
+    font-weight: 200;
 }
 
 .cv-ledger .col-details ul {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 8px;
 }
 
 .cv-ledger .col-details li {
@@ -524,9 +473,9 @@ html, body {
     content: '+';
     position: absolute;
     left: 0;
-    color: var(--cyan-clinical);
+    color: var(--text-low);
     font-family: var(--font-mono);
-    font-size: 10px;
+    font-size: 9px;
 }
 
 .cv-ledger .note {
@@ -538,26 +487,27 @@ html, body {
 
 .ختام {
     border-top: 1px solid var(--border-thin);
-    padding-top: 20px;
+    padding-top: 24px;
 }
 
 .ختام p {
     font-family: var(--font-sans);
     font-size: 13.5px;
-    line-height: 1.6;
+    line-height: 1.65;
     color: var(--text-mid);
+    font-weight: 200;
 }
 
 .ختام strong {
-    color: var(--cyan-clinical);
-    font-weight: 500;
+    color: var(--text-high);
+    font-weight: 400;
 }
 
 .رجوع {
     display: inline-block;
     font-family: var(--font-mono);
-    font-size: 11px;
-    color: var(--text-mid);
+    font-size: 10.5px;
+    color: var(--text-low);
     text-decoration: none;
     border: 1px solid var(--border-thin);
     padding: 8px 16px;
@@ -566,41 +516,38 @@ html, body {
 
 .رجوع:hover {
     color: var(--text-high);
-    border-color: var(--cyan-clinical);
-    background: rgba(0, 229, 255, 0.02);
+    border-color: var(--text-mid);
 }
 
-/* Tiny Flight Controller (FCS Alignment status) */
+/* System Calibration Status Link (Homepage) */
 .نظرة {
     position: absolute;
     top: 24px;
     right: 24px;
-    padding: 6px 12px;
+    padding: 6px 10px;
     border: 1px solid var(--border-thin);
     color: var(--text-low);
     text-decoration: none;
     font-family: var(--font-mono);
-    font-size: 10px;
+    font-size: 9.5px;
     text-transform: uppercase;
     transition: all var(--transition-speed);
 }
 
 .نظرة:hover {
     color: var(--text-high);
-    border-color: var(--cyan-clinical);
+    border-color: var(--text-mid);
 }
 
-/* Precision Responsive Grid System */
+/* Precision Responsive Breakpoints */
 @media (max-width: 900px) {
     .رئيسي {
         padding: 40px 16px 80px;
-        gap: 24px;
+        gap: 40px;
     }
     
     .pipeline-ledger th:nth-child(1),
-    .pipeline-ledger td:nth-child(1),
-    .pipeline-ledger th:nth-child(4),
-    .pipeline-ledger td:nth-child(4) {
+    .pipeline-ledger td:nth-child(1) {
         display: none;
     }
     
@@ -611,7 +558,7 @@ html, body {
     .cv-ledger tr {
         display: flex;
         flex-direction: column;
-        padding: 12px 0;
+        padding: 16px 0;
     }
     
     .cv-ledger td {
@@ -620,6 +567,6 @@ html, body {
     }
     
     .cv-ledger .col-period {
-        color: var(--cyan-clinical);
+        color: var(--text-mid);
     }
 }
