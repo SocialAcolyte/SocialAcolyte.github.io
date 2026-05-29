@@ -1,479 +1,69 @@
-/*
- *  ======================================================================
- *  BESPOKE PURE-BLACK ASYMMETRICAL EDITORIAL DESIGN SYSTEM
- *  THEME: PURE VOID // MATTE SLATE // INDUSTRIAL BLUEPRINT
- *  ZERO-EMOJI AND ZERO-CLICHÉ PORTFOLIO PROTOCOL
- *  ======================================================================
- */
-
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=JetBrains+Mono:wght@100;200;300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
 :root {
-    --bg-void: #000000;
-    --text-high: #ffffff;
-    --text-mid: #ece8e0;
-    --text-low: #5a5753;
-    --text-dark: #1a1917;
-    --silver-clinical: #c5c1b9;
-    
-    --border-thin: rgba(255, 255, 255, 0.05);
-    
-    --font-serif: 'Cormorant Garamond', Georgia, serif;
-    --font-mono: 'JetBrains Mono', monospace;
-    
-    --transition-speed: 0.3s;
+    --black: #0a0a0a;
+    --dark-grey: #1a1a1a;
+    --grey: #333333;
+    --light-grey: #999999;
+    --off-white: #f5f5f5;
 }
 
 * {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
-    margin: 0;
-    padding: 0;
 }
 
-html, body {
-    width: 100%;
-    min-height: 100vh;
-    background-color: var(--bg-void);
-    color: var(--text-mid);
-    font-family: var(--font-serif);
-    font-weight: 300;
-    font-size: 16.5px;
-    line-height: 1.65;
-    overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--black);
+    color: var(--off-white);
 }
 
-::selection {
-    background-color: rgba(255, 255, 255, 0.06);
-    color: var(--text-high);
+/* HERO */
+.hero {
+    height: 60vh;
+    background-size: cover;
+    background-position: center;
 }
 
-/* Scrollbars */
-::-webkit-scrollbar {
-    width: 2px;
-    height: 2px;
-}
-::-webkit-scrollbar-track {
-    background: var(--bg-void);
-}
-::-webkit-scrollbar-thumb {
-    background: var(--text-low);
-}
-
-/* Master Grid Wrapper */
-.رئيسي {
-    position: relative;
-    z-index: 2;
-    max-width: 1120px;
+/* GALLERY */
+.gallery {
+    background-color: var(--black);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+    padding: 2rem;
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 12vh 32px 160px;
 }
 
-/* Asymmetrical Double Column Grid */
-.home-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 72px;
-    align-items: start;
+.gallery-item {
+    overflow: hidden;
+    aspect-ratio: 1;
 }
 
-/* Left Column: Spacious Prose & Selected Works */
-.home-left {
-    display: flex;
-    flex-direction: column;
-    gap: 52px;
-}
-
-/* Right Column: The Silica Canvas Monument */
-.home-right {
-    position: sticky;
-    top: 12vh;
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-}
-
-/* Spacious Header */
-.رأس {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    position: relative;
-}
-
-.الاسم {
-    font-family: var(--font-serif);
-    font-size: clamp(34px, 5vw, 42px);
-    font-weight: 300;
-    letter-spacing: -0.01em;
-    color: var(--text-high);
-    margin: 0;
-}
-
-.ترجمة {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    font-weight: 200;
-    letter-spacing: 0.12em;
-    color: var(--text-low);
-    text-transform: uppercase;
-}
-
-/* Structural Sections */
-.نص, .فلسفة, .أعمال, .تواصل {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-
-.عنوان {
-    margin: 0 0 4px;
-    font-family: var(--font-mono);
-    font-size: 9.5px;
-    font-weight: 300;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--text-low);
-}
-
-.en {
-    font-size: 16.5px;
-    color: var(--text-mid);
-    line-height: 1.6;
-}
-
-/* The Silica Matrix Monument Area */
-.silica-container {
+.gallery-item img {
     width: 100%;
-    border: 1px solid var(--border-thin);
-    background: rgba(255, 255, 255, 0.002);
-    padding: 12px;
-    position: relative;
+    height: 100%;
+    object-fit: cover;
 }
 
-.silica-canvas {
-    width: 100%;
-    height: 380px;
-    display: block;
-    cursor: crosshair;
+/* CSS playground area - edit styles.css to change this */
+#css-area {
+    padding: 2rem;
+    max-width: 900px;
+    margin: 2rem auto;
+    background: linear-gradient(0deg, rgba(255,255,255,0.03), transparent);
+    border-radius: 8px;
 }
-
-/* Spacious Selected Works List */
-.قائمة {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+#css-area .example-box {
+    height: 80px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.04);
+    border-radius: 6px;
     display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-
-.قائمة li {
-    border-bottom: 1px solid var(--border-thin);
-    padding-bottom: 16px;
-}
-
-.قائمة li:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
-}
-
-.قائمة a {
-    display: grid;
-    grid-template-columns: 50px 1fr;
-    gap: 16px;
-    color: var(--text-mid);
-    text-decoration: none;
-    transition: color var(--transition-speed);
-}
-
-.قائمة a:hover {
-    color: var(--text-high);
-}
-
-.قائمة .سنة {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    color: var(--text-low);
-    padding-top: 4px;
-}
-
-.قائمة .work-details {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.قائمة .اسم {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--text-high);
-}
-
-.قائمة .وصف {
-    font-family: var(--font-serif);
-    font-size: 14.5px;
-    font-style: italic;
-    color: var(--text-low);
-    line-height: 1.45;
-    transition: color var(--transition-speed);
-}
-
-.قائمة a:hover .وصف {
-    color: var(--text-mid);
-}
-
-/* Contact Line */
-.حال {
-    display: inline-flex;
-    align-items: baseline;
-    gap: 12px;
-    width: fit-content;
-    color: var(--text-mid);
-    text-decoration: none;
-    border-bottom: 1px solid var(--border-thin);
-    padding-bottom: 4px;
-    font-family: var(--font-mono);
-    font-size: 10px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    transition: all var(--transition-speed);
-}
-
-.حال:hover {
-    border-bottom-color: var(--text-high);
-    color: var(--text-high);
-}
-
-.حال .en-حال {
-    color: var(--text-mid);
-}
-
-.حال .سهم {
-    color: var(--text-low);
-}
-
-/* Footer links row */
-.روابط {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: 12px;
-    font-family: var(--font-mono);
-    font-size: 10px;
-    letter-spacing: 0.04em;
-    color: var(--text-low);
-    margin-top: 12px;
-    border-top: 1px solid var(--border-thin);
-    padding-top: 24px;
-}
-
-.روابط a {
-    color: var(--text-low);
-    text-decoration: none;
-    transition: color var(--transition-speed);
-}
-
-.روابط a:hover {
-    color: var(--text-high);
-}
-
-.روابط .dot {
-    color: var(--text-dark);
-}
-
-/* Systems CV Datasheet Layout (resume.html support) */
-.سيرة {
-    max-width: 720px;
-    padding: 12vh 24px 180px;
-    gap: 52px;
-}
-
-.جهات {
-    margin-top: 8px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    font-family: var(--font-mono);
-    font-size: 10px;
-    color: var(--text-low);
-}
-
-.جهات a {
-    color: var(--text-low);
-    text-decoration: none;
-    transition: color var(--transition-speed);
-}
-
-.جهات a:hover {
-    color: var(--text-high);
-}
-
-.جهات .dot {
-    color: var(--text-dark);
-}
-
-.cv-section {
-    display: flex;
-    flex-direction: column;
-    gap: 36px;
-}
-
-.cv-ledger {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.cv-ledger tr {
-    border-bottom: 1px solid var(--border-thin);
-}
-
-.cv-ledger tr:last-child {
-    border-bottom: none;
-}
-
-.cv-ledger td {
-    padding: 24px 8px;
-    vertical-align: top;
-    text-align: left;
-}
-
-.cv-ledger .col-period {
-    width: 130px;
-    font-family: var(--font-mono);
-    font-size: 10px;
-    color: var(--text-low);
-}
-
-.cv-ledger .col-role-org {
-    width: 220px;
-}
-
-.cv-ledger .org-name {
-    font-family: var(--font-mono);
-    font-size: 10.5px;
-    color: var(--text-high);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-
-.cv-ledger .role-title {
-    font-family: var(--font-serif);
-    font-style: italic;
-    color: var(--text-low);
-    font-size: 13.5px;
-    margin-top: 4px;
-}
-
-.cv-ledger .col-details {
-    font-family: var(--font-serif);
-    font-size: 15.5px;
-    color: var(--text-mid);
-}
-
-.cv-ledger .col-details ul {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.cv-ledger .col-details li {
-    position: relative;
-    padding-left: 14px;
-}
-
-.cv-ledger .col-details li::before {
-    content: '+';
-    position: absolute;
-    left: 0;
-    color: var(--text-low);
-    font-family: var(--font-mono);
-    font-size: 9px;
-}
-
-.cv-ledger .note {
-    font-style: italic;
-    color: var(--text-low);
-    font-size: 14px;
-    margin-bottom: 10px;
-    line-height: 1.5;
-}
-
-.ختام {
-    border-top: 1px solid var(--border-thin);
-    padding-top: 24px;
-}
-
-.ختام p {
-    font-family: var(--font-serif);
-    font-size: 16.5px;
-    line-height: 1.6;
-    color: var(--text-mid);
-    font-style: italic;
-}
-
-.ختام strong {
-    color: var(--text-high);
-    font-weight: 400;
-    font-style: normal;
-}
-
-.رجوع {
-    display: inline-block;
-    font-family: var(--font-mono);
-    font-size: 10px;
-    color: var(--text-low);
-    text-decoration: none;
-    border: 1px solid var(--border-thin);
-    padding: 8px 16px;
-    transition: all var(--transition-speed);
-}
-
-.رجوع:hover {
-    color: var(--text-high);
-    border-color: var(--text-mid);
-}
-
-/* Ambient Background coordinate rules */
-#الخلفية {
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-}
-
-/* Precision Responsive Layouts */
-@media (max-width: 900px) {
-    .رئيسي {
-        padding: 40px 16px 80px;
-    }
-    
-    .home-grid {
-        grid-template-columns: 1fr;
-        gap: 52px;
-    }
-    
-    .home-right {
-        position: relative;
-        top: 0;
-    }
-    
-    .cv-ledger tr {
-        display: flex;
-        flex-direction: column;
-        padding: 16px 0;
-    }
-    
-    .cv-ledger td {
-        padding: 4px 0;
-        width: 100% !important;
-    }
-    
-    .cv-ledger .col-period {
-        color: var(--text-mid);
-    }
+    align-items: center;
+    justify-content: center;
+    color: var(--light-grey);
 }
