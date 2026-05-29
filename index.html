@@ -14,113 +14,123 @@
 </head>
 <body>
 
-<!-- Ambient background coordinate canvas -->
+<!-- Ambient background canvas -->
 <canvas id="الخلفية" aria-hidden="true"></canvas>
 
 <main class="رئيسي">
+    <div class="home-grid">
+        
+        <!-- LEFT COLUMN: Spacious Prose & Selected Works -->
+        <div class="home-left">
+            
+            <!-- Header Section -->
+            <header class="رأس">
+                <h1 class="الاسم">Social Acolyte</h1>
+                <p class="ترجمة">b. 2004</p>
+            </header>
 
-    <!-- Header Section -->
-    <header class="رأس">
-        <h1 class="الاسم">Social Acolyte</h1>
-        <p class="ترجمة">b. 2004</p>
-    </header>
+            <!-- Core Text -->
+            <section class="نص">
+                <p class="en">
+                    I build the datasets that decide what frontier models can and cannot do.
+                    Most of the gap between what AI promises and what it delivers lives inside the data --
+                    I want to close it.
+                </p>
+            </section>
 
-    <!-- Core Text -->
-    <section class="نص">
-        <p class="en">
-            I build the datasets that decide what frontier models can and cannot do.
-            Most of the gap between what AI promises and what it delivers lives inside the data --
-            I want to close it.
-        </p>
-    </section>
+            <!-- Philosophy & Curation-as-Insulation Metaphor -->
+            <section class="فلسفة" aria-labelledby="عنوان-فلسفة">
+                <h2 id="عنوان-فلسفة" class="عنوان">philosophy</h2>
+                <p class="en">
+                    Frontier capability is bottlenecked by data, not compute. The next leap won't be a new
+                    architecture -- it will be data designed by people who knew exactly what was missing.
+                    I build that data, and I build it as an acolyte:
+                    a disciple who studies the work hard enough to deserve to lead it.
+                </p>
+                <p class="en" style="font-style: italic; color: rgba(236, 232, 224, 0.7);">
+                    Like the sparse, 96% empty space of a silica tile that insulates a spacecraft from re-entry plasma, dataset curation is the art of strategic omission. We build the sparse, high-fidelity matrices that insulate model boundaries from behavioral entropy.
+                </p>
+            </section>
 
-    <!-- Philosophy -->
-    <section class="فلسفة" aria-labelledby="عنوان-فلسفة">
-        <h2 id="عنوان-فلسفة" class="عنوان">philosophy</h2>
-        <p class="en">
-            Frontier capability is bottlenecked by data, not compute. The next leap won't be a new
-            architecture -- it will be data designed by people who knew exactly what was missing.
-            I build that data, and I build it as an acolyte:
-            a disciple who studies the work hard enough to deserve to lead it.
-        </p>
-    </section>
+            <!-- Selected Work / Pipelines -->
+            <section class="أعمال" aria-labelledby="عنوان-أعمال">
+                <h2 id="عنوان-أعمال" class="عنوان">selected work</h2>
+                <ol class="قائمة">
+                    <li>
+                        <a href="#">
+                            <span class="سنة">2025</span>
+                            <div class="work-details">
+                                <span class="اسم">curated ML data</span>
+                                <span class="وصف">large-scale dataset work -- web-scraped multi-base numerical sets, synchronous ASL hand-data video, mocap pipelines.</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="سنة">2024</span>
+                            <div class="work-details">
+                                <span class="اسم">vla x robotics</span>
+                                <span class="وصف">vision-language-action model work -- taming lossy compound behavior in general robotics models.</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/kolbytn/mindcraft" rel="noopener">
+                            <span class="سنة">2024</span>
+                            <div class="work-details">
+                                <span class="اسم">mindcraft agent</span>
+                                <span class="وصف">embodied AI agent deployed inside a videogame world, built on the mindcraft library.</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/buisness strategy.pdf" download>
+                            <span class="سنة">2024</span>
+                            <div class="work-details">
+                                <span class="اسم">data-layer thesis</span>
+                                <span class="وصف">why the next frontier is decided by data, not compute. (pdf)</span>
+                            </div>
+                        </a>
+                    </li>
+                </ol>
+            </section>
 
-    <!-- ─── The Silica Matrix Monument ────────────────────────── -->
-    <section class="فلسفة" aria-labelledby="عنوان-سليكا">
-        <h2 id="عنوان-سليكا" class="عنوان">Molecular Curation // Silica Fiber Matrix</h2>
-        <div class="silica-container">
-            <canvas class="silica-canvas" id="silica-canvas"></canvas>
+            <!-- Contact & Status -->
+            <section class="تواصل" aria-labelledby="عنوان-تواصل">
+                <h2 id="عنوان-تواصل" class="عنوان">contact</h2>
+                <a class="حال" href="https://x.com/SocialAcolyte">
+                    <span class="en-حال">seed round -- open for allocation</span>
+                    <span class="سهم">[CONNECT CLIENT]</span>
+                </a>
+            </section>
+
+            <!-- Footer Links Row -->
+            <nav class="روابط" aria-label="elsewhere">
+                <a href="https://x.com/SocialAcolyte" rel="me">twitter</a>
+                <span class="dot">//</span>
+                <a href="https://github.com/SocialAcolyte" rel="me">github</a>
+                <span class="dot">//</span>
+                <a href="https://www.linkedin.com/in/connor-m-hood/" rel="me">linkedin</a>
+                <span class="dot">//</span>
+                <a href="/resume.html">cv</a>
+                <span class="dot">//</span>
+                <a href="#" class="موقع">site</a>
+            </nav>
+            
         </div>
-        <p class="en" style="font-size: 15.5px; font-style: italic; color: rgba(255,255,255,0.4); line-height: 1.5;">
-            Visualizing the thermal insulation of a Space Shuttle silica tile (LI-900). Your cursor acts as a localized plasma heat vector. As you glide across the boundary layer (top), it injects high-density kinetic thermal particles. These particles flow downwards, colliding, deflecting, and transferring speed to the microscopic glass fiber lattice, which vibrates in response. The heat stays localized at the re-entry boundary, dissipating into the dark, while the structural skin (bottom) remains cold and silent.
-        </p>
-    </section>
 
-    <!-- Selected Work / Pipelines -->
-    <section class="أعمال" aria-labelledby="عنوان-أعمال">
-        <h2 id="عنوان-أعمال" class="عنوان">selected work</h2>
-        <ol class="قائمة">
-            <li>
-                <a href="#">
-                    <span class="سنة">2025</span>
-                    <div class="work-details">
-                        <span class="اسم">curated ML data</span>
-                        <span class="وصف">large-scale dataset work -- web-scraped multi-base numerical sets, synchronous ASL hand-data video, mocap pipelines.</span>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <span class="سنة">2024</span>
-                    <div class="work-details">
-                        <span class="اسم">vla x robotics</span>
-                        <span class="وصف">vision-language-action model work -- taming lossy compound behavior in general robotics models.</span>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="https://github.com/kolbytn/mindcraft" rel="noopener">
-                    <span class="سنة">2024</span>
-                    <div class="work-details">
-                        <span class="اسم">mindcraft agent</span>
-                        <span class="وصف">embodied AI agent deployed inside a videogame world, built on the mindcraft library.</span>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="/buisness strategy.pdf" download>
-                    <span class="سنة">2024</span>
-                    <div class="work-details">
-                        <span class="اسم">data-layer thesis</span>
-                        <span class="وصف">why the next frontier is decided by data, not compute. (pdf)</span>
-                    </div>
-                </a>
-            </li>
-        </ol>
-    </section>
+        <!-- RIGHT COLUMN: The Silica Matrix Canvas Monument -->
+        <div class="home-right">
+            <h2 class="عنوان">Molecular Curation // Silica Fiber Matrix</h2>
+            <div class="silica-container">
+                <canvas class="silica-canvas" id="silica-canvas"></canvas>
+            </div>
+            <p class="en" style="font-size: 14.5px; font-style: italic; color: rgba(256, 256, 256, 0.4); line-height: 1.5; max-width: 100%;">
+                Mechanical illustration of thermal dissipation within a Fused Silica tile (LI-900). Your cursor acts as a localized plasma heat vector. As you glide across the boundary layer (top), it injects high-density kinetic thermal particles. These particles diffuse downwards, colliding, deflecting, and generating molecular collision sparks upon striking the glass fiber lattice, which vibrates in response. The heat stays localized at the re-entry boundary, leaving the structural aluminum skin (bottom) secure.
+            </p>
+        </div>
 
-    <!-- Contact & Status -->
-    <section class="تواصل" aria-labelledby="عنوان-تواصل">
-        <h2 id="عنوان-تواصل" class="عنوان">contact</h2>
-        <a class="حال" href="https://x.com/SocialAcolyte">
-            <span class="en-حال">seed round -- open for allocation</span>
-            <span class="سهم">[CONNECT CLIENT]</span>
-        </a>
-    </section>
-
-    <!-- Footer Links Row -->
-    <nav class="روابط" aria-label="elsewhere">
-        <a href="https://x.com/SocialAcolyte" rel="me">twitter</a>
-        <span class="dot">//</span>
-        <a href="https://github.com/SocialAcolyte" rel="me">github</a>
-        <span class="dot">//</span>
-        <a href="https://www.linkedin.com/in/connor-m-hood/" rel="me">linkedin</a>
-        <span class="dot">//</span>
-        <a href="/resume.html">cv</a>
-        <span class="dot">//</span>
-        <a href="#" class="موقع">site</a>
-    </nav>
-
+    </div>
 </main>
 
 <script src="script.js" defer></script>

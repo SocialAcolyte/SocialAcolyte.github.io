@@ -1,7 +1,7 @@
 /*
  *  ======================================================================
- *  FUSED SILICA THERMAL DIFFUSION ENGINE // FIRST PRINCIPLES
- *  THEME: OBSIDIAN VOID // PLATINUM SILICA // MOLECULAR PHYSICS
+ *  FUSED SILICA THERMAL DIFFUSION ENGINE // TECHNICAL CORE
+ *  THEME: OBSIDIAN VOID // PLATINUM SILICA // KINETIC COLLISIONS
  *  ZERO-EMOJI AND ZERO-CLICHÉ DESIGN PROTOCOL
  *  ======================================================================
  */
@@ -9,7 +9,7 @@
 (() => {
     'use strict';
 
-    /* --- 1. Background Canvas: Minimal Drafting Lines --- */
+    /* --- 1. Background Canvas: Minimal Blueprint Margins --- */
 
     const bgCanvas = document.getElementById('الخلفية');
     const bgCtx = bgCanvas.getContext('2d');
@@ -52,7 +52,7 @@
     resizeBgCanvas();
 
 
-    /* --- 2. The Silica Matrix Molecular Physics Engine --- */
+    /* --- 2. The Fused Silica Molecular Collision Engine --- */
 
     const sCanvas = document.getElementById('silica-canvas');
     if (sCanvas) {
@@ -65,59 +65,58 @@
 
         let fibers = [];
         let particles = [];
+        let sparks = [];
         let time = 0;
 
-        // Microscopic physical heat band measurements
-        let heatBands = [0, 0, 0, 0, 0]; // Represents avg kinetic energy at 5 depth levels
+        let heatBands = [0, 0, 0, 0, 0]; // Real-time computed thermal bands
 
-        // Define a glass fiber thread segment inside the LI-900 silica matrix
+        // Class representing a fused silica glass fiber
         class SilicaFiber {
-            constructor() {
+            constructor(index) {
+                this.index = index;
                 this.reset();
             }
 
             reset() {
-                // Generate random overlapping curves spanning the matrix
+                // Organic overlapping Bezier curvatures representing silica glass threads
                 this.x1 = Math.random() * sWidth;
                 this.y1 = Math.random() * sHeight;
                 this.x2 = Math.random() * sWidth;
                 this.y2 = Math.random() * sHeight;
                 
-                this.cpx1 = this.x1 + (Math.random() - 0.5) * 80;
-                this.cpy1 = this.y1 + (Math.random() - 0.5) * 80;
-                this.cpx2 = this.x2 + (Math.random() - 0.5) * 80;
-                this.cpy2 = this.y2 + (Math.random() - 0.5) * 80;
+                this.cpx1 = this.x1 + (Math.random() - 0.5) * 120;
+                this.cpy1 = this.y1 + (Math.random() - 0.5) * 120;
+                this.cpx2 = this.x2 + (Math.random() - 0.5) * 120;
+                this.cpy2 = this.y2 + (Math.random() - 0.5) * 120;
 
                 this.vibration = 0;
                 this.baseOpacity = 0.015 + Math.random() * 0.025;
             }
 
             update(heatLevels) {
-                // Determine which vertical band this fiber occupies
                 const avgY = (this.y1 + this.y2) / 2;
                 const bandIndex = Math.min(4, Math.floor((avgY / sHeight) * 5));
                 const targetVibe = heatLevels[bandIndex] * 12;
 
-                // Smooth dampening of molecular vibration
-                this.vibration += (targetVibe - this.vibration) * 0.1;
-                this.vibration = Math.max(0, this.vibration - 0.01);
+                // Dampen fiber molecular vibration
+                this.vibration += (targetVibe - this.vibration) * 0.12;
+                this.vibration = Math.max(0, this.vibration - 0.008);
             }
 
             draw() {
                 sCtx.beginPath();
                 sCtx.moveTo(this.x1, this.y1);
 
-                // If vibrating, apply high-frequency oscillation to the control points
                 if (this.vibration > 0.05) {
-                    const osc1 = Math.sin(time * 45 + this.x1) * this.vibration * 0.45;
-                    const osc2 = Math.cos(time * 45 + this.x2) * this.vibration * 0.45;
+                    const osc1 = Math.sin(time * 50 + this.x1) * this.vibration * 0.5;
+                    const osc2 = Math.cos(time * 50 + this.x2) * this.vibration * 0.5;
                     sCtx.bezierCurveTo(
                         this.cpx1 + osc1, this.cpy1 + osc2,
                         this.cpx2 + osc2, this.cpy2 + osc1,
                         this.x2, this.y2
                     );
-                    sCtx.strokeStyle = `rgba(236, 232, 224, ${this.baseOpacity + this.vibration * 0.08})`;
-                    sCtx.lineWidth = 0.5 + this.vibration * 0.15;
+                    sCtx.strokeStyle = `rgba(236, 232, 224, ${this.baseOpacity + this.vibration * 0.12})`;
+                    sCtx.lineWidth = 0.5 + this.vibration * 0.2;
                 } else {
                     sCtx.bezierCurveTo(this.cpx1, this.cpy1, this.cpx2, this.cpy2, this.x2, this.y2);
                     sCtx.strokeStyle = `rgba(236, 232, 224, ${this.baseOpacity})`;
@@ -127,59 +126,89 @@
             }
         }
 
-        // Represents a packet of thermal kinetic energy (Microscopic plasma heat point)
+        // Kinetic Thermal Particle (Microscopic Plasma Heat Point)
         class ThermalParticle {
             constructor(x) {
-                this.x = x + (Math.random() - 0.5) * 20;
-                this.y = 12; // Start just below plasma boundary
-                this.vx = (Math.random() - 0.5) * 0.6;
-                this.vy = 0.6 + Math.random() * 1.2; // Fast downward re-entry velocity
+                this.x = x + (Math.random() - 0.5) * 16;
+                this.y = 16; // Spawn directly below plasma interface
+                this.vx = (Math.random() - 0.5) * 0.8;
+                this.vy = 0.8 + Math.random() * 1.5; // Fast downward kinetic velocity
                 this.life = 1.0;
-                this.decay = 0.0025 + Math.random() * 0.0045;
+                this.decay = 0.003 + Math.random() * 0.005;
             }
 
             update() {
-                // Kinetic translation
                 this.x += this.vx;
                 this.y += this.vy;
-                
-                // 94% empty vacuum impedance -- exponential drag velocity deceleration
+
                 const depthRatio = this.y / sHeight;
                 
-                // As the thermal energy travels deeper, it collides with dense silica arrays
-                // causing scattering deflection and critical deceleration
+                // Molecular scattering collisions in the porous silica core
                 if (depthRatio > 0.1) {
-                    // Random molecular scattering collisions
-                    if (Math.random() < 0.12) {
-                        this.vx += (Math.random() - 0.5) * 0.8;
-                        this.vy *= 0.88; // Absorb speed into fiber lattice vibration
+                    // Collision probability increases with fiber density
+                    if (Math.random() < 0.14) {
+                        this.vx += (Math.random() - 0.5) * 1.2;
+                        this.vy *= 0.86; // Transfer speed to the glass fiber lattice
+
+                        // Generate a high-contrast collision spark
+                        if (Math.random() < 0.6) {
+                            sparks.push(new CollisionSpark(this.x, this.y));
+                        }
                     }
                 }
 
-                // Global molecular drag deceleration
-                this.vy *= 0.985;
-                this.vx *= 0.985;
+                // Vacuum thermal drag impedance
+                this.vy *= 0.982;
+                this.vx *= 0.982;
 
-                // Thermal energy radiation decay
                 this.life -= this.decay;
 
                 // Boundary containment
                 if (this.x < 16) this.x = 16;
-                if (this.x > sWidth - 120) this.x = sWidth - 120;
+                if (this.x > sWidth - 72) this.x = sWidth - 72;
             }
 
             draw() {
-                const alpha = this.life * 0.65;
+                const alpha = this.life * 0.7;
                 sCtx.beginPath();
                 sCtx.fillStyle = `rgba(236, 232, 224, ${alpha})`;
-                sCtx.arc(this.x, this.y, 0.75 + this.life * 0.6, 0, Math.PI * 2);
+                sCtx.arc(this.x, this.y, 0.7 + this.life * 0.7, 0, Math.PI * 2);
                 sCtx.fill();
+            }
+        }
+
+        // Microscopic Collision Spark (Visual representation of energy transfer)
+        class CollisionSpark {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.life = 1.0;
+                this.decay = 0.035 + Math.random() * 0.035;
+                this.size = 1.5 + Math.random() * 2.5;
+            }
+
+            update() {
+                this.life -= this.decay;
+            }
+
+            draw() {
+                const alpha = this.life * 0.8;
+                sCtx.strokeStyle = `rgba(236, 232, 224, ${alpha})`;
+                sCtx.lineWidth = 0.5;
+                
+                // Draw a delicate microscopic cross tick
+                sCtx.beginPath();
+                sCtx.moveTo(this.x - this.size, this.y);
+                sCtx.lineTo(this.x + this.size, this.y);
+                sCtx.moveTo(this.x, this.y - this.size);
+                sCtx.lineTo(this.x, this.y + this.size);
+                sCtx.stroke();
             }
         }
 
         function resizeSilicaCanvas() {
             sWidth = sCanvas.parentElement.clientWidth - 24;
-            sHeight = 300;
+            sHeight = 380;
 
             sCanvas.style.width = sWidth + 'px';
             sCanvas.style.height = sHeight + 'px';
@@ -189,61 +218,74 @@
             sCtx.setTransform(1, 0, 0, 1, 0, 0);
             sCtx.scale(sDpr, sDpr);
 
-            // Re-initialize glass fiber structures
+            // Re-initialize silica matrix glass threads
             fibers = [];
-            const count = 48;
+            const count = 52;
             for (let i = 0; i < count; i++) {
-                fibers.push(new SilicaFiber());
+                fibers.push(new SilicaFiber(i));
             }
         }
 
+        function drawBlueprintLabels() {
+            sCtx.font = "8.5px 'JetBrains Mono', monospace";
+            sCtx.fillStyle = 'rgba(256, 256, 256, 0.22)';
+            sCtx.textAlign = 'left';
+            sCtx.textBaseline = 'middle';
+
+            // Top boundary annotation
+            sCtx.fillText("[BOUNDARY LAYER // PLASMA FRONT - 1260 C]", 16, 22);
+            
+            // Middle core annotation
+            sCtx.fillText("[LI-900 SILICA CORE // 94% VACUUM EXTRUSION]", 16, sHeight / 2);
+            
+            // Bottom boundary annotation
+            sCtx.fillText("[ALUMINUM BOND LINE // SHUTTLE SKIN - 24 C]", 16, sHeight - 22);
+        }
+
         function drawThermometerScale(measuredEnergy) {
-            const scaleX = sWidth - 64;
-            const topY = 24;
-            const bottomY = sHeight - 24;
+            const scaleX = sWidth - 48;
+            const topY = 32;
+            const bottomY = sHeight - 32;
             const scaleHeight = bottomY - topY;
 
+            // Draw axis rules
             sCtx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
             sCtx.lineWidth = 0.5;
-
-            // Draw clean vertical scale axis line
             sCtx.beginPath();
             sCtx.moveTo(scaleX, topY);
             sCtx.lineTo(scaleX, bottomY);
             sCtx.stroke();
 
-            // Draw tick divisions
+            // Draw ticks & thermometer data bars
             sCtx.font = "8.5px 'JetBrains Mono', monospace";
             sCtx.textBaseline = 'middle';
             sCtx.textAlign = 'left';
 
             const temps = [
-                { label: "1260 C // PLASMA FRONT", temp: 1260 },
+                { label: "1260 C", temp: 1260 },
                 { label: "900 C", temp: 900 },
                 { label: "600 C", temp: 600 },
                 { label: "300 C", temp: 300 },
-                { label: "24 C // BOND LINE", temp: 24 }
+                { label: "24 C", temp: 24 }
             ];
 
             for (let i = 0; i < 5; i++) {
                 const y = topY + (i / 4) * scaleHeight;
                 
-                // Draw tick marker
+                sCtx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
                 sCtx.beginPath();
-                sCtx.moveTo(scaleX - 4, y);
-                sCtx.lineTo(scaleX + 4, y);
+                sCtx.moveTo(scaleX - 3, y);
+                sCtx.lineTo(scaleX + 3, y);
                 sCtx.stroke();
 
-                // Compute bar fill based on average band kinetic energy
                 const energyValue = measuredEnergy[i];
-                const barLength = Math.min(22, Math.floor(energyValue * 48));
+                const barLength = Math.min(18, Math.floor(energyValue * 44));
                 let bar = "";
                 for (let k = 0; k < barLength; k++) bar += "|";
                 if (bar === "") bar = ".";
 
-                // Draw temperature reading labels
                 sCtx.fillStyle = i === 0 && energyValue > 0.05 ? '#ffffff' : 'rgba(255, 255, 255, 0.3)';
-                sCtx.fillText(`${temps[i].label} [ ${bar} ]`, scaleX + 10, y);
+                sCtx.fillText(`${temps[i].label} [ ${bar} ]`, scaleX + 8, y);
             }
         }
 
@@ -251,17 +293,36 @@
             sCtx.clearRect(0, 0, sWidth, sHeight);
             time += 0.01;
 
-            // 1. Inject thermal kinetic energy particles on mouse movement
+            // Draw blueprint structural labels first
+            drawBlueprintLabels();
+
+            // 1. Localized Undulating Plasma Wave along top interface line on hover
+            sCtx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+            sCtx.lineWidth = 0.5;
+            sCtx.beginPath();
+            
+            const limitX = sWidth - 72;
+            for (let i = 16; i <= limitX; i += 2) {
+                let amplitude = 0;
+                if (sMouse.active && sMouse.x !== null && sMouse.y !== null && sMouse.y < 42) {
+                    amplitude = Math.exp(-Math.pow(i - sMouse.x, 2) / 3600) * 8; // Localized swell around cursor
+                }
+                const waveY = 12 + Math.sin(time * 50 + i * 0.15) * amplitude;
+                if (i === 16) sCtx.moveTo(i, waveY);
+                else sCtx.lineTo(i, waveY);
+            }
+            sCtx.stroke();
+
+            // Inject thermal kinetic energy particles on mouse movement
             if (sMouse.active && sMouse.x !== null && sMouse.y !== null) {
-                // Only inject if close to the boundary layer (top edge)
-                if (sMouse.y < 36 && particles.length < 150) {
-                    for (let k = 0; k < 3; k++) {
+                if (sMouse.y < 36 && particles.length < 160) {
+                    for (let k = 0; k < 2; k++) {
                         particles.push(new ThermalParticle(sMouse.x));
                     }
                 }
             }
 
-            // 2. Process and compute average kinetic energy bands
+            // 2. Compute average kinetic energy levels
             let rawEnergies = [0, 0, 0, 0, 0];
             let counts = [0, 0, 0, 0, 0];
 
@@ -269,7 +330,6 @@
                 p.update();
                 p.draw();
 
-                // Allocate particle speed to corresponding depth band
                 const bandIdx = Math.min(4, Math.floor((p.y / sHeight) * 5));
                 const speed = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
                 rawEnergies[bandIdx] += speed * p.life;
@@ -278,35 +338,35 @@
                 return p.life > 0 && p.y < sHeight - 12;
             });
 
-            // Normalize energies to establish actual real-time heat values
+            // Smooth thermal conduction inertia
             for (let i = 0; i < 5; i++) {
-                const avg = counts[i] > 0 ? (rawEnergies[i] / counts[i]) * 0.75 : 0;
-                heatBands[i] += (avg - heatBands[i]) * 0.15; // Smooth thermal inertia
+                const avg = counts[i] > 0 ? (rawEnergies[i] / counts[i]) * 0.72 : 0;
+                heatBands[i] += (avg - heatBands[i]) * 0.18;
+                heatBands[i] = Math.max(0, heatBands[i] - 0.005);
             }
 
-            // 3. Update and render fused glass fibers
+            // 3. Process and render dynamic collision sparks
+            sparks = sparks.filter(s => {
+                s.update();
+                s.draw();
+                return s.life > 0;
+            });
+
+            // 4. Update and render fused glass fibers
             for (let i = 0; i < fibers.length; i++) {
                 fibers[i].update(heatBands);
                 fibers[i].draw();
             }
 
-            // 4. Render Boundary Layers
+            // Bottom structural aluminum boundary line
             sCtx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
             sCtx.lineWidth = 0.5;
-
-            // Plasma front line (Top boundary)
-            sCtx.beginPath();
-            sCtx.moveTo(16, 12);
-            sCtx.lineTo(sWidth - 72, 12);
-            sCtx.stroke();
-
-            // Structural skin line (Bottom boundary)
             sCtx.beginPath();
             sCtx.moveTo(16, sHeight - 12);
             sCtx.lineTo(sWidth - 72, sHeight - 12);
             sCtx.stroke();
 
-            // 5. Draw monospaced physical temperature scale
+            // 5. Draw active monospaced thermometer scale along the margin
             drawThermometerScale(heatBands);
 
             requestAnimationFrame(drawSilicaLoop);

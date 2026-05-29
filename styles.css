@@ -1,7 +1,7 @@
 /*
  *  ======================================================================
- *  BESPOKE PURE-BLACK SERIF DESIGN SYSTEM
- *  THEME: PURE VOID // PLATINUM WHITE // SILICA BLUEPRINT CORE
+ *  BESPOKE PURE-BLACK ASYMMETRICAL EDITORIAL DESIGN SYSTEM
+ *  THEME: PURE VOID // MATTE SLATE // INDUSTRIAL BLUEPRINT
  *  ZERO-EMOJI AND ZERO-CLICHÉ PORTFOLIO PROTOCOL
  *  ======================================================================
  */
@@ -13,7 +13,7 @@
     --text-high: #ffffff;
     --text-mid: #ece8e0;
     --text-low: #5a5753;
-    --text-dark: #1e1d1b;
+    --text-dark: #1a1917;
     --silver-clinical: #c5c1b9;
     
     --border-thin: rgba(255, 255, 255, 0.05);
@@ -37,7 +37,7 @@ html, body {
     color: var(--text-mid);
     font-family: var(--font-serif);
     font-weight: 300;
-    font-size: 17px;
+    font-size: 16.5px;
     line-height: 1.65;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
@@ -61,29 +61,50 @@ html, body {
     background: var(--text-low);
 }
 
-/* Spacious Centered Layout */
+/* Master Grid Wrapper */
 .رئيسي {
     position: relative;
     z-index: 2;
-    max-width: 620px;
+    max-width: 1120px;
     margin: 0 auto;
-    padding: 16vh 24px 180px;
+    padding: 12vh 32px 160px;
+}
+
+/* Asymmetrical Double Column Grid */
+.home-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 72px;
+    align-items: start;
+}
+
+/* Left Column: Spacious Prose & Selected Works */
+.home-left {
     display: flex;
     flex-direction: column;
-    gap: 64px;
+    gap: 52px;
+}
+
+/* Right Column: The Silica Canvas Monument */
+.home-right {
+    position: sticky;
+    top: 12vh;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
 }
 
 /* Spacious Header */
 .رأس {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 8px;
     position: relative;
 }
 
 .الاسم {
     font-family: var(--font-serif);
-    font-size: clamp(36px, 7vw, 44px);
+    font-size: clamp(34px, 5vw, 42px);
     font-weight: 300;
     letter-spacing: -0.01em;
     color: var(--text-high);
@@ -92,24 +113,24 @@ html, body {
 
 .ترجمة {
     font-family: var(--font-mono);
-    font-size: 10.5px;
+    font-size: 10px;
     font-weight: 200;
     letter-spacing: 0.12em;
     color: var(--text-low);
     text-transform: uppercase;
 }
 
-/* Spacious Sections */
+/* Structural Sections */
 .نص, .فلسفة, .أعمال, .تواصل {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 16px;
 }
 
 .عنوان {
     margin: 0 0 4px;
     font-family: var(--font-mono);
-    font-size: 10px;
+    font-size: 9.5px;
     font-weight: 300;
     letter-spacing: 0.16em;
     text-transform: uppercase;
@@ -117,7 +138,7 @@ html, body {
 }
 
 .en {
-    font-size: 17.5px;
+    font-size: 16.5px;
     color: var(--text-mid);
     line-height: 1.6;
 }
@@ -125,7 +146,6 @@ html, body {
 /* The Silica Matrix Monument Area */
 .silica-container {
     width: 100%;
-    margin: 12px 0;
     border: 1px solid var(--border-thin);
     background: rgba(255, 255, 255, 0.002);
     padding: 12px;
@@ -134,7 +154,7 @@ html, body {
 
 .silica-canvas {
     width: 100%;
-    height: 300px;
+    height: 380px;
     display: block;
     cursor: crosshair;
 }
@@ -161,7 +181,7 @@ html, body {
 
 .قائمة a {
     display: grid;
-    grid-template-columns: 60px 1fr;
+    grid-template-columns: 50px 1fr;
     gap: 16px;
     color: var(--text-mid);
     text-decoration: none;
@@ -174,7 +194,7 @@ html, body {
 
 .قائمة .سنة {
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 10px;
     color: var(--text-low);
     padding-top: 4px;
 }
@@ -187,7 +207,7 @@ html, body {
 
 .قائمة .اسم {
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 10px;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--text-high);
@@ -195,7 +215,7 @@ html, body {
 
 .قائمة .وصف {
     font-family: var(--font-serif);
-    font-size: 15.5px;
+    font-size: 14.5px;
     font-style: italic;
     color: var(--text-low);
     line-height: 1.45;
@@ -217,7 +237,7 @@ html, body {
     border-bottom: 1px solid var(--border-thin);
     padding-bottom: 4px;
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 10px;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     transition: all var(--transition-speed);
@@ -243,7 +263,7 @@ html, body {
     align-items: baseline;
     gap: 12px;
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 10px;
     letter-spacing: 0.04em;
     color: var(--text-low);
     margin-top: 12px;
@@ -278,7 +298,7 @@ html, body {
     flex-wrap: wrap;
     gap: 12px;
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 10px;
     color: var(--text-low);
 }
 
@@ -324,7 +344,7 @@ html, body {
 .cv-ledger .col-period {
     width: 130px;
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 10px;
     color: var(--text-low);
 }
 
@@ -334,7 +354,7 @@ html, body {
 
 .cv-ledger .org-name {
     font-family: var(--font-mono);
-    font-size: 11.5px;
+    font-size: 10.5px;
     color: var(--text-high);
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -344,13 +364,13 @@ html, body {
     font-family: var(--font-serif);
     font-style: italic;
     color: var(--text-low);
-    font-size: 14px;
+    font-size: 13.5px;
     margin-top: 4px;
 }
 
 .cv-ledger .col-details {
     font-family: var(--font-serif);
-    font-size: 16px;
+    font-size: 15.5px;
     color: var(--text-mid);
 }
 
@@ -372,13 +392,13 @@ html, body {
     left: 0;
     color: var(--text-low);
     font-family: var(--font-mono);
-    font-size: 10px;
+    font-size: 9px;
 }
 
 .cv-ledger .note {
     font-style: italic;
     color: var(--text-low);
-    font-size: 14.5px;
+    font-size: 14px;
     margin-bottom: 10px;
     line-height: 1.5;
 }
@@ -390,7 +410,7 @@ html, body {
 
 .ختام p {
     font-family: var(--font-serif);
-    font-size: 17.5px;
+    font-size: 16.5px;
     line-height: 1.6;
     color: var(--text-mid);
     font-style: italic;
@@ -405,7 +425,7 @@ html, body {
 .رجوع {
     display: inline-block;
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 10px;
     color: var(--text-low);
     text-decoration: none;
     border: 1px solid var(--border-thin);
@@ -418,11 +438,28 @@ html, body {
     border-color: var(--text-mid);
 }
 
+/* Ambient Background coordinate rules */
+#الخلفية {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+}
+
 /* Precision Responsive Layouts */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
     .رئيسي {
         padding: 40px 16px 80px;
-        gap: 40px;
+    }
+    
+    .home-grid {
+        grid-template-columns: 1fr;
+        gap: 52px;
+    }
+    
+    .home-right {
+        position: relative;
+        top: 0;
     }
     
     .cv-ledger tr {
