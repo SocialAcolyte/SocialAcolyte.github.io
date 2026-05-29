@@ -3,207 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Social Acolyte -- Introspection Matrix, ML pipeline curation, and distributed compute systems.">
-    <meta property="og:title" content="Social Acolyte // Guidance & Curation Compute">
-    <meta property="og:description" content="High-performance ML dataset engineering and distributed systems control.">
-    <meta property="og:type" content="website">
+    <meta name="description" content="Social Acolyte -- building the datasets that decide what frontier models can do.">
     <meta name="theme-color" content="#000000">
-    <title>Social Acolyte // Guidance & Curation Compute</title>
-
-    <!--
-        ======================================================================
-        LOCKHEED MARTIN | ADVANCED DEVELOPMENT PROGRAMS (SKUNK WORKS)
-        FLIGHT CONTROL SYSTEMS DIVISION -- GN&C AVIONICS SYSTEM 8
-        ======================================================================
-        
-        INERTIAL MEASUREMENT SYSTEM DRIFT DETECTED AT SENSOR CHANNELS.
-        GUIDANCE COMPUTER TELEMETRY INTERNALLY ENCRYPTED.
-        
-        TO INITIATE TRANSPONDER ALIGNMENT AND REALIGN THE GYROSCOPES:
-        
-        OPEN THE WEB DEVELOPER CONSOLE AND EXECUTE THE ALIGNMENT COMMAND:
-        
-            fcs.align("TRANSPONDER_KEY")
-            
-        KEY ACQUISITION PARAMETER:
-        Identify the absolute transatlantic speed record (Mach velocity)
-        recorded by the SR-71 Blackbird.
-        Format key in capital letters, e.g. "MACH3.3" or "MACH3.32".
-        
-        ----------------------------------------------------------------------
-        IMU LOGICAL GATEWAYS // DSN LINK STBY
-        ======================================================================
-    -->
+    <title>Social Acolyte</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600&family=JetBrains+Mono:wght@100;200;300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=JetBrains+Mono:wght@100;200;300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<!-- Dynamic canvas trajectory orbit coordinate system background -->
+<!-- Ambient background coordinate canvas -->
 <canvas id="الخلفية" aria-hidden="true"></canvas>
-
-<!-- Telemetry Calibration Link (Top Right) -->
-<a href="#" class="نظرة" title="System Guidance Transponder" aria-label="guidance calibration">
-    FCS STATUS // UNALIGNED
-</a>
 
 <main class="رئيسي">
 
-    <!-- Systems Engineering Header -->
+    <!-- Header Section -->
     <header class="رأس">
-        <div class="رأس-top">
-            <div>
-                <h1 class="الاسم">Social <span>Acolyte</span></h1>
-                <p class="ترجمة">Guidance Systems, ML Pipeline Curation & Robotics // Est. 2004</p>
-            </div>
-        </div>
-        
-        <!-- Live System Telemetry -->
-        <div class="telemetry-board">
-            <div class="telemetry-item">
-                <span class="label">TRANS_CHANNEL</span>
-                <span class="value" id="stat-node">DSN_GN&amp;C_PRIMARY</span>
-            </div>
-            <div class="telemetry-item">
-                <span class="label">FREQUENCY</span>
-                <span class="value" id="stat-freq">344.20 MHZ // STBY</span>
-            </div>
-            <div class="telemetry-item">
-                <span class="label">COMPUTE_RESOURCE</span>
-                <span class="value" id="stat-compute">SECURE_SANDBOX</span>
-            </div>
-            <div class="telemetry-item">
-                <span class="label">IMU_PLATFORM</span>
-                <span class="value" id="stat-align">UNALIGNED (DRIFT)</span>
-            </div>
-        </div>
+        <h1 class="الاسم">Social Acolyte</h1>
+        <p class="ترجمة">b. 2004</p>
     </header>
 
-    <!-- The Introspection Matrix (Central Interactive Monument) -->
-    <section class="system-panel" aria-labelledby="sec-matrix">
-        <h2 id="sec-matrix" class="عنوان">Introspection Matrix // Attention Head Routing</h2>
-        
-        <div class="matrix-container">
-            <canvas class="matrix-canvas" id="introspection-canvas"></canvas>
+    <!-- Core Text -->
+    <section class="نص">
+        <p class="en">
+            I build the datasets that decide what frontier models can and cannot do.
+            Most of the gap between what AI promises and what it delivers lives inside the data --
+            I want to close it.
+        </p>
+    </section>
+
+    <!-- Philosophy -->
+    <section class="فلسفة" aria-labelledby="عنوان-فلسفة">
+        <h2 id="عنوان-فلسفة" class="عنوان">philosophy</h2>
+        <p class="en">
+            Frontier capability is bottlenecked by data, not compute. The next leap won't be a new
+            architecture -- it will be data designed by people who knew exactly what was missing.
+            I build that data, and I build it as an acolyte:
+            a disciple who studies the work hard enough to deserve to lead it.
+        </p>
+    </section>
+
+    <!-- ─── The Silica Matrix Monument ────────────────────────── -->
+    <section class="فلسفة" aria-labelledby="عنوان-سليكا">
+        <h2 id="عنوان-سليكا" class="عنوان">Molecular Curation // Silica Fiber Matrix</h2>
+        <div class="silica-container">
+            <canvas class="silica-canvas" id="silica-canvas"></canvas>
         </div>
-        
-        <p class="en">
-            The canvas above mathematically computes and visualizes the high-dimensional Query-Key-Value routing of a Transformer model's attention mechanism in real-time. 
-        </p>
-        <p class="en">
-            Your cursor acts as a dynamic **Query Vector**. As it glides through the coordinate layer, it interacts with fixed token **Key Nodes** (left) to compute a real-time Softmax attention weight distribution, weaving custom Bezier-curves that refract through a central attention matrix and map to **Value Registers** (right).
+        <p class="en" style="font-size: 15.5px; font-style: italic; color: rgba(255,255,255,0.4); line-height: 1.5;">
+            Visualizing the thermal insulation of a Space Shuttle silica tile (LI-900). Your cursor acts as a localized plasma heat vector. As you glide across the boundary layer (top), it injects high-density kinetic thermal particles. These particles flow downwards, colliding, deflecting, and transferring speed to the microscopic glass fiber lattice, which vibrates in response. The heat stays localized at the re-entry boundary, dissipating into the dark, while the structural skin (bottom) remains cold and silent.
         </p>
     </section>
 
-    <!-- Curation Architecture Thesis -->
-    <section class="system-panel" aria-labelledby="sec-thesis">
-        <h2 id="sec-thesis" class="عنوان">Systems Engineering Thesis // Curation Bottleneck</h2>
-        <p class="en">
-            Frontier machine learning capability is bottlenecked by data curation architecture, not raw compute scale. The next generation of intelligence will not be unlocked by minor model modifications, but by high-precision training and action datasets. 
-        </p>
-        <p class="en">
-            We design, scale, and curate advanced datasets by modeling precise behavioral limits and implementing discipling pipelines to resolve compound entropy in vision-language-action (VLA) architectures.
-        </p>
+    <!-- Selected Work / Pipelines -->
+    <section class="أعمال" aria-labelledby="عنوان-أعمال">
+        <h2 id="عنوان-أعمال" class="عنوان">selected work</h2>
+        <ol class="قائمة">
+            <li>
+                <a href="#">
+                    <span class="سنة">2025</span>
+                    <div class="work-details">
+                        <span class="اسم">curated ML data</span>
+                        <span class="وصف">large-scale dataset work -- web-scraped multi-base numerical sets, synchronous ASL hand-data video, mocap pipelines.</span>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="سنة">2024</span>
+                    <div class="work-details">
+                        <span class="اسم">vla x robotics</span>
+                        <span class="وصف">vision-language-action model work -- taming lossy compound behavior in general robotics models.</span>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com/kolbytn/mindcraft" rel="noopener">
+                    <span class="سنة">2024</span>
+                    <div class="work-details">
+                        <span class="اسم">mindcraft agent</span>
+                        <span class="وصف">embodied AI agent deployed inside a videogame world, built on the mindcraft library.</span>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="/buisness strategy.pdf" download>
+                    <span class="سنة">2024</span>
+                    <div class="work-details">
+                        <span class="اسم">data-layer thesis</span>
+                        <span class="وصف">why the next frontier is decided by data, not compute. (pdf)</span>
+                    </div>
+                </a>
+            </li>
+        </ol>
     </section>
 
-    <!-- Scientific Pipeline Ledger -->
-    <section class="system-panel" aria-labelledby="sec-work">
-        <h2 id="sec-work" class="عنوان">Project Pipelines // Systems Ledger</h2>
-        
-        <table class="pipeline-ledger">
-            <thead>
-                <tr>
-                    <th class="col-id">ID</th>
-                    <th class="col-title">System</th>
-                    <th class="col-desc">Specification</th>
-                    <th class="col-action">Link</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="col-id">PL-01</td>
-                    <td class="col-title">curated ML data</td>
-                    <td class="col-desc">Large-scale dataset design: multi-base numerical scraping, synchronous ASL video translation, and motion-capture kinematic processing pipelines.</td>
-                    <td class="col-action"><a href="#">[RUN // STABLE]</a></td>
-                </tr>
-                <tr>
-                    <td class="col-id">PL-02</td>
-                    <td class="col-title">vla x robotics</td>
-                    <td class="col-desc">Vision-Language-Action optimization: investigating and resolving lossy compound feedback behaviors in general robotic manipulation models.</td>
-                    <td class="col-action"><a href="#">[RUN // ACTIVE]</a></td>
-                </tr>
-                <tr>
-                    <td class="col-id">PL-03</td>
-                    <td class="col-title">mindcraft agent</td>
-                    <td class="col-desc">Embodied autonomous agent deployed inside a simulated physicalized gaming engine, built on the mindcraft coordinate integration library.</td>
-                    <td class="col-action"><a href="https://github.com/kolbytn/mindcraft" rel="noopener">[RUN // REPO]</a></td>
-                </tr>
-                <tr>
-                    <td class="col-id">PL-04</td>
-                    <td class="col-title">data-layer thesis</td>
-                    <td class="col-desc">Aerospace logic: analytical documentation detailing why the next technological frontier is determined by dataset curation over pure hardware compute.</td>
-                    <td class="col-action"><a href="/buisness strategy.pdf" download>[DOWNLOAD // PDF]</a></td>
-                </tr>
-            </tbody>
-        </table>
-    </section>
-
-    <!-- Avionics Blueprint Telemetry Panel (FCS Easter Egg Reveal) -->
-    <section class="system-panel مكشوف" id="fcs-blueprint" aria-labelledby="sec-blueprint">
-        <h2 id="sec-blueprint" class="عنوان">FCS Alignment Diagnostic // Telemetry Active</h2>
-        <div class="schematic-box">
-            
-            <p class="en" style="grid-column: 1 / -1; margin-bottom: -10px;">
-                IMU calibration validated. High-precision vector alignment active on the primary canvas. The attention refraction weave has collapsed and locked onto a **3D rotating mathematical wireframe schematic of the SR-71 Blackbird**, computed and projected directly on the canvas in real-time from first principles.
-            </p>
-
-            <!-- Dynamic Telemetry Log Box -->
-            <div class="schematic-data" style="grid-column: 1 / -1; width: 100%;">
-                <div class="data-log" id="fcs-log">
-                    [SYSTEM_TRANSPONDER_HANDSHAKE_READY]<br>
-                    [ACQUIRING IMU CALIBRATION PARAMETERS...]<br>
-                    <span class="success">FCS STAT: SECURE</span><br>
-                    <span class="highlight">IMU PLATFORM REGISTER DRIFT ELIMINATED</span><br>
-                    TRANSPONDER FREQ LOCK: 742.80 MHZ (STABLE)<br>
-                    ---------------------------------------<br>
-                    <span class="muted">[STREAMING PASSIVE FLIGHT LOGS...]</span><br>
-                    VELOCITY VECTOR: MACH 3.32 (CRUISE)<br>
-                    ALTITUDE TELEMETRY: 84,200 FT<br>
-                    ENGINE HYBRID SPIKES: 26 INCHES RETRACTED<br>
-                    AST-3 ASTRO-INERTIAL LOCK: SOL-IV ALPHA CYGNI<br>
-                    PITCH COEFFICIENT: +0.024 RAD<br>
-                    ROLL COEFFICIENT: +0.000 RAD (STABLE)<br>
-                    YAW DRIFT MATRIX: +0.000 RAD (STABLE)<br>
-                    ---------------------------------------<br>
-                    SYSTEM UNLOCKED. TELEMETRY SECURE. WELL DONE.
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Seed Round Status / Connection Interface -->
-    <section class="system-panel" aria-labelledby="sec-contact">
-        <h2 id="sec-contact" class="عنوان">System Connection // Ground Allocation</h2>
+    <!-- Contact & Status -->
+    <section class="تواصل" aria-labelledby="عنوان-تواصل">
+        <h2 id="عنوان-تواصل" class="عنوان">contact</h2>
         <a class="حال" href="https://x.com/SocialAcolyte">
-            <span class="en-حال">Seed Allocation Curation Round -- Active</span>
-            <span class="سهم">[CONNECT CLIENT NODE // SSH]</span>
+            <span class="en-حال">seed round -- open for allocation</span>
+            <span class="سهم">[CONNECT CLIENT]</span>
         </a>
     </section>
 
-    <!-- Navigation Footer -->
-    <nav class="روابط" aria-label="system-links">
+    <!-- Footer Links Row -->
+    <nav class="روابط" aria-label="elsewhere">
         <a href="https://x.com/SocialAcolyte" rel="me">twitter</a>
         <span class="dot">//</span>
         <a href="https://github.com/SocialAcolyte" rel="me">github</a>
         <span class="dot">//</span>
         <a href="https://www.linkedin.com/in/connor-m-hood/" rel="me">linkedin</a>
         <span class="dot">//</span>
-        <a href="/resume.html">cv-specsheet</a>
+        <a href="/resume.html">cv</a>
         <span class="dot">//</span>
-        <a href="#" class="mوقع">terminal</a>
+        <a href="#" class="موقع">site</a>
     </nav>
 
 </main>

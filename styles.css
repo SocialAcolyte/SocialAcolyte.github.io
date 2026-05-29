@@ -1,28 +1,27 @@
 /*
  *  ======================================================================
- *  BESPOKE PURE-BLACK MASTERPIECE DESIGN SYSTEM
- *  THEME: PURE VOID / PLATINUM WHITE / INDUSTRIAL MONOCHROME
- *  ZERO-EMOJI AND ZERO-CLICHÉ SYSTEM ARCHITECTURE
+ *  BESPOKE PURE-BLACK SERIF DESIGN SYSTEM
+ *  THEME: PURE VOID // PLATINUM WHITE // SILICA BLUEPRINT CORE
+ *  ZERO-EMOJI AND ZERO-CLICHÉ PORTFOLIO PROTOCOL
  *  ======================================================================
  */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600&family=JetBrains+Mono:wght@100;200;300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=JetBrains+Mono:wght@100;200;300;400;700&display=swap');
 
 :root {
     --bg-void: #000000;
     --text-high: #ffffff;
-    --text-mid: #a1a1aa;
-    --text-low: #3f3f46;
-    --text-dark: #18181b;
-    --cyan-clinical: #00e5ff;
+    --text-mid: #ece8e0;
+    --text-low: #5a5753;
+    --text-dark: #1e1d1b;
+    --silver-clinical: #c5c1b9;
     
     --border-thin: rgba(255, 255, 255, 0.05);
-    --border-mid: rgba(255, 255, 255, 0.12);
     
+    --font-serif: 'Cormorant Garamond', Georgia, serif;
     --font-mono: 'JetBrains Mono', monospace;
-    --font-sans: 'Inter', sans-serif;
     
-    --transition-speed: 0.2s;
+    --transition-speed: 0.3s;
 }
 
 * {
@@ -36,24 +35,24 @@ html, body {
     min-height: 100vh;
     background-color: var(--bg-void);
     color: var(--text-mid);
-    font-family: var(--font-sans);
-    font-weight: 200;
-    font-size: 13.5px;
-    line-height: 1.7;
+    font-family: var(--font-serif);
+    font-weight: 300;
+    font-size: 17px;
+    line-height: 1.65;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
 ::selection {
-    background-color: rgba(255, 255, 255, 0.08);
+    background-color: rgba(255, 255, 255, 0.06);
     color: var(--text-high);
 }
 
-/* Scrollbar System */
+/* Scrollbars */
 ::-webkit-scrollbar {
-    width: 3px;
-    height: 3px;
+    width: 2px;
+    height: 2px;
 }
 ::-webkit-scrollbar-track {
     background: var(--bg-void);
@@ -61,208 +60,165 @@ html, body {
 ::-webkit-scrollbar-thumb {
     background: var(--text-low);
 }
-::-webkit-scrollbar-thumb:hover {
-    background: var(--text-mid);
-}
-
-/* Canvas Mathematical Vector Attractor Background */
-#الخلفية {
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-}
 
 /* Spacious Centered Layout */
 .رئيسي {
     position: relative;
     z-index: 2;
-    max-width: 800px;
+    max-width: 620px;
     margin: 0 auto;
-    padding: 12vh 24px 160px;
+    padding: 16vh 24px 180px;
     display: flex;
     flex-direction: column;
-    gap: 72px;
+    gap: 64px;
 }
 
-/* Spacious Minimalist Header */
+/* Spacious Header */
 .رأس {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 12px;
     position: relative;
 }
 
-.رأس-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    flex-wrap: wrap;
-    gap: 12px;
-}
-
 .الاسم {
-    font-family: var(--font-sans);
-    font-size: clamp(28px, 6vw, 36px);
-    font-weight: 500;
-    letter-spacing: -0.04em;
+    font-family: var(--font-serif);
+    font-size: clamp(36px, 7vw, 44px);
+    font-weight: 300;
+    letter-spacing: -0.01em;
     color: var(--text-high);
-    text-transform: uppercase;
-}
-
-.الاسم span {
-    font-weight: 100;
-    color: var(--text-mid);
+    margin: 0;
 }
 
 .ترجمة {
     font-family: var(--font-mono);
-    font-size: 10px;
+    font-size: 10.5px;
     font-weight: 200;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.12em;
     color: var(--text-low);
     text-transform: uppercase;
 }
 
-/* Silent System Status indicators */
-.telemetry-board {
-    display: flex;
-    gap: 24px;
-    font-family: var(--font-mono);
-    font-size: 9.5px;
-    color: var(--text-low);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    border-top: 1px solid var(--border-thin);
-    padding-top: 14px;
-}
-
-.telemetry-item span.value {
-    color: var(--text-mid);
-}
-
-.telemetry-item span.value.active {
-    color: var(--cyan-clinical);
-}
-
-/* Spacious Content Panels */
-.system-panel {
+/* Spacious Sections */
+.نص, .فلسفة, .أعمال, .تواصل {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    position: relative;
 }
 
 .عنوان {
+    margin: 0 0 4px;
     font-family: var(--font-mono);
-    font-size: 10.5px;
+    font-size: 10px;
     font-weight: 300;
-    color: var(--text-high);
-    letter-spacing: 0.1em;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
-}
-
-.عنوان::before {
-    content: '// ';
     color: var(--text-low);
 }
 
-/* Master Introspection Matrix Canvas Area */
-.matrix-container {
-    width: 100%;
-    position: relative;
-    border: 1px solid var(--border-thin);
-    background: rgba(255, 255, 255, 0.005);
-    padding: 12px;
-    overflow: hidden;
+.en {
+    font-size: 17.5px;
+    color: var(--text-mid);
+    line-height: 1.6;
 }
 
-.matrix-canvas {
+/* The Silica Matrix Monument Area */
+.silica-container {
     width: 100%;
-    height: 320px;
+    margin: 12px 0;
+    border: 1px solid var(--border-thin);
+    background: rgba(255, 255, 255, 0.002);
+    padding: 12px;
+    position: relative;
+}
+
+.silica-canvas {
+    width: 100%;
+    height: 300px;
     display: block;
     cursor: crosshair;
 }
 
-/* Quiet, Monospaced Systems Ledger */
-.pipeline-ledger {
-    width: 100%;
-    border-collapse: collapse;
-    font-family: var(--font-mono);
-    font-size: 10.5px;
-    margin-top: 8px;
-}
-
-.pipeline-ledger th, .pipeline-ledger td {
-    text-align: left;
-    padding: 14px 8px;
-    border-bottom: 1px solid var(--border-thin);
-}
-
-.pipeline-ledger th {
-    color: var(--text-low);
-    font-weight: 300;
-    text-transform: uppercase;
-    font-size: 9px;
-    letter-spacing: 0.05em;
-}
-
-.pipeline-ledger tr {
-    transition: background var(--transition-speed);
-}
-
-.pipeline-ledger tbody tr:hover {
-    background: rgba(255, 255, 255, 0.01);
-}
-
-.pipeline-ledger .col-id {
-    color: var(--text-low);
-}
-
-.pipeline-ledger .col-title {
-    color: var(--text-high);
-    font-weight: 400;
-    text-transform: uppercase;
-}
-
-.pipeline-ledger .col-desc {
-    font-family: var(--font-sans);
-    font-size: 12px;
-    color: var(--text-mid);
-    font-weight: 200;
-}
-
-.pipeline-ledger .col-action a {
-    color: var(--text-low);
-    text-decoration: none;
-    border: 1px solid var(--border-thin);
-    padding: 3px 6px;
-    display: inline-block;
-    transition: all var(--transition-speed);
-}
-
-.pipeline-ledger .col-action a:hover {
-    border-color: var(--text-mid);
-    color: var(--text-high);
-}
-
-/* Allocation Row */
-.تواصل {
+/* Spacious Selected Works List */
+.قائمة {
+    list-style: none;
+    margin: 0;
+    padding: 0;
     display: flex;
     flex-direction: column;
+    gap: 16px;
 }
 
-.حال {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.قائمة li {
     border-bottom: 1px solid var(--border-thin);
-    padding: 16px 0;
+    padding-bottom: 16px;
+}
+
+.قائمة li:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.قائمة a {
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    gap: 16px;
     color: var(--text-mid);
     text-decoration: none;
+    transition: color var(--transition-speed);
+}
+
+.قائمة a:hover {
+    color: var(--text-high);
+}
+
+.قائمة .سنة {
     font-family: var(--font-mono);
     font-size: 11px;
-    letter-spacing: 0.05em;
+    color: var(--text-low);
+    padding-top: 4px;
+}
+
+.قائمة .work-details {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.قائمة .اسم {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-high);
+}
+
+.قائمة .وصف {
+    font-family: var(--font-serif);
+    font-size: 15.5px;
+    font-style: italic;
+    color: var(--text-low);
+    line-height: 1.45;
+    transition: color var(--transition-speed);
+}
+
+.قائمة a:hover .وصف {
+    color: var(--text-mid);
+}
+
+/* Contact Line */
+.حال {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 12px;
+    width: fit-content;
+    color: var(--text-mid);
+    text-decoration: none;
+    border-bottom: 1px solid var(--border-thin);
+    padding-bottom: 4px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     transition: all var(--transition-speed);
 }
@@ -273,11 +229,6 @@ html, body {
 }
 
 .حال .en-حال {
-    color: var(--text-low);
-    transition: color var(--transition-speed);
-}
-
-.حال:hover .en-حال {
     color: var(--text-mid);
 }
 
@@ -285,14 +236,17 @@ html, body {
     color: var(--text-low);
 }
 
-/* Spacious Minimal Footer */
+/* Footer links row */
 .روابط {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    align-items: baseline;
+    gap: 12px;
     font-family: var(--font-mono);
-    font-size: 10px;
-    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: var(--text-low);
+    margin-top: 12px;
     border-top: 1px solid var(--border-thin);
     padding-top: 24px;
 }
@@ -311,87 +265,21 @@ html, body {
     color: var(--text-dark);
 }
 
-/* Hidden Avionics Blueprint Panel */
-.مكشوف {
-    margin-top: 16px;
-    display: none;
-    flex-direction: column;
-    gap: 20px;
-    animation: revealPanel 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-.مكشوف.ظاهر {
-    display: flex;
-}
-
-@keyframes revealPanel {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.schematic-box {
-    border: 1px solid var(--border-thin);
-    padding: 24px;
-    display: grid;
-    grid-template-columns: 5fr 4fr;
-    gap: 24px;
-    align-items: center;
-}
-
-.schematic-graphic {
-    width: 100%;
-    height: auto;
-}
-
-.schematic-data {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.data-log {
-    background: #020202;
-    border: 1px solid var(--border-thin);
-    padding: 12px;
-    height: 220px;
-    overflow-y: auto;
-    font-family: var(--font-mono);
-    font-size: 9px;
-    line-height: 1.55;
-    color: var(--text-mid);
-}
-
-.data-log span.success {
-    color: var(--text-high);
-    font-weight: 700;
-}
-
-.data-log span.highlight {
-    color: var(--text-high);
-}
-
-.data-log span.muted {
-    color: var(--text-low);
-}
-
-/* Spacious Systems CV Datasheet Layout (resume.html support) */
+/* Systems CV Datasheet Layout (resume.html support) */
 .سيرة {
-    max-width: 800px;
+    max-width: 720px;
+    padding: 12vh 24px 180px;
+    gap: 52px;
 }
 
 .جهات {
+    margin-top: 8px;
     display: flex;
     flex-wrap: wrap;
-    gap: 16px;
+    gap: 12px;
     font-family: var(--font-mono);
-    font-size: 10px;
-    margin-top: 8px;
+    font-size: 11px;
+    color: var(--text-low);
 }
 
 .جهات a {
@@ -408,11 +296,15 @@ html, body {
     color: var(--text-dark);
 }
 
+.cv-section {
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+}
+
 .cv-ledger {
     width: 100%;
     border-collapse: collapse;
-    font-family: var(--font-mono);
-    font-size: 10.5px;
 }
 
 .cv-ledger tr {
@@ -424,13 +316,15 @@ html, body {
 }
 
 .cv-ledger td {
-    padding: 20px 8px;
+    padding: 24px 8px;
     vertical-align: top;
     text-align: left;
 }
 
 .cv-ledger .col-period {
-    width: 140px;
+    width: 130px;
+    font-family: var(--font-mono);
+    font-size: 11px;
     color: var(--text-low);
 }
 
@@ -439,29 +333,32 @@ html, body {
 }
 
 .cv-ledger .org-name {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
     color: var(--text-high);
-    font-weight: 500;
     text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
 .cv-ledger .role-title {
-    color: var(--text-mid);
-    font-size: 9.5px;
-    margin-top: 2px;
+    font-family: var(--font-serif);
+    font-style: italic;
+    color: var(--text-low);
+    font-size: 14px;
+    margin-top: 4px;
 }
 
 .cv-ledger .col-details {
-    font-family: var(--font-sans);
-    font-size: 12.5px;
+    font-family: var(--font-serif);
+    font-size: 16px;
     color: var(--text-mid);
-    font-weight: 200;
 }
 
 .cv-ledger .col-details ul {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 10px;
 }
 
 .cv-ledger .col-details li {
@@ -475,14 +372,15 @@ html, body {
     left: 0;
     color: var(--text-low);
     font-family: var(--font-mono);
-    font-size: 9px;
+    font-size: 10px;
 }
 
 .cv-ledger .note {
     font-style: italic;
     color: var(--text-low);
-    font-size: 12px;
-    margin-bottom: 8px;
+    font-size: 14.5px;
+    margin-bottom: 10px;
+    line-height: 1.5;
 }
 
 .ختام {
@@ -491,22 +389,23 @@ html, body {
 }
 
 .ختام p {
-    font-family: var(--font-sans);
-    font-size: 13.5px;
-    line-height: 1.65;
+    font-family: var(--font-serif);
+    font-size: 17.5px;
+    line-height: 1.6;
     color: var(--text-mid);
-    font-weight: 200;
+    font-style: italic;
 }
 
 .ختام strong {
     color: var(--text-high);
     font-weight: 400;
+    font-style: normal;
 }
 
 .رجوع {
     display: inline-block;
     font-family: var(--font-mono);
-    font-size: 10.5px;
+    font-size: 11px;
     color: var(--text-low);
     text-decoration: none;
     border: 1px solid var(--border-thin);
@@ -519,40 +418,11 @@ html, body {
     border-color: var(--text-mid);
 }
 
-/* System Calibration Status Link (Homepage) */
-.نظرة {
-    position: absolute;
-    top: 24px;
-    right: 24px;
-    padding: 6px 10px;
-    border: 1px solid var(--border-thin);
-    color: var(--text-low);
-    text-decoration: none;
-    font-family: var(--font-mono);
-    font-size: 9.5px;
-    text-transform: uppercase;
-    transition: all var(--transition-speed);
-}
-
-.نظرة:hover {
-    color: var(--text-high);
-    border-color: var(--text-mid);
-}
-
-/* Precision Responsive Breakpoints */
-@media (max-width: 900px) {
+/* Precision Responsive Layouts */
+@media (max-width: 768px) {
     .رئيسي {
         padding: 40px 16px 80px;
         gap: 40px;
-    }
-    
-    .pipeline-ledger th:nth-child(1),
-    .pipeline-ledger td:nth-child(1) {
-        display: none;
-    }
-    
-    .schematic-box {
-        grid-template-columns: 1fr;
     }
     
     .cv-ledger tr {
