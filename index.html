@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Social Acolyte -- building the datasets that decide what frontier models can do.">
+    <meta name="description" content="Social Acolyte — building the datasets that decide what frontier models can do.">
     <meta name="theme-color" content="#000000">
     <title>Social Acolyte</title>
 
@@ -11,57 +11,100 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=JetBrains+Mono:wght@100;200;300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .surface-card {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            padding: 20px 0;
+            border-top: 1px solid var(--border-thin);
+            border-bottom: 1px solid var(--border-thin);
+        }
+        .surface-card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .surface-card-header svg {
+            width: 15px;
+            height: 15px;
+            color: var(--text-low);
+            flex-shrink: 0;
+        }
+        .surface-card-name {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-high);
+        }
+        .surface-card-year {
+            font-family: var(--font-mono);
+            font-size: 9.5px;
+            color: var(--text-low);
+            margin-left: auto;
+        }
+        .surface-card-desc {
+            font-family: var(--font-serif);
+            font-size: 15px;
+            font-style: italic;
+            color: var(--text-low);
+            line-height: 1.6;
+            margin: 0;
+        }
+    </style>
 </head>
 <body>
 
-<!-- Ambient background canvas -->
 <canvas id="الخلفية" aria-hidden="true"></canvas>
 
 <main class="رئيسي">
     <div class="home-grid">
-        
-        <!-- LEFT COLUMN: Spacious Prose & Selected Works -->
+
+        <!-- LEFT COLUMN -->
         <div class="home-left">
-            
-            <!-- Header Section -->
+
             <header class="رأس">
                 <h1 class="الاسم">Social Acolyte</h1>
                 <p class="ترجمة">b. 2004</p>
             </header>
 
-            <!-- Core Text -->
             <section class="نص">
                 <p class="en">
                     I build the datasets that decide what frontier models can and cannot do.
-                    Most of the gap between what AI promises and what it delivers lives inside the data --
+                    Most of the gap between what AI promises and what it delivers lives inside the data —
                     I want to close it.
                 </p>
             </section>
 
-            <!-- Philosophy & Curation-as-Insulation Metaphor -->
             <section class="فلسفة" aria-labelledby="عنوان-فلسفة">
                 <h2 id="عنوان-فلسفة" class="عنوان">philosophy</h2>
                 <p class="en">
                     Frontier capability is bottlenecked by data, not compute. The next leap won't be a new
-                    architecture -- it will be data designed by people who knew exactly what was missing.
+                    architecture — it will be data designed by people who knew exactly what was missing.
                     I build that data, and I build it as an acolyte:
                     a disciple who studies the work hard enough to deserve to lead it.
                 </p>
-                <p class="en" style="font-style: italic; color: rgba(236, 232, 224, 0.7);">
-                    Like the sparse, 96% empty space of a silica tile that insulates a spacecraft from re-entry plasma, dataset curation is the art of strategic omission. We build the sparse, high-fidelity matrices that insulate model boundaries from behavioral entropy.
-                </p>
             </section>
 
-            <!-- Selected Work / Pipelines -->
             <section class="أعمال" aria-labelledby="عنوان-أعمال">
                 <h2 id="عنوان-أعمال" class="عنوان">selected work</h2>
                 <ol class="قائمة">
+                    <li>
+                        <a href="/surface.html">
+                            <span class="سنة">2025</span>
+                            <div class="work-details">
+                                <span class="اسم">surface</span>
+                                <span class="وصف">browser extension — highlights what's relevant to you on any page, using your Claude account and a personal memory document you write once.</span>
+                            </div>
+                        </a>
+                    </li>
                     <li>
                         <a href="#">
                             <span class="سنة">2025</span>
                             <div class="work-details">
                                 <span class="اسم">curated ML data</span>
-                                <span class="وصف">large-scale dataset work -- web-scraped multi-base numerical sets, synchronous ASL hand-data video, mocap pipelines.</span>
+                                <span class="وصف">large-scale dataset work — web-scraped multi-base numerical sets, synchronous ASL hand-data video, mocap pipelines.</span>
                             </div>
                         </a>
                     </li>
@@ -70,7 +113,7 @@
                             <span class="سنة">2024</span>
                             <div class="work-details">
                                 <span class="اسم">vla x robotics</span>
-                                <span class="وصف">vision-language-action model work -- taming lossy compound behavior in general robotics models.</span>
+                                <span class="وصف">vision-language-action model work — taming lossy compound behavior in general robotics models.</span>
                             </div>
                         </a>
                     </li>
@@ -95,16 +138,14 @@
                 </ol>
             </section>
 
-            <!-- Contact & Status -->
             <section class="تواصل" aria-labelledby="عنوان-تواصل">
                 <h2 id="عنوان-تواصل" class="عنوان">contact</h2>
                 <a class="حال" href="https://x.com/SocialAcolyte">
-                    <span class="en-حال">seed round -- open for allocation</span>
-                    <span class="سهم">[CONNECT CLIENT]</span>
+                    <span class="en-حال">seed round — open for allocation</span>
+                    <span class="سهم">↗</span>
                 </a>
             </section>
 
-            <!-- Footer Links Row -->
             <nav class="روابط" aria-label="elsewhere">
                 <a href="https://x.com/SocialAcolyte" rel="me">twitter</a>
                 <span class="dot">//</span>
@@ -113,21 +154,36 @@
                 <a href="https://www.linkedin.com/in/connor-m-hood/" rel="me">linkedin</a>
                 <span class="dot">//</span>
                 <a href="/resume.html">cv</a>
-                <span class="dot">//</span>
-                <a href="#" class="موقع">site</a>
             </nav>
-            
+
         </div>
 
-        <!-- RIGHT COLUMN: The Silica Matrix Canvas Monument -->
+        <!-- RIGHT COLUMN -->
         <div class="home-right">
-            <h2 class="عنوان">Molecular Curation // Silica Fiber Matrix</h2>
-            <div class="silica-container">
-                <canvas class="silica-canvas" id="silica-canvas"></canvas>
-            </div>
-            <p class="en" style="font-size: 14.5px; font-style: italic; color: rgba(256, 256, 256, 0.4); line-height: 1.5; max-width: 100%;">
-                Mechanical illustration of thermal dissipation within a Fused Silica tile (LI-900). Your cursor acts as a localized plasma heat vector. As you glide across the boundary layer (top), it injects high-density kinetic thermal particles. These particles diffuse downwards, colliding, deflecting, and generating molecular collision sparks upon striking the glass fiber lattice, which vibrates in response. The heat stays localized at the re-entry boundary, leaving the structural aluminum skin (bottom) secure.
-            </p>
+            <h2 class="عنوان">now</h2>
+
+            <a href="/surface.html" style="text-decoration: none; display: block;">
+                <div class="surface-card">
+                    <div class="surface-card-header">
+                        <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M2 10C2 10 5.5 4 10 4C14.5 4 18 10 18 10C18 10 14.5 16 10 16C5.5 16 2 10 2 10Z"
+                                  stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                            <circle cx="10" cy="10" r="2.5" fill="currentColor"/>
+                        </svg>
+                        <span class="surface-card-name">surface</span>
+                        <span class="surface-card-year">2025</span>
+                    </div>
+                    <p class="surface-card-desc">
+                        A browser extension that highlights what's relevant to you on any page —
+                        shopping, articles, research. Powered by your Claude account and a short
+                        memory document you write once.
+                    </p>
+                    <span class="حال" style="width: fit-content;">
+                        <span class="en-حال">early build — install</span>
+                        <span class="سهم">↗</span>
+                    </span>
+                </div>
+            </a>
         </div>
 
     </div>
