@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Surface — Highlight What Matters</title>
+  <meta name="description" content="Your memory, visible everywhere. Surface uses your Claude account to highlight what's relevant to you on any webpage." />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ── Surface page-specific overrides ── */
+
+    .surface-mark {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text-high);
+    }
+    .surface-mark svg {
+      width: 18px;
+      height: 18px;
+      color: var(--text-low);
+      flex-shrink: 0;
+    }
+    .surface-mark .mark-name {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      text-transform: lowercase;
+      color: var(--text-high);
+    }
+
+    .surface-hero {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-width: 560px;
+    }
+    .surface-hero h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(28px, 4vw, 38px);
+      font-weight: 300;
+      letter-spacing: -0.01em;
+      color: var(--text-high);
+      line-height: 1.15;
+      margin: 0;
+    }
+    .surface-hero .sub {
+      font-family: var(--font-serif);
+      font-size: 17px;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--text-low);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .surface-layout {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 10vh 32px 160px;
+      display: flex;
+      flex-direction: column;
+      gap: 80px;
+    }
+
+    .surface-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .back-link {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-low);
+      text-decoration: none;
+      transition: color var(--transition-speed);
+    }
+    .back-link:hover { color: var(--text-high); }
+
+    .how-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 48px;
+    }
+    .how-step {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border-thin);
+    }
+    .step-num {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      font-weight: 300;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-low);
+    }
+    .step-title {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-high);
+    }
+    .step-desc {
+      font-family: var(--font-serif);
+      font-size: 15px;
+      font-style: italic;
+      color: var(--text-low);
+      line-height: 1.55;
+    }
+
+    /* highlight demo — static mockup */
+    .demo-block {
+      border: 1px solid var(--border-thin);
+      padding: 28px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+    }
+    .demo-label {
+      position: absolute;
+      top: -1px;
+      right: 24px;
+      font-family: var(--font-mono);
+      font-size: 8.5px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-low);
+      background: var(--bg-void);
+      padding: 0 8px;
+      transform: translateY(-50%);
+    }
+    .demo-url {
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      color: var(--text-low);
+      letter-spacing: 0.06em;
+    }
+    .demo-items {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .demo-item {
+      font-family: var(--font-serif);
+      font-size: 15px;
+      color: var(--text-low);
+      line-height: 1.5;
+      padding: 6px 0;
+      border-bottom: 1px solid var(--border-thin);
+      position: relative;
+    }
+    .demo-item.primary {
+      color: var(--text-mid);
+      border-bottom-color: rgba(255,220,50,0.12);
+    }
+    .demo-item.primary::before {
+      content: '';
+      position: absolute;
+      left: -32px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: rgba(255, 220, 50, 0.5);
+    }
+    .demo-item.secondary {
+      color: var(--text-mid);
+      border-bottom-color: rgba(100,160,255,0.1);
+    }
+    .demo-item.secondary::before {
+      content: '';
+      position: absolute;
+      left: -32px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: rgba(100, 160, 255, 0.4);
+    }
+    .demo-tag {
+      font-family: var(--font-mono);
+      font-size: 8.5px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-low);
+      margin-left: 12px;
+    }
+    .demo-item.primary .demo-tag { color: rgba(255,220,50,0.6); }
+    .demo-item.secondary .demo-tag { color: rgba(100,160,255,0.5); }
+
+    /* install section */
+    .install-section {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      max-width: 600px;
+    }
+    .install-section h2 {
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      font-weight: 300;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-low);
+      margin: 0;
+    }
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      width: fit-content;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-high);
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.15);
+      padding: 14px 24px;
+      transition: all var(--transition-speed);
+    }
+    .download-btn:hover {
+      border-color: var(--text-mid);
+      background: rgba(255,255,255,0.03);
+    }
+    .download-btn svg {
+      width: 14px;
+      height: 14px;
+      opacity: 0.6;
+    }
+    .install-steps {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .install-steps li {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 12px;
+      align-items: baseline;
+      border-bottom: 1px solid var(--border-thin);
+      padding-bottom: 14px;
+    }
+    .install-steps li:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+    .install-steps .n {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      color: var(--text-low);
+      letter-spacing: 0.1em;
+    }
+    .install-steps .t {
+      font-family: var(--font-serif);
+      font-size: 15px;
+      color: var(--text-mid);
+      line-height: 1.5;
+    }
+    .install-steps .t code {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-high);
+      background: rgba(255,255,255,0.05);
+      padding: 1px 6px;
+      letter-spacing: 0.02em;
+    }
+    .install-steps .t a {
+      color: var(--text-mid);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border-thin);
+      transition: all var(--transition-speed);
+    }
+    .install-steps .t a:hover {
+      color: var(--text-high);
+      border-bottom-color: var(--text-mid);
+    }
+
+    .prereq-note {
+      font-family: var(--font-serif);
+      font-size: 14px;
+      font-style: italic;
+      color: var(--text-low);
+      line-height: 1.6;
+      padding-top: 20px;
+      border-top: 1px solid var(--border-thin);
+    }
+
+    @media (max-width: 768px) {
+      .surface-layout {
+        padding: 40px 16px 80px;
+      }
+      .how-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+      .demo-block {
+        padding: 24px 20px;
+      }
+      .demo-item::before {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="surface-layout">
+
+    <!-- Nav -->
+    <nav class="surface-nav">
+      <a class="surface-mark" href="#">
+        <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2 10C2 10 5.5 4 10 4C14.5 4 18 10 18 10C18 10 14.5 16 10 16C5.5 16 2 10 2 10Z"
+                stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+          <circle cx="10" cy="10" r="2.5" fill="currentColor"/>
+        </svg>
+        <span class="mark-name">surface</span>
+      </a>
+      <a class="back-link" href="/">socialacolyte.github.io ↗</a>
+    </nav>
+
+    <!-- Hero -->
+    <div class="surface-hero">
+      <h1>Your memory,<br>visible everywhere.</h1>
+      <p class="sub">
+        Surface uses your Claude account to highlight what's relevant to you on any webpage —
+        without injecting new UI, without an API key, without asking you to repeat yourself.
+      </p>
+    </div>
+
+    <!-- Demo mockup -->
+    <div class="demo-block">
+      <span class="demo-label">example — shopping</span>
+      <span class="demo-url">store.example.com/cycling</span>
+      <div class="demo-items">
+        <div class="demo-item primary">
+          Shimano GRX 810 Groupset — gravel 1×11 <span class="demo-tag">primary</span>
+        </div>
+        <div class="demo-item secondary">
+          Wahoo ELEMNT Bolt v2 GPS computer <span class="demo-tag">secondary</span>
+        </div>
+        <div class="demo-item">
+          Decorative handlebar tape, cork finish
+        </div>
+        <div class="demo-item">
+          Saddle bag organiser set, 3-piece
+        </div>
+        <div class="demo-item secondary">
+          Gore-Tex cycling jacket, waterproof <span class="demo-tag">secondary</span>
+        </div>
+        <div class="demo-item">
+          Gel seat cover, standard sizing
+        </div>
+      </div>
+    </div>
+
+    <!-- How it works -->
+    <div>
+      <p class="عنوان" style="margin-bottom: 36px;">How it works</p>
+      <div class="how-grid">
+        <div class="how-step">
+          <span class="step-num">01</span>
+          <span class="step-title">Connect Claude</span>
+          <p class="step-desc">
+            Grant Surface access to your existing Claude account. No API key, no separate subscription —
+            billed to your Claude Max plan.
+          </p>
+        </div>
+        <div class="how-step">
+          <span class="step-num">02</span>
+          <span class="step-title">Write your memory</span>
+          <p class="step-desc">
+            A short document about who you are: occupation, interests, preferences.
+            Import from your Claude Code memory files, or paste directly.
+          </p>
+        </div>
+        <div class="how-step">
+          <span class="step-num">03</span>
+          <span class="step-title">Browse</span>
+          <p class="step-desc">
+            Surface reads each page, sends it to Claude with your memory, and marks what matters —
+            quietly, without new chrome or popups.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Install -->
+    <div class="install-section">
+      <h2>Install — early build</h2>
+
+      <a class="download-btn" href="https://github.com/SocialAcolyte/surface-extension/releases/latest/download/surface.zip" download>
+        <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 2v8M5 7l3 3 3-3M2 11v1a2 2 0 002 2h8a2 2 0 002-2v-1"
+                stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Download surface.zip
+      </a>
+
+      <ol class="install-steps">
+        <li>
+          <span class="n">01</span>
+          <span class="t">Unzip the downloaded file. Keep the folder somewhere permanent — Chrome loads from it directly.</span>
+        </li>
+        <li>
+          <span class="n">02</span>
+          <span class="t">Open <a href="chrome://extensions" target="_blank">chrome://extensions</a> and enable <strong>Developer mode</strong> (top-right toggle).</span>
+        </li>
+        <li>
+          <span class="n">03</span>
+          <span class="t">Click <code>Load unpacked</code> and select the unzipped folder.</span>
+        </li>
+        <li>
+          <span class="n">04</span>
+          <span class="t">Pin Surface from the extensions menu. Click it, grant claude.ai access when prompted.</span>
+        </li>
+        <li>
+          <span class="n">05</span>
+          <span class="t">Write a few lines about yourself in the Memory tab. Browse. Yellow marks are strong matches, blue are secondary.</span>
+        </li>
+      </ol>
+
+      <p class="prereq-note">
+        Requires a Claude account (free tier works). Surface piggybacks on your existing session —
+        it never stores your credentials.
+      </p>
+    </div>
+
+    <!-- Footer -->
+    <div class="روابط">
+      <a href="/">socialacolyte.github.io</a>
+      <span class="dot">·</span>
+      <a href="https://github.com/SocialAcolyte/surface-extension" target="_blank">github</a>
+      <span class="dot">·</span>
+      <span style="color: var(--text-low);">chrome extension · early build · v0.2</span>
+    </div>
+
+  </div>
+</body>
+</html>
