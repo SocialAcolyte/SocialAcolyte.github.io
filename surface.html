@@ -56,6 +56,12 @@
       margin: 0;
     }
 
+    #srf-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
     .surface-layout {
       max-width: 1080px;
       margin: 0 auto;
@@ -63,6 +69,8 @@
       display: flex;
       flex-direction: column;
       gap: 80px;
+      position: relative;
+      z-index: 1;
     }
 
     .surface-nav {
@@ -314,6 +322,7 @@
   </style>
 </head>
 <body>
+  <canvas id="srf-bg" aria-hidden="true"></canvas>
   <div class="surface-layout">
 
     <!-- Nav -->
@@ -446,5 +455,104 @@
     </div>
 
   </div>
+<script>
+(() => {
+  'use strict';
+  const canvas = document.getElementById('srf-bg');
+  const ctx    = canvas.getContext('2d');
+  const dpr    = Math.min(window.devicePixelRatio || 1, 2);
+  let W = 0, H = 0, T = 0;
+
+  // [cx%, cy%, radius%, hue, sat, lit, drift_speed, drift_amp, phase]
+  const BLOBS = [
+    [0.18, 0.22, 0.62, 270, 70, 30, 0.00022, 0.14, 0.0 ],
+    [0.82, 0.68, 0.58, 240, 80, 28, 0.00028, 0.11, 2.1 ],
+    [0.55, 0.88, 0.70, 185, 75, 25, 0.00018, 0.16, 4.2 ],
+    [0.08, 0.72, 0.52, 295, 60, 28, 0.00032, 0.12, 1.0 ],
+    [0.88, 0.18, 0.55, 210, 80, 30, 0.00020, 0.13, 3.1 ],
+  ];
+
+  function resize() {
+    W = window.innerWidth;
+    H = window.innerHeight;
+    canvas.style.width  = W + 'px';
+    canvas.style.height = H + 'px';
+    canvas.width  = W * dpr;
+    canvas.height = H * dpr;
+    ctx.resetTransform();
+    ctx.scale(dpr, dpr);
+  }
+
+  function drawBlobs() {
+    ctx.save();
+    ctx.globalCompositeOperation = 'screen';
+    for (const [bx, by, br, h, s, l, spd, amp, ph] of BLOBS) {
+      const x = (bx + amp * Math.sin(T * spd * 1.1 + ph)) * W;
+      const y = (by + amp * 0.65 * Math.cos(T * spd + ph * 1.4)) * H;
+      const R = br * Math.max(W, H);
+      const g = ctx.createRadialGradient(x, y, 0, x, y, R);
+      g.addColorStop(0,    `hsla(${h},${s}%,${l}%,0.3)`);
+      g.addColorStop(0.45, `hsla(${h},${s}%,${l}%,0.1)`);
+      g.addColorStop(1,    `hsla(${h},${s}%,${l}%,0)`);
+      ctx.fillStyle = g;
+      ctx.beginPath();
+      ctx.arc(x, y, R, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  function drawSpiral() {
+    const cx   = W * 0.5;
+    const cy   = H * 0.38;
+    const maxR = Math.max(W, H) * 0.68;
+    const rot  = T * 0.00038;
+    const N    = 110;
+
+    ctx.save();
+    ctx.globalCompositeOperation = 'screen';
+
+    for (let i = 1; i < N; i++) {
+      const f     = i / N;
+      const r     = Math.pow(f, 0.75) * maxR;
+      const theta = f * Math.PI * 6 + rot;
+      const width = maxR * 0.022 * (1 - f * 0.55);
+      const alpha = Math.sin(f * Math.PI) * 0.065;
+      const hue   = 265 - f * 90;
+
+      ctx.beginPath();
+      ctx.arc(cx, cy, r, theta - 0.07, theta + 0.07);
+      ctx.lineWidth   = width;
+      ctx.strokeStyle = `hsla(${hue},75%,60%,${alpha})`;
+      ctx.stroke();
+    }
+
+    // Soft central glow — eye motif
+    const gr = Math.min(W, H) * 0.22;
+    const glow = ctx.createRadialGradient(cx, cy, 0, cx, cy, gr);
+    glow.addColorStop(0,   'hsla(250,80%,65%,0.13)');
+    glow.addColorStop(0.5, 'hsla(250,70%,50%,0.04)');
+    glow.addColorStop(1,   'hsla(250,70%,50%,0)');
+    ctx.fillStyle = glow;
+    ctx.beginPath();
+    ctx.arc(cx, cy, gr, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.restore();
+  }
+
+  function frame() {
+    ctx.clearRect(0, 0, W, H);
+    drawBlobs();
+    drawSpiral();
+    T++;
+    requestAnimationFrame(frame);
+  }
+
+  window.addEventListener('resize', resize);
+  resize();
+  frame();
+})();
+</script>
 </body>
 </html>
