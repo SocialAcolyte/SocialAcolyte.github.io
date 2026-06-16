@@ -1,479 +1,340 @@
-/*
- *  ======================================================================
- *  BESPOKE PURE-BLACK ASYMMETRICAL EDITORIAL DESIGN SYSTEM
- *  THEME: PURE VOID // MATTE SLATE // INDUSTRIAL BLUEPRINT
- *  ZERO-EMOJI AND ZERO-CLICHÉ PORTFOLIO PROTOCOL
- *  ======================================================================
- */
-
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=JetBrains+Mono:wght@100;200;300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=JetBrains+Mono:wght@200;300;400&display=swap');
 
 :root {
-    --bg-void: #000000;
-    --text-high: #ffffff;
-    --text-mid: #ece8e0;
-    --text-low: #5a5753;
-    --text-dark: #1a1917;
-    --silver-clinical: #c5c1b9;
-    
-    --border-thin: rgba(255, 255, 255, 0.05);
-    
-    --font-serif: 'Cormorant Garamond', Georgia, serif;
-    --font-mono: 'JetBrains Mono', monospace;
-    
-    --transition-speed: 0.3s;
+  --bg-void:          #060606;
+  --text-high:        #f0ece4;
+  --text-mid:         #ece8e0;
+  --text-low:         #5a5753;
+  --border-thin:      rgba(255, 255, 255, 0.08);
+  --font-serif:       'Cormorant Garamond', Georgia, serif;
+  --font-mono:        'JetBrains Mono', monospace;
+  --transition-speed: 0.22s;
 }
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+*, *::before, *::after { box-sizing: border-box; }
 
 html, body {
-    width: 100%;
-    min-height: 100vh;
-    background-color: var(--bg-void);
-    color: var(--text-mid);
-    font-family: var(--font-serif);
-    font-weight: 300;
-    font-size: 16.5px;
-    line-height: 1.65;
-    overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background: var(--bg-void);
+  color: var(--text-high);
+  font-family: var(--font-serif);
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+}
+
+/* Configure-style corner glows — opacity ~30% below original */
+body::before {
+  content: '';
+  position: fixed;
+  top: -320px;
+  left: -320px;
+  width: 860px;
+  height: 860px;
+  background: radial-gradient(ellipse at center, rgba(28, 52, 105, 0.18) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: 0;
+}
+body::after {
+  content: '';
+  position: fixed;
+  bottom: -280px;
+  right: -280px;
+  width: 780px;
+  height: 780px;
+  background: radial-gradient(ellipse at center, rgba(58, 22, 92, 0.14) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: 0;
 }
 
 ::selection {
-    background-color: rgba(255, 255, 255, 0.06);
-    color: var(--text-high);
+  background: rgba(255, 255, 255, 0.11);
+  color: var(--text-high);
 }
 
-/* Scrollbars */
-::-webkit-scrollbar {
-    width: 2px;
-    height: 2px;
-}
-::-webkit-scrollbar-track {
-    background: var(--bg-void);
-}
-::-webkit-scrollbar-thumb {
-    background: var(--text-low);
+/* ─── Background canvas ─────────────────────────────── */
+#الخلفية {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
 }
 
-/* Master Grid Wrapper */
+/* ─── Main layout (index.html) ──────────────────────── */
 .رئيسي {
-    position: relative;
-    z-index: 2;
-    max-width: 1120px;
-    margin: 0 auto;
-    padding: 12vh 32px 160px;
+  position: relative;
+  z-index: 2;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 10vh 48px 160px;
 }
 
-/* Asymmetrical Double Column Grid */
 .home-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 72px;
-    align-items: start;
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 80px;
+  align-items: start;
 }
 
-/* Left Column: Spacious Prose & Selected Works */
 .home-left {
-    display: flex;
-    flex-direction: column;
-    gap: 52px;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
 }
 
-/* Right Column: The Silica Canvas Monument */
 .home-right {
-    position: sticky;
-    top: 12vh;
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
+  position: sticky;
+  top: 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
-/* Spacious Header */
+/* ─── Shared section heading ────────────────────────── */
+.عنوان {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 300;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-low);
+  margin: 0;
+}
+
+/* ─── Header / hero ─────────────────────────────────── */
 .رأس {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .الاسم {
-    font-family: var(--font-serif);
-    font-size: clamp(34px, 5vw, 42px);
-    font-weight: 300;
-    letter-spacing: -0.01em;
-    color: var(--text-high);
-    margin: 0;
+  font-family: var(--font-serif);
+  font-size: clamp(30px, 4vw, 46px);
+  font-weight: 300;
+  letter-spacing: -0.01em;
+  color: var(--text-high);
+  line-height: 1.15;
+  margin: 0;
 }
 
 .ترجمة {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    font-weight: 200;
-    letter-spacing: 0.12em;
-    color: var(--text-low);
-    text-transform: uppercase;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  color: var(--text-low);
+  margin: 0;
 }
 
-/* Structural Sections */
-.نص, .فلسفة, .أعمال, .تواصل {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+/* ─── Body text sections ────────────────────────────── */
+.نص,
+.فلسفة {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-width: 520px;
 }
 
-.عنوان {
-    margin: 0 0 4px;
-    font-family: var(--font-mono);
-    font-size: 9.5px;
-    font-weight: 300;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--text-low);
+.نص .en,
+.فلسفة .en {
+  font-size: 17px;
+  line-height: 1.62;
+  color: var(--text-mid);
+  margin: 0;
 }
 
-.en {
-    font-size: 16.5px;
-    color: var(--text-mid);
-    line-height: 1.6;
+/* ─── Works section ─────────────────────────────────── */
+.أعمال {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
 }
 
-/* The Silica Matrix Monument Area */
-.silica-container {
-    width: 100%;
-    border: 1px solid var(--border-thin);
-    background: rgba(255, 255, 255, 0.002);
-    padding: 12px;
-    position: relative;
-}
-
-.silica-canvas {
-    width: 100%;
-    height: 380px;
-    display: block;
-    cursor: crosshair;
-}
-
-/* Spacious Selected Works List */
 .قائمة {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
 }
 
-.قائمة li {
-    border-bottom: 1px solid var(--border-thin);
-    padding-bottom: 16px;
-}
-
-.قائمة li:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
-}
+.قائمة li { border-top: 1px solid var(--border-thin); }
+.قائمة li:last-child { border-bottom: 1px solid var(--border-thin); }
 
 .قائمة a {
-    display: grid;
-    grid-template-columns: 50px 1fr;
-    gap: 16px;
-    color: var(--text-mid);
-    text-decoration: none;
-    transition: color var(--transition-speed);
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 16px;
+  align-items: start;
+  padding: 15px 0;
+  color: var(--text-mid);
+  text-decoration: none;
+  transition: color var(--transition-speed);
 }
-
-.قائمة a:hover {
-    color: var(--text-high);
-}
+.قائمة a:hover { color: var(--text-high); }
+.قائمة a:hover .اسم { color: var(--text-high); }
 
 .قائمة .سنة {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    color: var(--text-low);
-    padding-top: 4px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--text-low);
+  padding-top: 2px;
 }
 
-.قائمة .work-details {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
+.work-details {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
 }
 
 .قائمة .اسم {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--text-high);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-mid);
+  transition: color var(--transition-speed);
 }
 
 .قائمة .وصف {
-    font-family: var(--font-serif);
-    font-size: 14.5px;
-    font-style: italic;
-    color: var(--text-low);
-    line-height: 1.45;
-    transition: color var(--transition-speed);
+  font-family: var(--font-serif);
+  font-size: 15px;
+  font-style: italic;
+  color: var(--text-low);
+  line-height: 1.5;
+  margin-top: 2px;
 }
 
-.قائمة a:hover .وصف {
-    color: var(--text-mid);
+/* ─── Contact section ───────────────────────────────── */
+.تواصل {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
 
-/* Contact Line */
 .حال {
-    display: inline-flex;
-    align-items: baseline;
-    gap: 12px;
-    width: fit-content;
-    color: var(--text-mid);
-    text-decoration: none;
-    border-bottom: 1px solid var(--border-thin);
-    padding-bottom: 4px;
-    font-family: var(--font-mono);
-    font-size: 10px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    transition: all var(--transition-speed);
+  display: inline-flex;
+  align-items: baseline;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-mid);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border-thin);
+  padding-bottom: 5px;
+  width: fit-content;
+  transition: color var(--transition-speed), border-color var(--transition-speed);
 }
-
 .حال:hover {
-    border-bottom-color: var(--text-high);
-    color: var(--text-high);
+  color: var(--text-high);
+  border-bottom-color: rgba(255, 255, 255, 0.2);
 }
+.en-حال { color: inherit; }
+.سهم { color: var(--text-low); }
 
-.حال .en-حال {
-    color: var(--text-mid);
-}
-
-.حال .سهم {
-    color: var(--text-low);
-}
-
-/* Footer links row */
+/* ─── Links / footer row ────────────────────────────── */
 .روابط {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: 12px;
-    font-family: var(--font-mono);
-    font-size: 10px;
-    letter-spacing: 0.04em;
-    color: var(--text-low);
-    margin-top: 12px;
-    border-top: 1px solid var(--border-thin);
-    padding-top: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 10px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--text-low);
 }
-
 .روابط a {
-    color: var(--text-low);
-    text-decoration: none;
-    transition: color var(--transition-speed);
+  color: var(--text-low);
+  text-decoration: none;
+  transition: color var(--transition-speed);
+}
+.روابط a:hover { color: var(--text-mid); }
+.dot { color: var(--text-low); opacity: 0.45; }
+
+/* ─── Surface card (index right column) ─────────────── */
+.surface-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 20px 0;
+  border-top: 1px solid var(--border-thin);
+  border-bottom: 1px solid var(--border-thin);
+  transition: border-color var(--transition-speed);
 }
 
-.روابط a:hover {
-    color: var(--text-high);
+.surface-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.surface-card-header svg {
+  width: 15px;
+  height: 15px;
+  color: var(--text-low);
+  flex-shrink: 0;
+}
+.surface-card-name {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-high);
+}
+.surface-card-year {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  color: var(--text-low);
+  margin-left: auto;
+}
+.surface-card-desc {
+  font-family: var(--font-serif);
+  font-size: 15px;
+  font-style: italic;
+  color: var(--text-mid);
+  line-height: 1.62;
+  margin: 0;
 }
 
-.روابط .dot {
-    color: var(--text-dark);
+/* ─── Mobile ────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .رئيسي {
+    padding: 48px 24px 80px;
+  }
+  .home-grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+  .home-right {
+    position: static;
+  }
+  .نص .en,
+  .فلسفة .en {
+    font-size: 16px;
+  }
+  /* Glow at reduced size on mobile */
+  body::before {
+    width: 480px;
+    height: 480px;
+    top: -180px;
+    left: -180px;
+    background: radial-gradient(ellipse at center, rgba(28, 52, 105, 0.13) 0%, transparent 65%);
+  }
+  body::after {
+    width: 420px;
+    height: 420px;
+    bottom: -160px;
+    right: -160px;
+    background: radial-gradient(ellipse at center, rgba(58, 22, 92, 0.10) 0%, transparent 65%);
+  }
 }
 
-/* Systems CV Datasheet Layout (resume.html support) */
-.سيرة {
-    max-width: 720px;
-    padding: 12vh 24px 180px;
-    gap: 52px;
-}
-
-.جهات {
-    margin-top: 8px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    font-family: var(--font-mono);
-    font-size: 10px;
-    color: var(--text-low);
-}
-
-.جهات a {
-    color: var(--text-low);
-    text-decoration: none;
-    transition: color var(--transition-speed);
-}
-
-.جهات a:hover {
-    color: var(--text-high);
-}
-
-.جهات .dot {
-    color: var(--text-dark);
-}
-
-.cv-section {
-    display: flex;
-    flex-direction: column;
-    gap: 36px;
-}
-
-.cv-ledger {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.cv-ledger tr {
-    border-bottom: 1px solid var(--border-thin);
-}
-
-.cv-ledger tr:last-child {
-    border-bottom: none;
-}
-
-.cv-ledger td {
-    padding: 24px 8px;
-    vertical-align: top;
-    text-align: left;
-}
-
-.cv-ledger .col-period {
-    width: 130px;
-    font-family: var(--font-mono);
-    font-size: 10px;
-    color: var(--text-low);
-}
-
-.cv-ledger .col-role-org {
-    width: 220px;
-}
-
-.cv-ledger .org-name {
-    font-family: var(--font-mono);
-    font-size: 10.5px;
-    color: var(--text-high);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-
-.cv-ledger .role-title {
-    font-family: var(--font-serif);
-    font-style: italic;
-    color: var(--text-low);
-    font-size: 13.5px;
-    margin-top: 4px;
-}
-
-.cv-ledger .col-details {
-    font-family: var(--font-serif);
-    font-size: 15.5px;
-    color: var(--text-mid);
-}
-
-.cv-ledger .col-details ul {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.cv-ledger .col-details li {
-    position: relative;
-    padding-left: 14px;
-}
-
-.cv-ledger .col-details li::before {
-    content: '+';
-    position: absolute;
-    left: 0;
-    color: var(--text-low);
-    font-family: var(--font-mono);
-    font-size: 9px;
-}
-
-.cv-ledger .note {
-    font-style: italic;
-    color: var(--text-low);
-    font-size: 14px;
-    margin-bottom: 10px;
-    line-height: 1.5;
-}
-
-.ختام {
-    border-top: 1px solid var(--border-thin);
-    padding-top: 24px;
-}
-
-.ختام p {
-    font-family: var(--font-serif);
-    font-size: 16.5px;
-    line-height: 1.6;
-    color: var(--text-mid);
-    font-style: italic;
-}
-
-.ختام strong {
-    color: var(--text-high);
-    font-weight: 400;
-    font-style: normal;
-}
-
-.رجوع {
-    display: inline-block;
-    font-family: var(--font-mono);
-    font-size: 10px;
-    color: var(--text-low);
-    text-decoration: none;
-    border: 1px solid var(--border-thin);
-    padding: 8px 16px;
-    transition: all var(--transition-speed);
-}
-
-.رجوع:hover {
-    color: var(--text-high);
-    border-color: var(--text-mid);
-}
-
-/* Ambient Background coordinate rules */
-#الخلفية {
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-}
-
-/* Precision Responsive Layouts */
-@media (max-width: 900px) {
-    .رئيسي {
-        padding: 40px 16px 80px;
-    }
-    
-    .home-grid {
-        grid-template-columns: 1fr;
-        gap: 52px;
-    }
-    
-    .home-right {
-        position: relative;
-        top: 0;
-    }
-    
-    .cv-ledger tr {
-        display: flex;
-        flex-direction: column;
-        padding: 16px 0;
-    }
-    
-    .cv-ledger td {
-        padding: 4px 0;
-        width: 100% !important;
-    }
-    
-    .cv-ledger .col-period {
-        color: var(--text-mid);
-    }
+@media (max-width: 480px) {
+  .الاسم { font-size: 26px; }
 }
