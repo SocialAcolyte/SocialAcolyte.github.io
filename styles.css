@@ -302,6 +302,118 @@ body::after {
   margin: 0;
 }
 
+/* ─── Try Surface demo card ─────────────────────────── */
+.try-surface {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 20px 0;
+  border-top: 1px solid var(--border-thin);
+  border-bottom: 1px solid var(--border-thin);
+}
+
+.try-surface-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.try-surface-header svg {
+  width: 15px;
+  height: 15px;
+  color: var(--text-low);
+  flex-shrink: 0;
+}
+.try-surface-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-high);
+}
+
+.try-surface-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.try-surface-passage {
+  font-family: var(--font-serif);
+  font-size: 14px;
+  font-style: italic;
+  color: var(--text-low);
+  line-height: 1.65;
+  margin: 0;
+  transition: color 0.3s ease;
+}
+
+/* highlight spans start invisible */
+.srf-hl {
+  color: var(--text-low);
+  border-bottom: 1.5px solid transparent;
+  padding-bottom: 1px;
+  cursor: default;
+  transition: color 0.35s ease, border-color 0.35s ease;
+  position: relative;
+}
+
+/* animated in by JS */
+.srf-hl.srf-hl--visible {
+  color: var(--text-mid);
+  border-bottom-color: rgba(255, 200, 50, 0.45);
+}
+
+/* tooltip on hover */
+.srf-hl::after {
+  content: attr(data-reason);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  white-space: nowrap;
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: rgba(255, 200, 50, 0.7);
+  background: rgba(6, 6, 6, 0.92);
+  border: 1px solid rgba(255, 200, 50, 0.15);
+  padding: 5px 8px;
+  border-radius: 2px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  z-index: 10;
+}
+.srf-hl.srf-hl--visible:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.try-surface-source {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: var(--text-low);
+  opacity: 0.6;
+  margin: 0;
+}
+
+.try-surface-replay {
+  background: none;
+  border: none;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-low);
+  cursor: pointer;
+  padding: 0;
+  width: fit-content;
+  transition: color var(--transition-speed);
+}
+.try-surface-replay:hover { color: var(--text-mid); }
+
 /* ─── Mobile ────────────────────────────────────────── */
 @media (max-width: 768px) {
   .رئيسي {
