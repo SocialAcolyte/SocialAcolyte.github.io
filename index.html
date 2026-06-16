@@ -1,42 +1,270 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <link rel="stylesheet" href="styles.css">
-  <style>
-    /* Minimal inline CSS playground - edit directly in this document */
-    .hero { min-height: 60vh; background-image: url('background-1.jpg'); background-size: cover; background-position: center; position: relative; display: flex; align-items: center; justify-content: center; color: #fff; }
-    .hero::after { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,0.25); }
-    /* Hide overlaid content initially so only the image appears */
-    .hero-content, .icon { opacity: 0; transition: opacity 240ms ease; }
-    /* Optional reveal states (can be toggled later) */
-    .hero.revealed .hero-content, .hero.revealed .icon { opacity: 1; }
-    .hero-content { position: relative; z-index: 2; text-align: center; }
-    .icon { width: 48px; height: 48px; border-radius: 50%; background: rgba(255,255,255,0.10); display: flex; align-items: center; justify-content: center; color: #fff; position: absolute; z-index: 3; font-size: 18px; }
-    .icon.icon-1 { top: 12%; left: 6%; }
-    .icon.icon-2 { top: 10%; right: 8%; }
-    .icon.icon-3 { bottom: 10%; right: 12%; }
-    #css-area { padding: 2rem; max-width: 900px; margin: 2rem auto; background: linear-gradient(0deg, rgba(255,255,255,0.03), transparent); border-radius: 8px; color: #ddd; }
-    #css-area .example-box { height: 80px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.04); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #bbb; }
-  </style>
-  <title>SocialAcolyte</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Social Acolyte — building the datasets that decide what frontier models can do.">
+    <meta name="theme-color" content="#000000">
+    <title>Social Acolyte</title>
+
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <section class="hero" aria-label="Hero background">
-    <div class="hero-content">
-      <h1>SocialAcolyte</h1>
-      <p>Welcome.</p>
-    </div>
-    <div class="icon icon-1" aria-hidden="true">★</div>
-    <div class="icon icon-2" aria-hidden="true">☆</div>
-    <div class="icon icon-3" aria-hidden="true">✦</div>
-  </section>
 
-  <section id="css-area" class="css-playground">
-    <h2>CSS Playground</h2>
-    <p>Edit styles.css to change this area.</p>
-    <div class="example-box">Example box</div>
-  </section>
+<canvas id="الخلفية" aria-hidden="true"></canvas>
+
+<main class="رئيسي">
+    <div class="home-grid">
+
+        <!-- LEFT COLUMN -->
+        <div class="home-left">
+
+            <header class="رأس">
+                <h1 class="الاسم">Social Acolyte</h1>
+                <p class="ترجمة">b. 2004</p>
+            </header>
+
+            <section class="نص">
+                <p class="en">
+                    22. I build the datasets that determine what frontier AI can and cannot do.
+                    The gap between what these models promise and what they deliver is a data problem.
+                    I want to close it. I also think we are going to make it.
+                </p>
+            </section>
+
+            <section class="فلسفة" aria-labelledby="عنوان-فلسفة">
+                <h2 id="عنوان-فلسفة" class="عنوان">philosophy</h2>
+                <p class="en">
+                    An acolyte studies the work before claiming to lead it. That is the frame I operate in.
+                    The strong gods I serve are not complicated: vitality, human progress, the compounding
+                    of good things over time. Doom is the path of least resistance. I took the other one.
+                </p>
+            </section>
+
+            <section class="أعمال" aria-labelledby="عنوان-أعمال">
+                <h2 id="عنوان-أعمال" class="عنوان">selected work</h2>
+                <ol class="قائمة">
+                    <li>
+                        <a href="/surface.html">
+                            <span class="سنة">2025</span>
+                            <div class="work-details">
+                                <span class="اسم">surface</span>
+                                <span class="وصف">browser extension — highlights what's relevant to you on any page, using your Claude account and a personal memory document you write once.</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="سنة">2025</span>
+                            <div class="work-details">
+                                <span class="اسم">curated ML data</span>
+                                <span class="وصف">large-scale dataset work — web-scraped multi-base numerical sets, synchronous ASL hand-data video, mocap pipelines.</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="سنة">2024</span>
+                            <div class="work-details">
+                                <span class="اسم">vla x robotics</span>
+                                <span class="وصف">vision-language-action model work — taming lossy compound behavior in general robotics models.</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/kolbytn/mindcraft" rel="noopener">
+                            <span class="سنة">2024</span>
+                            <div class="work-details">
+                                <span class="اسم">mindcraft agent</span>
+                                <span class="وصف">embodied AI agent deployed inside a videogame world, built on the mindcraft library.</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/buisness strategy.pdf" download>
+                            <span class="سنة">2024</span>
+                            <div class="work-details">
+                                <span class="اسم">data-layer thesis</span>
+                                <span class="وصف">why the next frontier is decided by data, not compute. (pdf)</span>
+                            </div>
+                        </a>
+                    </li>
+                </ol>
+            </section>
+
+            <section class="تواصل" aria-labelledby="عنوان-تواصل">
+                <h2 id="عنوان-تواصل" class="عنوان">contact</h2>
+                <a class="حال" href="https://x.com/SocialAcolyte">
+                    <span class="en-حال">seed round — open for allocation</span>
+                    <span class="سهم">↗</span>
+                </a>
+            </section>
+
+            <nav class="روابط" aria-label="elsewhere">
+                <a href="https://x.com/SocialAcolyte" rel="me">twitter</a>
+                <span class="dot">//</span>
+                <a href="https://github.com/SocialAcolyte" rel="me">github</a>
+                <span class="dot">//</span>
+                <a href="https://www.linkedin.com/in/connor-m-hood/" rel="me">linkedin</a>
+                <span class="dot">//</span>
+                <a href="/resume.html">cv</a>
+            </nav>
+
+        </div>
+
+        <!-- RIGHT COLUMN -->
+        <div class="home-right">
+            <h2 class="عنوان">now</h2>
+
+            <a href="/surface.html" style="text-decoration: none; display: block;">
+                <div class="surface-card">
+                    <div class="surface-card-header">
+                        <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M2 10C2 10 5.5 4 10 4C14.5 4 18 10 18 10C18 10 14.5 16 10 16C5.5 16 2 10 2 10Z"
+                                  stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                            <circle cx="10" cy="10" r="2.5" fill="currentColor"/>
+                        </svg>
+                        <span class="surface-card-name">surface</span>
+                        <span class="surface-card-year">2025</span>
+                    </div>
+                    <p class="surface-card-desc">
+                        A browser extension that highlights what's relevant to you on any page —
+                        shopping, articles, research. Powered by your Claude account and a short
+                        memory document you write once.
+                    </p>
+                    <span class="حال" style="width: fit-content;">
+                        <span class="en-حال">early build — install</span>
+                        <span class="سهم">↗</span>
+                    </span>
+                </div>
+            </a>
+        </div>
+
+    </div>
+</main>
+
+<script src="script.js" defer></script>
+
+<!-- Surface easter egg — only visible when the extension is active -->
+<a class="srf-gem" href="https://www.theatlantic.com/magazine/archive/1945/07/as-we-may-think/303881/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1">
+  <div class="srf-gem-dot"></div>
+  <div class="srf-gem-panel">
+    <span class="srf-gem-eyebrow">bush, 1945</span>
+    <p class="srf-gem-body">as we may think</p>
+  </div>
+</a>
+
+<style>
+  .srf-gem {
+    position: fixed;
+    bottom: 28px;
+    left: 32px;
+    z-index: 200;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.7s ease;
+  }
+  .srf-gem.srf-active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .srf-gem-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255, 220, 50, 0.75);
+    box-shadow: 0 0 10px rgba(255, 220, 50, 0.35), 0 0 20px rgba(255, 220, 50, 0.15);
+    cursor: default;
+    animation: srf-pulse 2.8s ease-in-out infinite;
+  }
+
+  @keyframes srf-pulse {
+    0%, 100% { box-shadow: 0 0 10px rgba(255, 220, 50, 0.35), 0 0 20px rgba(255, 220, 50, 0.15); }
+    50%       { box-shadow: 0 0 14px rgba(255, 220, 50, 0.55), 0 0 28px rgba(255, 220, 50, 0.25); }
+  }
+
+  .srf-gem-panel {
+    position: absolute;
+    bottom: 16px;
+    left: 0;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 14px 16px;
+    background: rgba(6, 6, 6, 0.94);
+    border: 1px solid rgba(255, 220, 50, 0.18);
+    backdrop-filter: blur(8px);
+    text-decoration: none;
+    opacity: 0;
+    transform: translateY(6px);
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+  .srf-gem:hover .srf-gem-panel {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .srf-gem-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255, 220, 50, 0.55);
+    display: block;
+  }
+  .srf-gem-body {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 16px;
+    font-style: italic;
+    font-weight: 300;
+    color: #ece8e0;
+    line-height: 1.4;
+    margin: 0;
+    text-decoration: none;
+  }
+  .srf-gem:hover .srf-gem-body {
+    color: #f0ece4;
+  }
+
+  @media (max-width: 768px) {
+    .srf-gem { bottom: 20px; left: 20px; }
+    .srf-gem-panel { width: calc(100vw - 56px); }
+  }
+</style>
+
+<script>
+  (function () {
+    const gem = document.querySelector('.srf-gem');
+    if (!gem) return;
+
+    function activate() {
+      gem.classList.add('srf-active');
+    }
+
+    // Extension may have already injected the style before this script ran
+    if (document.getElementById('srf-highlight-styles')) {
+      activate();
+      return;
+    }
+
+    const observer = new MutationObserver(function (mutations) {
+      for (const mutation of mutations) {
+        for (const node of mutation.addedNodes) {
+          if (node.nodeType === 1 && node.id === 'srf-highlight-styles') {
+            activate();
+            observer.disconnect();
+            return;
+          }
+        }
+      }
+    });
+
+    observer.observe(document.head, { childList: true });
+  })();
+</script>
 </body>
 </html>

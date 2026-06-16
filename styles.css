@@ -1,69 +1,340 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=JetBrains+Mono:wght@200;300;400&display=swap');
 
 :root {
-    --black: #0a0a0a;
-    --dark-grey: #1a1a1a;
-    --grey: #333333;
-    --light-grey: #999999;
-    --off-white: #f5f5f5;
+  --bg-void:          #060606;
+  --text-high:        #f0ece4;
+  --text-mid:         #ece8e0;
+  --text-low:         #5a5753;
+  --border-thin:      rgba(255, 255, 255, 0.08);
+  --font-serif:       'Cormorant Garamond', Georgia, serif;
+  --font-mono:        'JetBrains Mono', monospace;
+  --transition-speed: 0.22s;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background: var(--bg-void);
+  color: var(--text-high);
+  font-family: var(--font-serif);
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
 }
 
-body {
-    font-family: 'Roboto', sans-serif;
-    background-color: var(--black);
-    color: var(--off-white);
+/* Configure-style corner glows — opacity ~30% below original */
+body::before {
+  content: '';
+  position: fixed;
+  top: -320px;
+  left: -320px;
+  width: 860px;
+  height: 860px;
+  background: radial-gradient(ellipse at center, rgba(28, 52, 105, 0.18) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: 0;
+}
+body::after {
+  content: '';
+  position: fixed;
+  bottom: -280px;
+  right: -280px;
+  width: 780px;
+  height: 780px;
+  background: radial-gradient(ellipse at center, rgba(58, 22, 92, 0.14) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: 0;
 }
 
-/* HERO */
-.hero {
-    height: 60vh;
-    background-size: cover;
-    background-position: center;
+::selection {
+  background: rgba(255, 255, 255, 0.11);
+  color: var(--text-high);
 }
 
-/* GALLERY */
-.gallery {
-    background-color: var(--black);
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1rem;
-    padding: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
+/* ─── Background canvas ─────────────────────────────── */
+#الخلفية {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
 }
 
-.gallery-item {
-    overflow: hidden;
-    aspect-ratio: 1;
+/* ─── Main layout (index.html) ──────────────────────── */
+.رئيسي {
+  position: relative;
+  z-index: 2;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 10vh 48px 160px;
 }
 
-.gallery-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+.home-grid {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 80px;
+  align-items: start;
 }
 
-/* CSS playground area - edit styles.css to change this */
-#css-area {
-    padding: 2rem;
-    max-width: 900px;
-    margin: 2rem auto;
-    background: linear-gradient(0deg, rgba(255,255,255,0.03), transparent);
-    border-radius: 8px;
+.home-left {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
 }
-#css-area .example-box {
-    height: 80px;
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.04);
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--light-grey);
+
+.home-right {
+  position: sticky;
+  top: 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ─── Shared section heading ────────────────────────── */
+.عنوان {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 300;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-low);
+  margin: 0;
+}
+
+/* ─── Header / hero ─────────────────────────────────── */
+.رأس {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.الاسم {
+  font-family: var(--font-serif);
+  font-size: clamp(30px, 4vw, 46px);
+  font-weight: 300;
+  letter-spacing: -0.01em;
+  color: var(--text-high);
+  line-height: 1.15;
+  margin: 0;
+}
+
+.ترجمة {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  color: var(--text-low);
+  margin: 0;
+}
+
+/* ─── Body text sections ────────────────────────────── */
+.نص,
+.فلسفة {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-width: 520px;
+}
+
+.نص .en,
+.فلسفة .en {
+  font-size: 17px;
+  line-height: 1.62;
+  color: var(--text-mid);
+  margin: 0;
+}
+
+/* ─── Works section ─────────────────────────────────── */
+.أعمال {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.قائمة {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.قائمة li { border-top: 1px solid var(--border-thin); }
+.قائمة li:last-child { border-bottom: 1px solid var(--border-thin); }
+
+.قائمة a {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 16px;
+  align-items: start;
+  padding: 15px 0;
+  color: var(--text-mid);
+  text-decoration: none;
+  transition: color var(--transition-speed);
+}
+.قائمة a:hover { color: var(--text-high); }
+.قائمة a:hover .اسم { color: var(--text-high); }
+
+.قائمة .سنة {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--text-low);
+  padding-top: 2px;
+}
+
+.work-details {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.قائمة .اسم {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-mid);
+  transition: color var(--transition-speed);
+}
+
+.قائمة .وصف {
+  font-family: var(--font-serif);
+  font-size: 15px;
+  font-style: italic;
+  color: var(--text-low);
+  line-height: 1.5;
+  margin-top: 2px;
+}
+
+/* ─── Contact section ───────────────────────────────── */
+.تواصل {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.حال {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-mid);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border-thin);
+  padding-bottom: 5px;
+  width: fit-content;
+  transition: color var(--transition-speed), border-color var(--transition-speed);
+}
+.حال:hover {
+  color: var(--text-high);
+  border-bottom-color: rgba(255, 255, 255, 0.2);
+}
+.en-حال { color: inherit; }
+.سهم { color: var(--text-low); }
+
+/* ─── Links / footer row ────────────────────────────── */
+.روابط {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 10px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--text-low);
+}
+.روابط a {
+  color: var(--text-low);
+  text-decoration: none;
+  transition: color var(--transition-speed);
+}
+.روابط a:hover { color: var(--text-mid); }
+.dot { color: var(--text-low); opacity: 0.45; }
+
+/* ─── Surface card (index right column) ─────────────── */
+.surface-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 20px 0;
+  border-top: 1px solid var(--border-thin);
+  border-bottom: 1px solid var(--border-thin);
+  transition: border-color var(--transition-speed);
+}
+
+.surface-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.surface-card-header svg {
+  width: 15px;
+  height: 15px;
+  color: var(--text-low);
+  flex-shrink: 0;
+}
+.surface-card-name {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-high);
+}
+.surface-card-year {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  color: var(--text-low);
+  margin-left: auto;
+}
+.surface-card-desc {
+  font-family: var(--font-serif);
+  font-size: 15px;
+  font-style: italic;
+  color: var(--text-mid);
+  line-height: 1.62;
+  margin: 0;
+}
+
+/* ─── Mobile ────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .رئيسي {
+    padding: 48px 24px 80px;
+  }
+  .home-grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+  .home-right {
+    position: static;
+  }
+  .نص .en,
+  .فلسفة .en {
+    font-size: 16px;
+  }
+  /* Glow at reduced size on mobile */
+  body::before {
+    width: 480px;
+    height: 480px;
+    top: -180px;
+    left: -180px;
+    background: radial-gradient(ellipse at center, rgba(28, 52, 105, 0.13) 0%, transparent 65%);
+  }
+  body::after {
+    width: 420px;
+    height: 420px;
+    bottom: -160px;
+    right: -160px;
+    background: radial-gradient(ellipse at center, rgba(58, 22, 92, 0.10) 0%, transparent 65%);
+  }
+}
+
+@media (max-width: 480px) {
+  .الاسم { font-size: 26px; }
 }
