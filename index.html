@@ -178,129 +178,36 @@
         </div>
 
     </div>
+
+    <!-- Easter egg — visible only when Surface extension is active -->
+    <a class="srf-footnote" id="srf-footnote" href="https://www.theatlantic.com/magazine/archive/1945/07/as-we-may-think/303881/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1">
+        <span class="srf-footnote-marker">↳</span>
+        <span class="srf-footnote-cite">bush, 1945</span>
+        <span class="srf-footnote-title">as we may think</span>
+    </a>
 </main>
 
 <script src="script.js" defer></script>
 
-<!-- Surface easter egg — only visible when the extension is active -->
-<a class="srf-gem" href="https://www.theatlantic.com/magazine/archive/1945/07/as-we-may-think/303881/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1">
-  <div class="srf-gem-dot"></div>
-  <div class="srf-gem-panel">
-    <span class="srf-gem-eyebrow">bush, 1945</span>
-    <p class="srf-gem-body">as we may think</p>
-  </div>
-</a>
-
-<style>
-  .srf-gem {
-    position: fixed;
-    bottom: 28px;
-    left: 32px;
-    z-index: 200;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.7s ease;
-  }
-  .srf-gem.srf-active {
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  .srf-gem-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: rgba(255, 220, 50, 0.75);
-    box-shadow: 0 0 10px rgba(255, 220, 50, 0.35), 0 0 20px rgba(255, 220, 50, 0.15);
-    cursor: default;
-    animation: srf-pulse 2.8s ease-in-out infinite;
-  }
-
-  @keyframes srf-pulse {
-    0%, 100% { box-shadow: 0 0 10px rgba(255, 220, 50, 0.35), 0 0 20px rgba(255, 220, 50, 0.15); }
-    50%       { box-shadow: 0 0 14px rgba(255, 220, 50, 0.55), 0 0 28px rgba(255, 220, 50, 0.25); }
-  }
-
-  .srf-gem-panel {
-    position: absolute;
-    bottom: 16px;
-    left: 0;
-    width: 200px;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    padding: 14px 16px;
-    background: rgba(6, 6, 6, 0.94);
-    border: 1px solid rgba(255, 220, 50, 0.18);
-    backdrop-filter: blur(8px);
-    text-decoration: none;
-    opacity: 0;
-    transform: translateY(6px);
-    pointer-events: none;
-    transition: opacity 0.2s ease, transform 0.2s ease;
-  }
-  .srf-gem:hover .srf-gem-panel {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-  }
-
-  .srf-gem-eyebrow {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 8px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: rgba(255, 220, 50, 0.55);
-    display: block;
-  }
-  .srf-gem-body {
-    font-family: 'Cormorant Garamond', Georgia, serif;
-    font-size: 16px;
-    font-style: italic;
-    font-weight: 300;
-    color: #ece8e0;
-    line-height: 1.4;
-    margin: 0;
-    text-decoration: none;
-  }
-  .srf-gem:hover .srf-gem-body {
-    color: #f0ece4;
-  }
-
-  @media (max-width: 768px) {
-    .srf-gem { bottom: 20px; left: 20px; }
-    .srf-gem-panel { width: calc(100vw - 56px); }
-  }
-</style>
-
 <script>
   (function () {
-    const gem = document.querySelector('.srf-gem');
-    if (!gem) return;
-
+    var el = document.getElementById('srf-footnote');
+    if (!el) return;
     function activate() {
-      gem.classList.add('srf-active');
+      el.setAttribute('aria-hidden', 'false');
+      el.removeAttribute('tabindex');
+      el.classList.add('srf-active');
     }
-
-    // Extension may have already injected the style before this script ran
-    if (document.getElementById('srf-highlight-styles')) {
-      activate();
-      return;
-    }
-
-    const observer = new MutationObserver(function (mutations) {
-      for (const mutation of mutations) {
-        for (const node of mutation.addedNodes) {
-          if (node.nodeType === 1 && node.id === 'srf-highlight-styles') {
-            activate();
-            observer.disconnect();
-            return;
-          }
-        }
+    var attempts = 0;
+    var poll = setInterval(function () {
+      attempts++;
+      if (document.getElementById('srf-highlight-styles') || document.querySelector('.srf-highlight')) {
+        activate();
+        clearInterval(poll);
+      } else if (attempts > 40) {
+        clearInterval(poll);
       }
-    });
-
-    observer.observe(document.head, { childList: true });
+    }, 500);
   })();
 </script>
 </body>

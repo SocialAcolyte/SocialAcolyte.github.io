@@ -346,6 +346,55 @@ a.lately-item:hover { color: var(--text-mid); }
   margin: 0;
 }
 
+/* ─── Easter egg footnote (Surface users only) ──────── */
+.srf-footnote {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin: 80px auto 0;
+  max-width: 1080px;
+  padding: 0 48px 60px;
+  text-decoration: none;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.8s ease;
+  position: relative;
+  z-index: 2;
+}
+.srf-footnote.srf-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+.srf-footnote-marker {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: rgba(255, 200, 50, 0.35);
+}
+.srf-footnote-cite {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 200, 50, 0.35);
+  transition: color 0.2s ease;
+}
+.srf-footnote-title {
+  font-family: var(--font-serif);
+  font-size: 14px;
+  font-style: italic;
+  font-weight: 300;
+  color: rgba(255, 200, 50, 0.25);
+  transition: color 0.2s ease;
+}
+.srf-footnote:hover .srf-footnote-cite,
+.srf-footnote:hover .srf-footnote-title,
+.srf-footnote:hover .srf-footnote-marker {
+  color: rgba(255, 200, 50, 0.65);
+}
+@media (max-width: 768px) {
+  .srf-footnote { padding: 0 24px 40px; }
+}
+
 /* ─── Try Surface demo card ─────────────────────────── */
 .try-surface {
   display: flex;
