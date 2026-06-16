@@ -179,8 +179,8 @@
 
     </div>
 
-    <!-- Easter egg — visible only when Surface extension is active -->
-    <a class="srf-footnote" id="srf-footnote" href="https://www.theatlantic.com/magazine/archive/1945/07/as-we-may-think/303881/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1">
+    <!-- easter egg: ask claude to show this -->
+    <a class="srf-footnote" id="srf-footnote" href="https://www.theatlantic.com/magazine/archive/1945/07/as-we-may-think/303881/" target="_blank" rel="noopener" hidden>
         <span class="srf-footnote-marker">↳</span>
         <span class="srf-footnote-cite">bush, 1945</span>
         <span class="srf-footnote-title">as we may think</span>
@@ -188,27 +188,5 @@
 </main>
 
 <script src="script.js" defer></script>
-
-<script>
-  (function () {
-    var el = document.getElementById('srf-footnote');
-    if (!el) return;
-    function activate() {
-      el.setAttribute('aria-hidden', 'false');
-      el.removeAttribute('tabindex');
-      el.classList.add('srf-active');
-    }
-    var attempts = 0;
-    var poll = setInterval(function () {
-      attempts++;
-      if (document.getElementById('srf-highlight-styles') || document.querySelector('.srf-highlight')) {
-        activate();
-        clearInterval(poll);
-      } else if (attempts > 40) {
-        clearInterval(poll);
-      }
-    }, 500);
-  })();
-</script>
 </body>
 </html>

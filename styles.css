@@ -355,15 +355,8 @@ a.lately-item:hover { color: var(--text-mid); }
   max-width: 1080px;
   padding: 0 48px 60px;
   text-decoration: none;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.8s ease;
   position: relative;
   z-index: 2;
-}
-.srf-footnote.srf-active {
-  opacity: 1;
-  pointer-events: auto;
 }
 .srf-footnote-marker {
   font-family: var(--font-mono);
