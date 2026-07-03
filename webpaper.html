@@ -44,11 +44,18 @@
     ::selection { background: var(--pink-dim); color: var(--ink); }
     a { color: inherit; }
 
+    /* Fixed sunset photo layer */
     body::before {
       content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background: url('bg.jpg') center center / cover no-repeat;
+    }
+    /* Dark scrim over the photo so content stays legible; lets the sunset tint through */
+    body::after {
+      content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
       background:
-        radial-gradient(680px 680px at 12% -6%, rgba(35,44,59,0.55), transparent 62%),
-        radial-gradient(720px 720px at 92% 108%, rgba(231,155,182,0.07), transparent 60%);
+        linear-gradient(180deg, rgba(11,14,20,0.80) 0%, rgba(11,14,20,0.88) 50%, rgba(11,14,20,0.93) 100%),
+        radial-gradient(120% 70% at 50% 24%, transparent 0%, rgba(11,14,20,0.34) 100%),
+        radial-gradient(720px 720px at 92% 108%, rgba(231,155,182,0.10), transparent 60%);
     }
 
     .wrap { position: relative; z-index: 2; max-width: 1120px; margin: 0 auto; padding: 0 40px; }
