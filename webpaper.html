@@ -44,20 +44,13 @@
     ::selection { background: var(--pink-dim); color: var(--ink); }
     a { color: inherit; }
 
-    /* Live ASCII sunset background - real DOM text, the very thing webpaper rewrites */
+    /* ASCII sunset background (rendered once to a canvas; subtle CSS drift for life) */
     #art {
-      position: fixed; inset: 0; margin: 0; z-index: 0; pointer-events: none; overflow: hidden;
-      font-family: 'SFMono-Regular', Menlo, Consolas, monospace;
-      font-size: 13px; line-height: 13px; letter-spacing: 0; white-space: pre;
-      color: #fff;
-      background: linear-gradient(180deg,
-        #2b2350 0%, #5a2f6e 22%, #b0466f 40%, #ff8a3d 52%,
-        #ffd27a 58%, #e79bb6 66%, #6a3a74 80%, #171425 100%);
-      background-size: 100% 140%;
-      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-      animation: art-drift 18s ease-in-out infinite alternate;
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      width: 100%; height: 100%; display: block;
+      animation: art-drift 26s ease-in-out infinite alternate; will-change: transform;
     }
-    @keyframes art-drift { from { background-position: 0 0; } to { background-position: 0 40%; } }
+    @keyframes art-drift { from { transform: scale(1.05) translateY(0); } to { transform: scale(1.08) translateY(-10px); } }
     /* Dark scrim so content stays legible; kept light enough to let the ASCII sunset read */
     body::after {
       content: ''; position: fixed; inset: 0; z-index: 1; pointer-events: none;
@@ -368,8 +361,9 @@
 </head>
 <body>
 
-<!-- Live ASCII sunset background -->
-<pre id="art" aria-hidden="true"></pre>
+<!-- ASCII sunset background, drawn to a canvas so it is invisible to page-reading
+     tools (incl. the webpaper extension) and never churns the DOM. -->
+<canvas id="art" aria-hidden="true"></canvas>
 
 <!-- running cat -->
 <div class="runner" aria-hidden="true">
@@ -389,9 +383,9 @@
   This page is designed to be rewritten safely. Encouraged, low-risk targets:
     • Recolour / retheme the hero, the section headings (.cap h2), body text,
       the cards (.free-card) and the buttons (.btn) to any palette or mood.
-    • The background is decorative ASCII TEXT inside <pre id="art">. You may
-      recolour it, swap its characters, or hide it — it is position:fixed and
-      pointer-events:none, so touching it never affects page layout.
+    • The background is a decorative <canvas id="art"> (a fixed, pointer-events:none
+      sunset). You can ignore it; restyling the page never depends on it and it
+      cannot affect layout.
   Please KEEP these four interactive demo widgets working (do not remove them);
   each is a mock browser (.browser) that shows a webpaper capability:
     • #cmp-opt and #cmp-rev  — drag-to-compare sliders (need .after + .cmp-handle)
@@ -649,70 +643,56 @@
 (function () {
   "use strict";
 
-  /* ---- Live ASCII sunset background ---- */
+  /* ---- ASCII sunset background (drawn once to a canvas) ----
+     Canvas so it is stripped by DOM readers (incl. the extension) and never
+     mutates the DOM. No animation loop: subtle life comes from CSS transform. */
   (function ascii() {
-    var art = document.getElementById("art");
-    if (!art) return;
-    var RAMP = " .`',:;\"!i>+*=xX#%@";
-    var WATER = "~-_.^\"'`";
-    var cols, rows, base;
-    function build() {
-      var cw = 7.9, lh = 13;
-      cols = Math.ceil(window.innerWidth / cw) + 2;
-      rows = Math.ceil(window.innerHeight / lh) + 1;
-      base = [];
+    var cv = document.getElementById("art");
+    if (!cv || !cv.getContext) return;
+    var ctx = cv.getContext("2d");
+    var RAMP = " .`',:;\"!i>+*=xX#%@", WATER = "~-_.^\"'`";
+    var cw = 7.9, lh = 13;
+    function draw() {
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      var W = window.innerWidth, H = window.innerHeight;
+      cv.width = Math.ceil(W * dpr); cv.height = Math.ceil(H * dpr);
+      cv.style.width = W + "px"; cv.style.height = H + "px";
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, W, H);
+      ctx.font = '13px "SFMono-Regular", Menlo, Consolas, monospace';
+      ctx.textBaseline = "top";
+      var g = ctx.createLinearGradient(0, 0, 0, H);
+      g.addColorStop(0, "#2b2350"); g.addColorStop(0.22, "#5a2f6e"); g.addColorStop(0.40, "#b0466f");
+      g.addColorStop(0.52, "#ff8a3d"); g.addColorStop(0.58, "#ffd27a"); g.addColorStop(0.66, "#e79bb6");
+      g.addColorStop(0.80, "#6a3a74"); g.addColorStop(1, "#171425");
+      ctx.fillStyle = g;
+      var cols = Math.ceil(W / cw) + 1, rows = Math.ceil(H / lh) + 1;
       var sunX = 0.42, sunY = 0.40, sunR = 0.16, horizon = 0.6;
       for (var y = 0; y < rows; y++) {
-        var ny = y / rows, row = [];
+        var ny = y / rows;
         for (var x = 0; x < cols; x++) {
-          var nx = x / cols, i;
-          var dx = nx - sunX, dy = (ny - sunY) * 1.7;
-          var d = Math.sqrt(dx * dx + dy * dy);
+          var nx = x / cols, i, ch;
+          var dx = nx - sunX, dy = (ny - sunY) * 1.7, d = Math.sqrt(dx * dx + dy * dy);
           if (ny < horizon) {
             var glow = Math.exp(-(d * d) / (sunR * sunR)) * 1.5;
             var rays = Math.max(0, Math.sin(Math.atan2(dy, dx) * 9)) * Math.exp(-d * 2.6) * 0.6;
             var sky = 0.16 + (ny / horizon) * 0.42;
             var cloud = Math.sin(nx * 7 + ny * 5) * Math.sin(nx * 3 - ny * 8) * 0.14;
             i = glow + rays + sky + cloud;
+            ch = RAMP[Math.max(0, Math.min(RAMP.length - 1, Math.floor(i * RAMP.length)))];
           } else {
             var refl = Math.exp(-((nx - sunX) * (nx - sunX)) / 0.010) * (1 - (ny - horizon) / (1 - horizon)) * 0.9;
             var ripple = Math.sin(ny * 40 + nx * 4) * 0.10 * (1 - (ny - horizon));
             i = refl + ripple + 0.06;
+            if (i < 0.08) continue;
+            ch = WATER[Math.max(0, Math.min(WATER.length - 1, Math.floor(i * WATER.length)))];
           }
-          row.push({ i: i, water: ny >= horizon });
+          if (ch && ch !== " ") ctx.fillText(ch, x * cw, y * lh);
         }
-        base.push(row);
       }
     }
-    function render(t) {
-      var out = "";
-      for (var y = 0; y < rows; y++) {
-        var line = "";
-        for (var x = 0; x < cols; x++) {
-          var cell = base[y][x], i = cell.i;
-          if (cell.water) {
-            i += Math.sin((x * 0.6) + (y * 0.9) + t * 0.004) * 0.14 * Math.max(0, 1 - (y / rows - 0.6) * 2);
-            var wi = Math.max(0, Math.min(WATER.length - 1, Math.floor(i * WATER.length)));
-            line += i < 0.08 ? " " : WATER[wi];
-          } else {
-            i += Math.sin((x * 1.3) - (y * 0.7) + t * 0.0016) * 0.05;
-            var k = Math.max(0, Math.min(RAMP.length - 1, Math.floor(i * RAMP.length)));
-            line += RAMP[k];
-          }
-        }
-        out += line + "\n";
-      }
-      art.textContent = out;
-    }
-    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    build(); render(0);
-    if (!reduce) {
-      var last = 0;
-      (function loop(t) { if (t - last > 90) { render(t); last = t; } requestAnimationFrame(loop); })(0);
-    }
-    var rt; window.addEventListener("resize", function () {
-      clearTimeout(rt); rt = setTimeout(function () { build(); render(performance.now ? performance.now() : 0); }, 150);
-    });
+    draw();
+    var rt; window.addEventListener("resize", function () { clearTimeout(rt); rt = setTimeout(draw, 180); });
   })();
 
   var hasIO = "IntersectionObserver" in window;
