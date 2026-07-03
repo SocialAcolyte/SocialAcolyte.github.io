@@ -123,8 +123,9 @@
     }
     .hero-sub {
       font-size: 16.5px; font-weight: 400;
-      color: var(--text-low); line-height: 1.7; margin: 0; max-width: 500px;
+      color: var(--text-low); line-height: 1.7; margin: 0; max-width: 520px;
     }
+    .hero-sub b { color: var(--text-mid); font-weight: 600; }
     .hero-actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; justify-content: center; margin-top: 6px; }
 
     .btn {
@@ -418,6 +419,9 @@
     .what-num { font-size: 12px; font-weight: 600; color: var(--pink); letter-spacing: 0.08em; }
     .what-title { font-size: 16px; font-weight: 600; color: var(--text-high); letter-spacing: -0.01em; }
     .what-desc { font-family: var(--font-serif); font-size: 17px; font-style: italic; color: var(--text-mid); line-height: 1.6; margin: 0; }
+    .what-desc a { color: var(--pink-soft); text-decoration: none; border-bottom: 1px solid var(--border-pink); font-style: normal; }
+    .what-desc a:hover { color: var(--pink); }
+    .what-desc b { color: var(--text-high); font-weight: 600; font-style: normal; }
 
     /* ── Why (manifesto strip) ────────────────────────── */
     .why { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
@@ -492,6 +496,14 @@
     }
     @media (max-width: 520px) {
       .nav-link.hide-sm { display: none; }
+      /* Scale the demo mock down so more of the page reads inside the frame */
+      .mock-body { padding: 18px 16px 0; }
+      .mock-bar, .mock-cookie, .mock-ad { padding-left: 16px; padding-right: 16px; }
+      .mock-h1 { font-size: 22px; }
+      .mock-p { font-size: 13px; }
+      .mock-card { flex-direction: column; align-items: flex-start; gap: 10px; }
+      .mode-tab { padding: 10px 15px; font-size: 12.5px; }
+      .hero-actions .btn { width: 100%; justify-content: center; }
     }
   </style>
 </head>
@@ -596,7 +608,7 @@
     <p class="hero-tagline">wallpaper for the web.</p>
     <p class="hero-sub">
       An open-source AI that rewrites, cleans, and personalises every page
-      you visit — in real time, using the AI you already pay for.
+      you visit — in real time, powered by the <b>Claude account you already have.</b>
     </p>
 
     <div class="hero-actions">
@@ -606,7 +618,7 @@
       </a>
       <a class="btn btn-ghost" href="#try">See it in action</a>
     </div>
-    <p class="hero-note"><b>Free forever.</b> No API key. No account. Runs on your existing Claude session.</p>
+    <p class="hero-note"><b>Free forever.</b> No API key · no new subscription · no account with us.</p>
   </section>
 
   <hr class="rule" />
@@ -658,6 +670,47 @@
 
   <hr class="rule" />
 
+  <!-- Bring your own Claude -->
+  <section class="section reveal" id="how">
+    <div class="section-head">
+      <span class="section-eyebrow">Wait — how is this free?</span>
+      <h2 class="section-title">Bring your own <em>Claude</em>.</h2>
+      <p class="section-lead">
+        webpaper has no servers, no subscription, and no API key to paste. It runs on
+        the Claude account you already chat with — that's the whole trick.
+      </p>
+    </div>
+    <div class="what-grid">
+      <div class="what-item">
+        <span class="what-num">You already have it</span>
+        <span class="what-title">Uses your Claude login</span>
+        <p class="what-desc">
+          If you're signed in to <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a>
+          in this browser, webpaper quietly uses that session. No Claude yet? Make a
+          <b>free account</b> — the free tier is enough to start.
+        </p>
+      </div>
+      <div class="what-item">
+        <span class="what-num">You're never charged</span>
+        <span class="what-title">Nothing to pay us</span>
+        <p class="what-desc">
+          We have no plan and never see your card. Any AI work counts against your own
+          Claude usage — exactly like sending it a message yourself.
+        </p>
+      </div>
+      <div class="what-item">
+        <span class="what-num">It stays with you</span>
+        <span class="what-title">Nothing leaves your browser</span>
+        <p class="what-desc">
+          No telemetry, no account on our end. The page, your prompt, and your Claude
+          session are the entire loop — it never touches a server we own.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule" />
+
   <!-- What it does -->
   <section class="section reveal">
     <div class="section-head">
@@ -704,7 +757,11 @@
   <section class="section reveal" id="install">
     <div class="section-head">
       <span class="section-eyebrow">Install · beta 0.0.1</span>
-      <h2 class="section-title">Running in about a minute.</h2>
+      <h2 class="section-title">Set up in about a minute.</h2>
+      <p class="section-lead">
+        webpaper isn't on the Chrome Web Store yet, so you add it by hand — it's easier
+        than it sounds. Just follow the five steps. No coding, no command line.
+      </p>
     </div>
     <div class="install-grid">
       <div class="install-cta">
@@ -712,14 +769,19 @@
           <svg viewBox="0 0 16 16" fill="none"><path d="M8 2v8M5 7l3 3 3-3M2 11v1a2 2 0 002 2h8a2 2 0 002-2v-1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
           Download webpaper.zip
         </a>
-        <p class="install-prereq">Requires a Chromium browser (Chrome, Edge, Brave, Arc) and a Claude account — the free tier works. webpaper borrows your existing session and never stores your credentials.</p>
+        <p class="install-prereq">
+          <b>What you need:</b> a Chromium browser (Chrome, Edge, Brave, or Arc) and a
+          Claude account. Don't have one? It's free at
+          <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a>.
+          That's the whole shopping list.
+        </p>
       </div>
       <ol class="install-steps">
-        <li><span class="n">1</span><span class="t">Unzip the download. Keep the folder somewhere permanent — Chrome loads from it directly.</span></li>
-        <li><span class="n">2</span><span class="t">Open <a href="#install" onclick="navigator.clipboard&&navigator.clipboard.writeText('chrome://extensions');return false;"><code>chrome://extensions</code></a> and turn on <strong>Developer mode</strong> (top-right).</span></li>
-        <li><span class="n">3</span><span class="t">Click <code>Load unpacked</code> and select the unzipped <code>webpaper</code> folder.</span></li>
-        <li><span class="n">4</span><span class="t">Pin webpaper, click it, and connect the AI you already use when prompted.</span></li>
-        <li><span class="n">5</span><span class="t">Flip it <strong>on</strong>. Go anywhere. Try a prompt — or a mode.</span></li>
+        <li><span class="n">1</span><span class="t"><strong>Sign in to Claude first.</strong> Open <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a> and log in (the free account is fine). webpaper will borrow this login — you're never charged by us.</span></li>
+        <li><span class="n">2</span><span class="t"><strong>Download &amp; unzip</strong> the file above. Keep the unzipped <code>webpaper</code> folder somewhere you won't delete — Chrome runs the extension straight from it.</span></li>
+        <li><span class="n">3</span><span class="t"><strong>Open your extensions page.</strong> Type <code>chrome://extensions</code> in the address bar and press Enter, then switch on <strong>Developer mode</strong> (the toggle in the top-right corner).</span></li>
+        <li><span class="n">4</span><span class="t"><strong>Add it.</strong> Click <code>Load unpacked</code> and pick the unzipped <code>webpaper</code> folder. The cat 🐱 shows up in your toolbar.</span></li>
+        <li><span class="n">5</span><span class="t"><strong>Turn it on.</strong> Click the cat, allow Claude access when asked, flip webpaper <strong>on</strong>, and open any page. Type a request — or try a mode.</span></li>
       </ol>
     </div>
   </section>
@@ -889,6 +951,14 @@
   } else {
     document.querySelectorAll(".reveal").forEach(function (el) { el.classList.add("in"); });
   }
+  // Safety net: never leave a section permanently hidden if the observer
+  // misfires (some mobile browsers, restored scroll positions, etc.).
+  setTimeout(function () {
+    document.querySelectorAll(".reveal:not(.in)").forEach(function (el) {
+      var r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight * 1.2) el.classList.add("in");
+    });
+  }, 2500);
 })();
 </script>
 </body>
