@@ -3,962 +3,624 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>webpaper — wallpaper for the web</title>
-  <meta name="description" content="Wallpaper for the web. webpaper rewrites, cleans, and personalises every page around you — using the AI you already pay for. Drag the slider and see it." />
-  <meta property="og:title" content="webpaper — wallpaper for the web" />
-  <meta property="og:description" content="An open-source, non-commercial AI that rewrites, cleans, and personalises any page. Free. Powered by your existing AI session." />
+  <title>webpaper</title>
+  <meta name="description" content="An open-source AI that reshapes any page around you. It removes noise, optimises what stays, adds what you need, and can rewrite a page entirely. Free, on the Claude you already have." />
+  <meta property="og:title" content="webpaper" />
+  <meta property="og:description" content="wallpaper for the web. Remove the noise, optimise the page, add what you need, reinvent it entirely." />
   <meta property="og:type" content="website" />
-  <meta name="theme-color" content="#0c1018" />
+  <meta name="theme-color" content="#0b0e14" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- Space Grotesk (UI/display) + Cormorant Garamond (editorial). Ma Shan Zheng + Orbitron load only for the live demo modes. -->
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Space+Grotesk:wght@300;400;500;600;700&family=Ma+Shan+Zheng&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Instrument+Sans:wght@400;500;600;700&family=Ma+Shan+Zheng&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --bg:           #0c1018;
-      --bg-card:      #1a2233;
-      --bg-panel:     #232c3b;
-      --text-high:    #f4f7fb;
-      --text-mid:     #c8d4e8;
-      --text-low:     #6b7a95;
-      --text-faint:   #46536b;
-      --pink:         #e79bb6;
-      --pink-soft:    #ecaec0;
-      --pink-dim:     rgba(231, 155, 182, 0.25);
-      --blue:         #7aa2ff;
-      --border:       rgba(244, 247, 251, 0.09);
-      --border-pink:  rgba(231, 155, 182, 0.20);
-      --font-sans:    'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      --font-serif:   'Cormorant Garamond', Georgia, serif;
-      --ease:         0.24s cubic-bezier(0.4, 0, 0.2, 1);
+      --bg:          #0b0e14;
+      --bg-soft:     #11161f;
+      --panel:       #161c27;
+      --line:        rgba(240,244,250,0.09);
+      --line-soft:   rgba(240,244,250,0.05);
+      --ink:         #f3f6fb;
+      --ink-2:       #aeb9cc;
+      --ink-3:       #6b768c;
+      --ink-4:       #454f63;
+      --pink:        #e79bb6;
+      --pink-2:      #ecaec0;
+      --pink-dim:    rgba(231,155,182,0.14);
+      --pink-line:   rgba(231,155,182,0.30);
+      --sans: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --serif: 'Fraunces', Georgia, serif;
+      --ease: 0.5s cubic-bezier(0.22, 1, 0.36, 1);
     }
-
-    *, *::before, *::after { box-sizing: border-box; }
-
+    * , *::before, *::after { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-
     html, body {
-      margin: 0;
-      padding: 0;
-      background: var(--bg);
-      color: var(--text-high);
-      font-family: var(--font-sans);
-      font-weight: 400;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
+      margin: 0; padding: 0; background: var(--bg); color: var(--ink);
+      font-family: var(--sans); font-weight: 400;
+      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
       overflow-x: hidden;
-      min-height: 100vh;
     }
-
-    ::selection { background: var(--pink-dim); color: var(--text-high); }
-
+    ::selection { background: var(--pink-dim); color: var(--ink); }
     a { color: inherit; }
 
-    /* ── Ambient corner glows ─────────────────────────── */
     body::before {
-      content: '';
-      position: fixed;
-      top: -300px; left: -300px;
-      width: 760px; height: 760px;
-      background: radial-gradient(ellipse at center, rgba(35, 44, 59, 0.55) 0%, transparent 65%);
-      pointer-events: none; z-index: 0;
-    }
-    body::after {
-      content: '';
-      position: fixed;
-      bottom: -280px; right: -280px;
-      width: 720px; height: 720px;
-      background: radial-gradient(ellipse at center, rgba(231, 155, 182, 0.07) 0%, transparent 65%);
-      pointer-events: none; z-index: 0;
+      content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background:
+        radial-gradient(680px 680px at 12% -6%, rgba(35,44,59,0.55), transparent 62%),
+        radial-gradient(720px 720px at 92% 108%, rgba(231,155,182,0.07), transparent 60%);
     }
 
-    /* ── Layout ───────────────────────────────────────── */
-    .page {
-      position: relative; z-index: 2;
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 0 48px 160px;
-    }
+    .wrap { position: relative; z-index: 2; max-width: 1120px; margin: 0 auto; padding: 0 40px; }
 
-    /* ── Nav ──────────────────────────────────────────── */
-    nav {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 30px 0 0;
-    }
-    .nav-mark { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-    .nav-cat { width: 30px; height: 24px; flex-shrink: 0; }
-    .nav-name {
-      font-family: var(--font-sans);
-      font-size: 16px; font-weight: 600; letter-spacing: -0.01em;
-      color: var(--text-high);
-    }
-    .nav-links { display: flex; gap: 28px; align-items: center; }
-    .nav-link {
-      font-size: 12.5px; font-weight: 500; letter-spacing: 0.01em;
-      color: var(--text-low); text-decoration: none;
-      transition: color var(--ease);
-    }
-    .nav-link:hover { color: var(--text-high); }
+    /* ---- Nav ---- */
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 26px 0; }
+    .brand { display: flex; align-items: center; gap: 11px; text-decoration: none; }
+    .brand svg { width: 30px; height: 24px; }
+    .brand b { font-weight: 600; font-size: 17px; letter-spacing: -0.02em; }
+    .nav-r { display: flex; align-items: center; gap: 26px; }
+    .nav-r a { font-size: 14px; color: var(--ink-3); text-decoration: none; transition: color var(--ease); }
+    .nav-r a:hover { color: var(--ink); }
 
-    /* ── Hero ─────────────────────────────────────────── */
-    .hero {
-      display: flex; flex-direction: column; align-items: center;
-      text-align: center; padding: 84px 0 40px; gap: 30px;
-    }
-    .hero-cat { width: 132px; height: auto; display: block; filter: drop-shadow(0 14px 40px rgba(0,0,0,0.4)); }
+    /* ---- Buttons ---- */
+    .btn { display: inline-flex; align-items: center; gap: 10px; font-family: var(--sans);
+      font-size: 14px; font-weight: 600; text-decoration: none; padding: 14px 24px;
+      border-radius: 12px; border: 1px solid transparent; cursor: pointer; transition: all var(--ease); }
+    .btn svg { width: 16px; height: 16px; }
+    .btn-fill { color: #1a1016; background: linear-gradient(135deg, var(--pink-2), var(--pink));
+      box-shadow: 0 10px 34px rgba(231,155,182,0.20); }
+    .btn-fill:hover { transform: translateY(-2px); box-shadow: 0 16px 44px rgba(231,155,182,0.30); }
+    .btn-line { color: var(--ink-2); border-color: var(--line); }
+    .btn-line:hover { color: var(--ink); border-color: rgba(240,244,250,0.24); }
 
-    .hero-wordmark {
-      font-family: var(--font-sans);
-      font-size: clamp(48px, 8vw, 92px);
-      font-weight: 700; letter-spacing: -0.04em;
-      color: var(--text-high); margin: 0; line-height: 0.95;
-    }
-    .hero-tagline {
-      font-family: var(--font-serif);
-      font-size: clamp(22px, 3.2vw, 32px);
-      font-weight: 300; font-style: italic;
-      color: var(--text-mid); line-height: 1.4; margin: 0; max-width: 620px;
-    }
-    .hero-sub {
-      font-size: 16.5px; font-weight: 400;
-      color: var(--text-low); line-height: 1.7; margin: 0; max-width: 520px;
-    }
-    .hero-sub b { color: var(--text-mid); font-weight: 600; }
-    .hero-actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; justify-content: center; margin-top: 6px; }
+    /* ---- Hero ---- */
+    .hero { text-align: center; padding: 70px 0 40px; display: flex; flex-direction: column; align-items: center; gap: 26px; }
+    .hero-cat { width: 120px; height: auto; filter: drop-shadow(0 16px 44px rgba(0,0,0,0.45)); }
+    .hero h1 { font-family: var(--serif); font-weight: 500; font-size: clamp(60px, 11vw, 128px);
+      letter-spacing: -0.045em; line-height: 0.9; margin: 0; }
+    .hero .tag { font-family: var(--serif); font-style: italic; font-weight: 400;
+      font-size: clamp(20px, 3vw, 27px); color: var(--ink-2); margin: 0; }
+    .hero .sub { font-size: 17px; color: var(--ink-3); line-height: 1.65; margin: 0; max-width: 460px; }
+    .hero .sub b { color: var(--ink-2); font-weight: 600; }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; margin-top: 4px; }
+    .hero .note { font-size: 13px; color: var(--ink-4); margin: 2px 0 0; }
+    .hero .note b { color: var(--ink-3); font-weight: 600; }
 
-    .btn {
-      display: inline-flex; align-items: center; gap: 11px;
-      font-family: var(--font-sans);
-      font-size: 14px; font-weight: 600; letter-spacing: 0.005em;
-      text-decoration: none; padding: 15px 28px;
-      border-radius: 12px; transition: all var(--ease);
-      cursor: pointer; border: 1px solid transparent;
-    }
-    .btn-primary {
-      color: #1a1016;
-      background: linear-gradient(135deg, var(--pink-soft), var(--pink));
-      box-shadow: 0 8px 30px rgba(231, 155, 182, 0.18);
-    }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 38px rgba(231, 155, 182, 0.28); }
-    .btn-ghost {
-      color: var(--text-mid);
-      border-color: var(--border);
-      background: rgba(244, 247, 251, 0.02);
-    }
-    .btn-ghost:hover { color: var(--text-high); border-color: rgba(244,247,251,0.22); }
-    .btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+    /* ---- Capability sections ---- */
+    .cap { padding: 92px 0; border-top: 1px solid var(--line-soft); }
+    .cap-head { display: flex; flex-direction: column; gap: 12px; margin-bottom: 34px; max-width: 620px; }
+    .kicker { display: inline-flex; align-items: center; gap: 10px; font-size: 12px; font-weight: 600;
+      letter-spacing: 0.16em; text-transform: uppercase; color: var(--pink); }
+    .kicker .ic { width: 26px; height: 26px; display: grid; place-items: center; border: 1px solid var(--pink-line);
+      border-radius: 8px; }
+    .kicker .ic svg { width: 15px; height: 15px; stroke: var(--pink); fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+    .kicker .num { color: var(--ink-4); }
+    .cap h2 { font-family: var(--serif); font-weight: 500; font-size: clamp(30px, 4.6vw, 50px);
+      letter-spacing: -0.025em; line-height: 1.04; margin: 0; }
+    .cap h2 em { font-style: italic; color: var(--pink-2); }
+    .cap .lead { font-size: 16px; color: var(--ink-3); line-height: 1.6; margin: 0; max-width: 520px; }
 
-    .hero-note {
-      font-size: 12.5px; color: var(--text-faint); margin: 2px 0 0;
-      display: flex; align-items: center; gap: 8px;
-    }
-    .hero-note b { color: var(--text-low); font-weight: 600; }
+    /* ---- Browser frame (shared asset) ---- */
+    .browser { position: relative; border-radius: 15px; overflow: hidden; border: 1px solid var(--line);
+      background: #fff; box-shadow: 0 40px 90px rgba(0,0,0,0.45); }
+    .bbar { display: flex; align-items: center; gap: 8px; padding: 11px 16px; background: #e9ebef; border-bottom: 1px solid #d7dae0; }
+    .bbar .d { width: 11px; height: 11px; border-radius: 50%; background: #c3c7cf; }
+    .bbar .d.r { background: #f0645d; } .bbar .d.y { background: #f5bd4f; } .bbar .d.g { background: #61c554; }
+    .bbar .url { flex: 1; margin-left: 10px; background: #fff; border-radius: 7px; padding: 6px 12px;
+      font-size: 11.5px; color: #8a90a0; font-family: var(--sans); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .bview { position: relative; overflow: hidden; }
 
-    /* ── Section scaffolding ──────────────────────────── */
-    .section { padding: 76px 0; }
-    .section-head { display: flex; flex-direction: column; gap: 14px; margin-bottom: 44px; max-width: 640px; }
-    .section-eyebrow {
-      display: inline-flex; align-items: center; gap: 9px;
-      font-size: 12px; font-weight: 600; letter-spacing: 0.14em;
-      text-transform: uppercase; color: var(--pink);
-    }
-    .section-eyebrow::before { content: ''; width: 22px; height: 1px; background: var(--border-pink); }
-    .section-title {
-      font-family: var(--font-serif);
-      font-size: clamp(28px, 4vw, 42px); font-weight: 400;
-      color: var(--text-high); line-height: 1.15; margin: 0;
-    }
-    .section-title em { font-style: italic; color: var(--pink-soft); }
-    .section-lead {
-      font-size: 16px; color: var(--text-low); line-height: 1.65; margin: 0; max-width: 560px;
-    }
+    /* Generic page-inside-browser styling (the "unstyled real web" baseline) */
+    .doc { font-family: 'Helvetica Neue', Arial, sans-serif; color: #14171c; background: #fff; }
+    .doc-nav { display: flex; align-items: center; justify-content: space-between; padding: 13px 22px; border-bottom: 1px solid #e6e8ec; }
+    .doc-logo { font-weight: 800; font-size: 14px; }
+    .doc-nav .mini { font-size: 12px; color: #666; }
+    .doc-body { padding: 22px; }
+    .doc h3 { font-size: 25px; line-height: 1.15; margin: 0 0 10px; font-weight: 800; letter-spacing: -0.02em; }
+    .doc .by { font-size: 12px; color: #8a90a0; margin: 0 0 16px; }
+    .doc p { font-size: 14px; line-height: 1.65; color: #33383f; margin: 0 0 13px; }
 
-    .rule { border: none; border-top: 1px solid var(--border); margin: 0; }
+    /* ======================================================
+       01  REMOVE  - declutter on scroll
+       ====================================================== */
+    .remove-view { min-height: 380px; }
+    .junk { transition: opacity .55s ease, max-height .6s ease, margin .6s ease, padding .6s ease, transform .55s ease, border-color .4s ease;
+      max-height: 240px; position: relative; }
+    .remove-view.play .junk { opacity: 0; max-height: 0; margin-top: 0; margin-bottom: 0;
+      padding-top: 0; padding-bottom: 0; transform: translateX(-18px); border-color: transparent !important; overflow: hidden; }
+    .remove-view.play .junk::after { content: 'removed'; position: absolute; top: 6px; right: 12px;
+      font-family: var(--sans); font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: #d0455f; opacity: 0; }
+    .j1 { transition-delay: .05s; } .j2 { transition-delay: .30s; } .j3 { transition-delay: .55s; }
+    .j4 { transition-delay: .80s; } .j5 { transition-delay: 1.05s; }
+    .cookie { background: #f4f5f7; border-bottom: 1px solid #e2e4e8; padding: 12px 22px; font-size: 12px;
+      color: #555; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .cookie button { background: #14171c; color: #fff; border: none; border-radius: 6px; padding: 6px 12px; font-size: 11px; font-weight: 700; }
+    .ad-strip { margin: 16px 22px 0; padding: 20px; text-align: center; font-size: 12px; font-weight: 700; letter-spacing: 0.05em;
+      color: #9a7a00; background: repeating-linear-gradient(45deg,#fff7d9,#fff7d9 11px,#ffefad 11px,#ffefad 22px); border: 1px dashed #e0bd2e; }
+    .sponsored { margin: 16px 22px 0; border: 1px solid #ececf0; border-radius: 8px; padding: 14px; }
+    .sponsored .lbl { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #b6002d; font-weight: 800; margin-bottom: 8px; }
+    .sponsored .row { display: flex; gap: 10px; }
+    .sponsored .thumb { width: 46px; height: 46px; border-radius: 6px; background: linear-gradient(135deg,#dfe3ea,#c7cdd8); flex-shrink: 0; }
+    .sponsored .tx { font-size: 12px; color: #555; line-height: 1.4; }
+    .newsletter { position: absolute; inset: 0; display: grid; place-items: center; background: rgba(10,12,16,0.45);
+      z-index: 6; transition: opacity .5s ease; }
+    .remove-view.play .newsletter { opacity: 0; pointer-events: none; }
+    .newsletter .card { background: #fff; border-radius: 12px; padding: 22px 24px; width: 78%; max-width: 340px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,.3); }
+    .newsletter .card b { font-size: 16px; } .newsletter .card p { font-size: 12px; color: #666; margin: 8px 0 14px; }
+    .newsletter .card button { background: #e0567a; color: #fff; border: none; border-radius: 7px; padding: 9px 18px; font-weight: 700; font-size: 12px; }
+    .cleaned-tag { position: absolute; left: 16px; bottom: 16px; z-index: 7; display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(11,14,20,0.9); color: var(--pink-2); border: 1px solid var(--pink-line); border-radius: 100px;
+      padding: 8px 15px; font-size: 12.5px; font-weight: 600; opacity: 0; transform: translateY(8px); transition: opacity .5s ease, transform .5s ease; transition-delay: 1.4s; }
+    .remove-view.play .cleaned-tag { opacity: 1; transform: none; }
+    .cleaned-tag svg { width: 14px; height: 14px; stroke: var(--pink); fill: none; stroke-width: 2; }
 
-    /* ══════════════════════════════════════════════════
-       THE SLIDER — before / after mode comparison
-       ══════════════════════════════════════════════════ */
-    .demo { display: flex; flex-direction: column; gap: 22px; }
+    /* ======================================================
+       02  OPTIMISE  - subtle before/after slider
+       ====================================================== */
+    .compare { position: relative; width: 100%; user-select: none; touch-action: pan-y; }
+    .compare .pane { position: absolute; inset: 0; overflow: hidden; }
+    .compare .after { z-index: 2; }
+    .compare .frame { width: 100%; height: 100%; }
+    .cmp-handle { position: absolute; top: 0; bottom: 0; width: 42px; margin-left: -21px; z-index: 4; cursor: ew-resize; display: grid; place-items: center; }
+    .cmp-handle::before { content: ''; position: absolute; top: 0; bottom: 0; left: 20px; width: 2px; background: var(--pink); box-shadow: 0 0 16px rgba(231,155,182,.55); }
+    .cmp-grip { width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(135deg,var(--pink-2),var(--pink));
+      display: grid; place-items: center; color: #1a1016; box-shadow: 0 6px 20px rgba(0,0,0,.35); z-index: 1; }
+    .cmp-grip svg { width: 19px; height: 19px; stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+    .cmp-label { position: absolute; top: 14px; z-index: 5; font-size: 10.5px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 5px 11px; border-radius: 100px; backdrop-filter: blur(6px); pointer-events: none; }
+    .cmp-label.l { left: 14px; background: rgba(20,10,16,0.7); color: var(--pink-2); border: 1px solid var(--pink-line); }
+    .cmp-label.r { right: 14px; background: rgba(20,20,20,0.7); color: #d6d6d6; border: 1px solid rgba(255,255,255,0.16); }
 
-    .mode-tabs { display: flex; flex-wrap: wrap; gap: 10px; }
-    .mode-tab {
-      display: inline-flex; align-items: center; gap: 8px;
-      font-family: var(--font-sans);
-      font-size: 13px; font-weight: 500;
-      color: var(--text-low);
-      background: rgba(244,247,251,0.03);
-      border: 1px solid var(--border);
-      padding: 9px 16px; border-radius: 100px;
-      cursor: pointer; transition: all var(--ease);
-    }
-    .mode-tab:hover { color: var(--text-high); border-color: rgba(244,247,251,0.2); }
-    .mode-tab[aria-selected="true"] {
-      color: var(--text-high);
-      background: var(--pink-dim);
-      border-color: var(--border-pink);
-    }
-    .mode-tab .dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
-    .mode-tab.m-clean  .dot { background: #9fb4d6; }
-    .mode-tab.m-chinese .dot { background: #ffd700; }
-    .mode-tab.m-brainrot .dot { background: #ff2e9a; }
-    .mode-tab.m-synth   .dot { background: #05d9e8; }
+    /* optimise doc variants */
+    .opt-before .doc-body { max-width: none; }
+    .opt-before .doc h3 { font-family: 'Times New Roman', Times, serif; }
+    .opt-before .doc p { font-family: 'Times New Roman', Times, serif; color: #000; line-height: 1.35; font-size: 14px; }
+    .opt-after .doc { background: #fbfaf7; }
+    .opt-after .doc-nav { background: #fbfaf7; border-bottom-color: #eee7da; }
+    .opt-after .doc-body { max-width: 500px; margin: 0 auto; padding: 30px 26px; }
+    .opt-after .doc h3 { font-family: var(--serif); font-weight: 600; color: #1c1d22; letter-spacing: -0.02em; }
+    .opt-after .doc .by { color: #a89; }
+    .opt-after .doc p { font-family: 'Instrument Sans', sans-serif; color: #3a3f47; line-height: 1.78; font-size: 14.5px; }
 
-    .compare {
-      position: relative; width: 100%; height: 520px;
-      border-radius: 16px; overflow: hidden;
-      border: 1px solid var(--border);
-      box-shadow: 0 30px 80px rgba(0,0,0,0.4);
-      user-select: none; touch-action: pan-y;
-      background: #fff;
-    }
-    .compare-pane { position: absolute; inset: 0; overflow: hidden; }
-    /* the "after" (webpaper on) pane sits on top, clipped to the split */
-    .compare-after { z-index: 2; border-right: 2px solid rgba(231,155,182,0.9); }
+    /* ======================================================
+       03  ADD  - inject value on scroll
+       ====================================================== */
+    .add-view { min-height: 380px; padding-bottom: 18px; }
+    .add-el { opacity: 0; transition: opacity .55s ease, transform .55s ease; }
+    .add-view.play .add-el { opacity: 1; transform: none; }
+    .summary { margin: 16px 22px 4px; border: 1px solid var(--pink-line); background: linear-gradient(180deg,#fff5f8,#fff);
+      border-radius: 10px; padding: 14px 16px; transform: translateY(-14px); transition-delay: .1s; }
+    .summary .h { display: flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 800; letter-spacing: 0.08em;
+      text-transform: uppercase; color: #c65a7d; margin-bottom: 7px; }
+    .summary .h svg { width: 13px; height: 13px; stroke: #c65a7d; fill: none; stroke-width: 1.8; }
+    .summary p { font-size: 12.5px; color: #4a4f57; line-height: 1.5; margin: 0; }
+    .plist { list-style: none; margin: 16px 0 0; padding: 0 22px; display: flex; flex-direction: column; gap: 10px; }
+    .plist li { display: flex; align-items: center; gap: 12px; padding: 11px 13px; border: 1px solid #ececf0; border-radius: 9px; background: #fff; transition: box-shadow .5s ease, border-color .5s ease; }
+    .plist .pic { width: 40px; height: 40px; border-radius: 7px; background: linear-gradient(135deg,#e3e7ee,#cdd4df); flex-shrink: 0; }
+    .plist .pn { font-size: 13.5px; font-weight: 700; color: #1c1f24; }
+    .plist .pp { font-size: 12px; color: #7a8090; margin-top: 2px; }
+    .plist .target-meta { margin-left: auto; }
+    .add-view.play .plist .target { border-color: var(--pink); box-shadow: 0 0 0 3px rgba(231,155,182,.28), 0 10px 26px rgba(231,155,182,.20); transition-delay: .5s; }
+    .match-tag { display: inline-flex; align-items: center; gap: 6px; background: var(--pink); color: #211018; font-size: 10.5px; font-weight: 800;
+      letter-spacing: 0.04em; padding: 5px 10px; border-radius: 100px; transform: scale(.7); transition-delay: .75s; }
+    .add-cta { margin: 16px 22px 0; display: flex; gap: 10px; }
+    .add-cta .b1 { background: var(--pink); color: #211018; } .add-cta .b2 { background: #14171c; color: #fff; }
+    .add-cta button { border: none; border-radius: 8px; padding: 10px 16px; font-size: 12.5px; font-weight: 700; font-family: var(--sans); }
+    .add-cta .b1 { transform: translateY(10px); transition-delay: 1s; }
+    .add-cta .b2 { transform: translateY(10px); transition-delay: 1.1s; }
 
-    .compare-scroll { position: absolute; inset: 0; overflow: hidden; }
-    /* Both panes are identical size, so a full-width mock lines up 1:1 across the clip. */
-    .mock-frame { width: 100%; min-height: 100%; }
+    /* ======================================================
+       04  REINVENT  - full rewrite with modes
+       ====================================================== */
+    .modes { display: flex; flex-wrap: wrap; gap: 9px; margin-bottom: 18px; }
+    .mode { display: inline-flex; align-items: center; gap: 8px; font-family: var(--sans); font-size: 13px; font-weight: 500;
+      color: var(--ink-3); background: rgba(240,244,250,0.03); border: 1px solid var(--line); padding: 9px 15px; border-radius: 100px; cursor: pointer; transition: all var(--ease); }
+    .mode:hover { color: var(--ink); border-color: rgba(240,244,250,0.2); }
+    .mode[aria-selected="true"] { color: var(--ink); background: var(--pink-dim); border-color: var(--pink-line); }
+    .mode .dot { width: 7px; height: 7px; border-radius: 50%; }
+    .mode.clean .dot{background:#9fb4d6} .mode.chinese .dot{background:#ffd700} .mode.brainrot .dot{background:#ff2e9a} .mode.synth .dot{background:#05d9e8}
 
-    .compare-handle {
-      position: absolute; top: 0; bottom: 0; z-index: 3;
-      width: 44px; margin-left: -22px;
-      display: flex; align-items: center; justify-content: center;
-      cursor: ew-resize;
-    }
-    .compare-handle::before {
-      content: ''; position: absolute; top: 0; bottom: 0; left: 21px;
-      width: 2px; background: rgba(231,155,182,0.9);
-      box-shadow: 0 0 16px rgba(231,155,182,0.5);
-    }
-    .handle-grip {
-      position: relative; z-index: 1;
-      width: 44px; height: 44px; border-radius: 50%;
-      background: linear-gradient(135deg, var(--pink-soft), var(--pink));
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.35);
-      color: #1a1016;
-    }
-    .handle-grip svg { width: 20px; height: 20px; }
+    /* reinvent doc uses .doc; after pane restyled by data-mode */
+    .after .doc .ad-strip, .after .doc .cookie { display: none; }
+    .rev-after[data-mode="clean"] .doc { background:#fbfaf7; font-family:'Instrument Sans',sans-serif; }
+    .rev-after[data-mode="clean"] .doc-nav { background:#fbfaf7; border-bottom-color:#eee7da; }
+    .rev-after[data-mode="clean"] .doc-body { max-width:480px; margin:0 auto; padding:28px 26px; }
+    .rev-after[data-mode="clean"] .doc h3 { font-family:var(--serif); font-weight:600; }
+    .rev-after[data-mode="clean"] .doc p { color:#3a3f47; line-height:1.75; }
 
-    .compare-badge {
-      position: absolute; top: 16px; z-index: 4;
-      font-family: var(--font-sans); font-size: 11px; font-weight: 600;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      padding: 6px 12px; border-radius: 100px;
-      backdrop-filter: blur(8px); pointer-events: none;
-    }
-    .badge-after { left: 16px; background: rgba(20,10,16,0.72); color: #f7cede; border: 1px solid rgba(231,155,182,0.5); }
-    .badge-before { right: 16px; background: rgba(20,20,20,0.72); color: #d8d8d8; border: 1px solid rgba(255,255,255,0.18); }
+    .rev-after[data-mode="chinese"] .doc { background:#8b0000; color:#ffd700; font-family:'Ma Shan Zheng',cursive; }
+    .rev-after[data-mode="chinese"] .doc-nav { background:#1a0000; border-bottom:1px solid rgba(255,215,0,.4); }
+    .rev-after[data-mode="chinese"] .doc-logo, .rev-after[data-mode="chinese"] .doc h3, .rev-after[data-mode="chinese"] .doc p, .rev-after[data-mode="chinese"] .doc-nav .mini { color:#ffd700; }
+    .rev-after[data-mode="chinese"] .doc h3 { font-weight:400; }
+    .rev-after[data-mode="chinese"] .doc h3::before { content:'★ '; } .rev-after[data-mode="chinese"] .doc h3::after { content:' ★'; }
+    .rev-after[data-mode="chinese"] .doc .by { color:rgba(255,215,0,.6); }
+    .rev-after[data-mode="chinese"] .doc-body::before { content:'为人民服务'; position:absolute; right:16px; bottom:14px; font-family:'Ma Shan Zheng',cursive; font-size:20px; color:#ffd700; opacity:.8; }
 
-    .demo-hint {
-      font-size: 13px; color: var(--text-faint); text-align: center;
-      display: flex; align-items: center; justify-content: center; gap: 8px;
-    }
-    .demo-hint svg { width: 15px; height: 15px; opacity: 0.7; }
+    .rev-after[data-mode="brainrot"] .doc { background:linear-gradient(135deg,#ff2e9a,#00eaff 55%,#b6ff00); color:#12002a; font-family:'Comic Sans MS','Chalkboard SE',cursive; }
+    .rev-after[data-mode="brainrot"] .doc-nav { background:rgba(255,255,255,.25); border-bottom:3px solid #12002a; }
+    .rev-after[data-mode="brainrot"] .doc-logo { text-shadow:2px 2px 0 #fff; }
+    .rev-after[data-mode="brainrot"] .doc h3 { font-family:Impact,'Arial Black',sans-serif; text-transform:uppercase; color:#fff; text-shadow:3px 3px 0 #ff2e9a,6px 6px 0 #12002a; transform:rotate(-2deg); }
+    .rev-after[data-mode="brainrot"] .doc h3::after { content:' 🔥'; }
+    .rev-after[data-mode="brainrot"] .doc p { color:#12002a; font-weight:700; }
 
-    /* ── The mock page (base look = a typical cluttered site) ── */
-    .mock {
-      font-family: 'Helvetica Neue', Arial, sans-serif;
-      background: #ffffff; color: #111; padding: 0 0 30px;
-      transition: background 0.45s ease, color 0.45s ease;
-    }
-    .mock-bar {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 14px 26px; border-bottom: 1px solid #e3e3e3; background: #fafafa;
-    }
-    .mock-logo { font-weight: 800; font-size: 15px; letter-spacing: -0.01em; }
-    .mock-cookie {
-      margin: 0; padding: 12px 26px; font-size: 12px; color: #444;
-      background: #f0f0f0; border-bottom: 1px solid #e0e0e0;
-      display: flex; align-items: center; justify-content: space-between; gap: 12px;
-    }
-    .mock-ad {
-      margin: 16px 26px 0; padding: 18px; text-align: center;
-      background: repeating-linear-gradient(45deg,#fff6d6,#fff6d6 10px,#ffefb0 10px,#ffefb0 20px);
-      border: 1px dashed #d9b400; color: #8a6d00; font-size: 12px; font-weight: 700;
-      letter-spacing: 0.04em;
-    }
-    .mock-body { padding: 26px 26px 0; }
-    .mock-kicker { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #b00; margin: 0 0 10px; }
-    .mock-h1 { font-size: 30px; line-height: 1.15; margin: 0 0 12px; font-weight: 800; letter-spacing: -0.02em; }
-    .mock-byline { font-size: 12.5px; color: #888; margin: 0 0 20px; }
-    .mock-p { font-size: 14.5px; line-height: 1.7; color: #333; margin: 0 0 16px; }
-    .mock-card {
-      margin: 22px 0 0; padding: 18px; border: 1px solid #e3e3e3; border-radius: 8px;
-      display: flex; align-items: center; justify-content: space-between; gap: 16px; background: #fbfbfb;
-    }
-    .mock-card-name { font-weight: 700; font-size: 15px; }
-    .mock-card-price { font-size: 13px; color: #666; margin-top: 3px; }
-    .mock-btns { display: flex; gap: 10px; flex-shrink: 0; }
-    .mock-btn {
-      font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer;
-      padding: 10px 16px; border-radius: 6px; border: none; white-space: nowrap;
-    }
-    .mock-btn.primary { background: #d33; color: #fff; }
-    .mock-btn.ghost { background: #fff; color: #222; border: 1px solid #ccc; }
-    .mock-sub { background: #111; color: #fff; font-weight: 700; font-size: 12px; padding: 8px 14px; border-radius: 5px; border: none; cursor: pointer; }
+    .rev-after[data-mode="synth"] .doc { background:linear-gradient(180deg,#1a0b2e,#2b1055 60%,#46166b); color:#f5d0ff; font-family:'Instrument Sans',sans-serif; }
+    .rev-after[data-mode="synth"] .doc-nav { background:rgba(20,6,40,.7); border-bottom:1px solid rgba(255,113,206,.5); }
+    .rev-after[data-mode="synth"] .doc-logo { font-family:'Orbitron',sans-serif; color:#05d9e8; text-shadow:0 0 10px rgba(5,217,232,.7); }
+    .rev-after[data-mode="synth"] .doc h3 { font-family:'Orbitron',sans-serif; font-weight:900; color:#fff; text-shadow:0 0 12px rgba(255,113,206,.8),0 0 30px rgba(5,217,232,.5); }
+    .rev-after[data-mode="synth"] .doc .by { color:rgba(245,208,255,.6); }
+    .rev-after[data-mode="synth"] .doc p { color:#e7c7ff; }
 
-    /* ════ AFTER-PANE MODE STYLING (webpaper on) ════ */
-    /* All webpaper modes strip the ad + cookie clutter. */
-    .compare-after .mock-ad,
-    .compare-after .mock-cookie { display: none; }
+    .rev-prompt { margin-top: 14px; display: flex; align-items: center; gap: 10px; background: var(--panel); border: 1px solid var(--line);
+      border-radius: 12px; padding: 12px 16px; font-size: 14px; color: var(--ink-2); }
+    .rev-prompt .caret { color: var(--pink); font-weight: 700; }
+    .rev-prompt .typed { color: var(--ink); }
 
-    /* — CLEAN (default auto-polish) — */
-    .compare-after[data-mode="clean"] .mock {
-      background: #fbfaf7; color: #1a1a2e;
-      font-family: 'Space Grotesk', system-ui, sans-serif;
-    }
-    .compare-after[data-mode="clean"] .mock-bar { background: #fbfaf7; border-bottom-color: #ece7dd; }
-    .compare-after[data-mode="clean"] .mock-body { padding: 40px 40px 0; max-width: 620px; }
-    .compare-after[data-mode="clean"] .mock-kicker { color: #a88; }
-    .compare-after[data-mode="clean"] .mock-h1 { font-weight: 500; letter-spacing: -0.02em; font-size: 32px; }
-    .compare-after[data-mode="clean"] .mock-p { color: #3a3a44; font-size: 15.5px; line-height: 1.85; }
-    .compare-after[data-mode="clean"] .mock-card { border-color: #ece7dd; background: #fff; border-radius: 12px; }
-    .compare-after[data-mode="clean"] .mock-btn.primary { background: #1a1a2e; }
-    .compare-after[data-mode="clean"] .mock-btn.ghost { border-color: #ddd6c8; }
+    /* ---- how it's free (compact strip) ---- */
+    .free { padding: 84px 0; border-top: 1px solid var(--line-soft); }
+    .free-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-top: 28px; }
+    .free-card { border: 1px solid var(--line); border-radius: 13px; padding: 22px; background: var(--bg-soft); }
+    .free-card svg { width: 22px; height: 22px; stroke: var(--pink); fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; margin-bottom: 12px; }
+    .free-card b { display: block; font-size: 15px; font-weight: 600; margin-bottom: 5px; }
+    .free-card span { font-size: 13.5px; color: var(--ink-3); line-height: 1.55; }
+    .free-card a { color: var(--pink-2); text-decoration: none; border-bottom: 1px solid var(--pink-line); }
 
-    /* — CHINESE MODE 🌶 — */
-    .compare-after[data-mode="chinese"] .mock {
-      background: #8b0000; color: #ffd700; font-family: 'Ma Shan Zheng', cursive;
-    }
-    .compare-after[data-mode="chinese"] .mock-bar { background: #1a0000; border-bottom: 1px solid rgba(255,215,0,0.4); }
-    .compare-after[data-mode="chinese"] .mock-logo,
-    .compare-after[data-mode="chinese"] .mock-h1,
-    .compare-after[data-mode="chinese"] .mock-p,
-    .compare-after[data-mode="chinese"] .mock-card-name,
-    .compare-after[data-mode="chinese"] .mock-kicker { color: #ffd700; }
-    .compare-after[data-mode="chinese"] .mock-h1 { font-weight: 400; font-size: 34px; }
-    .compare-after[data-mode="chinese"] .mock-h1::before { content: '★ '; }
-    .compare-after[data-mode="chinese"] .mock-h1::after { content: ' ★'; }
-    .compare-after[data-mode="chinese"] .mock-byline { color: rgba(255,215,0,0.6); }
-    .compare-after[data-mode="chinese"] .mock-card { background: #3d0000; border: 1px solid rgba(255,215,0,0.4); }
-    .compare-after[data-mode="chinese"] .mock-btn.primary { background: #cc0000; color: #ffd700; border: 2px solid #ffd700; }
-    .compare-after[data-mode="chinese"] .mock-btn.ghost { background: #3d0000; color: #ffd700; border: 2px solid #ffd700; }
-    .compare-after[data-mode="chinese"] .mock-sub { background: #cc0000; color: #ffd700; border: 2px solid #ffd700; }
-    .compare-after[data-mode="chinese"] .mock-card-price { color: rgba(255,215,0,0.7); }
-    .compare-after[data-mode="chinese"] .mock-banner {
-      display: block; margin: 16px 26px 0; padding: 12px; text-align: center;
-      background: #cc0000; color: #ffd700; font-size: 13px; letter-spacing: 0.04em;
-      border: 1px solid #ffd700;
-    }
-    .compare-after[data-mode="chinese"] .mock-wm {
-      display: block; position: absolute; bottom: 14px; right: 18px;
-      font-family: 'Ma Shan Zheng', cursive; font-size: 22px; color: #ffd700; opacity: 0.8; z-index: 5;
-    }
+    /* ---- install ---- */
+    .install { padding: 84px 0; border-top: 1px solid var(--line-soft); }
+    .install-grid { display: grid; grid-template-columns: 290px 1fr; gap: 52px; align-items: start; margin-top: 30px; }
+    .install-cta { position: sticky; top: 34px; display: flex; flex-direction: column; gap: 16px; }
+    .install-cta .pre { font-size: 14px; color: var(--ink-3); line-height: 1.6; }
+    .install-cta .pre a { color: var(--pink-2); text-decoration: none; border-bottom: 1px solid var(--pink-line); }
+    .steps { list-style: none; margin: 0; padding: 0; }
+    .steps li { display: grid; grid-template-columns: 30px 1fr; gap: 15px; padding: 17px 0; border-bottom: 1px solid var(--line); align-items: baseline; }
+    .steps li:first-child { border-top: 1px solid var(--line); }
+    .steps .n { font-size: 13px; font-weight: 700; color: var(--pink); }
+    .steps .t { font-size: 15px; color: var(--ink-2); line-height: 1.55; }
+    .steps .t b { color: var(--ink); font-weight: 600; }
+    .steps .t code { font-size: 13px; font-weight: 600; color: var(--ink); background: rgba(255,255,255,0.07); padding: 2px 7px; border-radius: 5px; }
 
-    /* — BRAINROT MODE 🧠 — */
-    .compare-after[data-mode="brainrot"] .mock {
-      background: linear-gradient(135deg, #ff2e9a, #00eaff 55%, #b6ff00);
-      color: #12002a; font-family: 'Comic Sans MS','Chalkboard SE',cursive;
-    }
-    .compare-after[data-mode="brainrot"] .mock-bar { background: rgba(255,255,255,0.25); border-bottom: 3px solid #12002a; backdrop-filter: blur(2px); }
-    .compare-after[data-mode="brainrot"] .mock-logo { color: #12002a; text-shadow: 2px 2px 0 #fff; }
-    .compare-after[data-mode="brainrot"] .mock-kicker { color: #fff; text-shadow: 1px 1px 0 #12002a; }
-    .compare-after[data-mode="brainrot"] .mock-h1 {
-      font-family: Impact,'Arial Black',sans-serif; text-transform: uppercase;
-      font-size: 38px; color: #fff;
-      text-shadow: 3px 3px 0 #ff2e9a, 6px 6px 0 #12002a;
-      transform: rotate(-2deg); animation: br-wobble 1.6s ease-in-out infinite;
-    }
-    @keyframes br-wobble { 0%,100%{transform:rotate(-2deg)} 50%{transform:rotate(1.5deg) scale(1.02)} }
-    .compare-after[data-mode="brainrot"] .mock-h1::after { content: ' 🔥💯'; }
-    .compare-after[data-mode="brainrot"] .mock-byline { color: #12002a; font-weight: 700; }
-    .compare-after[data-mode="brainrot"] .mock-p { color: #12002a; font-weight: 700; }
-    .compare-after[data-mode="brainrot"] .mock-card { background: rgba(255,255,255,0.85); border: 3px solid #12002a; border-radius: 18px; }
-    .compare-after[data-mode="brainrot"] .mock-btn,
-    .compare-after[data-mode="brainrot"] .mock-sub {
-      border: 3px solid #12002a !important; border-radius: 100px; background: #ffe600; color: #12002a;
-      text-transform: uppercase; box-shadow: 3px 3px 0 #12002a;
-    }
-    .compare-after[data-mode="brainrot"] .mock-btn.primary { background: #ff2e9a; color: #fff; }
-    .compare-after[data-mode="brainrot"] .mock-wm {
-      display: block; position: absolute; bottom: 14px; right: 16px; z-index: 5;
-      background: #ffe600; color: #12002a; font-weight: 800; padding: 6px 12px;
-      border: 3px solid #12002a; border-radius: 100px; transform: rotate(-6deg); font-size: 12px;
-    }
+    /* ---- footer ---- */
+    footer { border-top: 1px solid var(--line); padding: 30px 0 60px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px; font-size: 13px; color: var(--ink-4); }
+    footer a { color: var(--ink-3); text-decoration: none; } footer a:hover { color: var(--ink); }
+    footer .sp { flex: 1; }
+    footer .badge { border: 1px solid var(--pink-line); color: var(--pink); border-radius: 100px; padding: 3px 11px; font-size: 11px; font-weight: 600; }
+    .foot-cat { width: 20px; opacity: 0.6; }
 
-    /* — SYNTHWAVE MODE 🌆 — */
-    .compare-after[data-mode="synth"] .mock {
-      background: linear-gradient(180deg, #1a0b2e 0%, #2b1055 60%, #46166b 100%);
-      color: #f5d0ff; font-family: 'Rajdhani','Space Grotesk',sans-serif;
-    }
-    .compare-after[data-mode="synth"] .mock-bar { background: rgba(20,6,40,0.7); border-bottom: 1px solid rgba(255,113,206,0.5); }
-    .compare-after[data-mode="synth"] .mock-logo { font-family: 'Orbitron',sans-serif; color: #05d9e8; text-shadow: 0 0 10px rgba(5,217,232,0.7); letter-spacing: 0.06em; }
-    .compare-after[data-mode="synth"] .mock-kicker { color: #ff71ce; text-shadow: 0 0 8px rgba(255,113,206,0.6); }
-    .compare-after[data-mode="synth"] .mock-h1 {
-      font-family: 'Orbitron',sans-serif; font-weight: 900; letter-spacing: 0.02em;
-      color: #fff; font-size: 30px;
-      text-shadow: 0 0 12px rgba(255,113,206,0.8), 0 0 30px rgba(5,217,232,0.5);
-    }
-    .compare-after[data-mode="synth"] .mock-byline { color: rgba(245,208,255,0.6); }
-    .compare-after[data-mode="synth"] .mock-p { color: #e7c7ff; }
-    .compare-after[data-mode="synth"] .mock-card {
-      background: rgba(20,6,40,0.5); border: 1px solid rgba(255,113,206,0.6);
-      border-radius: 10px; box-shadow: 0 0 24px rgba(255,113,206,0.15);
-    }
-    .compare-after[data-mode="synth"] .mock-card-name { color: #05d9e8; }
-    .compare-after[data-mode="synth"] .mock-card-price { color: rgba(245,208,255,0.7); }
-    .compare-after[data-mode="synth"] .mock-btn.primary { background: linear-gradient(135deg,#ff71ce,#b967ff); color: #fff; box-shadow: 0 0 16px rgba(255,113,206,0.5); }
-    .compare-after[data-mode="synth"] .mock-btn.ghost { background: transparent; color: #05d9e8; border: 1px solid #05d9e8; box-shadow: 0 0 12px rgba(5,217,232,0.3); }
-    .compare-after[data-mode="synth"] .mock-sub { background: transparent; color: #ff71ce; border: 1px solid #ff71ce; box-shadow: 0 0 12px rgba(255,113,206,0.4); }
-    .compare-after[data-mode="synth"] .mock-wm {
-      display: block; position: absolute; bottom: 12px; right: 18px; z-index: 5;
-      font-family: 'Orbitron',sans-serif; letter-spacing: 0.5em; font-size: 12px;
-      color: #05d9e8; opacity: 0.7; text-shadow: 0 0 10px rgba(5,217,232,0.6);
-    }
+    /* ---- running cat ---- */
+    .runner { position: fixed; bottom: 14px; left: 0; width: 64px; height: 40px; z-index: 30; pointer-events: none; animation: run 24s linear infinite; }
+    @keyframes run { 0%{transform:translateX(-90px) scaleX(1)} 46%{transform:translateX(calc(100vw + 20px)) scaleX(1)}
+      50%{transform:translateX(calc(100vw + 20px)) scaleX(-1)} 96%{transform:translateX(-90px) scaleX(-1)} 100%{transform:translateX(-90px) scaleX(1)} }
+    .runner svg { animation: bob .26s steps(2) infinite; }
+    @keyframes bob { 50%{transform:translateY(-2px)} }
+    .leg-a { animation: legs .26s steps(1) infinite; } .leg-b { animation: legs .26s steps(1) infinite reverse; }
+    @keyframes legs { 0%,49%{opacity:1} 50%,100%{opacity:0} }
+    .tail { transform-box: fill-box; transform-origin: right center; animation: tail .5s ease-in-out infinite alternate; }
+    @keyframes tail { from{transform:rotate(-8deg)} to{transform:rotate(12deg)} }
 
-    /* mode-only elements hidden by default (base pane + non-matching modes) */
-    .mock-banner, .mock-wm { display: none; }
-
-    /* ── What it does ─────────────────────────────────── */
-    .what-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(--border); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
-    .what-item { display: flex; flex-direction: column; gap: 12px; padding: 30px 26px; background: var(--bg); transition: background var(--ease); }
-    .what-item:hover { background: var(--bg-card); }
-    .what-num { font-size: 12px; font-weight: 600; color: var(--pink); letter-spacing: 0.08em; }
-    .what-title { font-size: 16px; font-weight: 600; color: var(--text-high); letter-spacing: -0.01em; }
-    .what-desc { font-family: var(--font-serif); font-size: 17px; font-style: italic; color: var(--text-mid); line-height: 1.6; margin: 0; }
-    .what-desc a { color: var(--pink-soft); text-decoration: none; border-bottom: 1px solid var(--border-pink); font-style: normal; }
-    .what-desc a:hover { color: var(--pink); }
-    .what-desc b { color: var(--text-high); font-weight: 600; font-style: normal; }
-
-    /* ── Why (manifesto strip) ────────────────────────── */
-    .why { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
-    .why-quote { font-family: var(--font-serif); font-size: clamp(22px, 2.6vw, 30px); font-style: italic; font-weight: 300; line-height: 1.45; color: var(--text-high); margin: 0; }
-    .why-quote span { color: var(--pink-soft); }
-    .why-body { display: flex; flex-direction: column; gap: 16px; }
-    .why-body p { font-size: 15px; color: var(--text-low); line-height: 1.72; margin: 0; }
-    .why-body b { color: var(--text-mid); font-weight: 600; }
-
-    /* ── Install ──────────────────────────────────────── */
-    .install-grid { display: grid; grid-template-columns: 300px 1fr; gap: 56px; align-items: start; }
-    .install-cta { display: flex; flex-direction: column; gap: 18px; position: sticky; top: 40px; }
-    .install-prereq { font-family: var(--font-serif); font-size: 15.5px; font-style: italic; color: var(--text-low); line-height: 1.65; margin: 0; }
-    .install-steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
-    .install-steps li { display: grid; grid-template-columns: 32px 1fr; gap: 16px; align-items: baseline; border-bottom: 1px solid var(--border); padding: 18px 0; }
-    .install-steps li:first-child { border-top: 1px solid var(--border); }
-    .install-steps .n { font-size: 13px; font-weight: 700; color: var(--pink); }
-    .install-steps .t { font-size: 15.5px; color: var(--text-mid); line-height: 1.6; }
-    .install-steps .t code { font-family: var(--font-sans); font-size: 13px; font-weight: 600; color: var(--text-high); background: rgba(255,255,255,0.07); padding: 2px 7px; border-radius: 5px; }
-    .install-steps .t a { color: var(--pink-soft); text-decoration: none; border-bottom: 1px solid var(--border-pink); }
-    .install-steps .t a:hover { color: var(--pink); }
-
-    /* ── Footer ───────────────────────────────────────── */
-    footer { border-top: 1px solid var(--border); padding-top: 34px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 12px; font-size: 12.5px; color: var(--text-faint); }
-    footer a { color: var(--text-low); text-decoration: none; transition: color var(--ease); }
-    footer a:hover { color: var(--text-high); }
-    .foot-cat { width: 20px; height: auto; margin-right: 4px; opacity: 0.6; }
-    .sep { opacity: 0.35; }
-    .foot-spacer { flex: 1; }
-    .foot-badge { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; color: var(--pink); border: 1px solid var(--border-pink); padding: 3px 10px; border-radius: 100px; }
-
-    /* ── Running cat ──────────────────────────────────── */
-    .cat-runner { position: fixed; bottom: 18px; left: 0; width: 66px; height: 42px; z-index: 40; pointer-events: none; will-change: transform; animation: cat-across 22s linear infinite; }
-    @keyframes cat-across {
-      0%   { transform: translateX(-90px) scaleX(1); }
-      45%  { transform: translateX(calc(100vw + 30px)) scaleX(1); }
-      50%  { transform: translateX(calc(100vw + 30px)) scaleX(-1); }
-      95%  { transform: translateX(-90px) scaleX(-1); }
-      100% { transform: translateX(-90px) scaleX(1); }
-    }
-    .cat-runner svg { display: block; animation: cat-bob 0.26s steps(2) infinite; }
-    @keyframes cat-bob { 0%{transform:translateY(0)} 50%{transform:translateY(-2px)} }
-    .cat-leg-a { animation: cat-legs 0.26s steps(1) infinite; }
-    .cat-leg-b { animation: cat-legs 0.26s steps(1) infinite reverse; }
-    @keyframes cat-legs { 0%,49%{opacity:1} 50%,100%{opacity:0} }
-    .cat-tail { transform-box: fill-box; transform-origin: right center; animation: cat-tail 0.5s ease-in-out infinite alternate; }
-    @keyframes cat-tail { from{transform:rotate(-8deg)} to{transform:rotate(12deg)} }
+    /* ---- reveal ---- */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity .8s ease, transform .8s ease; }
+    .reveal.in { opacity: 1; transform: none; }
 
     @media (prefers-reduced-motion: reduce) {
-      .cat-runner, .cat-runner svg, .cat-leg-a, .cat-leg-b, .cat-tail { animation: none !important; }
-      .cat-runner { display: none; }
       html { scroll-behavior: auto; }
-      .compare-after[data-mode="brainrot"] .mock-h1 { animation: none; }
+      .runner { display: none; }
+      .reveal { opacity: 1; transform: none; }
+      .junk, .add-el { transition: none; }
     }
 
-    /* ── Reveal on scroll ─────────────────────────────── */
-    .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.7s ease, transform 0.7s ease; }
-    .reveal.in { opacity: 1; transform: none; }
-    @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; } }
-
-    /* ── Mobile ───────────────────────────────────────── */
+    /* ---- mobile ---- */
     @media (max-width: 860px) {
-      .page { padding: 0 22px 90px; }
-      .hero { padding: 56px 0 30px; }
-      .what-grid { grid-template-columns: 1fr; }
-      .why { grid-template-columns: 1fr; gap: 24px; }
-      .install-grid { grid-template-columns: 1fr; gap: 32px; }
+      .wrap { padding: 0 20px; }
+      .cap, .free, .install { padding: 64px 0; }
+      .install-grid { grid-template-columns: 1fr; gap: 28px; }
       .install-cta { position: static; }
-      .section { padding: 56px 0; }
-      .compare { height: 440px; }
-      .nav-links { gap: 18px; }
+      .free-grid { grid-template-columns: 1fr; }
+      .nav-r { gap: 16px; }
     }
     @media (max-width: 520px) {
-      .nav-link.hide-sm { display: none; }
-      /* Scale the demo mock down so more of the page reads inside the frame */
-      .mock-body { padding: 18px 16px 0; }
-      .mock-bar, .mock-cookie, .mock-ad { padding-left: 16px; padding-right: 16px; }
-      .mock-h1 { font-size: 22px; }
-      .mock-p { font-size: 13px; }
-      .mock-card { flex-direction: column; align-items: flex-start; gap: 10px; }
-      .mode-tab { padding: 10px 15px; font-size: 12.5px; }
+      .nav-r .hide-sm { display: none; }
       .hero-actions .btn { width: 100%; justify-content: center; }
+      .doc h3 { font-size: 20px; }
+      .doc p { font-size: 12.5px; }
+      .mode { padding: 9px 13px; font-size: 12.5px; }
     }
   </style>
 </head>
 <body>
 
-<!-- Running cat -->
-<div class="cat-runner" aria-hidden="true">
+<!-- running cat -->
+<div class="runner" aria-hidden="true">
   <svg viewBox="0 0 66 42" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
-    <g class="cat-tail">
-      <rect x="2" y="14" width="4" height="4" fill="#f4f7fb"/>
-      <rect x="0" y="10" width="4" height="4" fill="#f4f7fb"/>
-      <rect x="0" y="6"  width="4" height="4" fill="#f4f7fb"/>
-    </g>
-    <rect x="6"  y="16" width="42" height="12" fill="#f4f7fb"/>
-    <rect x="6"  y="14" width="34" height="4"  fill="#f4f7fb"/>
-    <rect x="45" y="9"  width="15" height="17" fill="#f4f7fb"/>
-    <rect x="45" y="4"  width="4" height="5" fill="#f4f7fb"/>
-    <rect x="56" y="4"  width="4" height="5" fill="#f4f7fb"/>
-    <rect x="46" y="6" width="2" height="2" fill="#e79bb6"/>
-    <rect x="57" y="6" width="2" height="2" fill="#e79bb6"/>
-    <rect x="53" y="14" width="3" height="3" fill="#3b424c"/>
-    <rect x="58" y="18" width="2" height="2" fill="#e79bb6"/>
-    <g class="cat-leg-a">
-      <rect x="10" y="28" width="4" height="9" fill="#f4f7fb"/>
-      <rect x="40" y="28" width="4" height="9" fill="#f4f7fb"/>
-    </g>
-    <g class="cat-leg-b">
-      <rect x="16" y="28" width="4" height="9" fill="#f4f7fb"/>
-      <rect x="34" y="28" width="4" height="9" fill="#f4f7fb"/>
-    </g>
+    <g class="tail"><rect x="2" y="14" width="4" height="4" fill="#f3f6fb"/><rect x="0" y="10" width="4" height="4" fill="#f3f6fb"/><rect x="0" y="6" width="4" height="4" fill="#f3f6fb"/></g>
+    <rect x="6" y="16" width="42" height="12" fill="#f3f6fb"/><rect x="6" y="14" width="34" height="4" fill="#f3f6fb"/>
+    <rect x="45" y="9" width="15" height="17" fill="#f3f6fb"/><rect x="45" y="4" width="4" height="5" fill="#f3f6fb"/><rect x="56" y="4" width="4" height="5" fill="#f3f6fb"/>
+    <rect x="46" y="6" width="2" height="2" fill="#e79bb6"/><rect x="57" y="6" width="2" height="2" fill="#e79bb6"/>
+    <rect x="53" y="14" width="3" height="3" fill="#3b424c"/><rect x="58" y="18" width="2" height="2" fill="#e79bb6"/>
+    <g class="leg-a"><rect x="10" y="28" width="4" height="9" fill="#f3f6fb"/><rect x="40" y="28" width="4" height="9" fill="#f3f6fb"/></g>
+    <g class="leg-b"><rect x="16" y="28" width="4" height="9" fill="#f3f6fb"/><rect x="34" y="28" width="4" height="9" fill="#f3f6fb"/></g>
   </svg>
 </div>
 
-<div class="page">
+<div class="wrap">
 
-  <!-- Nav -->
   <nav>
-    <a class="nav-mark" href="#top">
-      <svg class="nav-cat" viewBox="80 20 520 490" xmlns="http://www.w3.org/2000/svg">
-        <rect x="80" y="20" width="520" height="490" rx="30" fill="#232c3b"/>
-        <rect x="130" y="130" width="420" height="30" fill="#f4f7fb"/>
-        <rect x="100" y="160" width="480" height="200" fill="#f4f7fb"/>
-        <rect x="130" y="400" width="420" height="30" fill="#f4f7fb"/>
-        <rect x="250" y="220" width="30" height="30" fill="#3b424c"/>
-        <rect x="400" y="220" width="30" height="30" fill="#3b424c"/>
-        <rect x="310" y="280" width="30" height="30" fill="#e79bb6"/>
-        <rect x="340" y="280" width="30" height="30" fill="#e79bb6"/>
+    <a class="brand" href="#top">
+      <svg viewBox="80 20 520 490" xmlns="http://www.w3.org/2000/svg">
+        <rect x="80" y="20" width="520" height="490" rx="30" fill="#161c27"/>
+        <rect x="130" y="130" width="420" height="30" fill="#f3f6fb"/><rect x="100" y="160" width="480" height="200" fill="#f3f6fb"/><rect x="130" y="400" width="420" height="30" fill="#f3f6fb"/>
+        <rect x="250" y="220" width="30" height="30" fill="#3b424c"/><rect x="400" y="220" width="30" height="30" fill="#3b424c"/>
+        <rect x="310" y="280" width="30" height="30" fill="#e79bb6"/><rect x="340" y="280" width="30" height="30" fill="#e79bb6"/>
       </svg>
-      <span class="nav-name">webpaper</span>
+      <b>webpaper</b>
     </a>
-    <div class="nav-links">
-      <a class="nav-link hide-sm" href="#try">Try it</a>
-      <a class="nav-link hide-sm" href="#why">Why</a>
-      <a class="nav-link" href="#install">Install</a>
-      <a class="nav-link" href="https://github.com/SocialAcolyte/webpaper" target="_blank" rel="noopener">GitHub</a>
+    <div class="nav-r">
+      <a class="hide-sm" href="#see">See it</a>
+      <a class="hide-sm" href="#free">How it's free</a>
+      <a href="#install">Install</a>
+      <a href="https://github.com/SocialAcolyte/webpaper" target="_blank" rel="noopener">GitHub</a>
     </div>
   </nav>
 
-  <!-- Hero -->
-  <section class="hero" id="top">
+  <!-- HERO -->
+  <header class="hero" id="top">
     <svg class="hero-cat" viewBox="80 20 520 490" xmlns="http://www.w3.org/2000/svg">
-      <rect x="80" y="20" width="520" height="490" rx="30" fill="#232c3b"/>
-      <rect x="160" y="40" width="60" height="30" fill="#f4f7fb"/>
-      <rect x="460" y="40" width="60" height="30" fill="#f4f7fb"/>
-      <rect x="130" y="70" width="120" height="30" fill="#f4f7fb"/>
-      <rect x="430" y="70" width="120" height="30" fill="#f4f7fb"/>
-      <rect x="130" y="100" width="120" height="30" fill="#f4f7fb"/>
-      <rect x="430" y="100" width="120" height="30" fill="#f4f7fb"/>
-      <rect x="130" y="130" width="420" height="30" fill="#f4f7fb"/>
-      <rect x="100" y="160" width="480" height="30" fill="#f4f7fb"/>
-      <rect x="100" y="190" width="480" height="30" fill="#f4f7fb"/>
-      <rect x="100" y="220" width="480" height="30" fill="#f4f7fb"/>
-      <rect x="100" y="250" width="480" height="30" fill="#f4f7fb"/>
-      <rect x="100" y="280" width="480" height="30" fill="#f4f7fb"/>
-      <rect x="100" y="310" width="480" height="30" fill="#f4f7fb"/>
-      <rect x="100" y="340" width="480" height="30" fill="#f4f7fb"/>
-      <rect x="100" y="370" width="480" height="30" fill="#f4f7fb"/>
-      <rect x="130" y="400" width="420" height="30" fill="#f4f7fb"/>
-      <rect x="160" y="430" width="360" height="30" fill="#f4f7fb"/>
-      <rect x="220" y="460" width="240" height="30" fill="#f4f7fb"/>
-      <rect x="190" y="100" width="30" height="30" fill="#e79bb6"/>
-      <rect x="460" y="100" width="30" height="30" fill="#e79bb6"/>
-      <rect x="160" y="280" width="30" height="30" fill="#ecaec0"/>
-      <rect x="190" y="280" width="30" height="30" fill="#ecaec0"/>
-      <rect x="460" y="280" width="30" height="30" fill="#ecaec0"/>
-      <rect x="490" y="280" width="30" height="30" fill="#ecaec0"/>
-      <rect x="250" y="220" width="30" height="30" fill="#3b424c"/>
-      <rect x="400" y="220" width="30" height="30" fill="#3b424c"/>
-      <rect x="220" y="250" width="30" height="30" fill="#3b424c"/>
-      <rect x="280" y="250" width="30" height="30" fill="#3b424c"/>
-      <rect x="370" y="250" width="30" height="30" fill="#3b424c"/>
-      <rect x="430" y="250" width="30" height="30" fill="#3b424c"/>
-      <rect x="310" y="280" width="30" height="30" fill="#e79bb6"/>
-      <rect x="340" y="280" width="30" height="30" fill="#e79bb6"/>
-      <rect x="280" y="310" width="30" height="30" fill="#3b424c"/>
-      <rect x="370" y="310" width="30" height="30" fill="#3b424c"/>
+      <rect x="80" y="20" width="520" height="490" rx="30" fill="#161c27"/>
+      <rect x="160" y="40" width="60" height="30" fill="#f3f6fb"/><rect x="460" y="40" width="60" height="30" fill="#f3f6fb"/>
+      <rect x="130" y="70" width="120" height="30" fill="#f3f6fb"/><rect x="430" y="70" width="120" height="30" fill="#f3f6fb"/>
+      <rect x="130" y="100" width="120" height="30" fill="#f3f6fb"/><rect x="430" y="100" width="120" height="30" fill="#f3f6fb"/>
+      <rect x="130" y="130" width="420" height="30" fill="#f3f6fb"/>
+      <rect x="100" y="160" width="480" height="210" fill="#f3f6fb"/>
+      <rect x="130" y="400" width="420" height="30" fill="#f3f6fb"/><rect x="160" y="430" width="360" height="30" fill="#f3f6fb"/><rect x="220" y="460" width="240" height="30" fill="#f3f6fb"/>
+      <rect x="190" y="100" width="30" height="30" fill="#e79bb6"/><rect x="460" y="100" width="30" height="30" fill="#e79bb6"/>
+      <rect x="160" y="280" width="60" height="30" fill="#ecaec0"/><rect x="460" y="280" width="60" height="30" fill="#ecaec0"/>
+      <rect x="250" y="220" width="30" height="30" fill="#3b424c"/><rect x="400" y="220" width="30" height="30" fill="#3b424c"/>
+      <rect x="310" y="280" width="30" height="30" fill="#e79bb6"/><rect x="340" y="280" width="30" height="30" fill="#e79bb6"/>
+      <rect x="280" y="310" width="30" height="30" fill="#3b424c"/><rect x="370" y="310" width="30" height="30" fill="#3b424c"/>
       <rect x="310" y="340" width="30" height="30" fill="#3b424c"/>
-      <rect x="340" y="340" width="30" height="30" fill="#3b424c"/>
     </svg>
-
-    <h1 class="hero-wordmark">webpaper</h1>
-    <p class="hero-tagline">wallpaper for the web.</p>
-    <p class="hero-sub">
-      An open-source AI that rewrites, cleans, and personalises every page
-      you visit — in real time, powered by the <b>Claude account you already have.</b>
-    </p>
-
+    <h1>webpaper</h1>
+    <p class="tag">wallpaper for the web.</p>
+    <p class="sub">An open-source AI that reshapes any page around you. Free, on the <b>Claude you already have.</b></p>
     <div class="hero-actions">
-      <a class="btn btn-primary" href="webpaper.zip" download>
+      <a class="btn btn-fill" href="webpaper.zip" download>
         <svg viewBox="0 0 16 16" fill="none"><path d="M8 2v8M5 7l3 3 3-3M2 11v1a2 2 0 002 2h8a2 2 0 002-2v-1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
         Download for Chrome
       </a>
-      <a class="btn btn-ghost" href="#try">See it in action</a>
+      <a class="btn btn-line" href="#see">See it work</a>
     </div>
-    <p class="hero-note"><b>Free forever.</b> No API key · no new subscription · no account with us.</p>
-  </section>
+    <p class="note"><b>Free forever.</b> No API key. No new subscription. No account with us.</p>
+  </header>
 
-  <hr class="rule" />
-
-  <!-- ═══ THE SLIDER ═══ -->
-  <section class="section demo reveal" id="try">
-    <div class="section-head">
-      <span class="section-eyebrow">Drag to compare</span>
-      <h2 class="section-title">The same page, <em>your</em> way.</h2>
-      <p class="section-lead">
-        On the right, an ordinary web page — ads, cookie walls, cramped type.
-        On the left, the same page after webpaper. Pick a look, then drag the handle across.
-      </p>
+  <!-- 01 REMOVE -->
+  <section class="cap" id="see">
+    <div class="cap-head reveal">
+      <span class="kicker"><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 7h14M9 7V5a1 1 0 011-1h4a1 1 0 011 1v2M7 7l1 12a1 1 0 001 1h6a1 1 0 001-1l1-12"/></svg></span><span class="num">01</span> Remove</span>
+      <h2>It strips the <em>noise</em>.</h2>
+      <p class="lead">Ads, cookie walls, pop-ups, sponsored junk. Cleared before you read a word.</p>
     </div>
-
-    <div class="mode-tabs" role="tablist" aria-label="Rewrite mode">
-      <button class="mode-tab m-clean"    role="tab" aria-selected="true"  data-mode="clean">   <span class="dot"></span> Clean</button>
-      <button class="mode-tab m-chinese"  role="tab" aria-selected="false" data-mode="chinese"> <span class="dot"></span> 🌶 Chinese Mode</button>
-      <button class="mode-tab m-brainrot" role="tab" aria-selected="false" data-mode="brainrot"><span class="dot"></span> 🧠 Brain Rot</button>
-      <button class="mode-tab m-synth"    role="tab" aria-selected="false" data-mode="synth">   <span class="dot"></span> 🌆 Synthwave</button>
-    </div>
-
-    <div class="compare" id="compare">
-      <span class="compare-badge badge-before">webpaper off</span>
-      <span class="compare-badge badge-after">webpaper on</span>
-
-      <!-- BEFORE (base) -->
-      <div class="compare-pane compare-before">
-        <div class="compare-scroll"><div class="mock-frame" data-mock></div></div>
-      </div>
-      <!-- AFTER (clipped overlay) -->
-      <div class="compare-pane compare-after" id="afterPane" data-mode="clean">
-        <div class="compare-scroll"><div class="mock-frame" data-mock></div></div>
-        <span class="mock-wm" data-wm></span>
-      </div>
-
-      <div class="compare-handle" id="handle" role="slider" aria-label="Reveal amount" aria-valuemin="0" aria-valuemax="100" aria-valuenow="58" tabindex="0">
-        <span class="handle-grip">
-          <svg viewBox="0 0 20 20" fill="none"><path d="M7 5L3 10l4 5M13 5l4 5-4 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </span>
-      </div>
-    </div>
-
-    <p class="demo-hint">
-      <svg viewBox="0 0 24 24" fill="none"><path d="M8 6L4 12l4 6M16 6l4 6-4 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      Drag the handle — or switch modes above
-    </p>
-  </section>
-
-  <hr class="rule" />
-
-  <!-- Bring your own Claude -->
-  <section class="section reveal" id="how">
-    <div class="section-head">
-      <span class="section-eyebrow">Wait — how is this free?</span>
-      <h2 class="section-title">Bring your own <em>Claude</em>.</h2>
-      <p class="section-lead">
-        webpaper has no servers, no subscription, and no API key to paste. It runs on
-        the Claude account you already chat with — that's the whole trick.
-      </p>
-    </div>
-    <div class="what-grid">
-      <div class="what-item">
-        <span class="what-num">You already have it</span>
-        <span class="what-title">Uses your Claude login</span>
-        <p class="what-desc">
-          If you're signed in to <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a>
-          in this browser, webpaper quietly uses that session. No Claude yet? Make a
-          <b>free account</b> — the free tier is enough to start.
-        </p>
-      </div>
-      <div class="what-item">
-        <span class="what-num">You're never charged</span>
-        <span class="what-title">Nothing to pay us</span>
-        <p class="what-desc">
-          We have no plan and never see your card. Any AI work counts against your own
-          Claude usage — exactly like sending it a message yourself.
-        </p>
-      </div>
-      <div class="what-item">
-        <span class="what-num">It stays with you</span>
-        <span class="what-title">Nothing leaves your browser</span>
-        <p class="what-desc">
-          No telemetry, no account on our end. The page, your prompt, and your Claude
-          session are the entire loop — it never touches a server we own.
-        </p>
+    <div class="browser reveal">
+      <div class="bbar"><span class="d r"></span><span class="d y"></span><span class="d g"></span><div class="url">theweekly.example.com/reading/quiet-places</div></div>
+      <div class="bview remove-view" data-play>
+        <div class="doc">
+          <div class="cookie junk j1"><span>🍪 We and 1,900 partners store cookies on your device.</span><button>Accept all</button></div>
+          <div class="doc-nav"><span class="doc-logo">THE WEEKLY</span><span class="mini">Menu</span></div>
+          <div class="ad-strip junk j2">ADVERTISEMENT · One weird trick doctors love</div>
+          <div class="doc-body">
+            <h3>Quiet places to think in a loud city</h3>
+            <p class="by">by Dana Reyes · 6 min read</p>
+            <p>Attention is not infinite. Every pop-up, autoplay, and banner spends a little of it before you have read a single line.</p>
+            <p>The fix is subtraction. Fewer inputs, a calmer page, and room to actually read what you came for.</p>
+          </div>
+          <div class="sponsored junk j4"><div class="lbl">Sponsored</div><div class="row"><span class="thumb"></span><span class="tx">You won't believe these 12 gadgets. Number 7 shocked us.</span></div></div>
+          <div class="ad-strip junk j5" style="margin-bottom:16px">ADVERTISEMENT · Play now</div>
+        </div>
+        <div class="newsletter junk j3"><div class="card"><b>Get our newsletter</b><p>Join 400,000 readers. Don't miss out.</p><button>Sign me up</button></div></div>
+        <div class="cleaned-tag"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor"/></svg> 9 distractions removed</div>
       </div>
     </div>
   </section>
 
-  <hr class="rule" />
-
-  <!-- What it does -->
-  <section class="section reveal">
-    <div class="section-head">
-      <span class="section-eyebrow">What it does</span>
-      <h2 class="section-title">Three things, on every page.</h2>
+  <!-- 02 OPTIMISE -->
+  <section class="cap">
+    <div class="cap-head reveal">
+      <span class="kicker"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 8h8M17 8h3M4 16h3M12 16h8"/><circle cx="14.5" cy="8" r="2.2"/><circle cx="9.5" cy="16" r="2.2"/></svg></span><span class="num">02</span> Optimise</span>
+      <h2>It tunes what <em>stays</em>.</h2>
+      <p class="lead">Type, spacing, contrast, and rhythm, quietly set right. Drag to compare.</p>
     </div>
-    <div class="what-grid">
-      <div class="what-item">
-        <span class="what-num">01</span>
-        <span class="what-title">Rewrites</span>
-        <p class="what-desc">Type a request — “dark editorial layout”, “just the recipe” — and the live page becomes it. Or let it auto-tune type, spacing, and colour on its own.</p>
-      </div>
-      <div class="what-item">
-        <span class="what-num">02</span>
-        <span class="what-title">Cleans</span>
-        <p class="what-desc">Ads, cookie walls, engagement-bait, comment sludge — stripped before you ever read a word. A calm page instead of a battlefield.</p>
-      </div>
-      <div class="what-item">
-        <span class="what-num">03</span>
-        <span class="what-title">Knows you</span>
-        <p class="what-desc">Write who you are once. webpaper carries that context everywhere and weights each page toward what actually matters to you.</p>
+    <div class="browser reveal">
+      <div class="bbar"><span class="d r"></span><span class="d y"></span><span class="d g"></span><div class="url">theweekly.example.com/reading/quiet-places</div></div>
+      <div class="compare" id="cmp-opt" style="height:440px">
+        <span class="cmp-label l">webpaper</span>
+        <span class="cmp-label r">original</span>
+        <div class="pane before"><div class="frame opt-before">
+          <div class="doc"><div class="doc-nav"><span class="doc-logo">THE WEEKLY</span><span class="mini">Menu · Search · Subscribe</span></div>
+          <div class="doc-body"><h3>Quiet places to think in a loud city</h3><p class="by">by Dana Reyes | 6 min read | 214 comments</p>
+          <p>Attention is not infinite. Every pop-up, autoplay, and banner spends a little of it before you have read a single line. We treat focus like it renews on its own, but it does not, and the bill comes due later in the day when nothing feels worth doing.</p>
+          <p>The fix is not another app. It is subtraction. Fewer inputs, a calmer page, and enough room between ideas to let one finish before the next begins.</p></div></div>
+        </div></div>
+        <div class="pane after"><div class="frame opt-after">
+          <div class="doc"><div class="doc-nav"><span class="doc-logo">THE WEEKLY</span><span class="mini">Menu</span></div>
+          <div class="doc-body"><h3>Quiet places to think in a loud city</h3><p class="by">Dana Reyes · 6 min read</p>
+          <p>Attention is not infinite. Every pop-up, autoplay, and banner spends a little of it before you have read a single line. We treat focus like it renews on its own, but it does not, and the bill comes due later in the day when nothing feels worth doing.</p>
+          <p>The fix is not another app. It is subtraction. Fewer inputs, a calmer page, and enough room between ideas to let one finish before the next begins.</p></div></div>
+        </div></div>
+        <div class="cmp-handle"><span class="cmp-grip"><svg viewBox="0 0 20 20"><path d="M7 5L3 10l4 5M13 5l4 5-4 5"/></svg></span></div>
       </div>
     </div>
   </section>
 
-  <hr class="rule" />
-
-  <!-- Why -->
-  <section class="section why reveal" id="why">
-    <p class="why-quote">
-      A model that can rewrite any page, in any tone, tuned to you — is a
-      <span>propaganda engine.</span> The only thing that beats it is the same
-      power, in <span>your</span> hands.
-    </p>
-    <div class="why-body">
-      <p>The machinery that deletes an ad can inject a lie. The machinery that strips bias can manufacture it — aimed at you specifically. Someone will build this. The only open question is whose hands hold it.</p>
-      <p>So webpaper is <b>open-source</b> and <b>strictly non-commercial</b>. No telemetry, no account on our end, no profit motive to quietly turn it against you. The page, your prompt, and your own AI session are the entire loop. This is infrastructure for memetic self-defense — <b>for the people, by the people.</b></p>
+  <!-- 03 ADD -->
+  <section class="cap">
+    <div class="cap-head reveal">
+      <span class="kicker"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 4l1.8 5.2L19 11l-5.2 1.8L12 18l-1.8-5.2L5 11l5.2-1.8z"/></svg></span><span class="num">03</span> Add</span>
+      <h2>It builds what is <em>missing</em>.</h2>
+      <p class="lead">A summary at the top. A shortcut. A spotlight on the one thing you came for.</p>
+    </div>
+    <div class="browser reveal">
+      <div class="bbar"><span class="d r"></span><span class="d y"></span><span class="d g"></span><div class="url">gearshop.example.com/gravel/wheels</div></div>
+      <div class="bview add-view" data-play>
+        <div class="doc">
+          <div class="doc-nav"><span class="doc-logo">GEARSHOP</span><span class="mini">Gravel · Wheels</span></div>
+          <div class="summary add-el"><div class="h"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg> For you</div><p>You ride gravel and want tubeless. Two of these fit. The Ridgeline set is the closest match to your setup.</p></div>
+          <ul class="plist">
+            <li><span class="pic"></span><div><div class="pn">Roadster Aero 40</div><div class="pp">road · rim brake · $520</div></div></li>
+            <li class="target"><span class="pic"></span><div><div class="pn">Ridgeline Gravel Tubeless</div><div class="pp">gravel · tubeless · $610</div></div><span class="add-el match-tag">★ matches your setup</span></li>
+            <li><span class="pic"></span><div><div class="pn">CityCruiser Comfort</div><div class="pp">urban · $180</div></div></li>
+          </ul>
+          <div class="add-cta"><button class="b1 add-el">Compare the 2 gravel picks</button><button class="b2 add-el">Jump to specs</button></div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <hr class="rule" />
-
-  <!-- Install -->
-  <section class="section reveal" id="install">
-    <div class="section-head">
-      <span class="section-eyebrow">Install · beta 0.0.1</span>
-      <h2 class="section-title">Set up in about a minute.</h2>
-      <p class="section-lead">
-        webpaper isn't on the Chrome Web Store yet, so you add it by hand — it's easier
-        than it sounds. Just follow the five steps. No coding, no command line.
-      </p>
+  <!-- 04 REINVENT -->
+  <section class="cap">
+    <div class="cap-head reveal">
+      <span class="kicker"><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 19L15 9"/><path d="M15 4.5l1 2.2 2.2 1-2.2 1-1 2.2-1-2.2-2.2-1 2.2-1z"/></svg></span><span class="num">04</span> Reinvent</span>
+      <h2>Or rewrites the <em>whole thing</em>.</h2>
+      <p class="lead">Type any request. Pick a mode. The page becomes it, live.</p>
     </div>
-    <div class="install-grid">
+    <div class="reveal">
+      <div class="modes" role="tablist" aria-label="mode">
+        <button class="mode clean" role="tab" aria-selected="true" data-mode="clean"><span class="dot"></span> Clean</button>
+        <button class="mode chinese" role="tab" aria-selected="false" data-mode="chinese"><span class="dot"></span> 🌶 Chinese Mode</button>
+        <button class="mode brainrot" role="tab" aria-selected="false" data-mode="brainrot"><span class="dot"></span> 🧠 Brain Rot</button>
+        <button class="mode synth" role="tab" aria-selected="false" data-mode="synth"><span class="dot"></span> 🌆 Synthwave</button>
+      </div>
+      <div class="browser">
+        <div class="bbar"><span class="d r"></span><span class="d y"></span><span class="d g"></span><div class="url">theweekly.example.com/reading/quiet-places</div></div>
+        <div class="compare" id="cmp-rev" style="height:430px">
+          <span class="cmp-label l">webpaper</span>
+          <span class="cmp-label r">original</span>
+          <div class="pane before"><div class="frame">
+            <div class="doc"><div class="cookie">🍪 We use cookies. <button style="background:#14171c;color:#fff;border:none;border-radius:5px;padding:5px 10px;font-size:11px">OK</button></div>
+            <div class="doc-nav"><span class="doc-logo">THE WEEKLY</span><span class="mini">Menu</span></div>
+            <div class="ad-strip">ADVERTISEMENT</div>
+            <div class="doc-body"><h3>Quiet places to think in a loud city</h3><p class="by">by Dana Reyes · 6 min read</p><p>Attention is not infinite. Every pop-up and banner spends a little of it before you read a line.</p></div></div>
+          </div></div>
+          <div class="pane after rev-after" id="revAfter" data-mode="clean"><div class="frame">
+            <div class="doc"><div class="cookie">cookies</div><div class="doc-nav"><span class="doc-logo">THE WEEKLY</span><span class="mini">Menu</span></div>
+            <div class="ad-strip">ad</div>
+            <div class="doc-body"><h3>Quiet places to think in a loud city</h3><p class="by">by Dana Reyes · 6 min read</p><p>Attention is not infinite. Every pop-up and banner spends a little of it before you read a line.</p></div></div>
+          </div></div>
+          <div class="cmp-handle"><span class="cmp-grip"><svg viewBox="0 0 20 20"><path d="M7 5L3 10l4 5M13 5l4 5-4 5"/></svg></span></div>
+        </div>
+      </div>
+      <div class="rev-prompt"><span class="caret">&gt;</span> <span>make it </span><span class="typed" id="typed">glorious Maoist propaganda</span></div>
+    </div>
+  </section>
+
+  <!-- HOW IT'S FREE -->
+  <section class="free" id="free">
+    <div class="cap-head reveal" style="margin-bottom:0">
+      <span class="kicker"><span class="num">·</span> How it's free</span>
+      <h2>Bring your own <em>Claude</em>.</h2>
+      <p class="lead">No servers, no subscription, no API key. It runs on the Claude account you already chat with.</p>
+    </div>
+    <div class="free-grid reveal">
+      <div class="free-card"><svg viewBox="0 0 24 24"><path d="M12 3l7 4v5c0 4-3 7-7 8-4-1-7-4-7-8V7z"/></svg><b>Your login, borrowed</b><span>Signed in to <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a>? webpaper uses that session. New to Claude? The free tier works.</span></div>
+      <div class="free-card"><svg viewBox="0 0 24 24"><path d="M12 2v20M17 6H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg><b>Never charged by us</b><span>We have no plan and never see your card. Any AI work counts against your own Claude, like a normal message.</span></div>
+      <div class="free-card"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-11"/><path d="M3 12a9 9 0 019-9"/></svg><b>Nothing leaves your browser</b><span>No telemetry, no account on our side. The page, your prompt, and your Claude are the whole loop.</span></div>
+    </div>
+  </section>
+
+  <!-- INSTALL -->
+  <section class="install" id="install">
+    <div class="cap-head reveal" style="margin-bottom:0">
+      <span class="kicker"><span class="num">·</span> Install · beta 0.0.1</span>
+      <h2>Set up in a minute.</h2>
+      <p class="lead">It is not on the Chrome Web Store yet, so you add it by hand. No coding, no command line.</p>
+    </div>
+    <div class="install-grid reveal">
       <div class="install-cta">
-        <a class="btn btn-primary" href="webpaper.zip" download>
+        <a class="btn btn-fill" href="webpaper.zip" download>
           <svg viewBox="0 0 16 16" fill="none"><path d="M8 2v8M5 7l3 3 3-3M2 11v1a2 2 0 002 2h8a2 2 0 002-2v-1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
           Download webpaper.zip
         </a>
-        <p class="install-prereq">
-          <b>What you need:</b> a Chromium browser (Chrome, Edge, Brave, or Arc) and a
-          Claude account. Don't have one? It's free at
-          <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a>.
-          That's the whole shopping list.
-        </p>
+        <p class="pre"><b>You need:</b> a Chromium browser (Chrome, Edge, Brave, Arc) and a Claude account. It is free at <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a>.</p>
       </div>
-      <ol class="install-steps">
-        <li><span class="n">1</span><span class="t"><strong>Sign in to Claude first.</strong> Open <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a> and log in (the free account is fine). webpaper will borrow this login — you're never charged by us.</span></li>
-        <li><span class="n">2</span><span class="t"><strong>Download &amp; unzip</strong> the file above. Keep the unzipped <code>webpaper</code> folder somewhere you won't delete — Chrome runs the extension straight from it.</span></li>
-        <li><span class="n">3</span><span class="t"><strong>Open your extensions page.</strong> Type <code>chrome://extensions</code> in the address bar and press Enter, then switch on <strong>Developer mode</strong> (the toggle in the top-right corner).</span></li>
-        <li><span class="n">4</span><span class="t"><strong>Add it.</strong> Click <code>Load unpacked</code> and pick the unzipped <code>webpaper</code> folder. The cat 🐱 shows up in your toolbar.</span></li>
-        <li><span class="n">5</span><span class="t"><strong>Turn it on.</strong> Click the cat, allow Claude access when asked, flip webpaper <strong>on</strong>, and open any page. Type a request — or try a mode.</span></li>
+      <ol class="steps">
+        <li><span class="n">1</span><span class="t"><b>Sign in to Claude.</b> Open <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a> and log in. The free plan works.</span></li>
+        <li><span class="n">2</span><span class="t"><b>Download and unzip</b> the file. Keep the <code>webpaper</code> folder somewhere you won't delete.</span></li>
+        <li><span class="n">3</span><span class="t"><b>Open</b> <code>chrome://extensions</code>. Turn on <b>Developer mode</b>, top right.</span></li>
+        <li><span class="n">4</span><span class="t"><b>Click Load unpacked.</b> Choose the <code>webpaper</code> folder. The cat appears in your toolbar.</span></li>
+        <li><span class="n">5</span><span class="t"><b>Click the cat</b>, allow Claude, switch it on, and open any page.</span></li>
       </ol>
     </div>
   </section>
 
-  <!-- Footer -->
   <footer>
-    <svg class="foot-cat" viewBox="80 20 520 490" xmlns="http://www.w3.org/2000/svg">
-      <rect x="80" y="20" width="520" height="490" rx="30" fill="#232c3b"/>
-      <rect x="130" y="130" width="420" height="30" fill="#f4f7fb"/>
-      <rect x="100" y="160" width="480" height="200" fill="#f4f7fb"/>
-      <rect x="130" y="400" width="420" height="30" fill="#f4f7fb"/>
-      <rect x="250" y="220" width="30" height="30" fill="#3b424c"/>
-      <rect x="400" y="220" width="30" height="30" fill="#3b424c"/>
-      <rect x="310" y="280" width="30" height="30" fill="#e79bb6"/>
-      <rect x="340" y="280" width="30" height="30" fill="#e79bb6"/>
-    </svg>
+    <svg class="foot-cat" viewBox="80 20 520 490" xmlns="http://www.w3.org/2000/svg"><rect x="80" y="20" width="520" height="490" rx="30" fill="#161c27"/><rect x="130" y="130" width="420" height="30" fill="#f3f6fb"/><rect x="100" y="160" width="480" height="200" fill="#f3f6fb"/><rect x="130" y="400" width="420" height="30" fill="#f3f6fb"/><rect x="250" y="220" width="30" height="30" fill="#3b424c"/><rect x="400" y="220" width="30" height="30" fill="#3b424c"/><rect x="310" y="280" width="30" height="30" fill="#e79bb6"/><rect x="340" y="280" width="30" height="30" fill="#e79bb6"/></svg>
     <a href="/">socialacolyte.github.io</a>
-    <span class="sep">·</span>
     <a href="https://github.com/SocialAcolyte/webpaper" target="_blank" rel="noopener">GitHub</a>
-    <span class="sep">·</span>
-    <span>Chrome extension</span>
-    <span class="foot-spacer"></span>
-    <span class="foot-badge">beta 0.0.1</span>
+    <span>Open source · non-commercial</span>
+    <span class="sp"></span>
+    <span class="badge">beta 0.0.1</span>
   </footer>
 
 </div>
-
-<!-- Mock page template (cloned into both panes) -->
-<template id="mock-template">
-  <div class="mock">
-    <div class="mock-bar">
-      <span class="mock-logo">THE DAILY SCROLL</span>
-      <button class="mock-sub" data-swap="sub">Subscribe</button>
-    </div>
-    <div class="mock-cookie">
-      <span>🍪 We value your privacy. We and 1,842 partners store cookies…</span>
-      <button class="mock-btn primary" style="padding:6px 12px" data-swap="accept">Accept All</button>
-    </div>
-    <div class="mock-banner">SERVE THE PEOPLE · 为人民服务 · THE REVOLUTION IS NOT A DINNER PARTY</div>
-    <div class="mock-ad">▓ ADVERTISEMENT ▓ &nbsp; You won't BELIEVE what happened next →</div>
-    <div class="mock-body">
-      <p class="mock-kicker">Slow Living</p>
-      <h1 class="mock-h1">The Quiet Case for Doing Less</h1>
-      <p class="mock-byline">By A. Writer · 7 min read · 214 comments</p>
-      <p class="mock-p">We treat attention like it's infinite. It isn't. Every open tab, every autoplay clip, every notification is a small withdrawal from the same slim account — and the interest compounds against us.</p>
-      <p class="mock-p">The fix isn't another productivity system. It's subtraction: fewer inputs, cleaner pages, and a little room to actually think between the things you read.</p>
-      <div class="mock-card">
-        <div>
-          <div class="mock-card-name">Field Notes — Ruled Notebook</div>
-          <div class="mock-card-price">$18.00 · ships in 2 days</div>
-        </div>
-        <div class="mock-btns">
-          <button class="mock-btn ghost" data-swap="cart">Add to Cart</button>
-          <button class="mock-btn primary" data-swap="buy">Buy Now</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</template>
 
 <script>
 (function () {
   "use strict";
 
-  /* ── Clone the mock into both panes ── */
-  var tpl = document.getElementById("mock-template");
-  document.querySelectorAll("[data-mock]").forEach(function (host) {
-    host.appendChild(tpl.content.cloneNode(true));
-  });
-
-  var afterPane = document.getElementById("afterPane");
-  var wm = afterPane.querySelector("[data-wm]");
-
-  /* ── Per-mode label swaps + watermark ── */
-  var MODES = {
-    clean:    { swaps: {}, wm: "" },
-    chinese:  { wm: "为人民服务", swaps: {
-      sub: "Pledge Allegiance", accept: "Comply", cart: "Contribute to the Collective",
-      buy: "Requisition for the People" } },
-    brainrot: { wm: "real ones know 💯", swaps: {
-      sub: "SUB fr fr", accept: "bet", cart: "yoink 🛒", buy: "COP IT 🔥" } },
-    synth:    { wm: "ＡＥＳＴＨＥＴＩＣ", swaps: {} }
-  };
-
-  var afterSwaps = {};
-  afterPane.querySelectorAll("[data-swap]").forEach(function (el) {
-    afterSwaps[el.getAttribute("data-swap")] = { el: el, original: el.textContent };
-  });
-
-  function applyMode(mode) {
-    afterPane.setAttribute("data-mode", mode);
-    var def = MODES[mode] || MODES.clean;
-    Object.keys(afterSwaps).forEach(function (key) {
-      var entry = afterSwaps[key];
-      entry.el.textContent = (def.swaps && def.swaps[key]) ? def.swaps[key] : entry.original;
+  /* reveal + play-on-scroll */
+  var io = ("IntersectionObserver" in window) ? new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { e.target.classList.add(e.target.hasAttribute("data-play") ? "play" : "in"); io.unobserve(e.target); }
     });
-    wm.textContent = def.wm || "";
-  }
-
-  function selectMode(mode) {
-    var found = false;
-    document.querySelectorAll(".mode-tab").forEach(function (t) {
-      var on = t.getAttribute("data-mode") === mode;
-      t.setAttribute("aria-selected", on ? "true" : "false");
-      if (on) found = true;
-    });
-    applyMode(found ? mode : "clean");
-  }
-  document.querySelectorAll(".mode-tab").forEach(function (tab) {
-    tab.addEventListener("click", function () { selectMode(tab.getAttribute("data-mode")); });
-  });
-  // Deep-link a mode via hash, e.g. …/webpaper#chinese
-  var hashMode = (location.hash || "").replace("#", "");
-  selectMode(MODES[hashMode] ? hashMode : "clean");
-
-  /* ── Drag-to-compare ── */
-  var compare = document.getElementById("compare");
-  var handle = document.getElementById("handle");
-  var split = 58;
-
-  function setSplit(pct) {
-    split = Math.max(2, Math.min(98, pct));
-    afterPane.style.clipPath = "inset(0 " + (100 - split) + "% 0 0)";
-    handle.style.left = split + "%";
-    handle.setAttribute("aria-valuenow", Math.round(split));
-  }
-  setSplit(split);
-
-  var dragging = false;
-  function pctFromEvent(clientX) {
-    var r = compare.getBoundingClientRect();
-    return ((clientX - r.left) / r.width) * 100;
-  }
-  function onMove(e) {
-    if (!dragging) return;
-    var x = e.touches ? e.touches[0].clientX : e.clientX;
-    setSplit(pctFromEvent(x));
-    if (e.cancelable) e.preventDefault();
-  }
-  function startDrag(e) {
-    dragging = true;
-    var x = e.touches ? e.touches[0].clientX : e.clientX;
-    setSplit(pctFromEvent(x));
-  }
-  function endDrag() { dragging = false; }
-
-  handle.addEventListener("mousedown", startDrag);
-  compare.addEventListener("mousedown", startDrag);
-  window.addEventListener("mousemove", onMove);
-  window.addEventListener("mouseup", endDrag);
-  handle.addEventListener("touchstart", startDrag, { passive: true });
-  window.addEventListener("touchmove", onMove, { passive: false });
-  window.addEventListener("touchend", endDrag);
-  handle.addEventListener("keydown", function (e) {
-    if (e.key === "ArrowLeft") { setSplit(split - 4); e.preventDefault(); }
-    if (e.key === "ArrowRight") { setSplit(split + 4); e.preventDefault(); }
-  });
-
-  /* ── Reveal on scroll ── */
-  if ("IntersectionObserver" in window) {
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) {
-        if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); }
-      });
-    }, { threshold: 0.12 });
-    document.querySelectorAll(".reveal").forEach(function (el) { io.observe(el); });
-  } else {
-    document.querySelectorAll(".reveal").forEach(function (el) { el.classList.add("in"); });
-  }
-  // Safety net: never leave a section permanently hidden if the observer
-  // misfires (some mobile browsers, restored scroll positions, etc.).
+  }, { threshold: 0.22 }) : null;
+  var watched = document.querySelectorAll(".reveal, [data-play]");
+  if (io) { watched.forEach(function (el) { io.observe(el); }); }
+  else { watched.forEach(function (el) { el.classList.add(el.hasAttribute("data-play") ? "play" : "in"); }); }
+  // safety net
   setTimeout(function () {
     document.querySelectorAll(".reveal:not(.in)").forEach(function (el) {
-      var r = el.getBoundingClientRect();
-      if (r.top < window.innerHeight * 1.2) el.classList.add("in");
+      if (el.getBoundingClientRect().top < window.innerHeight * 1.25) el.classList.add("in");
     });
-  }, 2500);
+  }, 2600);
+
+  /* generic compare slider (supports multiple) */
+  function initCompare(root, start) {
+    var after = root.querySelector(".after");
+    var handle = root.querySelector(".cmp-handle");
+    var split = start || 52;
+    function set(pct) {
+      split = Math.max(3, Math.min(97, pct));
+      after.style.clipPath = "inset(0 " + (100 - split) + "% 0 0)";
+      handle.style.left = split + "%";
+    }
+    set(split);
+    var drag = false;
+    function pct(x) { var r = root.getBoundingClientRect(); return ((x - r.left) / r.width) * 100; }
+    function move(e) { if (!drag) return; var x = e.touches ? e.touches[0].clientX : e.clientX; set(pct(x)); if (e.cancelable) e.preventDefault(); }
+    function start_(e) { drag = true; var x = e.touches ? e.touches[0].clientX : e.clientX; set(pct(x)); }
+    function end() { drag = false; }
+    handle.addEventListener("mousedown", start_);
+    root.addEventListener("mousedown", start_);
+    window.addEventListener("mousemove", move);
+    window.addEventListener("mouseup", end);
+    handle.addEventListener("touchstart", start_, { passive: true });
+    window.addEventListener("touchmove", move, { passive: false });
+    window.addEventListener("touchend", end);
+    return set;
+  }
+  var optSet = initCompare(document.getElementById("cmp-opt"), 50);
+  var revSet = initCompare(document.getElementById("cmp-rev"), 55);
+
+  /* reinvent modes */
+  var revAfter = document.getElementById("revAfter");
+  var typed = document.getElementById("typed");
+  var PROMPTS = { clean: "clean and readable", chinese: "glorious Maoist propaganda", brainrot: "maximum brain rot", synth: "80s synthwave" };
+  function setMode(m) {
+    document.querySelectorAll(".mode").forEach(function (t) { t.setAttribute("aria-selected", t.getAttribute("data-mode") === m ? "true" : "false"); });
+    revAfter.setAttribute("data-mode", m);
+    typed.textContent = PROMPTS[m] || PROMPTS.clean;
+    revSet(55);
+  }
+  document.querySelectorAll(".mode").forEach(function (t) { t.addEventListener("click", function () { setMode(t.getAttribute("data-mode")); }); });
+  var hm = (location.hash || "").replace("#", "");
+  setMode(PROMPTS[hm] ? hm : "clean");
 })();
 </script>
 </body>
