@@ -90,12 +90,12 @@
 
     /* ---- Hero ---- */
     .hero { text-align: center; padding: 70px 0 40px; display: flex; flex-direction: column; align-items: center; gap: 26px; }
-    .hero-cat { width: 120px; height: auto; filter: drop-shadow(0 16px 44px rgba(0,0,0,0.45)); }
+    .hero-cat { width: 172px; height: auto; display: block; filter: drop-shadow(0 16px 44px rgba(0,0,0,0.45)); }
     .hero h1 { font-family: var(--serif); font-weight: 500; font-size: clamp(60px, 11vw, 128px);
       letter-spacing: -0.045em; line-height: 0.9; margin: 0; }
     .hero .tag { font-family: var(--serif); font-style: italic; font-weight: 400;
       font-size: clamp(20px, 3vw, 27px); color: var(--ink-2); margin: 0; }
-    .hero .sub { font-size: 17px; color: var(--ink-3); line-height: 1.65; margin: 0; max-width: 460px; }
+    .hero .sub { font-size: 18.5px; color: var(--ink-3); line-height: 1.65; margin: 0; max-width: 460px; }
     .hero .sub b { color: var(--ink-2); font-weight: 600; }
     .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; margin-top: 4px; }
     .hero .note { font-size: 13px; color: var(--ink-4); margin: 2px 0 0; }
@@ -110,10 +110,10 @@
       border-radius: 8px; }
     .kicker .ic svg { width: 15px; height: 15px; stroke: var(--pink); fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
     .kicker .num { color: var(--ink-4); }
-    .cap h2 { font-family: var(--serif); font-weight: 500; font-size: clamp(30px, 4.6vw, 50px);
+    .cap h2 { font-family: var(--serif); font-weight: 500; font-size: clamp(34px, 5vw, 58px);
       letter-spacing: -0.025em; line-height: 1.04; margin: 0; }
     .cap h2 em { font-style: italic; color: var(--pink-2); }
-    .cap .lead { font-size: 16px; color: var(--ink-3); line-height: 1.6; margin: 0; max-width: 520px; }
+    .cap .lead { font-size: 18px; color: var(--ink-3); line-height: 1.6; margin: 0; max-width: 520px; }
 
     /* ---- Browser frame (shared asset) ---- */
     .browser { position: relative; border-radius: 15px; overflow: hidden; border: 1px solid var(--line);
@@ -177,6 +177,8 @@
     .compare .pane { position: absolute; inset: 0; overflow: hidden; }
     .compare .after { z-index: 2; }
     .compare .frame { width: 100%; height: 100%; }
+    /* Ensure the mock page fills the whole slider so no background shows through the bottom */
+    .compare .frame, .compare .doc { min-height: 100%; }
     .cmp-handle { position: absolute; top: 0; bottom: 0; width: 42px; margin-left: -21px; z-index: 4; cursor: ew-resize; display: grid; place-items: center; }
     .cmp-handle::before { content: ''; position: absolute; top: 0; bottom: 0; left: 20px; width: 2px; background: var(--pink); box-shadow: 0 0 16px rgba(231,155,182,.55); }
     .cmp-grip { width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(135deg,var(--pink-2),var(--pink));
@@ -202,7 +204,7 @@
        03  ADD  - inject value on scroll  (two demos)
        ====================================================== */
     .add-duo { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-    .add-cap { font-size: 12.5px; color: var(--ink-3); margin: 0 0 11px; }
+    .add-cap { font-size: 14px; color: var(--ink-3); margin: 0 0 11px; }
     .add-cap b { color: var(--ink-2); font-weight: 600; }
     .add-el { opacity: 0; transition: opacity .55s ease, transform .55s ease; }
     .play .add-el { opacity: 1; transform: none; }
@@ -297,21 +299,21 @@
     .free-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-top: 28px; }
     .free-card { border: 1px solid var(--line); border-radius: 13px; padding: 22px; background: var(--bg-soft); }
     .free-card svg { width: 22px; height: 22px; stroke: var(--pink); fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; margin-bottom: 12px; }
-    .free-card b { display: block; font-size: 15px; font-weight: 600; margin-bottom: 5px; }
-    .free-card span { font-size: 13.5px; color: var(--ink-3); line-height: 1.55; }
+    .free-card b { display: block; font-size: 16px; font-weight: 600; margin-bottom: 5px; }
+    .free-card span { font-size: 14.5px; color: var(--ink-3); line-height: 1.55; }
     .free-card a { color: var(--pink-2); text-decoration: none; border-bottom: 1px solid var(--pink-line); }
 
     /* ---- install ---- */
     .install { padding: 84px 0; border-top: 1px solid var(--line-soft); }
     .install-grid { display: grid; grid-template-columns: 290px 1fr; gap: 52px; align-items: start; margin-top: 30px; }
     .install-cta { position: sticky; top: 34px; display: flex; flex-direction: column; gap: 16px; }
-    .install-cta .pre { font-size: 14px; color: var(--ink-3); line-height: 1.6; }
+    .install-cta .pre { font-size: 15px; color: var(--ink-3); line-height: 1.6; }
     .install-cta .pre a { color: var(--pink-2); text-decoration: none; border-bottom: 1px solid var(--pink-line); }
     .steps { list-style: none; margin: 0; padding: 0; }
     .steps li { display: grid; grid-template-columns: 30px 1fr; gap: 15px; padding: 17px 0; border-bottom: 1px solid var(--line); align-items: baseline; }
     .steps li:first-child { border-top: 1px solid var(--line); }
     .steps .n { font-size: 13px; font-weight: 700; color: var(--pink); }
-    .steps .t { font-size: 15px; color: var(--ink-2); line-height: 1.55; }
+    .steps .t { font-size: 16px; color: var(--ink-2); line-height: 1.55; }
     .steps .t b { color: var(--ink); font-weight: 600; }
     .steps .t code { font-size: 13px; font-weight: 600; color: var(--ink); background: rgba(255,255,255,0.07); padding: 2px 7px; border-radius: 5px; }
 
@@ -382,6 +384,21 @@
   </svg>
 </div>
 
+<!--
+  ── Note for webpaper (or any AI asked to restyle this page) ───────────────
+  This page is designed to be rewritten safely. Encouraged, low-risk targets:
+    • Recolour / retheme the hero, the section headings (.cap h2), body text,
+      the cards (.free-card) and the buttons (.btn) to any palette or mood.
+    • The background is decorative ASCII TEXT inside <pre id="art">. You may
+      recolour it, swap its characters, or hide it — it is position:fixed and
+      pointer-events:none, so touching it never affects page layout.
+  Please KEEP these four interactive demo widgets working (do not remove them);
+  each is a mock browser (.browser) that shows a webpaper capability:
+    • #cmp-opt and #cmp-rev  — drag-to-compare sliders (need .after + .cmp-handle)
+    • .add-a (product grid) and .add-b (chart) — scroll-triggered animations
+  Everything else is plain semantic HTML with clear class names: theme freely.
+  ──────────────────────────────────────────────────────────────────────────
+-->
 <div class="wrap">
 
   <nav>
@@ -404,21 +421,7 @@
 
   <!-- HERO -->
   <header class="hero" id="top">
-    <svg class="hero-cat" viewBox="80 20 520 490" xmlns="http://www.w3.org/2000/svg">
-      <rect x="80" y="20" width="520" height="490" rx="30" fill="#161c27"/>
-      <rect x="160" y="40" width="60" height="30" fill="#f3f6fb"/><rect x="460" y="40" width="60" height="30" fill="#f3f6fb"/>
-      <rect x="130" y="70" width="120" height="30" fill="#f3f6fb"/><rect x="430" y="70" width="120" height="30" fill="#f3f6fb"/>
-      <rect x="130" y="100" width="120" height="30" fill="#f3f6fb"/><rect x="430" y="100" width="120" height="30" fill="#f3f6fb"/>
-      <rect x="130" y="130" width="420" height="30" fill="#f3f6fb"/>
-      <rect x="100" y="160" width="480" height="210" fill="#f3f6fb"/>
-      <rect x="130" y="400" width="420" height="30" fill="#f3f6fb"/><rect x="160" y="430" width="360" height="30" fill="#f3f6fb"/><rect x="220" y="460" width="240" height="30" fill="#f3f6fb"/>
-      <rect x="190" y="100" width="30" height="30" fill="#e79bb6"/><rect x="460" y="100" width="30" height="30" fill="#e79bb6"/>
-      <rect x="160" y="280" width="60" height="30" fill="#ecaec0"/><rect x="460" y="280" width="60" height="30" fill="#ecaec0"/>
-      <rect x="250" y="220" width="30" height="30" fill="#3b424c"/><rect x="400" y="220" width="30" height="30" fill="#3b424c"/>
-      <rect x="310" y="280" width="30" height="30" fill="#e79bb6"/><rect x="340" y="280" width="30" height="30" fill="#e79bb6"/>
-      <rect x="280" y="310" width="30" height="30" fill="#3b424c"/><rect x="370" y="310" width="30" height="30" fill="#3b424c"/>
-      <rect x="310" y="340" width="30" height="30" fill="#3b424c"/>
-    </svg>
+    <img class="hero-cat" src="familiar-cat.svg" alt="webpaper pixel cat" width="180" height="140" />
     <h1>webpaper</h1>
     <p class="tag">wallpaper for the web.</p>
     <p class="sub">An open-source AI that reshapes any page around you. Free, on the <b>Claude you already have.</b></p>
@@ -712,26 +715,45 @@
     });
   })();
 
-  /* reveal + play-on-scroll */
-  var io = ("IntersectionObserver" in window) ? new IntersectionObserver(function (entries) {
-    entries.forEach(function (e) {
-      if (e.isIntersecting) { e.target.classList.add(e.target.hasAttribute("data-play") ? "play" : "in"); io.unobserve(e.target); }
-    });
-  }, { threshold: 0.22 }) : null;
-  var watched = document.querySelectorAll(".reveal, [data-play]");
-  if (io) { watched.forEach(function (el) { io.observe(el); }); }
-  else { watched.forEach(function (el) { el.classList.add(el.hasAttribute("data-play") ? "play" : "in"); }); }
-  // safety net
+  var hasIO = "IntersectionObserver" in window;
+
+  /* reveal: one-shot fade-up for section content */
+  var revealEls = document.querySelectorAll(".reveal");
+  if (hasIO) {
+    var rio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); rio.unobserve(e.target); } });
+    }, { threshold: 0.18 });
+    revealEls.forEach(function (el) { rio.observe(el); });
+  } else { revealEls.forEach(function (el) { el.classList.add("in"); }); }
+  // safety net: never leave content hidden
   setTimeout(function () {
     document.querySelectorAll(".reveal:not(.in)").forEach(function (el) {
       if (el.getBoundingClientRect().top < window.innerHeight * 1.25) el.classList.add("in");
     });
   }, 2600);
 
+  /* capability demos: LOOP the animation while the demo is on screen */
+  document.querySelectorAll("[data-play]").forEach(function (el) {
+    var timer = null, visible = false;
+    function replay() { el.classList.remove("play"); setTimeout(function () { if (visible) el.classList.add("play"); }, 500); }
+    if (hasIO) {
+      var pio = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          visible = e.isIntersecting;
+          if (visible) { el.classList.add("play"); if (!timer) timer = setInterval(replay, 5600); }
+          else if (timer) { clearInterval(timer); timer = null; el.classList.remove("play"); }
+        });
+      }, { threshold: 0.3 });
+      pio.observe(el);
+    } else { el.classList.add("play"); }
+  });
+
   /* generic compare slider (supports multiple) */
   function initCompare(root, start) {
+    if (!root) return function () {};                 // resilient if the demo was removed
     var after = root.querySelector(".after");
     var handle = root.querySelector(".cmp-handle");
+    if (!after || !handle) return function () {};
     var split = start || 52;
     function set(pct) {
       split = Math.max(3, Math.min(97, pct));
@@ -762,8 +784,8 @@
   var PROMPTS = { clean: "clean and readable", chinese: "glorious Maoist propaganda", brainrot: "maximum brain rot", synth: "80s synthwave" };
   function setMode(m) {
     document.querySelectorAll(".mode").forEach(function (t) { t.setAttribute("aria-selected", t.getAttribute("data-mode") === m ? "true" : "false"); });
-    revAfter.setAttribute("data-mode", m);
-    typed.textContent = PROMPTS[m] || PROMPTS.clean;
+    if (revAfter) revAfter.setAttribute("data-mode", m);
+    if (typed) typed.textContent = PROMPTS[m] || PROMPTS.clean;
     revSet(55);
   }
   document.querySelectorAll(".mode").forEach(function (t) { t.addEventListener("click", function () { setMode(t.getAttribute("data-mode")); }); });
@@ -772,6 +794,7 @@
     btn.addEventListener("click", function () {
       btn.classList.add("tapped");
       var chart = document.getElementById(btn.getAttribute("data-target"));
+      if (!chart) return;
       var on = chart.classList.toggle("alt");
       btn.textContent = on ? btn.getAttribute("data-b") : btn.getAttribute("data-a");
       var val = document.getElementById(btn.getAttribute("data-val"));
