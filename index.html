@@ -13,6 +13,18 @@
 
 <canvas id="الخلفية" aria-hidden="true"></canvas>
 
+<!-- Asset Layer: 3D Audio Equipment & Art -->
+<div class="asset-layer">
+    <img src="images/Speaker.webp" alt="Speaker" class="asset-item asset-speaker" loading="lazy">
+    <img src="images/DAC.jpg" alt="DAC" class="asset-item asset-dac" loading="lazy">
+    <img src="images/overear.jpg" alt="Headphones" class="asset-item asset-headphones" loading="lazy">
+    <img src="images/clipmic.jpg" alt="Clip Mic" class="asset-item asset-clipmic" loading="lazy">
+    <img src="images/BoomArm.webp" alt="Boom Arm" class="asset-item asset-boomarm" loading="lazy">
+    <img src="images/0fd3f985-b478-4652-900b-009a531607a3.jpg" alt="Art 1" class="asset-item asset-art1" loading="lazy">
+    <img src="images/361a854e-5cd3-433a-b365-633f732d636b.jpg" alt="Art 2" class="asset-item asset-art2" loading="lazy">
+    <img src="images/4e70987d-2586-4a8d-ac98-e0b156d91101.jpg" alt="Art 3" class="asset-item asset-art3" loading="lazy">
+</div>
+
 <main class="رئيسي">
     <div class="home-grid">
 
@@ -268,6 +280,35 @@
     });
 
     observer.observe(document.head, { childList: true });
+  })();
+</script>
+
+<script>
+  // Asset Layer Reveal on Scroll
+  (function () {
+    const assetItems = document.querySelectorAll('.asset-item');
+    let hasRevealed = false;
+
+    function revealAssets() {
+      if (!hasRevealed && window.scrollY > 50) {
+        assetItems.forEach((item, index) => {
+          setTimeout(() => {
+            item.classList.add('reveal');
+          }, index * 80);
+        });
+        hasRevealed = true;
+        window.removeEventListener('scroll', revealAssets);
+      }
+    }
+
+    window.addEventListener('scroll', revealAssets, { passive: true });
+
+    // Fallback: reveal after page load if user hasn't scrolled
+    setTimeout(() => {
+      if (!hasRevealed) {
+        revealAssets();
+      }
+    }, 1200);
   })();
 </script>
 </body>

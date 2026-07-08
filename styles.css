@@ -64,6 +64,126 @@ body::after {
   pointer-events: none;
 }
 
+/* ─── Asset Layer System ────────────────────────────── */
+.asset-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  perspective: 2000px;
+}
+
+.asset-item {
+  position: fixed;
+  object-fit: cover;
+  filter: drop-shadow(0 20px 60px rgba(0, 0, 0, 0.5));
+  opacity: 0;
+  transform-origin: center;
+  transition: opacity 1s cubic-bezier(0.25, 0.1, 0.25, 1);
+  will-change: transform, opacity;
+  border-radius: 2px;
+}
+
+/* Speaker — top-right, elegant float */
+.asset-speaker {
+  width: 320px;
+  height: 360px;
+  top: 8%;
+  right: -150px;
+  transform: perspective(1600px) rotateY(-25deg) rotateX(3deg);
+  animation: floatAsset 6s ease-in-out infinite;
+}
+
+/* DAC — middle-right */
+.asset-dac {
+  width: 260px;
+  height: 180px;
+  top: 45%;
+  right: -120px;
+  transform: perspective(1400px) rotateY(-30deg) rotateX(-5deg);
+  animation: floatAsset 7s ease-in-out infinite 0.4s;
+}
+
+/* Headphones — bottom-left */
+.asset-headphones {
+  width: 340px;
+  height: 300px;
+  bottom: 12%;
+  left: -160px;
+  transform: perspective(1500px) rotateY(28deg) rotateX(-2deg);
+  animation: floatAsset 6.5s ease-in-out infinite 0.2s;
+}
+
+/* Clip mic — left side, mid */
+.asset-clipmic {
+  width: 240px;
+  height: 280px;
+  top: 50%;
+  left: -110px;
+  transform: perspective(1300px) rotateY(35deg) rotateX(8deg);
+  animation: floatAsset 7.5s ease-in-out infinite 0.6s;
+}
+
+/* Boom arm — bottom-right */
+.asset-boomarm {
+  width: 280px;
+  height: 360px;
+  bottom: 8%;
+  right: -140px;
+  transform: perspective(1450px) rotateY(-32deg) rotateX(-3deg);
+  animation: floatAsset 8s ease-in-out infinite 0.3s;
+}
+
+/* Artistic images — subtle depth layers */
+.asset-art1 {
+  width: 220px;
+  height: 300px;
+  top: 25%;
+  right: -100px;
+  transform: perspective(1200px) rotateY(-20deg);
+  animation: floatAsset 7.2s ease-in-out infinite 0.5s;
+}
+
+.asset-art2 {
+  width: 200px;
+  height: 260px;
+  bottom: 28%;
+  left: -95px;
+  transform: perspective(1250px) rotateY(25deg);
+  animation: floatAsset 6.8s ease-in-out infinite 0.7s;
+}
+
+.asset-art3 {
+  width: 240px;
+  height: 280px;
+  top: 60%;
+  right: -110px;
+  transform: perspective(1350px) rotateY(-28deg);
+  animation: floatAsset 7.3s ease-in-out infinite 0.4s;
+}
+
+@keyframes floatAsset {
+  0%, 100% {
+    opacity: 0.18;
+    transform: perspective(inherit) rotateY(var(--rotY, 0deg)) rotateX(var(--rotX, 0deg)) translateY(0) translateX(0);
+  }
+  50% {
+    opacity: 0.28;
+    transform: perspective(inherit) rotateY(var(--rotY, 0deg)) rotateX(var(--rotX, 0deg)) translateY(-15px) translateX(8px);
+  }
+}
+
+/* Reveal on scroll */
+.asset-item.reveal {
+  opacity: 0.35 !important;
+}
+
+/* Hover peek */
+.asset-item:hover {
+  opacity: 0.45 !important;
+  filter: drop-shadow(0 30px 80px rgba(240, 236, 228, 0.1));
+}
+
 /* ─── Main layout (index.html) ──────────────────────── */
 .رئيسي {
   position: relative;
