@@ -38,6 +38,19 @@
                 </p>
             </section>
 
+            <!-- ═══ SURFACE GATE — hidden until extension runs ═══════════════
+                 Edit the content below freely. It only appears for Surface users.
+                 ════════════════════════════════════════════════════════════════ -->
+            <section class="srf-gate srf-gate--delay-1" aria-labelledby="عنوان-off-record">
+                <h2 id="عنوان-off-record" class="عنوان">off the record</h2>
+                <p class="en">
+                    <!-- ADD YOUR OWN TEXT HERE — only Surface users will ever see this -->
+                    Add something real here. A thought you wouldn't put on the main page.
+                    What you're actually thinking about. What you're reading. What scares you or excites you.
+                    Surface users are the curious ones. Give them something worth finding.
+                </p>
+            </section>
+
             <section class="أعمال" aria-labelledby="عنوان-أعمال">
                 <h2 id="عنوان-أعمال" class="عنوان">selected work</h2>
                 <ol class="قائمة">
@@ -47,6 +60,8 @@
                             <div class="work-details">
                                 <span class="اسم">surface</span>
                                 <span class="وصف">a browser extension that takes your agent with you everywhere, optimising the entire internet. no API necessary.</span>
+                                <!-- ═══ SURFACE GATE — extended description ═══ -->
+                                <span class="وصف srf-gate srf-gate--inline srf-gate--delay-2">the real version: your memory doc travels with you. every page you visit, surface reads it alongside the page and surfaces what matters. it doesn't ask you to configure anything. it just knows.</span>
                             </div>
                         </a>
                     </li>
@@ -175,18 +190,68 @@
                 <button class="try-surface-replay" id="srf-replay" aria-label="replay animation">replay ↺</button>
             </div>
 
+            <!-- Field photo — pixelate reveal handled by effects.js -->
+            <figure class="field-photo">
+                <img src="background-1.jpg" alt="baby goats running through a green field" loading="lazy" decoding="async">
+                <figcaption>goats — included for morale</figcaption>
+            </figure>
+
+            <!-- ═══ SURFACE GATE — right column extra card ══════════════════ -->
+            <div class="srf-gate srf-gate--delay-3 srf-status-card">
+                <span class="srf-status-dot"></span>
+                <span class="srf-status-text">surface is running on this page</span>
+            </div>
+
         </div>
 
     </div>
 
-    <!-- easter egg: ask claude to show this -->
-    <a class="srf-footnote" id="srf-footnote" href="https://www.theatlantic.com/magazine/archive/1945/07/as-we-may-think/303881/" target="_blank" rel="noopener" hidden>
-        <span class="srf-footnote-marker">↳</span>
-        <span class="srf-footnote-cite">bush, 1945</span>
-        <span class="srf-footnote-title">as we may think</span>
-    </a>
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         SURFACE GATE — Bush easter egg. Full-width. Appears after Surface runs.
+         This is the easter egg. It is large. It is obvious. It is earned.
+         ═══════════════════════════════════════════════════════════════════════ -->
+    <section class="srf-gate srf-bush-section srf-gate--delay-4">
+        <div class="srf-bush-inner">
+            <p class="srf-bush-eyebrow">you found it.</p>
+            <blockquote class="srf-bush-quote">
+                "The human mind does not work that way. It operates by association. With one item in its grasp, it snaps instantly to the next that is suggested by the association of thoughts, in accordance with some intricate web of trails carried by the cells of the brain."
+            </blockquote>
+            <a class="srf-bush-cite" href="https://www.theatlantic.com/magazine/archive/1945/07/as-we-may-think/303881/" target="_blank" rel="noopener">
+                — Vannevar Bush, <em>As We May Think</em>, The Atlantic, 1945 ↗
+            </a>
+            <p class="srf-bush-note">Bush described the memex in 1945. Surface is the memex. You're using it right now.</p>
+        </div>
+    </section>
+
 </main>
 
 <script src="script.js" defer></script>
+<script src="effects.js" defer></script>
+
+<script>
+(function () {
+    function unlock() {
+        if (document.body.classList.contains('srf-unlocked')) return;
+        document.body.classList.add('srf-unlocked');
+    }
+
+    function check() {
+        return !!(
+            document.getElementById('srf-highlight-styles') ||
+            document.querySelector('.srf-highlight') ||
+            document.querySelector('.srf-highlight-secondary')
+        );
+    }
+
+    if (check()) { unlock(); return; }
+
+    var attempts = 0;
+    var poll = setInterval(function () {
+        if (check()) { unlock(); clearInterval(poll); return; }
+        if (++attempts > 60) clearInterval(poll); // stop after 30s
+    }, 500);
+})();
+</script>
+
 </body>
 </html>

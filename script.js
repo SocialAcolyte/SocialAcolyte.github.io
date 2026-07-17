@@ -52,6 +52,30 @@
     resizeBgCanvas();
 
 
+    /* --- Try Surface demo animation --- */
+    (function () {
+        const marks = document.querySelectorAll('.srf-hl');
+        const replay = document.getElementById('srf-replay');
+        if (!marks.length) return;
+
+        function runDemo() {
+            marks.forEach(m => m.classList.remove('srf-hl--visible'));
+            let delay = 900;
+            marks.forEach(m => {
+                setTimeout(() => m.classList.add('srf-hl--visible'), delay);
+                delay += 420;
+            });
+        }
+
+        // Run on load
+        setTimeout(runDemo, 600);
+
+        if (replay) {
+            replay.addEventListener('click', runDemo);
+        }
+    })();
+
+
     /* --- 2. The Fused Silica Molecular Collision Engine --- */
 
     const sCanvas = document.getElementById('silica-canvas');
@@ -372,30 +396,7 @@
             requestAnimationFrame(drawSilicaLoop);
         }
 
-        /* --- Try Surface demo animation --- */
-    (function () {
-        const marks = document.querySelectorAll('.srf-hl');
-        const replay = document.getElementById('srf-replay');
-        if (!marks.length) return;
-
-        function runDemo() {
-            marks.forEach(m => m.classList.remove('srf-hl--visible'));
-            let delay = 900;
-            marks.forEach(m => {
-                setTimeout(() => m.classList.add('srf-hl--visible'), delay);
-                delay += 420;
-            });
-        }
-
-        // Run on load
-        setTimeout(runDemo, 600);
-
-        if (replay) {
-            replay.addEventListener('click', runDemo);
-        }
-    })();
-
-    sCanvas.addEventListener('mousemove', (e) => {
+        sCanvas.addEventListener('mousemove', (e) => {
             const rect = sCanvas.getBoundingClientRect();
             sMouse.x = e.clientX - rect.left;
             sMouse.y = e.clientY - rect.top;
