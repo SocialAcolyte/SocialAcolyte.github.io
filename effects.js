@@ -164,6 +164,14 @@
         }
         host.appendChild(wrap);
 
+        // CSS guard: if the .lsw rules aren't live (stale cached styles.css),
+        // the doubled letter DOM renders as garbage text — fall back to the
+        // plain label instead.
+        if (getComputedStyle(wrap).display !== 'inline-flex') {
+            host.textContent = label;
+            return null;
+        }
+
         const shuffled = () => [...chars].sort(() => Math.random() - 0.5);
 
         function run(entering) {

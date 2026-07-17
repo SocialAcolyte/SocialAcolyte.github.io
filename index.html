@@ -7,7 +7,9 @@
     <meta name="theme-color" content="#000000">
     <title>Social Acolyte</title>
 
-    <link rel="stylesheet" href="styles.css">
+    <!-- ?v= is a cache-buster: bump it whenever styles.css changes so the
+         HTML and CSS can never arrive as mismatched cached versions -->
+    <link rel="stylesheet" href="styles.css?v=2">
 </head>
 <body>
 
@@ -179,8 +181,8 @@
     </div>
 </main>
 
-<script src="script.js" defer></script>
-<script src="effects.js" defer></script>
+<script src="script.js?v=2" defer></script>
+<script src="effects.js?v=2" defer></script>
 
 <!-- Surface easter egg — only visible when the extension is active -->
 <a class="srf-gem" href="https://www.theatlantic.com/magazine/archive/1945/07/as-we-may-think/303881/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1">
