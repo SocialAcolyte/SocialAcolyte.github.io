@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="webpaper — an open-source, non-commercial browser agent that rebuilds any page around you. Infrastructure for memetic self-defense. Free, on the Claude you already have." />
+<meta name="theme-color" content="#060606" />
+<title>webpaper</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=JetBrains+Mono:wght@200;300;400;500&display=swap');
+  :root{
+    --bg:#060606; --high:#f0ece4; --mid:#cbc6bd; --low:#5a5753; --line:rgba(255,255,255,0.08);
+    --leaf:#8fae86; --bloom:#d99bb0;
+    --serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+    --mono:'JetBrains Mono',ui-monospace,'SF Mono',Menlo,monospace;
+  }
+  *,*::before,*::after{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  html,body{ margin:0; padding:0; min-height:100vh; background:var(--bg); color:var(--high);
+    font-family:var(--serif); font-weight:300; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+    text-rendering:optimizeLegibility; overflow-x:hidden; }
+  body::before{ content:''; position:fixed; top:-320px; left:-320px; width:860px; height:860px;
+    background:radial-gradient(ellipse at center, rgba(28,52,105,0.16) 0%, transparent 65%); pointer-events:none; z-index:0; }
+  body::after{ content:''; position:fixed; bottom:-280px; right:-280px; width:780px; height:780px;
+    background:radial-gradient(ellipse at center, rgba(58,22,92,0.13) 0%, transparent 65%); pointer-events:none; z-index:0; }
+  ::selection{ background:rgba(255,255,255,0.11); color:var(--high); }
+  a{ color:inherit; }
+
+  .page{ position:relative; z-index:1; max-width:660px; margin:0 auto; padding:0 28px 96px;
+    display:flex; flex-direction:column; align-items:center; text-align:center; }
+
+  /* ── hero: title with a vine resting on it ── */
+  header{ padding:78px 0 6px; }
+  .hero-title{ position:relative; display:inline-block; }
+  h1{ font-family:var(--serif); font-weight:400; font-size:clamp(46px,8vw,78px); letter-spacing:0.015em; margin:0; line-height:1; }
+  .title-vine{ position:absolute; left:-26px; right:-26px; top:-24px; margin:0; z-index:2; pointer-events:none;
+    font-family:var(--mono); font-size:13px; line-height:1.0; white-space:pre; color:var(--leaf); opacity:.85; text-align:left;
+    animation:grow-down 5s ease both; text-shadow:0 0 10px rgba(143,174,134,0.12); }
+  .title-vine .fl{ color:var(--bloom); }
+  .sub{ font-family:var(--mono); font-weight:300; font-size:12.5px; letter-spacing:0.05em; color:var(--low); margin:20px 0 0; }
+
+  /* ── the garden: a generative ASCII bonsai ── */
+  .garden{ width:100%; display:flex; flex-direction:column; align-items:center; padding:26px 0 6px; }
+  #bonsai{ font-family:var(--mono); font-weight:300; font-size:clamp(6.5px,1.6vw,12px); line-height:1.0;
+    color:var(--mid); margin:0; white-space:pre; user-select:none; text-shadow:0 0 18px rgba(143,174,134,0.06); }
+  #bonsai .lf{ color:var(--leaf); } #bonsai .fl{ color:var(--bloom); }
+  .regrow{ font-family:var(--mono); font-size:11px; letter-spacing:0.05em; color:var(--low); text-decoration:none;
+    margin-top:16px; cursor:pointer; border-bottom:1px solid transparent; transition:color .3s; }
+  .regrow:hover{ color:var(--mid); border-bottom-color:var(--line); }
+
+  /* ambient flora + grow keyframes */
+  #flora{ position:fixed; inset:0; z-index:1; pointer-events:none; }
+  .sprout{ position:absolute; margin:0; font-family:var(--mono); font-size:13px; line-height:1; white-space:pre; color:var(--leaf);
+    transform-origin:bottom center; transform:scaleY(0); opacity:0; transition:transform 1.3s cubic-bezier(0.22,1,0.36,1), opacity 1.3s; }
+  .sprout.in{ transform:scaleY(1); opacity:.8; } .sprout.out{ opacity:0; transition:opacity 1s; } .sprout .fl{ color:var(--bloom); }
+  @keyframes grow-down{ from{ clip-path:inset(0 0 100% 0); } to{ clip-path:inset(0 0 0 0); } }
+  @media (prefers-reduced-motion:reduce){ .title-vine{ animation:none; clip-path:none; } }
+
+  .about{ font-size:21px; line-height:1.6; color:var(--mid); max-width:500px; margin:46px 0 0; font-weight:300; }
+  .about b{ color:var(--high); font-weight:400; }
+
+  .cta{ margin:38px 0 0; display:flex; flex-direction:column; align-items:center; gap:18px; }
+  .btn-row{ display:flex; gap:14px; flex-wrap:wrap; justify-content:center; align-items:stretch; }
+  .btn{ display:inline-flex; align-items:center; gap:10px; font-family:var(--mono); font-weight:300; font-size:13px;
+    letter-spacing:0.04em; text-decoration:none; color:var(--bg); background:var(--high); padding:15px 26px; border-radius:3px;
+    cursor:pointer; transition:transform .3s cubic-bezier(0.22,1,0.36,1), background .3s; }
+  .btn:hover{ transform:translateY(-2px); background:#fff; } .btn svg{ width:15px; height:15px; }
+  .btn-politics{ background:transparent; color:var(--high); border:1px solid var(--line); font-weight:500; font-size:14px; letter-spacing:0.24em; padding:15px 28px; }
+  .btn-politics:hover{ background:transparent; color:var(--bloom); border-color:rgba(217,155,176,0.5); transform:translateY(-2px); }
+  .free-note{ font-family:var(--mono); font-size:11px; letter-spacing:0.04em; color:var(--low); margin:0; }
+
+  section.steps{ margin:66px 0 0; width:100%; max-width:480px; text-align:left; }
+  h2{ font-family:var(--mono); font-weight:300; font-size:12px; letter-spacing:0.16em; text-transform:lowercase; color:var(--low); margin:0 0 22px; text-align:center; }
+  ol{ list-style:none; margin:0; padding:0; counter-reset:s; }
+  ol li{ counter-increment:s; display:grid; grid-template-columns:30px 1fr; gap:16px; align-items:baseline; padding:16px 0; border-bottom:1px solid var(--line); }
+  ol li:first-child{ border-top:1px solid var(--line); }
+  ol li::before{ content:counter(s,decimal-leading-zero); font-family:var(--mono); font-size:11px; color:var(--leaf); }
+  ol li .t{ font-size:18px; line-height:1.5; color:var(--mid); }
+  ol li .t b{ color:var(--high); font-weight:400; }
+  ol li .t code{ font-family:var(--mono); font-size:13px; color:var(--high); background:rgba(255,255,255,0.06); padding:2px 6px; border-radius:3px; }
+  ol li .t a{ color:var(--high); border-bottom:1px solid var(--line); text-decoration:none; }
+
+  footer{ margin:66px 0 0; display:flex; gap:20px; align-items:center; font-family:var(--mono); font-size:11px; color:var(--low); flex-wrap:wrap; justify-content:center; }
+  footer a{ color:var(--low); text-decoration:none; } footer a:hover{ color:var(--mid); }
+
+  /* ── manifesto modal ── */
+  .modal{ position:fixed; inset:0; z-index:50; display:none; align-items:flex-start; justify-content:center;
+    padding:40px 20px; overflow-y:auto; background:rgba(4,4,4,0.72); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); }
+  .modal.open{ display:flex; animation:fade .4s ease; }
+  @keyframes fade{ from{opacity:0} to{opacity:1} }
+  .sheet{ position:relative; max-width:600px; width:100%; margin:auto; background:#0a0a0a; border:1px solid var(--line);
+    border-radius:6px; padding:44px clamp(24px,5vw,52px) 40px; box-shadow:0 40px 120px rgba(0,0,0,0.6); }
+  .sheet .x{ position:absolute; top:18px; right:20px; font-family:var(--mono); font-size:18px; color:var(--low); background:none; border:none; cursor:pointer; line-height:1; padding:6px; transition:color .3s; }
+  .sheet .x:hover{ color:var(--high); }
+  .sheet .k{ font-family:var(--mono); font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:var(--bloom); }
+  .sheet h3{ font-family:var(--serif); font-weight:400; font-size:clamp(30px,5vw,44px); letter-spacing:0.01em; line-height:1.05; margin:14px 0 22px; }
+  .sheet p{ font-size:18.5px; line-height:1.62; color:var(--mid); margin:0 0 17px; font-weight:300; }
+  .sheet p b{ color:var(--high); font-weight:400; } .sheet .em{ font-style:italic; color:var(--high); }
+  .sheet hr{ border:0; border-top:1px solid var(--line); margin:26px 0; }
+  .sheet .close-row{ display:flex; align-items:center; gap:16px; font-family:var(--mono); font-size:11px; color:var(--low); flex-wrap:wrap; }
+  .sheet .close-row .sp{ flex:1; }
+
+  @media (max-width:520px){ .about{ font-size:18px; } ol li .t{ font-size:16px; } .sheet p{ font-size:17px; } .title-vine{ font-size:11px; } }
+</style>
+</head>
+<body>
+
+<!--  Hello, webpaper. The bonsai below is real <pre> text and the title wears a living vine —
+      retypeset it, recolour it, let something new climb. Have fun.  -->
+
+<div id="flora" aria-hidden="true"></div>
+
+<div class="page">
+
+  <header>
+    <div class="hero-title">
+      <pre class="title-vine" aria-hidden="true"></pre>
+      <h1>webpaper</h1>
+    </div>
+    <p class="sub">wallpaper for the web · an agent that rebuilds any page</p>
+  </header>
+
+  <div class="garden">
+    <pre id="bonsai" aria-label="a generative ascii bonsai, grown fresh on each visit"></pre>
+    <a class="regrow" id="regrow" role="button" tabindex="0">grow another &#8635;</a>
+  </div>
+
+  <p class="about">It lives inside the page you're on. Ask in plain words and it clears the noise, <b>does your tasks</b>, typesets the web like paper, or rewrites the page entirely.</p>
+
+  <div class="cta">
+    <div class="btn-row">
+      <a class="btn" id="dl" href="webpaper.zip" download="webpaper.zip">
+        <svg viewBox="0 0 16 16" fill="none"><path d="M8 2v8M5 7l3 3 3-3M2 11v1a2 2 0 002 2h8a2 2 0 002-2v-1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        download for chrome
+      </a>
+      <button class="btn btn-politics" id="politics" type="button">MEMETICS</button>
+    </div>
+    <p class="free-note">free · no api key · runs on the Claude you already have</p>
+  </div>
+
+  <section class="steps">
+    <h2>plant it in a minute</h2>
+    <ol>
+      <li><span class="t"><b>Sign in to Claude.</b> Open <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a> and log in — the free plan works.</span></li>
+      <li><span class="t"><b>Download and unzip.</b> Keep the <code>webpaper</code> folder somewhere safe.</span></li>
+      <li><span class="t"><b>Open</b> <code>chrome://extensions</code> and turn on <b>Developer mode</b>.</span></li>
+      <li><span class="t"><b>Load unpacked</b> and choose the <code>webpaper</code> folder.</span></li>
+      <li><span class="t"><b>Open it</b>, allow Claude, switch it on, and ask any page for anything.</span></li>
+    </ol>
+  </section>
+
+  <footer>
+    <a href="/">socialacolyte.github.io</a>
+    <a href="https://github.com/SocialAcolyte/webpaper" target="_blank" rel="noopener">github</a>
+    <span>open source · non-commercial</span>
+  </footer>
+
+</div>
+
+<!-- MANIFESTO -->
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="m-title">
+  <div class="sheet">
+    <button class="x" id="mx" aria-label="close">✕</button>
+    <span class="k">why this is a weapon, and why it's free</span>
+    <h3 id="m-title">The point.</h3>
+    <p>An AI that lives inside the page can rewrite anything you load — any tone, any framing, in real time. That is a gift and a loaded gun. <b>The same machinery that deletes an ad can inject a lie.</b> The same machinery that strips bias can manufacture it — tuned to <span class="em">you</span> specifically, using everything a system knows about how you in particular can be moved.</p>
+    <p>We are close to a world where a resourced actor — a platform, a state, an autocrat — can run a propaganda apparatus so personal and so relentless that <b>no individual is memetically equipped to survive contact with it.</b> Your sense of what's real, rewritten upstream of your awareness, page by page. That actor is coming. Bad actors will inevitably build this. The only open question is whose hands hold it.</p>
+    <p>The one thing that destabilises a centralised memetic weapon is <b>the same weapon in everyone's hands, working for them.</b> If they can inject, you can extract. If they can censor, you can restore. Defense and attack are the same primitive — so the primitive must be free, auditable, and public.</p>
+    <p>So webpaper is <b>open-source</b>, so this can never be something only <span class="em">they</span> have. It is <b>strictly non-commercial</b>, because the moment a tool like this grows a profit motive it stops working for you and starts working for its shareholders — the exact failure we're built to prevent.</p>
+    <hr>
+    <div class="close-row"><span>infrastructure for memetic self-defense · for the people, by the people</span><span class="sp"></span><span>beta 0.0.1</span></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var pre = document.getElementById("bonsai");
+  var COLS = 84, ROWS = 24;
+  var timer=null, breeze=null;
+
+  /* ── a real bonsai: short thick S-curve trunk, root flare, separated foliage pads ── */
+  function grow(){
+    var ch=[], cl=[], y, x;
+    for(y=0;y<ROWS;y++){ ch.push(new Array(COLS).fill(" ")); cl.push(new Array(COLS).fill(0)); }
+    var order=[], R=Math.random;
+    function P(a){ return R()<a; }
+    function put(px,py,c,k){
+      px=px|0; py=py|0;
+      if(px<1||px>=COLS-1||py<0||py>=ROWS) return;
+      if(ch[py][px]!==" "){ if(k===0) return; if(cl[py][px]===0) return; }   // wood is inviolable; leaves never bury wood
+      ch[py][px]=c; cl[py][px]=k; order.push([px,py,c,k]);
+    }
+    var LEAF="&*❦", BLOOM="❀❁✿";
+    function padCloud(cx,cy,w,h){                                            // a foliage "cloud" layer
+      for(var dy=-h;dy<=h;dy++) for(var dx=-w;dx<=w;dx++){
+        var e=(dx*dx)/(w*w+0.2)+(dy*dy)/(h*h+0.2);
+        if(e <= 1 + (R()*0.30-0.08)){
+          if(P(0.11)) put(cx+dx, cy+dy, BLOOM.charAt((R()*3)|0), 2);
+          else        put(cx+dx, cy+dy, LEAF.charAt((R()*3)|0), 1);
+        }
+      }
+    }
+    var bx=(COLS/2)|0, baseY=ROWS-4;
+    // roots / nebari — a wide aged base
+    put(bx,baseY,"|",0);
+    for(var rr=1;rr<=5;rr++){ if(P(0.85)) put(bx-rr, baseY, rr<=2?"_":"‿",0); if(P(0.85)) put(bx+rr, baseY, rr<=2?"_":"‿",0); }
+    put(bx-1,baseY,"/",0); put(bx+1,baseY,"\\",0);
+    // trunk — short, thick, with movement
+    var tx=bx, ty=baseY, dir=P(0.5)?-1:1, H=8+((R()*3)|0), launch=[];
+    for(var t=0;t<H;t++){
+      ty-=1;
+      var sh=0; if(t>0){ if(P(0.55)) sh=dir; if(P(0.3)) dir=-dir; }
+      tx+=sh;
+      put(tx,ty, sh<0?"\\":sh>0?"/":"|", 0);
+      if(t < H*0.62){ put(tx+(dir>0?-1:1), ty, dir>0?"(":")", 0); }           // girth (thick lower trunk)
+      if(t>=2 && t<=H-2 && t%2===0){ launch.push([tx,ty, launch.length%2===0?-1:1]); }
+    }
+    var apex=[tx,ty];
+    // primary limbs reach outward, each ending in a pad → the layered canopy
+    function limb(sx,sy,side,len){ var lx=sx,ly=sy; for(var i=0;i<len;i++){ lx+=side; if(P(0.5)) ly-=1; put(lx,ly, side<0?"\\":"/",0);} return [lx,ly]; }
+    var pads=[];
+    launch.forEach(function(L){ var tip=limb(L[0],L[1],L[2], 3+((R()*3)|0)); pads.push([tip[0]+L[2]*2, tip[1]-1, 5+((R()*3)|0), 2+((R()*1.2)|0)]); });
+    pads.push([apex[0], apex[1]-2, 7+((R()*3)|0), 3]);                        // crown, widest, on top
+    pads.forEach(function(p){ padCloud(p[0],p[1],p[2],p[3]); });
+    // shallow wide bonsai pot with feet
+    var potW=Math.min(28,(COLS*0.42)|0), pL=bx-(potW>>1), pY=baseY+1;
+    function pot(px,py,c){ if(px>0&&px<COLS-1&&py>=0&&py<ROWS){ ch[py][px]=c; cl[py][px]=0; } }
+    pot(pL,pY,"|"); for(var a=1;a<potW-1;a++) pot(pL+a,pY,"="); pot(pL+potW-1,pY,"|");
+    pot(pL+1,pY+1,"\\"); for(var b=2;b<potW-2;b++) pot(pL+b,pY+1,"_"); pot(pL+potW-2,pY+1,"/");
+    pot(pL+4,pY+2,"‖"); pot(pL+potW-5,pY+2,"‖");
+    return { ch:ch, cl:cl, order:order };
+  }
+
+  function esc(c){ return c==="&"?"&amp;":c==="<"?"&lt;":c===">"?"&gt;":c; }
+  function render(chg,clg){
+    var out="", y, x, run="", rc=-1;
+    function flush(){ if(!run) return; out+= rc===1?"<span class='lf'>"+run+"</span>":rc===2?"<span class='fl'>"+run+"</span>":run; run=""; }
+    for(y=0;y<ROWS;y++){ for(x=0;x<COLS;x++){ var c=chg[y][x], k=c===" "?0:clg[y][x]; if(k!==rc){ flush(); rc=k; } run+=esc(c); } run+="\n"; }
+    flush(); return out;
+  }
+  function plant(animate){
+    if(timer){ clearInterval(timer); timer=null; } if(breeze){ clearInterval(breeze); breeze=null; }
+    var t=grow(), reduce=window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if(!animate || reduce){ pre.innerHTML=render(t.ch,t.cl); armBreeze(t); return; }
+    var dch=[], dcl=[], y, x;
+    for(y=0;y<ROWS;y++){ dch.push(new Array(COLS).fill(" ")); dcl.push(new Array(COLS).fill(0)); }
+    var inO={}; t.order.forEach(function(o){ inO[o[0]+","+o[1]]=1; });
+    for(y=0;y<ROWS;y++) for(x=0;x<COLS;x++){ if(t.ch[y][x]!==" " && !inO[x+","+y]){ dch[y][x]=t.ch[y][x]; dcl[y][x]=t.cl[y][x]; } }
+    pre.innerHTML=render(dch,dcl);
+    var idx=0, step=Math.max(2,(t.order.length/80)|0);
+    timer=setInterval(function(){
+      for(var k=0;k<step && idx<t.order.length;k++,idx++){ var o=t.order[idx]; dch[o[1]][o[0]]=o[2]; dcl[o[1]][o[0]]=o[3]; }
+      pre.innerHTML=render(dch,dcl);
+      if(idx>=t.order.length){ clearInterval(timer); timer=null; armBreeze(t); }
+    }, 45);
+  }
+  function armBreeze(t){
+    if(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    var cells=[], y, x; for(y=0;y<ROWS;y++) for(x=0;x<COLS;x++){ if(t.cl[y][x]===1 && "&*❦".indexOf(t.ch[y][x])>=0) cells.push([x,y]); }
+    if(!cells.length) return;
+    breeze=setInterval(function(){ var n=3+((Math.random()*4)|0), i, L="&*❦";
+      for(i=0;i<n;i++){ var c=cells[(Math.random()*cells.length)|0]; t.ch[c[1]][c[0]]=L.charAt((Math.random()*3)|0); }
+      pre.innerHTML=render(t.ch,t.cl); }, 1600);
+  }
+  plant(true);
+
+  var rg=document.getElementById("regrow");
+  function again(){ plant(true); }
+  rg.addEventListener("click", again);
+  rg.addEventListener("keydown", function(e){ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); again(); } });
+
+  /* ── the vine resting on the title: a wavy stem over the word with tendrils overlaying it ── */
+  var tv=document.querySelector(".title-vine"), h1=document.querySelector(".hero-title h1");
+  function makeTitleVine(cols){
+    var R=Math.random, stem="", l1=new Array(cols).fill(" "), l2=new Array(cols).fill(" ");
+    for(var i=0;i<cols;i++){
+      if(R()<0.13){ stem += R()<0.34 ? "<span class='fl'>"+"❀✿".charAt((R()*2)|0)+"</span>" : "❧"; }
+      else stem += (i%2? "~":"≈");
+      if(i>0 && i<cols-1 && R()<0.10){ l1[i]="|"; l2[i]= R()<0.4?"F":"L"; }        // a hanging tendril
+    }
+    var s1="", s2="";
+    for(var j=0;j<cols;j++){ s1 += l1[j]==="|" ? "<span class='lf'>|</span>" : " "; }
+    for(var k=0;k<cols;k++){ s2 += l2[k]==="F" ? "<span class='fl'>❀</span>" : l2[k]==="L" ? "<span class='lf'>*</span>" : " "; }
+    return stem+"\n"+s1+"\n"+s2;
+  }
+  function dressTitle(){
+    if(!tv||!h1) return;
+    var cols=Math.max(16, Math.min(64, Math.round((h1.offsetWidth+52)/7.8)));
+    tv.innerHTML=makeTitleVine(cols);
+  }
+  dressTitle();
+  var tt; window.addEventListener("resize", function(){ clearTimeout(tt); tt=setTimeout(dressTitle,220); });
+
+  /* ── ambient flora: a new plant sprouts somewhere every 12s ── */
+  var reduceMotion=window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var flora=document.getElementById("flora"), sprouts=[];
+  var KINDS=["<span class='lf'>\\|/</span>","<span class='lf'>\\\\|//</span>","<span class='lf'>\\|/</span>\n<span class='lf'>|</span>",
+             "<span class='fl'>❀</span>\n<span class='lf'>|</span>","<span class='fl'>✿</span>\n<span class='lf'>|</span>","<span class='lf'>·\\|/·</span>"];
+  function sproutOne(){
+    var el=document.createElement("pre"); el.className="sprout"; el.style.margin="0";
+    el.innerHTML=KINDS[(Math.random()*KINDS.length)|0];
+    el.style.left=(7+Math.random()*86)+"%"; el.style.top=(26+Math.random()*64)+"%";
+    flora.appendChild(el); requestAnimationFrame(function(){ el.classList.add("in"); });
+    sprouts.push(el);
+    if(sprouts.length>9){ var old=sprouts.shift(); old.classList.add("out"); setTimeout(function(){ if(old.parentNode) old.remove(); },1000); }
+  }
+  if(!reduceMotion){ setInterval(sproutOne, 12000); }
+
+  /* ── modal: MEMETICS + on download ── */
+  var modal=document.getElementById("modal");
+  function open(){ modal.classList.add("open"); document.body.style.overflow="hidden"; }
+  function close(){ modal.classList.remove("open"); document.body.style.overflow=""; }
+  document.getElementById("politics").addEventListener("click", open);
+  document.getElementById("mx").addEventListener("click", close);
+  modal.addEventListener("click", function(e){ if(e.target===modal) close(); });
+  document.addEventListener("keydown", function(e){ if(e.key==="Escape") close(); });
+  document.getElementById("dl").addEventListener("click", function(){ setTimeout(open, 400); });   // the download proceeds; the why pops up beside it
+})();
+</script>
+</body>
+</html>

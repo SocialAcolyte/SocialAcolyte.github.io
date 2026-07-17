@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>familiar — the internet, yours</title>
+  <meta name="description" content="A cat turns a house into a home. familiar turns the whole internet into yours." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=JetBrains+Mono:wght@200;300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:           #0c1018;
+      --bg-card:      #1a2233;
+      --bg-panel:     #232c3b;
+      --text-high:    #f4f7fb;
+      --text-mid:     #c8d4e8;
+      --text-low:     #4a5870;
+      --pink:         #e79bb6;
+      --pink-dim:     rgba(231, 155, 182, 0.25);
+      --border:       rgba(244, 247, 251, 0.08);
+      --border-pink:  rgba(231, 155, 182, 0.18);
+      --font-serif:   'Cormorant Garamond', Georgia, serif;
+      --font-mono:    'JetBrains Mono', monospace;
+      --ease:         0.22s ease;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--text-high);
+      font-family: var(--font-serif);
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    ::selection {
+      background: var(--pink-dim);
+      color: var(--text-high);
+    }
+
+    /* Corner glows — warm navy */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -300px; left: -300px;
+      width: 700px; height: 700px;
+      background: radial-gradient(ellipse at center, rgba(35, 44, 59, 0.5) 0%, transparent 65%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    body::after {
+      content: '';
+      position: fixed;
+      bottom: -250px; right: -250px;
+      width: 650px; height: 650px;
+      background: radial-gradient(ellipse at center, rgba(231, 155, 182, 0.06) 0%, transparent 65%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── Layout ─────────────────────────────────────────── */
+    .page {
+      position: relative;
+      z-index: 2;
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 48px 160px;
+    }
+
+    /* ── Nav ─────────────────────────────────────────────── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 36px 0 0;
+    }
+
+    .nav-mark {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+    .nav-cat {
+      width: 32px;
+      height: 25px;
+      flex-shrink: 0;
+    }
+    .nav-name {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 300;
+      letter-spacing: 0.14em;
+      color: var(--text-high);
+    }
+
+    .nav-link {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-low);
+      text-decoration: none;
+      transition: color var(--ease);
+    }
+    .nav-link:hover { color: var(--text-mid); }
+
+    /* ── Hero ────────────────────────────────────────────── */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 100px 0 80px;
+      gap: 32px;
+    }
+
+    .hero-cat {
+      width: 160px;
+      height: auto;
+      display: block;
+    }
+
+    .hero-wordmark {
+      font-family: var(--font-mono);
+      font-size: clamp(36px, 6vw, 64px);
+      font-weight: 200;
+      letter-spacing: 0.22em;
+      color: var(--text-high);
+      margin: 0;
+      line-height: 1;
+    }
+
+    .hero-tagline {
+      font-family: var(--font-serif);
+      font-size: clamp(20px, 3vw, 28px);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--text-mid);
+      line-height: 1.5;
+      margin: 0;
+      max-width: 560px;
+    }
+
+    .hero-sub {
+      font-family: var(--font-serif);
+      font-size: 17px;
+      font-weight: 300;
+      color: var(--text-low);
+      line-height: 1.65;
+      margin: 0;
+      max-width: 440px;
+    }
+
+    .hero-cta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-high);
+      text-decoration: none;
+      border: 1px solid rgba(231, 155, 182, 0.35);
+      padding: 18px 32px;
+      background: rgba(231, 155, 182, 0.04);
+      transition: border-color var(--ease), background var(--ease);
+      margin-top: 8px;
+    }
+    .hero-cta:hover {
+      border-color: rgba(231, 155, 182, 0.65);
+      background: rgba(231, 155, 182, 0.09);
+    }
+    .hero-cta svg {
+      width: 14px; height: 14px;
+      opacity: 0.7; flex-shrink: 0;
+    }
+
+    /* ── Divider ─────────────────────────────────────────── */
+    .rule {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0;
+    }
+
+    /* ── What it does ────────────────────────────────────── */
+    .what {
+      padding: 80px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+    }
+
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      font-weight: 300;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-low);
+      margin: 0;
+    }
+
+    .what-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 48px;
+    }
+
+    .what-item {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+    .what-item.pink-rule {
+      border-top-color: var(--border-pink);
+    }
+
+    .what-num {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-low);
+    }
+
+    .what-title {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-high);
+    }
+
+    .what-desc {
+      font-family: var(--font-serif);
+      font-size: 16px;
+      font-style: italic;
+      color: var(--text-mid);
+      line-height: 1.65;
+      margin: 0;
+    }
+
+    /* ── Demo strip ──────────────────────────────────────── */
+    .demo-strip {
+      padding: 80px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .demo-caption {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+    }
+    .demo-caption-label {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-low);
+    }
+    .demo-caption-desc {
+      font-family: var(--font-serif);
+      font-size: 14px;
+      font-style: italic;
+      color: var(--text-low);
+    }
+
+    .demo-block {
+      border: 1px solid var(--border);
+      padding: 28px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      background: rgba(26, 34, 51, 0.4);
+    }
+
+    .demo-url {
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      color: var(--text-low);
+      letter-spacing: 0.06em;
+    }
+
+    .demo-items {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .demo-item {
+      font-family: var(--font-serif);
+      font-size: 17px;
+      color: var(--text-low);
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      display: flex;
+      align-items: baseline;
+    }
+    .demo-item:last-child { border-bottom: none; }
+
+    .demo-item.primary {
+      color: var(--text-mid);
+      border-bottom-color: rgba(231, 155, 182, 0.12);
+    }
+    .demo-item.primary::before {
+      content: '';
+      position: absolute;
+      left: -32px; top: 0; bottom: 0;
+      width: 2px;
+      background: var(--pink);
+      opacity: 0.6;
+    }
+    .demo-item.secondary {
+      color: var(--text-mid);
+      border-bottom-color: rgba(100, 160, 255, 0.09);
+    }
+    .demo-item.secondary::before {
+      content: '';
+      position: absolute;
+      left: -32px; top: 0; bottom: 0;
+      width: 2px;
+      background: rgba(100, 160, 255, 0.5);
+    }
+    .demo-tag {
+      font-family: var(--font-mono);
+      font-size: 8px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-left: 12px;
+      flex-shrink: 0;
+    }
+    .demo-item.primary .demo-tag { color: rgba(231, 155, 182, 0.55); }
+    .demo-item.secondary .demo-tag { color: rgba(100, 160, 255, 0.5); }
+    .demo-item:not(.primary):not(.secondary) .demo-tag { display: none; }
+
+    .demo-legend {
+      display: flex;
+      gap: 20px;
+    }
+    .demo-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-family: var(--font-mono);
+      font-size: 8.5px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-low);
+    }
+    .legend-bar {
+      width: 12px; height: 2px; flex-shrink: 0;
+    }
+    .legend-bar.pink  { background: var(--pink); opacity: 0.6; }
+    .legend-bar.blue  { background: rgba(100, 160, 255, 0.5); }
+
+    /* ── Install ─────────────────────────────────────────── */
+    .install {
+      padding: 80px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      max-width: 600px;
+    }
+
+    .install-btn {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 280px;
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-high);
+      text-decoration: none;
+      border: 1px solid rgba(231, 155, 182, 0.35);
+      padding: 18px 24px;
+      background: rgba(231, 155, 182, 0.04);
+      transition: border-color var(--ease), background var(--ease);
+    }
+    .install-btn:hover {
+      border-color: rgba(231, 155, 182, 0.65);
+      background: rgba(231, 155, 182, 0.09);
+    }
+    .install-btn svg {
+      width: 14px; height: 14px;
+      opacity: 0.7; flex-shrink: 0;
+    }
+
+    .install-steps {
+      list-style: none;
+      margin: 0; padding: 0;
+      display: flex;
+      flex-direction: column;
+    }
+    .install-steps li {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 14px;
+      align-items: baseline;
+      border-bottom: 1px solid var(--border);
+      padding: 14px 0;
+    }
+    .install-steps li:first-child { border-top: 1px solid var(--border); }
+    .install-steps .n {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      color: var(--text-low);
+      letter-spacing: 0.1em;
+    }
+    .install-steps .t {
+      font-family: var(--font-serif);
+      font-size: 16px;
+      color: var(--text-mid);
+      line-height: 1.55;
+    }
+    .install-steps .t code {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-high);
+      background: rgba(255, 255, 255, 0.06);
+      padding: 1px 6px;
+    }
+    .install-steps .t a {
+      color: var(--text-mid);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border);
+      transition: color var(--ease), border-color var(--ease);
+    }
+    .install-steps .t a:hover {
+      color: var(--text-high);
+      border-bottom-color: rgba(255,255,255,0.2);
+    }
+
+    .prereq {
+      font-family: var(--font-serif);
+      font-size: 15px;
+      font-style: italic;
+      color: var(--text-mid);
+      line-height: 1.65;
+      margin: 0;
+    }
+
+    /* ── Footer ──────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding-top: 32px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px 10px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      color: var(--text-low);
+    }
+    footer a {
+      color: var(--text-low);
+      text-decoration: none;
+      transition: color var(--ease);
+    }
+    footer a:hover { color: var(--text-mid); }
+    .foot-cat {
+      width: 18px;
+      height: auto;
+      margin-right: 4px;
+      opacity: 0.5;
+    }
+    .sep { opacity: 0.35; }
+
+    /* ── Mobile ──────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .page { padding: 0 24px 80px; }
+      nav { padding: 28px 0 0; }
+      .hero { padding: 64px 0 56px; gap: 24px; }
+      .hero-cat { width: 120px; }
+      .what-grid { grid-template-columns: 1fr; gap: 28px; }
+      .demo-block { padding: 20px 24px; }
+      .demo-item::before { display: none; }
+      .install { max-width: 100%; }
+      .install-btn { width: 100%; justify-content: center; }
+      .what, .demo-strip, .install { padding: 56px 0; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Nav -->
+  <nav>
+    <a class="nav-mark" href="#">
+      <!-- inline cat svg, scaled down for nav -->
+      <svg class="nav-cat" viewBox="80 20 520 490" xmlns="http://www.w3.org/2000/svg">
+        <rect x="80" y="20" width="520" height="490" rx="30" fill="#232c3b"/>
+        <rect x="160" y="40" width="60" height="30" fill="#f4f7fb"/>
+        <rect x="460" y="40" width="60" height="30" fill="#f4f7fb"/>
+        <rect x="130" y="70" width="120" height="30" fill="#f4f7fb"/>
+        <rect x="430" y="70" width="120" height="30" fill="#f4f7fb"/>
+        <rect x="130" y="100" width="120" height="30" fill="#f4f7fb"/>
+        <rect x="430" y="100" width="120" height="30" fill="#f4f7fb"/>
+        <rect x="130" y="130" width="420" height="30" fill="#f4f7fb"/>
+        <rect x="100" y="160" width="480" height="30" fill="#f4f7fb"/>
+        <rect x="100" y="190" width="480" height="30" fill="#f4f7fb"/>
+        <rect x="100" y="220" width="480" height="30" fill="#f4f7fb"/>
+        <rect x="100" y="250" width="480" height="30" fill="#f4f7fb"/>
+        <rect x="100" y="280" width="480" height="30" fill="#f4f7fb"/>
+        <rect x="100" y="310" width="480" height="30" fill="#f4f7fb"/>
+        <rect x="100" y="340" width="480" height="30" fill="#f4f7fb"/>
+        <rect x="100" y="370" width="480" height="30" fill="#f4f7fb"/>
+        <rect x="130" y="400" width="420" height="30" fill="#f4f7fb"/>
+        <rect x="160" y="430" width="360" height="30" fill="#f4f7fb"/>
+        <rect x="220" y="460" width="240" height="30" fill="#f4f7fb"/>
+        <rect x="190" y="100" width="30" height="30" fill="#e79bb6"/>
+        <rect x="460" y="100" width="30" height="30" fill="#e79bb6"/>
+        <rect x="160" y="280" width="30" height="30" fill="#ecaec0"/>
+        <rect x="190" y="280" width="30" height="30" fill="#ecaec0"/>
+        <rect x="460" y="280" width="30" height="30" fill="#ecaec0"/>
+        <rect x="490" y="280" width="30" height="30" fill="#ecaec0"/>
+        <rect x="250" y="220" width="30" height="30" fill="#3b424c"/>
+        <rect x="400" y="220" width="30" height="30" fill="#3b424c"/>
+        <rect x="220" y="250" width="30" height="30" fill="#3b424c"/>
+        <rect x="280" y="250" width="30" height="30" fill="#3b424c"/>
+        <rect x="370" y="250" width="30" height="30" fill="#3b424c"/>
+        <rect x="430" y="250" width="30" height="30" fill="#3b424c"/>
+        <rect x="310" y="280" width="30" height="30" fill="#e79bb6"/>
+        <rect x="340" y="280" width="30" height="30" fill="#e79bb6"/>
+        <rect x="280" y="310" width="30" height="30" fill="#3b424c"/>
+        <rect x="370" y="310" width="30" height="30" fill="#3b424c"/>
+        <rect x="310" y="340" width="30" height="30" fill="#3b424c"/>
+        <rect x="340" y="340" width="30" height="30" fill="#3b424c"/>
+      </svg>
+      <span class="nav-name">familiar</span>
+    </a>
+    <a class="nav-link" href="/">socialacolyte.github.io ↗</a>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <svg class="hero-cat" viewBox="80 20 520 490" xmlns="http://www.w3.org/2000/svg">
+      <rect x="80" y="20" width="520" height="490" rx="30" fill="#232c3b"/>
+      <rect x="160" y="40" width="60" height="30" fill="#f4f7fb"/>
+      <rect x="460" y="40" width="60" height="30" fill="#f4f7fb"/>
+      <rect x="130" y="70" width="120" height="30" fill="#f4f7fb"/>
+      <rect x="430" y="70" width="120" height="30" fill="#f4f7fb"/>
+      <rect x="130" y="100" width="120" height="30" fill="#f4f7fb"/>
+      <rect x="430" y="100" width="120" height="30" fill="#f4f7fb"/>
+      <rect x="130" y="130" width="420" height="30" fill="#f4f7fb"/>
+      <rect x="100" y="160" width="480" height="30" fill="#f4f7fb"/>
+      <rect x="100" y="190" width="480" height="30" fill="#f4f7fb"/>
+      <rect x="100" y="220" width="480" height="30" fill="#f4f7fb"/>
+      <rect x="100" y="250" width="480" height="30" fill="#f4f7fb"/>
+      <rect x="100" y="280" width="480" height="30" fill="#f4f7fb"/>
+      <rect x="100" y="310" width="480" height="30" fill="#f4f7fb"/>
+      <rect x="100" y="340" width="480" height="30" fill="#f4f7fb"/>
+      <rect x="100" y="370" width="480" height="30" fill="#f4f7fb"/>
+      <rect x="130" y="400" width="420" height="30" fill="#f4f7fb"/>
+      <rect x="160" y="430" width="360" height="30" fill="#f4f7fb"/>
+      <rect x="220" y="460" width="240" height="30" fill="#f4f7fb"/>
+      <rect x="190" y="100" width="30" height="30" fill="#e79bb6"/>
+      <rect x="460" y="100" width="30" height="30" fill="#e79bb6"/>
+      <rect x="160" y="280" width="30" height="30" fill="#ecaec0"/>
+      <rect x="190" y="280" width="30" height="30" fill="#ecaec0"/>
+      <rect x="460" y="280" width="30" height="30" fill="#ecaec0"/>
+      <rect x="490" y="280" width="30" height="30" fill="#ecaec0"/>
+      <rect x="250" y="220" width="30" height="30" fill="#3b424c"/>
+      <rect x="400" y="220" width="30" height="30" fill="#3b424c"/>
+      <rect x="220" y="250" width="30" height="30" fill="#3b424c"/>
+      <rect x="280" y="250" width="30" height="30" fill="#3b424c"/>
+      <rect x="370" y="250" width="30" height="30" fill="#3b424c"/>
+      <rect x="430" y="250" width="30" height="30" fill="#3b424c"/>
+      <rect x="310" y="280" width="30" height="30" fill="#e79bb6"/>
+      <rect x="340" y="280" width="30" height="30" fill="#e79bb6"/>
+      <rect x="280" y="310" width="30" height="30" fill="#3b424c"/>
+      <rect x="370" y="310" width="30" height="30" fill="#3b424c"/>
+      <rect x="310" y="340" width="30" height="30" fill="#3b424c"/>
+      <rect x="340" y="340" width="30" height="30" fill="#3b424c"/>
+    </svg>
+
+    <h1 class="hero-wordmark">familiar</h1>
+
+    <p class="hero-tagline">
+      a cat turns a house into a home.<br>
+      familiar turns the whole internet into yours.
+    </p>
+
+    <p class="hero-sub">
+      write who you are once. familiar rewrites every page
+      around you, briefs every AI before you speak,
+      and marks what matters wherever you go.
+    </p>
+
+    <a class="hero-cta" href="https://github.com/SocialAcolyte/surface-extension/releases/latest/download/surface.zip" download>
+      <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 2v8M5 7l3 3 3-3M2 11v1a2 2 0 002 2h8a2 2 0 002-2v-1"
+              stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Download familiar
+    </a>
+  </section>
+
+  <hr class="rule" />
+
+  <!-- What it does -->
+  <section class="what">
+    <p class="section-label">what familiar does</p>
+    <div class="what-grid">
+      <div class="what-item pink-rule">
+        <span class="what-num">01</span>
+        <span class="what-title">rewrites every page</span>
+        <p class="what-desc">
+          three layers of CSS land before you blink. typography, color,
+          layout. then Claude studies the page structure and redesigns it.
+          then it cross-references your memory and weights what matters to you.
+        </p>
+      </div>
+      <div class="what-item">
+        <span class="what-num">02</span>
+        <span class="what-title">knows who you are</span>
+        <p class="what-desc">
+          you write a short document about yourself once. familiar carries
+          that context everywhere. every surface of the internet starts
+          adjusting to your presence.
+        </p>
+      </div>
+      <div class="what-item">
+        <span class="what-num">03</span>
+        <span class="what-title">briefs every AI</span>
+        <p class="what-desc">
+          when you open Claude, ChatGPT, or Grok, your profile is already
+          in the context. no re-explaining yourself. the AI knows you
+          before you type a word.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <!-- Demo -->
+  <section class="demo-strip">
+    <div class="demo-caption">
+      <span class="demo-caption-label">what you see</span>
+      <span class="demo-caption-desc">familiar on a cycling store. memory says: gravel rider, navigation-focused</span>
+    </div>
+    <div class="demo-block">
+      <span class="demo-url">store.example.com/cycling/components</span>
+      <div class="demo-items">
+        <div class="demo-item primary">
+          Shimano GRX 810 Groupset, gravel 1x11
+          <span class="demo-tag">primary</span>
+        </div>
+        <div class="demo-item secondary">
+          Wahoo ELEMNT Bolt v2 GPS computer
+          <span class="demo-tag">secondary</span>
+        </div>
+        <div class="demo-item">Decorative handlebar tape, cork finish</div>
+        <div class="demo-item">Saddle bag organiser set, 3-piece</div>
+        <div class="demo-item secondary">
+          Gore-Tex cycling jacket, waterproof
+          <span class="demo-tag">secondary</span>
+        </div>
+        <div class="demo-item">Gel seat cover, standard sizing</div>
+      </div>
+      <div class="demo-legend">
+        <div class="demo-legend-item">
+          <div class="legend-bar pink"></div>
+          strong match
+        </div>
+        <div class="demo-legend-item">
+          <div class="legend-bar blue"></div>
+          secondary match
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <!-- Install -->
+  <section class="install">
+    <p class="section-label">install / early build</p>
+
+    <a class="install-btn" href="https://github.com/SocialAcolyte/surface-extension/releases/latest/download/surface.zip" download>
+      <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 2v8M5 7l3 3 3-3M2 11v1a2 2 0 002 2h8a2 2 0 002-2v-1"
+              stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Download familiar.zip
+    </a>
+
+    <ol class="install-steps">
+      <li>
+        <span class="n">01</span>
+        <span class="t">Unzip the downloaded file. Keep the folder somewhere permanent. Chrome loads from it directly.</span>
+      </li>
+      <li>
+        <span class="n">02</span>
+        <span class="t">Open <a href="chrome://extensions" target="_blank">chrome://extensions</a> and enable <strong>Developer mode</strong> (top-right toggle).</span>
+      </li>
+      <li>
+        <span class="n">03</span>
+        <span class="t">Click <code>Load unpacked</code> and select the unzipped folder.</span>
+      </li>
+      <li>
+        <span class="n">04</span>
+        <span class="t">Pin familiar from the extensions menu. Click it and grant claude.ai access when prompted.</span>
+      </li>
+      <li>
+        <span class="n">05</span>
+        <span class="t">Write a few lines about yourself in the Memory tab. Browse. Pink marks are strong matches, blue are secondary.</span>
+      </li>
+    </ol>
+
+    <p class="prereq">
+      requires a Claude account. free tier works. familiar borrows your
+      existing session and never stores your credentials.
+    </p>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <svg class="foot-cat" viewBox="80 20 520 490" xmlns="http://www.w3.org/2000/svg">
+      <rect x="80" y="20" width="520" height="490" rx="30" fill="#232c3b"/>
+      <rect x="130" y="130" width="420" height="30" fill="#f4f7fb"/>
+      <rect x="100" y="160" width="480" height="200" fill="#f4f7fb"/>
+      <rect x="130" y="400" width="420" height="30" fill="#f4f7fb"/>
+      <rect x="250" y="220" width="30" height="30" fill="#3b424c"/>
+      <rect x="400" y="220" width="30" height="30" fill="#3b424c"/>
+      <rect x="310" y="280" width="30" height="30" fill="#e79bb6"/>
+      <rect x="340" y="280" width="30" height="30" fill="#e79bb6"/>
+    </svg>
+    <a href="/">socialacolyte.github.io</a>
+    <span class="sep">//</span>
+    <a href="https://github.com/SocialAcolyte/surface-extension" target="_blank">github</a>
+    <span class="sep">//</span>
+    <span>chrome extension</span>
+    <span class="sep">//</span>
+    <span>early build</span>
+    <span class="sep">//</span>
+    <span>v0.2</span>
+  </footer>
+
+</div>
+</body>
+</html>
