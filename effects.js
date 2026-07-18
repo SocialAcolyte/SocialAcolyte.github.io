@@ -362,7 +362,164 @@
     }
 
 
+    /* --- 5. Wave arcs background ----------------------------------------
+       Port of the Originkit InteractiveHeroCanvas: concentric arcs sweep
+       up from below the fold, tilting with cursor Y. Runs on the fixed
+       #الخلفية canvas. Site adaptations: transparent canvas (clearRect,
+       not an opaque fill) so the corner glows stay visible, line color
+       from the site palette. Defers start to idle, pauses when the tab
+       is hidden. With reduced motion the static blueprint border from
+       script.js remains instead.                                       */
+
+    const WAVE = {
+        lineColor: { r: 240, g: 236, b: 228 },   // #f0ece4
+        lineWidth: 1.5,
+        lineCount: 76,
+        speed: 6,
+        glow: 10,
+        interactive: true,
+        dim: 0.45,   // site adaptation: full component brightness washes
+                     // out body text — raise toward 1 for the full look
+    };
+
+    function initWaveArcs() {
+        const canvas = document.getElementById('الخلفية');
+        if (!canvas || REDUCED) return;
+        const ctx = canvas.getContext('2d', { alpha: true });
+        if (!ctx) return;
+
+        const map = (v, a, b, c, d) => ((v - a) / (b - a)) * (d - c) + c;
+        const TWO_PI = 2 * Math.PI;
+
+        const st = { width: 0, height: 0, dpr: 1, frame: 0, rafId: 0 };
+        const mouse = { y: 0, targetY: 0 };
+
+        function setup() {
+            st.dpr = Math.min(window.devicePixelRatio || 1, 2);
+            st.width = window.innerWidth;
+            st.height = window.innerHeight;
+            canvas.width = st.width * st.dpr;
+            canvas.height = st.height * st.dpr;
+            canvas.style.width = st.width + 'px';
+            canvas.style.height = st.height + 'px';
+            ctx.setTransform(st.dpr, 0, 0, st.dpr, 0, 0);
+        }
+
+        function draw() {
+            st.frame += 1;
+            const w = st.width;
+            const ht = st.height;
+            mouse.y += (mouse.targetY - mouse.y) * 0.1;
+
+            ctx.clearRect(0, 0, w, ht);
+
+            const isMobile = w < 768;
+            const u = 55000 / WAVE.glow;
+            const { r: cr, g: cg, b: cb } = WAVE.lineColor;
+
+            ctx.save();
+            ctx.globalAlpha = WAVE.dim;
+            ctx.lineWidth = WAVE.lineWidth;
+            ctx.translate(w / 2, ht + (isMobile ? 60 : 40));
+
+            const f = WAVE.interactive ? map(mouse.y, 0, ht, 1.2, -1.2) : 0;
+            const m = Math.max(320, Math.min(1440, w));
+            const rate = map(m, 320, 1440, 0.002, 5e-4) * (WAVE.speed / 5);
+            const p = st.frame * rate;
+            const h = w / 2;
+            const x = isMobile
+                ? Math.round(WAVE.lineCount * 0.6)
+                : WAVE.lineCount;
+
+            for (let k = 0; k < x; k++) {
+                let ang = map(k, 0, x, 0, Math.PI) + p;
+                ang %= Math.PI;
+                const l = (Math.tan(ang) - f) * ht;
+                const a = Math.abs(l) / 2;
+                const yCenter = -ht / 2 + l / 2;
+                const bright = Math.max(0,
+                    Math.min(255, map(Math.abs(l), 0, u, -20, 255))) / 255;
+                if (bright <= 0) continue;
+
+                ctx.strokeStyle = `rgba(${cr}, ${cg}, ${cb}, ${bright})`;
+
+                if (a > 499999.5) {
+                    ctx.beginPath();
+                    ctx.moveTo(-h, -ht / 2);
+                    ctx.lineTo(h, -ht / 2);
+                    ctx.stroke();
+                    continue;
+                }
+
+                const c2 = Math.acos(Math.min(1, (h + 50) / a));
+                const segTotal = Math.max(Math.ceil(a / 120), 200);
+                const spans = [
+                    [c2, Math.PI - c2],
+                    [Math.PI + c2, TWO_PI - c2],
+                ];
+                for (const [start, end] of spans) {
+                    const span = end - start;
+                    const n3 = Math.max(
+                        Math.ceil((span / TWO_PI) * segTotal), 60);
+                    const step = span / n3;
+                    ctx.beginPath();
+                    for (let s = 0; s <= n3; s++) {
+                        const aa = start + step * s;
+                        const xx = Math.cos(aa) * a;
+                        const yy = yCenter + Math.sin(aa) * a;
+                        s === 0 ? ctx.moveTo(xx, yy) : ctx.lineTo(xx, yy);
+                    }
+                    ctx.stroke();
+                }
+            }
+            ctx.restore();
+
+            st.rafId = requestAnimationFrame(draw);
+        }
+
+        function start() {
+            if (!st.rafId && document.visibilityState === 'visible') {
+                st.rafId = requestAnimationFrame(draw);
+            }
+        }
+        function stop() {
+            if (st.rafId) {
+                cancelAnimationFrame(st.rafId);
+                st.rafId = 0;
+            }
+        }
+
+        setup();
+        mouse.y = st.height / 2;
+        mouse.targetY = st.height / 2;
+
+        // defer first frame to idle so it never competes with page load
+        if (typeof requestIdleCallback !== 'undefined') {
+            requestIdleCallback(start);
+        } else {
+            setTimeout(start, 150);
+        }
+
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(setup, 100);
+        }, { passive: true });
+
+        document.addEventListener('visibilitychange', () => {
+            document.visibilityState === 'visible' ? start() : stop();
+        });
+
+        if (WAVE.interactive) {
+            document.addEventListener('mousemove', (e) => {
+                mouse.targetY = e.clientY;   // canvas is fixed at inset 0
+            }, { passive: true });
+        }
+    }
+
+
     initBurst();
     initWeightProximity(initLetterSwap());
     initPixelate();
+    initWaveArcs();
 })();
