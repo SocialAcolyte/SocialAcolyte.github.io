@@ -129,6 +129,21 @@
                     <span class="en-حال">seed round — open for allocation</span>
                     <span class="سهم">↗</span>
                 </a>
+
+                <!-- contact form (demo — submit is client-side only, sends nothing) -->
+                <form id="contact-form" action="#" onsubmit="event.preventDefault(); document.getElementById('cf-thanks').hidden = false; return false;" style="margin-top:1.25rem; display:grid; gap:.65rem; max-width:32rem;">
+                    <label style="display:grid; gap:.25rem; font-size:.78rem; letter-spacing:.03em; text-transform:lowercase; opacity:.7;">name
+                        <input id="cf-name" name="name" type="text" autocomplete="name" required style="padding:.55rem .7rem; background:rgba(127,127,127,.08); border:1px solid rgba(127,127,127,.35); border-radius:6px; color:inherit; font:inherit;">
+                    </label>
+                    <label style="display:grid; gap:.25rem; font-size:.78rem; letter-spacing:.03em; text-transform:lowercase; opacity:.7;">email
+                        <input id="cf-email" name="email" type="email" autocomplete="email" required style="padding:.55rem .7rem; background:rgba(127,127,127,.08); border:1px solid rgba(127,127,127,.35); border-radius:6px; color:inherit; font:inherit;">
+                    </label>
+                    <label style="display:grid; gap:.25rem; font-size:.78rem; letter-spacing:.03em; text-transform:lowercase; opacity:.7;">message
+                        <textarea id="cf-message" name="message" rows="3" required style="padding:.55rem .7rem; background:rgba(127,127,127,.08); border:1px solid rgba(127,127,127,.35); border-radius:6px; color:inherit; font:inherit; resize:vertical;"></textarea>
+                    </label>
+                    <button type="submit" style="justify-self:start; padding:.5rem 1.15rem; background:rgba(127,127,127,.12); border:1px solid rgba(127,127,127,.4); border-radius:6px; color:inherit; font:inherit; cursor:pointer;">send ↗</button>
+                    <p id="cf-thanks" hidden style="margin:.1rem 0 0; font-size:.82rem; opacity:.75;">thanks — received (demo only, nothing was sent).</p>
+                </form>
             </section>
 
             <nav class="روابط" aria-label="elsewhere">
