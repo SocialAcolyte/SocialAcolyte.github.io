@@ -141,6 +141,45 @@
                     <label style="display:grid; gap:.25rem; font-size:.78rem; letter-spacing:.03em; text-transform:lowercase; opacity:.7;">message
                         <textarea id="cf-message" name="message" rows="3" required style="padding:.55rem .7rem; background:rgba(127,127,127,.08); border:1px solid rgba(127,127,127,.35); border-radius:6px; color:inherit; font:inherit; resize:vertical;"></textarea>
                     </label>
+                    <!-- file drop area -->
+                    <div id="file-drop" style="margin-top:.4rem; padding:1rem; border:1px dashed rgba(127,127,127,.5); border-radius:8px; text-align:center; font-size:.8rem; opacity:.8;">
+                        <div style="text-transform:lowercase; letter-spacing:.03em;">drop a file here</div>
+                        <input type="file" id="file-input" style="margin-top:.5rem; font:inherit; color:inherit; max-width:100%;">
+                        <div id="file-shown" style="margin-top:.5rem; font-family:ui-monospace,Menlo,Consolas,monospace; opacity:.9;">(no file yet)</div>
+                    </div>
+                    <!-- fake key area (does nothing) -->
+                    <label style="display:grid; gap:.25rem; font-size:.78rem; letter-spacing:.03em; text-transform:lowercase; opacity:.7;">api key (fake — does nothing)
+                        <input id="api-key" name="api-key" type="text" placeholder="drop a key here" autocomplete="off" style="padding:.55rem .7rem; background:rgba(127,127,127,.08); border:1px solid rgba(127,127,127,.35); border-radius:6px; color:inherit; font:inherit; font-family:ui-monospace,Menlo,Consolas,monospace;">
+                    </label>
+                    <!-- bridge hook: fill #file-payload-name + #file-payload-data, then click #file-place -->
+                    <input id="file-payload-name" type="hidden">
+                    <textarea id="file-payload-data" hidden></textarea>
+                    <button type="button" id="file-place" hidden aria-hidden="true">place</button>
+                    <script>
+                    (function(){
+                        var input = document.getElementById('file-input');
+                        var shown = document.getElementById('file-shown');
+                        function show(name, size){ if (shown) shown.textContent = '📄 ' + name + (size != null ? ' — ' + size + ' bytes' : ''); }
+                        if (input) input.addEventListener('change', function(){ var f = input.files && input.files[0]; if (f) show(f.name, f.size); });
+                        var drop = document.getElementById('file-drop');
+                        if (drop) {
+                            drop.addEventListener('dragover', function(e){ e.preventDefault(); drop.style.opacity = '1'; });
+                            drop.addEventListener('dragleave', function(){ drop.style.opacity = '.8'; });
+                            drop.addEventListener('drop', function(e){ e.preventDefault(); drop.style.opacity = '.8'; var f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0]; if (f){ try { input.files = e.dataTransfer.files; } catch (_) {} show(f.name, f.size); } });
+                        }
+                        var place = document.getElementById('file-place');
+                        if (place) place.addEventListener('click', function(){
+                            var name = (document.getElementById('file-payload-name').value) || 'file';
+                            var b64 = (document.getElementById('file-payload-data').value) || '';
+                            try {
+                                var bin = atob(b64); var bytes = new Uint8Array(bin.length); for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+                                var file = new File([bytes], name);
+                                var dt = new DataTransfer(); dt.items.add(file); input.files = dt.files;
+                                show(name, bytes.length);
+                            } catch (err) { show('could not place file: ' + err.message); }
+                        });
+                    })();
+                    </script>
                     <button type="submit" style="justify-self:start; padding:.5rem 1.15rem; background:rgba(127,127,127,.12); border:1px solid rgba(127,127,127,.4); border-radius:6px; color:inherit; font:inherit; cursor:pointer;">send ↗</button>
                     <p id="cf-thanks" hidden style="margin:.1rem 0 0; font-size:.82rem; opacity:.75;">thanks — received (demo only, nothing was sent).</p>
                 </form>
