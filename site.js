@@ -174,10 +174,10 @@
 
     const bloom = document.querySelector('.bloom');
     if (bloom) {
-        const FLOWERS = ['flower-00', 'flower-06', 'flower-07', 'flower-08', 'flower-18', 'flower-20',
-            'flower-23', 'flower-44', 'flower-46', 'florence-pietra-dura', 'cuerda-seca-tiles',
-            'blake-flowers', 'floral-brooch', 'akal-takht-fresco']
-            .map((n) => `ornaments/flowers/${n}.jpg`);
+        // high-resolution webp, so the mosaic stays crisp on large and retina screens
+        const FLOWERS = ['flower-06', 'flower-07', 'flower-08', 'flower-18', 'flower-20', 'flower-23',
+            'flower-44', 'flower-46', 'florence-pietra-dura', 'cuerda-seca-tiles', 'blake-flowers', 'floral-brooch']
+            .map((n) => `ornaments/flowers/${n}.webp`);
         const src = FLOWERS[Math.floor(Math.random() * FLOWERS.length)];
         const grey = bloom.querySelector('.bloom-grey');
         const colour = bloom.querySelector('.bloom-colour');
