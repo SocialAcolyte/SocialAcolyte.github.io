@@ -44,10 +44,10 @@ img { display: block; max-width: 100%; }
   inset: 0;
   z-index: 2;
   display: grid;
-  place-content: center;
+  place-content: end center;
   justify-items: center;
-  gap: clamp(16px, 3vh, 28px);
-  padding: 0 var(--gutter);
+  gap: clamp(14px, 2.5vh, 24px);
+  padding: 0 var(--gutter) clamp(56px, 12vh, 120px);
   color: #fff;
   text-align: center;
   opacity: calc(1 - var(--p, 0) * 3.2);
@@ -240,6 +240,7 @@ a.row:hover .kd, a.row:hover .yr { color: var(--paper-2); }
   overflow: hidden;
 }
 .tile-img img {
+  mix-blend-mode: multiply;
   width: 100%;
   height: 100%;
   object-fit: contain;
@@ -272,7 +273,7 @@ a.row:hover .kd, a.row:hover .yr { color: var(--paper-2); }
 
 /* ─── Opening pan ─────────────────────────────────────────────── */
 
-.pan { position: relative; height: 260svh; background: #0d0c0b; }
+.pan { position: relative; height: 200svh; background: #0d0c0b; }
 .pan-stage {
   position: sticky;
   top: 0;
@@ -288,7 +289,7 @@ a.row:hover .kd, a.row:hover .yr { color: var(--paper-2); }
   max-width: none;
   transform-origin: 0 0;
   transform: translate3d(var(--tx, 0px), var(--ty, 0px), 0) scale(var(--s, 1));
-  filter: grayscale(var(--g, 1)) contrast(1.05);
+  filter: saturate(1.05) contrast(1.03);
   will-change: transform;
 }
 .pan-veil {
@@ -312,6 +313,22 @@ a.row:hover .kd, a.row:hover .yr { color: var(--paper-2); }
   animation: cue 2.4s ease-in-out infinite;
 }
 @keyframes cue { 50% { transform: translate(-50%, 6px); } }
+
+/* ─── Plate — one drawing on the paper ───────────────────────── */
+
+.plate-solo {
+  display: grid;
+  place-items: center;
+  min-height: 110svh;
+  padding: 12svh var(--gutter);
+  background: var(--paper);
+}
+.plate-solo img {
+  width: min(78vw, 720px);
+  height: auto;
+  filter: grayscale(1) contrast(1.1);
+  mix-blend-mode: multiply;   /* the drawing's own paper melts into the page */
+}
 
 /* ─── Mosaic bands ────────────────────────────────────────────── */
 

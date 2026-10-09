@@ -124,24 +124,23 @@
         const vh = window.innerHeight;
         const vw = document.documentElement.clientWidth;
 
-        // opening: start close on Alexander, pull back across the whole battle
+        // opening: start close on the face, pull back to the whole portrait
         if (pan && panImg && panImg.naturalWidth) {
             const r = pan.getBoundingClientRect();
             const p = clamp01(-r.top / (r.height - vh));
             const e = ease(p);
             const ratio = panImg.naturalWidth / panImg.naturalHeight;
             const fit = Math.max(1, vw / (vh * ratio));           // scale needed to cover
-            const s = fit * (2.1 - 1.1 * e);
+            const s = fit * (1.35 - 0.35 * e);
             const w = vh * ratio * s, h = vh * s;
-            // focus moves from Alexander (left third) to the centre of the fight
-            const fx = 0.25 + 0.27 * e, fy = 0.30 + 0.20 * e;
+            // the face sits left of centre; drift toward the middle as we pull back
+            const fx = 0.38 + 0.12 * e, fy = 0.42 + 0.06 * e;
             const tx = Math.min(0, Math.max(vw - w, vw / 2 - fx * w));
             const ty = Math.min(0, Math.max(vh - h, vh / 2 - fy * h));
             pan.style.setProperty('--p', p.toFixed(3));
             panImg.style.setProperty('--s', s.toFixed(4));
             panImg.style.setProperty('--tx', tx.toFixed(1) + 'px');
             panImg.style.setProperty('--ty', ty.toFixed(1) + 'px');
-            panImg.style.setProperty('--g', (1 - e).toFixed(3));   // colour arrives as you pull back
         }
 
         // bands: parallax drift + bloom into colour near the middle of the screen
@@ -170,11 +169,12 @@
 
     if (REDUCED) {
         bands.forEach((b) => { b.style.setProperty('--bloom', '1'); b.style.setProperty('--t', '1'); });
-        panImg?.style.setProperty('--g', '0');
     } else {
         window.addEventListener('scroll', queue, { passive: true });
         window.addEventListener('resize', () => { sizeProcession(); queue(); }, { passive: true });
         panImg?.addEventListener('load', queue);
+        if (panImg?.complete) queue();
+        panImg?.decode?.().then(queue, () => {});
         track?.querySelectorAll('img').forEach((i) => i.addEventListener('load', () => { sizeProcession(); queue(); }, { once: true }));
         sizeProcession();
         queue();
