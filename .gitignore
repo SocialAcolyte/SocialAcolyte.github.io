@@ -1,2 +1,9 @@
 dom-snapshot.txt
 node_modules/
+
+# full-size ornament originals stay local; the site uses ornaments/sm/
+ornaments/statues/
+ornaments/alexander/
+ornaments/mosaics/
+.DS_Store
+tarot/*.jpg

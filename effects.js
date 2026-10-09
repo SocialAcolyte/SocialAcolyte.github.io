@@ -48,7 +48,7 @@
        Mode: "burst", rotation 357, otherwise component defaults.       */
 
     const BURST = {
-        color: '#f0ece4',
+        color: '#141312',
         duration: 300,           // ms
         strokeWidth: 2,
         size: 90,
