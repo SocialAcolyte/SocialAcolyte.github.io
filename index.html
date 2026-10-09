@@ -9,30 +9,23 @@
 
     <meta property="og:title" content="Social Acolyte">
     <meta property="og:description" content="Connor Hood. Data, robotics, and the road to general intelligence.">
-    <meta property="og:image" content="https://socialacolyte.github.io/ornaments/hero/connor-mosaic.webp">
+    <meta property="og:image" content="https://socialacolyte.github.io/ornaments/flowers/flower-08.jpg">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!-- ?v= is a cache-buster: bump it whenever site.css / site.js change -->
-    <link rel="stylesheet" href="site.css?v=9">
+    <link rel="stylesheet" href="site.css?v=10">
 </head>
 <body>
 
-<!-- ═══ Opening — the mosaic portrait, pulling back as you scroll ═══ -->
+<!-- ═══ Opening — a flower mosaic rebuilt tile by tile: it grows outward and blooms
+     into colour as you scroll, and the tiles lean toward the pointer (or the phone's tilt) ═══ -->
 <header class="pan" data-scroll="pan">
     <div class="pan-stage">
-        <div class="portrait pan-img" aria-hidden="true">
-            <img class="portrait-base" src="ornaments/hero/connor-base.webp" alt="" decoding="async" fetchpriority="high">
-            <!-- eye boxes and iris patches are placed in the portrait's own pixel grid (751 × 507) -->
-            <div class="eye" style="left:40.08%;top:31.76%;width:6.66%;height:4.34%;--u:3.125%">
-                <img class="iris" src="ornaments/hero/iris-r.png" alt="" style="left:22%;top:-27.27%;width:64%">
-            </div>
-            <div class="eye eye--far" style="left:27.63%;top:37.87%;width:4.93%;height:4.14%;--u:3.571%">
-                <img class="iris" src="ornaments/hero/iris-l.png" alt="" style="left:25.68%;top:-19.05%;width:75.68%">
-            </div>
-        </div>
+        <canvas class="bloom" aria-hidden="true"></canvas>
         <div class="pan-veil" aria-hidden="true"></div>
         <div class="title">
+            <img class="pfp" src="ornaments/hero/pfp.webp" alt="Connor Hood" width="72" height="72">
             <h1 class="الاسم">Social Acolyte</h1>
             <nav class="title-links" aria-label="elsewhere">
                 <a href="https://x.com/SocialAcolyte" rel="me">X</a>
@@ -167,7 +160,7 @@
     <span>© 2026</span>
 </footer>
 
-<script src="site.js?v=7" defer></script>
+<script src="site.js?v=9" defer></script>
 <script src="effects.js?v=5" defer></script>
 
 <!-- Surface easter egg — only visible when the extension is active -->
