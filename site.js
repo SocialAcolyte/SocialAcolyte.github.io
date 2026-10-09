@@ -1,5 +1,5 @@
 /*
- *  SITE LAYER // flower-tile opening, image pools, scroll scenes, portrait rotation
+ *  SITE LAYER // flower-mosaic opening, image pools, scroll scenes, portrait rotation
  *  Vanilla, no dependencies. effects.js (letter swap, click burst) runs alongside.
  */
 
@@ -166,169 +166,79 @@
         queue();
     }
 
-    /* --- Opening: the flower mosaic as live tiles --------------------
-       A random flower mosaic is cut into a grid of tiles drawn on a canvas.
-       Scrolling grows the tiles outward from the centre and blooms them
-       from black and white into colour; tiles near the pointer (or the
-       spot the phone's tilt points at) lift and turn toward it.          */
+    /* --- Opening: the flower mosaic ----------------------------------
+       A random flower mosaic opens as a soft circle on arrival and widens
+       with scroll until it fills the screen. It sits in black and white;
+       colour pools around the pointer (or wherever the phone's tilt
+       points) and the pool grows with scroll until it covers everything. */
 
-    const canvas = document.querySelector('.bloom');
-    if (canvas) {
+    const bloom = document.querySelector('.bloom');
+    if (bloom) {
         const FLOWERS = ['flower-00', 'flower-06', 'flower-07', 'flower-08', 'flower-18', 'flower-20',
             'flower-23', 'flower-44', 'flower-46', 'florence-pietra-dura', 'cuerda-seca-tiles',
             'blake-flowers', 'floral-brooch', 'akal-takht-fresco']
             .map((n) => `ornaments/flowers/${n}.jpg`);
-        const ctx = canvas.getContext('2d');
-        const img = new Image();
-        img.src = FLOWERS[Math.floor(Math.random() * FLOWERS.length)];
+        const src = FLOWERS[Math.floor(Math.random() * FLOWERS.length)];
+        const grey = bloom.querySelector('.bloom-grey');
+        const colour = bloom.querySelector('.bloom-colour');
+        grey.src = src;
+        colour.src = src;
 
-        let W = 0, H = 0, dpr = 1, T = 20, cols = 0, rows = 0;
-        let tiles = [];
-        let grey = null;                                   // black-and-white copy of the mosaic
-        const pointer = { x: -1e4, y: -1e4, tx: -1e4, ty: -1e4, active: false };
-        let intro = REDUCED ? 1 : 0;                       // the first small blossom on arrival
-        let introStart = 0;
-        let visible = true;
-        let running = false;
-
-        function layout() {
-            const r = canvas.getBoundingClientRect();
-            W = r.width; H = r.height;
-            dpr = Math.min(window.devicePixelRatio || 1, 2);
-            canvas.width = Math.round(W * dpr);
-            canvas.height = Math.round(H * dpr);
-            T = W < 720 ? 15 : Math.max(18, Math.min(26, W / 64));
-            cols = Math.ceil(W / T) + 1;
-            rows = Math.ceil(H / T) + 1;
-            const cx = W / 2, cy = H * 0.46;
-            const maxD = Math.hypot(Math.max(cx, W - cx), Math.max(cy, H - cy));
-            tiles = [];
-            for (let j = 0; j < rows; j++) {
-                for (let i = 0; i < cols; i++) {
-                    // offset alternate rows a little, like laid tesserae
-                    const x = i * T + (j % 2 ? T * 0.18 : 0), y = j * T;
-                    const d = Math.hypot(x + T / 2 - cx, y + T / 2 - cy) / maxD;
-                    tiles.push({
-                        x, y, d,
-                        jit: Math.random(),
-                        rot: (Math.random() - 0.5) * 0.09,     // settled tilt, hand-laid
-                        size: 0.86 + Math.random() * 0.1,
-                        lift: 0,
-                    });
-                }
-            }
-            makeGrey();
-            kick();
-        }
-
-        // cover-fit the mosaic to the canvas; returns source rect for a tile
-        let fit = null;
-        function computeFit() {
-            if (!img.naturalWidth) return;
-            const s = Math.max(W / img.naturalWidth, H / img.naturalHeight);
-            fit = { s, ox: (W - img.naturalWidth * s) / 2, oy: (H - img.naturalHeight * s) / 2 };
-        }
-        function makeGrey() {
-            computeFit();
-            if (!fit) return;
-            const g = document.createElement('canvas');
-            g.width = img.naturalWidth; g.height = img.naturalHeight;
-            const gc = g.getContext('2d');
-            gc.filter = 'grayscale(1) contrast(1.08)';
-            gc.drawImage(img, 0, 0);
-            grey = g;
-        }
+        // pointer position as a fraction of the screen; rests at the centre
+        const aim = { x: 0.5, y: 0.46, tx: 0.5, ty: 0.46 };
+        let intro = REDUCED ? 1 : 0, introStart = 0, visible = true, running = false;
 
         function frame(now) {
             running = false;
-            if (!fit || !grey) return;
             if (intro < 1) {
                 if (!introStart) introStart = now;
-                intro = Math.min(1, (now - introStart) / 1600);
+                intro = Math.min(1, (now - introStart) / 1800);
             }
-            pointer.x += (pointer.tx - pointer.x) * 0.18;
-            pointer.y += (pointer.ty - pointer.y) * 0.18;
+            aim.x += (aim.tx - aim.x) * 0.08;
+            aim.y += (aim.ty - aim.y) * 0.08;
 
             const p = bloomProgress;
-            // growth front: a small blossom on arrival, the full field by ~70% scroll
-            const grow = 0.36 * ease(intro) + p * 1.15;
-            const colour = p * 1.35;                        // colour wave trails the growth
-            const R = Math.max(W, H) * 0.16;
-            let busy = intro < 1 || Math.abs(pointer.tx - pointer.x) > 0.5;
+            const e = ease(intro);
+            const vmax = Math.max(window.innerWidth, window.innerHeight);
+            // the window onto the mosaic: a third of the screen on arrival, all of it by mid-scroll
+            const open = 34 * e + p * 120;                                      // % of the farthest corner
+            const pool = (0.16 + p * 1.6) * vmax * (0.6 + 0.4 * e);              // colour pool radius, px
+            bloom.style.setProperty('--open', open.toFixed(2) + '%');
+            bloom.style.setProperty('--mx', (aim.x * 100).toFixed(2) + '%');
+            bloom.style.setProperty('--my', (aim.y * 100).toFixed(2) + '%');
+            bloom.style.setProperty('--pool', pool.toFixed(1) + 'px');
+            bloom.style.setProperty('--dx', ((0.5 - aim.x) * 28).toFixed(1) + 'px');
+            bloom.style.setProperty('--dy', ((0.46 - aim.y) * 22).toFixed(1) + 'px');
+            bloom.style.setProperty('--zoom', (1.14 - 0.1 * p).toFixed(4));
 
-            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-            ctx.fillStyle = '#15120e';
-            ctx.fillRect(0, 0, W, H);
-
-            for (const t of tiles) {
-                const g = clamp01((grow - t.d * 0.92 - t.jit * 0.08) / 0.09);
-                if (g <= 0) { t.lift = 0; continue; }
-                const e = 1 - Math.pow(1 - g, 3);             // ease out
-                // pointer lens
-                const dx = t.x + T / 2 - pointer.x, dy = t.y + T / 2 - pointer.y;
-                const near = pointer.active ? Math.max(0, 1 - Math.hypot(dx, dy) / R) : 0;
-                const target = near * near;
-                t.lift += (target - t.lift) * 0.2;
-                if (Math.abs(target - t.lift) > 0.01) busy = true;
-
-                const sz = T * t.size * e * (1 + t.lift * 0.55);
-                const ang = t.rot * (2 - e) + t.lift * Math.atan2(dy, dx) * 0.25 + (1 - e) * (t.jit - 0.5) * 1.6;
-                const cx = t.x + T / 2 - (dx / (Math.hypot(dx, dy) + 1)) * t.lift * T * 0.6;
-                const cy = t.y + T / 2 - (dy / (Math.hypot(dx, dy) + 1)) * t.lift * T * 0.6;
-                // source square in the image under this tile
-                const sx = (t.x - fit.ox) / fit.s, sy = (t.y - fit.oy) / fit.s, ss = T / fit.s;
-                const c = clamp01((colour - t.d * 0.9) / 0.25);
-
-                ctx.save();
-                ctx.translate(cx, cy);
-                ctx.rotate(ang);
-                if (c < 1) ctx.drawImage(grey, sx, sy, ss, ss, -sz / 2, -sz / 2, sz, sz);
-                if (c > 0) {
-                    ctx.globalAlpha = c;
-                    ctx.drawImage(img, sx, sy, ss, ss, -sz / 2, -sz / 2, sz, sz);
-                }
-                if (t.lift > 0.05) {                           // a glint on lifted tiles
-                    ctx.globalAlpha = t.lift * 0.22;
-                    ctx.fillStyle = '#fff';
-                    ctx.fillRect(-sz / 2, -sz / 2, sz, sz);
-                }
-                ctx.restore();
-            }
-            if (busy && visible) kick();
+            const settling = intro < 1 || Math.abs(aim.tx - aim.x) + Math.abs(aim.ty - aim.y) > 0.002;
+            if (settling && visible) kick();
         }
-
         function kick() {
             if (!running && visible) { running = true; requestAnimationFrame(frame); }
         }
 
-        img.addEventListener('load', () => { layout(); }, { once: true });
-        if (img.complete && img.naturalWidth) layout();
-        window.addEventListener('resize', () => { clearTimeout(layout.t); layout.t = setTimeout(layout, 150); }, { passive: true });
+        grey.addEventListener('load', kick, { once: true });
+        if (grey.complete) kick();
         window.addEventListener('scroll', kick, { passive: true });
-        new IntersectionObserver((en) => { visible = en[0].isIntersecting; kick(); }).observe(canvas);
+        new IntersectionObserver((en) => { visible = en[0].isIntersecting; kick(); }).observe(bloom);
 
         if (!REDUCED) {
             window.addEventListener('pointermove', (ev) => {
                 if (ev.pointerType === 'touch') return;
-                const r = canvas.getBoundingClientRect();
-                pointer.tx = ev.clientX - r.left; pointer.ty = ev.clientY - r.top;
-                if (!pointer.active) { pointer.x = pointer.tx; pointer.y = pointer.ty; }
-                pointer.active = true;
+                aim.tx = ev.clientX / window.innerWidth;
+                aim.ty = ev.clientY / window.innerHeight;
                 kick();
             }, { passive: true });
-            document.addEventListener('mouseleave', () => { pointer.active = false; kick(); });
+            document.addEventListener('mouseleave', () => { aim.tx = 0.5; aim.ty = 0.46; kick(); });
 
-            // phone: tilt steers a point across the mosaic, from however it was first held
+            // phone: tilt steers the colour pool, from however it was first held
             let base = null;
             const onTilt = (ev) => {
                 if (ev.beta == null || ev.gamma == null) return;
                 if (!base) base = { b: ev.beta, g: ev.gamma };
-                const nx = Math.max(-1, Math.min(1, (ev.gamma - base.g) / 20));
-                const ny = Math.max(-1, Math.min(1, (ev.beta - base.b) / 20));
-                pointer.tx = W / 2 + nx * W * 0.45;
-                pointer.ty = H * 0.46 + ny * H * 0.4;
-                if (!pointer.active) { pointer.x = pointer.tx; pointer.y = pointer.ty; }
-                pointer.active = true;
+                aim.tx = 0.5 + Math.max(-1, Math.min(1, (ev.gamma - base.g) / 20)) * 0.45;
+                aim.ty = 0.46 + Math.max(-1, Math.min(1, (ev.beta - base.b) / 20)) * 0.4;
                 kick();
             };
             const listenTilt = () => window.addEventListener('deviceorientation', onTilt, { passive: true });
