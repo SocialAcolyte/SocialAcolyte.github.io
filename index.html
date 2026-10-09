@@ -14,14 +14,23 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!-- ?v= is a cache-buster: bump it whenever site.css / site.js change -->
-    <link rel="stylesheet" href="site.css?v=8">
+    <link rel="stylesheet" href="site.css?v=9">
 </head>
 <body>
 
 <!-- ═══ Opening — the mosaic portrait, pulling back as you scroll ═══ -->
 <header class="pan" data-scroll="pan">
     <div class="pan-stage">
-        <img class="pan-img" src="ornaments/hero/connor-mosaic.webp" alt="" decoding="async" fetchpriority="high" aria-hidden="true">
+        <div class="portrait pan-img" aria-hidden="true">
+            <img class="portrait-base" src="ornaments/hero/connor-base.webp" alt="" decoding="async" fetchpriority="high">
+            <!-- eye boxes and iris patches are placed in the portrait's own pixel grid (751 × 507) -->
+            <div class="eye" style="left:40.08%;top:31.76%;width:6.66%;height:4.34%;--u:3.125%">
+                <img class="iris" src="ornaments/hero/iris-r.png" alt="" style="left:22%;top:-27.27%;width:64%">
+            </div>
+            <div class="eye eye--far" style="left:27.63%;top:37.87%;width:4.93%;height:4.14%;--u:3.571%">
+                <img class="iris" src="ornaments/hero/iris-l.png" alt="" style="left:25.68%;top:-19.05%;width:75.68%">
+            </div>
+        </div>
         <div class="pan-veil" aria-hidden="true"></div>
         <div class="title">
             <h1 class="الاسم">Social Acolyte</h1>
@@ -158,7 +167,7 @@
     <span>© 2026</span>
 </footer>
 
-<script src="site.js?v=6" defer></script>
+<script src="site.js?v=7" defer></script>
 <script src="effects.js?v=5" defer></script>
 
 <!-- Surface easter egg — only visible when the extension is active -->

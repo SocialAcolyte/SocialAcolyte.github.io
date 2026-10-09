@@ -285,12 +285,32 @@ a.row:hover .kd, a.row:hover .yr { color: var(--paper-2); }
   top: 0;
   left: 0;
   height: 100%;
-  width: auto;
-  max-width: none;
+  aspect-ratio: 751 / 507;
   transform-origin: 0 0;
   transform: translate3d(var(--tx, 0px), var(--ty, 0px), 0) scale(var(--s, 1));
-  filter: saturate(1.05) contrast(1.03);
+  /* starts in black and white; colour arrives as you scroll (--g set by site.js) */
+  filter: grayscale(var(--g, 1)) contrast(1.04);
   will-change: transform;
+}
+.portrait-base { width: 100%; height: 100%; max-width: none; }
+
+/* Eyes: each iris slides inside an elliptical eye opening.
+   --gx/--gy are gaze offsets in portrait pixels; --u converts one portrait
+   pixel into a percentage of that iris image's own width. */
+.eye {
+  position: absolute;
+  clip-path: ellipse(50% 50% at 50% 50%);
+}
+.iris {
+  position: absolute;
+  height: auto;
+  max-width: none;
+  transform: translate(calc(var(--gx, 0) * var(--u)), calc(var(--gy, 0) * var(--u)));
+  will-change: transform;
+}
+.eye--far .iris {
+  /* the far eye is turned away, so it travels less */
+  transform: translate(calc(var(--gx, 0) * .75 * var(--u)), calc(var(--gy, 0) * .85 * var(--u)));
 }
 .pan-veil {
   position: absolute;

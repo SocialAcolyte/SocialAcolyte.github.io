@@ -124,23 +124,24 @@
         const vh = window.innerHeight;
         const vw = document.documentElement.clientWidth;
 
-        // opening: start close on the face, pull back to the whole portrait
-        if (pan && panImg && panImg.naturalWidth) {
+        // opening: the whole portrait in black and white, easing in and warming to colour
+        if (pan && panImg) {
             const r = pan.getBoundingClientRect();
             const p = clamp01(-r.top / (r.height - vh));
             const e = ease(p);
-            const ratio = panImg.naturalWidth / panImg.naturalHeight;
+            const ratio = 751 / 507;
             const fit = Math.max(1, vw / (vh * ratio));           // scale needed to cover
-            const s = fit * (1.35 - 0.35 * e);
+            const s = fit * (1 + 0.1 * e);
             const w = vh * ratio * s, h = vh * s;
-            // the face sits left of centre; drift toward the middle as we pull back
-            const fx = 0.38 + 0.12 * e, fy = 0.42 + 0.06 * e;
+            // keep the face centred: on narrow screens it sits left of the image centre
+            const fx = 0.38 + 0.04 * e, fy = 0.42;
             const tx = Math.min(0, Math.max(vw - w, vw / 2 - fx * w));
             const ty = Math.min(0, Math.max(vh - h, vh / 2 - fy * h));
             pan.style.setProperty('--p', p.toFixed(3));
             panImg.style.setProperty('--s', s.toFixed(4));
             panImg.style.setProperty('--tx', tx.toFixed(1) + 'px');
             panImg.style.setProperty('--ty', ty.toFixed(1) + 'px');
+            panImg.style.setProperty('--g', (1 - clamp01(p * 1.6)).toFixed(3));
         }
 
         // bands: parallax drift + bloom into colour near the middle of the screen
@@ -172,12 +173,69 @@
     } else {
         window.addEventListener('scroll', queue, { passive: true });
         window.addEventListener('resize', () => { sizeProcession(); queue(); }, { passive: true });
-        panImg?.addEventListener('load', queue);
-        if (panImg?.complete) queue();
-        panImg?.decode?.().then(queue, () => {});
         track?.querySelectorAll('img').forEach((i) => i.addEventListener('load', () => { sizeProcession(); queue(); }, { once: true }));
         sizeProcession();
         queue();
+    }
+
+    /* --- Eyes: follow the pointer, or the phone's tilt ---------------
+       Gaze is in portrait pixels: (0,0) is where the irises sit in the
+       original (glancing right). Looking straight out is about -9px. */
+
+    const irisHost = panImg;
+    if (irisHost && !REDUCED) {
+        const REST = { x: -9, y: 0 };
+        const RANGE = { left: -15, right: 1, up: -3.2, down: 3.5 };
+        const target = { x: REST.x, y: REST.y };
+        const gaze = { x: REST.x, y: REST.y };
+        const face = { x: 277 / 751, y: 187 / 507 };          // between the eyes, as a fraction of the portrait
+
+        function aimAt(nx, ny) {                              // nx, ny in -1..1
+            const x = nx < 0 ? REST.x + nx * (REST.x - RANGE.left) : REST.x + nx * (RANGE.right - REST.x);
+            target.x = Math.max(RANGE.left, Math.min(RANGE.right, x));
+            target.y = Math.max(RANGE.up, Math.min(RANGE.down, ny * (ny < 0 ? -RANGE.up : RANGE.down)));
+        }
+
+        window.addEventListener('pointermove', (ev) => {
+            if (ev.pointerType === 'touch') return;
+            const r = irisHost.getBoundingClientRect();
+            const fx = r.left + face.x * r.width, fy = r.top + face.y * r.height;
+            aimAt((ev.clientX - fx) / (window.innerWidth * 0.45), (ev.clientY - fy) / (window.innerHeight * 0.45));
+        }, { passive: true });
+        document.addEventListener('mouseleave', () => aimAt(0, 0));
+
+        // phone tilt, measured from however it was held at first reading
+        let baseline = null;
+        function onTilt(ev) {
+            if (ev.beta == null || ev.gamma == null) return;
+            if (!baseline) baseline = { b: ev.beta, g: ev.gamma };
+            aimAt((ev.gamma - baseline.g) / 22, (ev.beta - baseline.b) / 22);
+        }
+        const listenTilt = () => window.addEventListener('deviceorientation', onTilt, { passive: true });
+        if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+            // iOS asks permission, and only from a tap
+            window.addEventListener('touchend', function ask() {
+                DeviceOrientationEvent.requestPermission().then((s) => { if (s === 'granted') listenTilt(); }).catch(() => {});
+                window.removeEventListener('touchend', ask);
+            }, { passive: true });
+        } else {
+            listenTilt();
+        }
+
+        let gazeVisible = true;
+        new IntersectionObserver((en) => { gazeVisible = en[0].isIntersecting; if (gazeVisible) requestAnimationFrame(look); })
+            .observe(pan);
+
+        function look() {
+            gaze.x += (target.x - gaze.x) * 0.12;
+            gaze.y += (target.y - gaze.y) * 0.12;
+            irisHost.style.setProperty('--gx', gaze.x.toFixed(2));
+            irisHost.style.setProperty('--gy', gaze.y.toFixed(2));
+            if (gazeVisible) requestAnimationFrame(look);
+        }
+        requestAnimationFrame(look);
+    } else if (irisHost) {
+        irisHost.style.setProperty('--gx', '-9');
     }
 
     /* --- Surface extension easter egg -------------------------------- */
