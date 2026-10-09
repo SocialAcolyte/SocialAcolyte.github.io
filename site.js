@@ -174,8 +174,10 @@
 
     const canvas = document.querySelector('.bloom');
     if (canvas) {
-        const FLOWERS = ['00', '06', '07', '08', '18', '20', '23', '44', '46']
-            .map((n) => `ornaments/flowers/flower-${n}.jpg`);
+        const FLOWERS = ['flower-00', 'flower-06', 'flower-07', 'flower-08', 'flower-18', 'flower-20',
+            'flower-23', 'flower-44', 'flower-46', 'florence-pietra-dura', 'cuerda-seca-tiles',
+            'blake-flowers', 'floral-brooch', 'akal-takht-fresco']
+            .map((n) => `ornaments/flowers/${n}.jpg`);
         const ctx = canvas.getContext('2d');
         const img = new Image();
         img.src = FLOWERS[Math.floor(Math.random() * FLOWERS.length)];
