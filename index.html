@@ -14,7 +14,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!-- ?v= is a cache-buster: bump it whenever site.css / site.js change -->
-    <link rel="stylesheet" href="site.css?v=11">
+    <link rel="stylesheet" href="site.css?v=15">
 </head>
 <body>
 
@@ -96,6 +96,19 @@
         <img src="ornaments/stickers/armor.png" alt="" loading="lazy" decoding="async">
     </section>
 
+    <!-- ═══ Wrap — a few lines set in JS around a drawing you can pick up (wrap.js, pretext) ═══ -->
+    <section class="wrap" data-wrap aria-label="About">
+        <figure class="wrap-fig"><img src="ornaments/stickers/angel.png" alt="" width="453" height="420" loading="lazy" decoding="async"></figure>
+        <p class="wrap-src">
+            I work where data meets machines. Datasets that teach a robot to read a hand in motion,
+            rigs that capture the motion in the first place, and the quiet curation in between:
+            deciding what is worth learning from. The road to general intelligence is mostly
+            unglamorous. Labels, calibration, tolerances. I would rather make the data right than
+            make the model loud.
+        </p>
+        <p class="wrap-note">Set line by line in JavaScript around the drawing's outline. Pick it up.</p>
+    </section>
+
     <!-- ═══ Mosaic band — mono until it reaches the middle of the screen, then blooms into colour ═══ -->
     <section class="band band--tall" data-scroll="band">
         <img class="band-img" src="ornaments/lg/galla-placidia-stars.jpg" alt="" loading="lazy" decoding="async">
@@ -127,6 +140,25 @@
         <img class="band-img" src="ornaments/lg/alexander-mosaic.jpg" alt="" loading="lazy" decoding="async">
     </section>
 
+
+    <!-- ═══ Details — ornate things spiral out of a stack into one rosette as you scroll (details.js) ═══ -->
+    <section class="details" data-details aria-label="God is in the details of your labour">
+        <div class="details-stage">
+            <div class="details-word"><h2>God is in the details of your labour</h2></div>
+            <figure class="d-card"><img src="ornaments/details/north-germany-hildesheim-16th-century-leaf-from.webp" alt="" loading="lazy" decoding="async"></figure>
+            <figure class="d-card"><img src="ornaments/details/tile-panel-met-lc-17-190-2085.webp" alt="" loading="lazy" decoding="async"></figure>
+            <figure class="d-card"><img src="ornaments/details/isfahan-lotfollah-mosque-ceiling-symmetric.webp" alt="" loading="lazy" decoding="async"></figure>
+            <figure class="d-card"><img src="ornaments/details/saint-joseph-church-macon-ga-stained-glass-rose.webp" alt="" loading="lazy" decoding="async"></figure>
+            <figure class="d-card"><img src="ornaments/details/pfauenfeder-detail-20230511-rm-163536.webp" alt="" loading="lazy" decoding="async"></figure>
+            <figure class="d-card"><img src="ornaments/details/langobardic-fibula-with-an-enamel-bust-walters-4.webp" alt="" loading="lazy" decoding="async"></figure>
+            <figure class="d-card"><img src="ornaments/details/prague-astronomical-clock-detail-2.webp" alt="" loading="lazy" decoding="async"></figure>
+            <figure class="d-card"><img src="ornaments/details/illuminated-frontispiece-sarlawh-from-the-shahna.webp" alt="" loading="lazy" decoding="async"></figure>
+            <figure class="d-card"><img src="ornaments/details/caucasus-faberg-egg-detail.webp" alt="" loading="lazy" decoding="async"></figure>
+            <figure class="d-card"><img src="ornaments/details/napoleonic-faberg-egg-detail.webp" alt="" loading="lazy" decoding="async"></figure>
+            <figure class="d-card"><img src="ornaments/details/inhabited-initial-c-google-art-project.webp" alt="" loading="lazy" decoding="async"></figure>
+            <figure class="d-card"><img src="ornaments/details/meister-des-book-of-kells-001.webp" alt="" loading="lazy" decoding="async"></figure>
+        </div>
+    </section>
 
     <!-- ═══ The person — full-bleed portrait with stacked lines ═══
          Swap the pool images for a black-and-white photo of you when you have one. -->
@@ -166,6 +198,8 @@
 
 <script src="site.js?v=12" defer></script>
 <script src="effects.js?v=5" defer></script>
+<script type="module" src="wrap.js?v=1"></script>
+<script src="details.js?v=1" defer></script>
 
 <!-- Surface easter egg — only visible when the extension is active -->
 <a class="srf-gem" href="https://www.theatlantic.com/magazine/archive/1945/07/as-we-may-think/303881/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1">

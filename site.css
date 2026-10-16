@@ -361,6 +361,109 @@ a.row:hover .kd, a.row:hover .yr { color: var(--paper-2); }
   mix-blend-mode: multiply;   /* the drawing's own paper melts into the page */
 }
 
+/* ─── Wrap — words set around a drawing you can pick up (wrap.js) ─────
+   The <p> is the real text and stays in the DOM; once wrap.js has laid it
+   out, the canvas takes over visually. Without JS you get the drawing
+   floated beside the paragraph, which is the page working as designed. */
+
+.wrap {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 14svh var(--gutter);
+  background: var(--paper);
+}
+.wrap-fig { float: left; width: min(40%, 320px); margin: 0 clamp(16px, 3vw, 36px) 12px 0; }
+.wrap-fig img {
+  width: 100%;
+  height: auto;
+  filter: var(--mono);
+  mix-blend-mode: multiply;
+}
+.wrap-src {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(22px, 3vw, 34px);
+  line-height: 1.3;
+  font-weight: 400;
+  color: var(--ink);
+}
+.wrap-canvas { display: none; mix-blend-mode: multiply; }
+.wrap-note {
+  clear: both;
+  margin: 28px 0 0;
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  display: none;
+}
+.wrap.is-flowing .wrap-fig { display: none; }
+.wrap.is-flowing .wrap-canvas { display: block; width: 100%; -webkit-user-select: none; user-select: none; }
+.wrap.is-flowing .wrap-note { display: block; }
+.wrap.is-flowing .wrap-canvas.can-grab { cursor: grab; }
+.wrap.is-flowing .wrap-canvas.is-held { cursor: grabbing; }
+.wrap.is-flowing .wrap-src {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+.wrap { position: relative; }
+
+/* ─── Details — ornate things spiral out into one rosette (details.js) ───
+   Pinned stage, everything centred and sized from the viewport (--cw, --ch,
+   --ring are set by the script), so nothing is cut off. Without JS the cards
+   are a plain grid; with reduced motion the finished ring is shown. */
+
+.details { position: relative; height: 340svh; background: var(--paper); }
+.details-stage {
+  position: sticky; top: 0; height: 100svh; overflow: hidden;
+  display: grid; place-items: center;
+  --cw: 150px; --ch: 200px; --ring: 260px;
+}
+.details-word {
+  grid-area: 1 / 1; z-index: 1; text-align: center; pointer-events: none;
+  opacity: var(--formed, 0);
+  transform: scale(calc(.94 + var(--formed, 0) * .06));
+}
+.details-word h2 {
+  margin: 0 auto; font-family: var(--serif); font-weight: 400; letter-spacing: -.01em;
+  font-size: calc(var(--ring) * .2); line-height: 1.02; max-width: calc(var(--ring) * 1.05);
+  text-wrap: balance;
+}
+.details-word h2 em { font-style: italic; }
+.details-word p {
+  margin: .9em 0 0; font-family: var(--sans); font-size: 11px; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--ink-3);
+}
+.d-card {
+  position: absolute; left: 50%; top: 50%;
+  width: var(--cw); height: var(--ch);
+  margin: calc(var(--ch) / -2) 0 0 calc(var(--cw) / -2);
+  padding: calc(var(--cw) * .035);
+  background: #fbf8f0;
+  border: 1px solid rgba(20, 19, 18, .28);
+  box-shadow: 0 1px 2px rgba(20, 19, 18, .18), 0 10px 26px -12px rgba(20, 19, 18, .45);
+  will-change: transform;
+}
+.d-card img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  filter: grayscale(calc(1 - var(--c, 0))) contrast(1.04);
+}
+/* no JS: a quiet grid instead of a stack in the middle of the page */
+.details:not(.is-live) { height: auto; padding: 12svh var(--gutter); }
+.details:not(.is-live) .details-stage { position: static; height: auto; display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; }
+.details:not(.is-live) .d-card { position: static; margin: 0; width: 150px; height: 200px; }
+.details:not(.is-live) .details-word { flex-basis: 100%; opacity: 1; }
+.details:not(.is-live) .d-card img { filter: none; }
+@media (prefers-reduced-motion: reduce) {
+  .details.is-live { height: auto; }
+  .details.is-live .details-stage { position: relative; height: 100svh; }
+  .d-card img { filter: none; }
+}
+
 /* ─── Mosaic bands ────────────────────────────────────────────── */
 
 .band {
