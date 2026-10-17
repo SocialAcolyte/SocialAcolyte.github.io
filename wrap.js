@@ -164,7 +164,7 @@ async function boot() {
       P = api.prepareWithSegments(text, type.spec);
     } else type = next;
 
-    sp.w = Math.round(Math.min(colW * 0.4, 380));
+    sp.w = Math.round(Math.min(colW * (colW < 600 ? 0.46 : 0.4), 380));
     sp.h = Math.round(sp.w * S.aspect);
 
     const natural = api.layout(P, colW, type.lh).height;
@@ -195,11 +195,29 @@ async function boot() {
   // returns it to zero after release.
   const off = { x: 0, y: 0, vx: 0, vy: 0 };
   let held = false;
+  // Phone orientation: tilting slides the drawing like something on a tray,
+  // and the words re-flow around it as it goes.
+  let tilt = { x: 0, y: 0, active: false };
+  import('./tilt.js?v=2').then((m) => {
+    tilt = m.default;
+    // On a phone the footnote says how to play.
+    const note = root.querySelector('.wrap-note');
+    const say = () => { if (note) note.textContent = "Set line by line in JavaScript around the drawing's outline. Tilt your phone, or pick it up."; };
+    tilt.active ? say() : tilt.listeners.add(say);
+  }).catch(() => {});
   let lastT = 0;
 
+  let tu = 0.5;   // eased tilt target, 0..1 across the bounds
+  let tv = 0.5;
   function drift(t) {
-    const u = 0.5 + 0.5 * Math.sin(t * 0.00022);
-    const v = 0.5 + 0.5 * Math.sin(t * 0.00031 + 1.3);
+    let u = 0.5 + 0.5 * Math.sin(t * 0.00022);
+    let v = 0.5 + 0.5 * Math.sin(t * 0.00031 + 1.3);
+    if (tilt.active) {
+      tu += ((0.5 + tilt.x * 0.5) - tu) * 0.08;
+      tv += ((0.5 + tilt.y * 0.5) - tv) * 0.08;
+      u = tu;
+      v = tv;
+    }
     return {
       x: bounds.x0 + (bounds.x1 - bounds.x0) * u,
       y: bounds.y0 + (bounds.y1 - bounds.y0) * v

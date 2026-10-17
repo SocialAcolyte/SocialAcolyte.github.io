@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>drop-cap-gilt — a gilded opening letter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="drop-cap-gilt.css"><style>
+  :root{
+    --paper:#f3f0e8; --paper-2:#e9e5da; --ink:#141312; --ink-2:#4a4744; --ink-3:#8a857d;
+    --rule:#cfcac0; --accent:#c96f4a;
+    --serif:'Cormorant Garamond',Georgia,serif; --sans:Inter,system-ui,sans-serif;
+    --gutter:clamp(20px,6vw,32px);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:19px;line-height:1.55;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+  .masthead{border-bottom:1px solid var(--rule);padding:14px var(--gutter);display:flex;justify-content:space-between;align-items:baseline;font-family:var(--sans);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
+  .masthead b{color:var(--ink);font-weight:500}
+  article{max-width:38rem;margin:0 auto;padding:clamp(28px,7vh,72px) var(--gutter) 20vh}
+  .kicker{font-family:var(--sans);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin:0 0 1.2em}
+  h1{font-weight:500;font-size:clamp(40px,9vw,76px);line-height:1.02;letter-spacing:-.01em;margin:0 0 .35em;text-wrap:balance}
+  .standfirst{font-style:italic;font-size:1.25em;line-height:1.4;color:var(--ink-2);margin:0 0 1.6em;text-wrap:pretty}
+  .byline{display:flex;gap:12px;align-items:baseline;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:12px 0;margin:0 0 2.2em;font-family:var(--sans);font-size:12px;letter-spacing:.06em;color:var(--ink-3)}
+  .byline b{color:var(--ink);font-weight:500}
+  article p.body{margin:0 0 1.4em;text-wrap:pretty}
+  .rule{border:0;border-top:1px solid var(--rule);margin:3em auto;width:8em}
+  .note{font-family:var(--sans);font-size:12.5px;line-height:1.7;color:var(--ink-3);margin:0}
+  .second{--dcg-gold:#a35c2a;--dcg-gold-light:#e8a266;--dcg-gold-deep:#6e3a16;--dcg-vine:#6e3a16}
+</style></head><body>
+<header class="masthead"><b>The Gilt Press</b><span>Vol. IV &middot; No. 2</span></header>
+<article>
+  <p class="kicker">Illuminated openings</p>
+  <h1>The Letter That Earned Its Gold</h1>
+  <p class="standfirst">In the old scriptoria, the first letter of a story was left grey until the very end &mdash; gilded last, as a reward for finishing the page.</p>
+  <div class="byline"><b>E. Vane</b><span>Illustrated openings &middot; 6 min</span></div>
+
+  <p class="body" data-drop-cap>Once, every book began with a small ceremony. The scribe would write the whole page in plain ink, leaving the first letter grey and unadorned, and only when the last line was dry would the gilder arrive with gold leaf and a steady hand. As it enters the view, it earns its colour: the grey warms, a band of light passes across the serif, and a vine draws itself beneath the opening line.</p>
+  <p class="body">The effect is pure progressive enhancement. Without scripts the paragraph is simply a paragraph; with them, the opening letter is wrapped, floated, and gilded the first time it enters the viewport. The sweep and the vine are paint-only transitions, so the page never shifts beneath your thumb.</p>
+  <p class="body">Readers who prefer reduced motion see the finished state at once &mdash; the gilded cap, the drawn vine &mdash; with nothing moving on its own. The decoration is hidden from assistive technology, and the words themselves are never touched.</p>
+
+  <hr class="rule">
+
+  <p class="kicker">A second telling, in copper</p>
+  <p class="body second" data-drop-cap data-threshold="0.5">The same component, re-themed with custom properties: copper instead of gold, a higher scroll threshold before it gilds. Each opening on the page fires exactly once, the moment enough of its paragraph is visible, and then rests &mdash; calm, finished, and cheap when idle.</p>
+  <p class="note">drop-cap-gilt &middot; vanilla HTML/CSS/JS, no build step &middot; copy the folder, add <span style="white-space:nowrap">data-drop-cap</span> to any opening paragraph.</p>
+</article>
+<script type="module" src="drop-cap-gilt.js"></script>
+</body></html>

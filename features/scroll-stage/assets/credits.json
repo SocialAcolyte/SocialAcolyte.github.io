@@ -1,0 +1,44 @@
+[
+  {
+    "file": "ornaments/prints/great-wave-off-kanagawa2.webp",
+    "small": "ornaments/prints/sm/great-wave-off-kanagawa2.jpg",
+    "source": "File:Great Wave off Kanagawa2.jpg",
+    "url": "https://commons.wikimedia.org/wiki/File:Great_Wave_off_Kanagawa2.jpg",
+    "license": "Public domain",
+    "author": "After Katsushika Hokusai",
+    "width": 2560,
+    "height": 1752,
+    "used_as": [
+      "wave-great.webp"
+    ],
+    "note": "sky flood-filled away, dark horizon haze removed, cartouche erased"
+  },
+  {
+    "file": "ornaments/prints/print-great-wave-at-satta-beach-suruga-from-the.webp",
+    "small": "ornaments/prints/sm/print-great-wave-at-satta-beach-suruga-from-the.jpg",
+    "source": "File:Print, Great Wave at Satta Beach, Suruga, from the series The Thirty-Six Views of Fuji (Fuji Sanjuroku Kei), 1858 (CH 18562709).jpg",
+    "url": "https://commons.wikimedia.org/wiki/File:Print,_Great_Wave_at_Satta_Beach,_Suruga,_from_the_series_The_Thirty-Six_Views_of_Fuji_(Fuji_Sanjuroku_Kei),_1858_(CH_18562709).jpg",
+    "license": "Public domain",
+    "author": "Utagawa Hiroshige",
+    "width": 1775,
+    "height": 2560,
+    "used_as": [
+      "wave-curl.webp",
+      "birds.webp"
+    ],
+    "note": "cut from the sky with a flood fill; cropped"
+  },
+  {
+    "file": "assets/ship-ink.webp",
+    "source": "File:US Navy 031020-O-0000X-001 Period engraving of the frigate USS Sabine.jpg",
+    "url": "https://commons.wikimedia.org/wiki/File:US_Navy_031020-O-0000X-001_Period_engraving_of_the_frigate_USS_Sabine.jpg",
+    "license": "Public domain",
+    "author": "Harper's Weekly, 16 March 1861 (wood engraving); U.S. Navy / Naval Historical Center file photo",
+    "width": 1920,
+    "height": 1581,
+    "used_as": [
+      "ship-ink.webp"
+    ],
+    "note": "fetched as the 1920px Commons thumbnail (original 2989x2461); traced silhouette, levels to whiten the sky hatching, caption cropped; saved as an ink-only alpha mask so the page can colour the ink"
+  }
+]

@@ -1,0 +1,132 @@
+/* ─── Ink pad — a signature field in real ink (ink-pad.js) ───────────
+   Without JS the fallback text field is the control. With JS the surface
+   takes the pen; the bar below holds Type instead / Undo / Clear. */
+
+.ip {
+  --ip-line-y: 70%;
+  position: relative;
+  color: var(--ink, #141312);
+}
+.ip-surface {
+  position: relative;
+  display: block;
+  background: var(--ip-paper, transparent);
+  touch-action: none;
+  user-select: none; -webkit-user-select: none; -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Ccircle cx='8' cy='8' r='1.6' fill='%23141312'/%3E%3Ccircle cx='8' cy='8' r='5' fill='none' stroke='%23141312' stroke-opacity='.28'/%3E%3C/svg%3E") 8 8, crosshair;
+}
+.ip--signature .ip-surface { aspect-ratio: 2 / 1; }
+@media (min-width: 640px) { .ip--signature .ip-surface { aspect-ratio: 3 / 1; } }
+.ip.is-pointer .ip-surface:focus-visible { box-shadow: none; }
+.ip-surface:focus-visible { box-shadow: 0 0 0 1px var(--ink-3, #8a857d), 0 0 0 5px color-mix(in srgb, var(--ink-3, #8a857d) 14%, transparent); border-radius: 3px; }
+.ip:not(.is-live) .ip-surface { cursor: auto; touch-action: auto; }
+
+/* the line and the mark */
+.ip-line {
+  position: absolute; left: 7%; right: 6%; top: var(--ip-line-y); height: 1px;
+  background: var(--ip-rule, var(--ink-3, #8a857d)); opacity: .55;
+  transition: background-color .4s ease, opacity .4s ease;
+}
+.ip-x {
+  position: absolute; left: 7%; bottom: calc(100% - var(--ip-line-y) + 4px);
+  font: 400 clamp(24px, 3.2vw, 32px)/1 var(--serif, "Cormorant Garamond", Georgia, serif);
+  color: var(--ink-2, #4a4744); pointer-events: none;
+  transition: opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1), color .4s ease;
+}
+.ip.has-ink .ip-x, .ip.is-typing .ip-x { opacity: 0; transform: translateY(2px); }
+.ip.is-invalid .ip-line { background: var(--accent, #c96f4a); opacity: .9; }
+.ip.is-invalid .ip-x { color: var(--accent, #c96f4a); }
+
+/* ink */
+.ip-ink { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.ip-text { display: none; }
+.ip.is-typing .ip-text { display: block; }
+.ip.is-typing .ip-ink:not(.ip-text) { visibility: hidden; }
+.ip.is-typing .ip-surface { cursor: default; }
+
+/* the submitted value: real, validatable, out of sight */
+.ip-value {
+  position: absolute; left: 50%; bottom: 0; width: 1px; height: 1px;
+  margin: 0; padding: 0; border: 0; opacity: 0; pointer-events: none;
+}
+
+/* the bar */
+.ip-bar {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0 18px; min-height: 44px;
+  font: 500 11px/1 var(--sans, Inter, system-ui, sans-serif);
+  letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3, #8a857d);
+}
+.ip-btn {
+  appearance: none; background: none; border: 0; margin: 0; padding: 15px 2px;
+  font: inherit; letter-spacing: inherit; text-transform: inherit; color: inherit;
+  cursor: pointer; border-radius: 2px; transition: color .25s ease, opacity .25s ease;
+}
+@media (hover: hover) { .ip-btn:hover:not(:disabled) { color: var(--ink, #141312); } }
+.ip-btn:focus-visible { outline: 1px solid var(--ink-3, #8a857d); outline-offset: 2px; }
+.ip-btn:disabled { opacity: .35; cursor: default; }
+.ip-undo { margin-left: auto; }
+
+/* the pen switch, for big surfaces on touch screens */
+.ip-pen { order: -2; display: inline-flex; align-items: center; gap: 7px; }
+.ip-pen[hidden] { display: none; }
+.ip-pen svg { flex: none; transition: transform .45s cubic-bezier(.2,.7,.2,1); }
+.ip .ip-pen[aria-pressed="true"] { color: var(--accent, #c96f4a); }
+.ip-pen[aria-pressed="true"] svg { transform: rotate(-24deg); }
+.ip-pen.is-nudge { color: var(--ink, #141312); }
+.ip-pen.is-nudge svg { animation: ip-nudge .9s cubic-bezier(.2,.7,.2,1) 2; }
+@keyframes ip-nudge { 0%, 100% { transform: none; } 40% { transform: translateY(-2px) rotate(-12deg); } }
+.ip.is-guarded:not(.is-armed) .ip-surface { touch-action: pan-x pan-y pinch-zoom; }
+.ip-surface::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none; border-radius: inherit; opacity: 0;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent, #c96f4a) 65%, transparent),
+              inset 0 0 28px color-mix(in srgb, var(--accent, #c96f4a) 16%, transparent);
+  transition: opacity .5s cubic-bezier(.2,.7,.2,1);
+}
+.ip.is-armed .ip-surface::after { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .ip-pen svg, .ip-surface::after { transition: none; }
+  .ip-pen.is-nudge svg { animation: none; }
+}
+.ip-hint {
+  font: italic 400 16px/1.2 var(--serif, "Cormorant Garamond", Georgia, serif);
+  letter-spacing: 0; text-transform: none; color: var(--accent, #c96f4a);
+}
+.ip-hint:empty { display: none; }
+.ip-hint { order: 10; flex: 1 0 100%; padding: 2px 0 10px; }
+.ip-typed {
+  display: none; flex: 1 1 10em; min-width: 0; order: -1;
+  font: 400 16px/1.3 var(--sans, Inter, system-ui, sans-serif); letter-spacing: 0; text-transform: none;
+  color: var(--ink, #141312); background: transparent;
+  border: 0; border-bottom: 1px solid var(--rule, #cfcac0); border-radius: 0; padding: 9px 0 7px;
+}
+.ip-typed::placeholder { color: var(--ink-3, #8a857d); }
+.ip-typed:focus { outline: none; border-bottom-color: var(--ink-2, #4a4744); }
+.ip.is-typing .ip-typed { display: block; }
+.ip.is-typing .ip-undo { visibility: hidden; }
+.ip.is-live .ip-fallback:not(.ip-typed) { display: none; }
+/* without JS the fallback field is styled like the typed field, and shown */
+.ip-fallback {
+  width: 100%; font: 400 16px/1.3 var(--sans, Inter, system-ui, sans-serif); color: var(--ink, #141312);
+  background: transparent; border: 0; border-bottom: 1px solid var(--rule, #cfcac0); padding: 9px 0 7px;
+}
+
+/* the blotter */
+.ip-blotter {
+  position: absolute; inset: 3px; z-index: 2; pointer-events: none; overflow: hidden; border-radius: 2px;
+  background: var(--ip-blotter-image, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9 .35' numOctaves='3' seed='7'/%3E%3CfeColorMatrix values='0 0 0 0 .45 0 0 0 0 .36 0 0 0 0 .33 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23f)'/%3E%3C/svg%3E")) center / var(--ip-blotter-size, 240px), var(--ip-blotter, #ead8cd);
+  background-blend-mode: multiply;
+  transform-origin: 30% 60%;
+}
+.ip-blot-ink {
+  position: absolute; left: -3px; top: -3px; width: calc(100% + 6px); height: calc(100% + 6px);
+  mix-blend-mode: multiply; opacity: 0;
+}
+
+/* margin notes: the page itself is the paper */
+.ip--margin .ip-surface > img { display: block; width: 100%; height: auto; pointer-events: none; -webkit-user-drag: none; user-select: none; }
+
+.ip-sr {
+  position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+}

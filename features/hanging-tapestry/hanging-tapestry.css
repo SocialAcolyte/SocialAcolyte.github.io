@@ -1,0 +1,78 @@
+/* ─── hanging-tapestry // woven cloth on a turned rod (hanging-tapestry.js) ───
+   The figure is the wall space the hanging occupies: it fills its container's
+   width and the <img> inside sets the cloth's proportions. Once the script
+   runs, the figure is padded for the cord and rod above, the finials either
+   side and the fringe below; the canvas and the hardware lie over all of it.
+   Without JS the figure is simply the image. */
+
+[data-hanging-tapestry] {
+  position: relative; margin: 0; box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+[data-hanging-tapestry] > img { display: block; width: 100%; height: auto; }
+
+/* before the script has measured: roughly the right room, so little moves */
+[data-hanging-tapestry].ht-on { padding: 12.4% 7% 6%; }
+
+/* sideways drags pull the cloth; vertical swipes still scroll the page */
+[data-hanging-tapestry].is-live {
+  touch-action: pan-y pinch-zoom;
+  -webkit-user-select: none; user-select: none; -webkit-touch-callout: none;
+}
+[data-hanging-tapestry].is-live > img { opacity: 0; }
+[data-hanging-tapestry].is-over { cursor: grab; }
+[data-hanging-tapestry].is-grabbing { cursor: grabbing; }
+
+.ht-canvas, .ht-hw {
+  position: absolute; left: 0; top: 0; display: block; pointer-events: none;
+  overflow: visible;
+}
+
+[data-hanging-tapestry]:focus { outline: none; }
+[data-hanging-tapestry]:focus-visible {
+  outline: 2px solid var(--accent, #c96f4a); outline-offset: 6px; border-radius: 4px;
+}
+
+/* the cloth takes over from the image with a short crossfade */
+.ht-canvas { opacity: 0; transition: opacity .45s ease; }
+[data-hanging-tapestry].is-live > .ht-canvas { opacity: 1; }
+[data-hanging-tapestry] > img { transition: opacity .45s ease; }
+
+/* colour is earned: a blooming hanging waits in black and white */
+@media (prefers-reduced-motion: no-preference) {
+  .ht-on[data-bloom]:not(.is-live):not(.ht-flat) > img { filter: grayscale(1) contrast(1.06); }
+}
+
+/* ── no WebGL: the image, hung, with the folds painted in ─────────────── */
+.ht-flat > img {
+  box-shadow: 4px 8px 18px -6px rgba(29, 20, 11, .35), 1px 2px 3px rgba(29, 20, 11, .18);
+  transition: filter 1.8s ease;
+}
+.ht-flat::after {
+  content: ""; position: absolute; pointer-events: none;
+  inset: var(--ht-top, 0) var(--ht-side, 0) var(--ht-bottom, 0);
+  background:
+    linear-gradient(180deg, rgba(20, 12, 4, .22), rgba(20, 12, 4, 0) 4%),
+    repeating-linear-gradient(90deg,
+      rgba(255, 246, 228, .14) 0, rgba(255, 246, 228, .03) 4%,
+      rgba(20, 12, 4, .26) 8.5%, rgba(20, 12, 4, .07) 12.5%,
+      rgba(255, 246, 228, .14) 16.6%);
+  -webkit-mask: linear-gradient(180deg, #000 0, rgba(0, 0, 0, .55) 45%, rgba(0, 0, 0, .25) 100%);
+  mask: linear-gradient(180deg, #000 0, rgba(0, 0, 0, .55) 45%, rgba(0, 0, 0, .25) 100%);
+}
+/* a static fringe of warp ends */
+.ht-flat::before {
+  content: ""; position: absolute; pointer-events: none;
+  left: var(--ht-side, 0); right: var(--ht-side, 0);
+  top: calc(100% - var(--ht-bottom, 0px)); height: var(--ht-fringe, 0px);
+  background: repeating-linear-gradient(90deg,
+    var(--ht-fringe-color, #d8cfb8) 0 1px, rgba(216, 207, 184, .55) 1px 1.8px, transparent 1.8px 2.9px);
+  -webkit-mask: linear-gradient(180deg, #000 70%, transparent);
+  mask: linear-gradient(180deg, #000 70%, transparent);
+}
+.ht-flat.ht-grey > img { filter: grayscale(1) contrast(1.06); }
+
+@media print {
+  .ht-canvas { display: none; }
+  [data-hanging-tapestry].is-live > img { opacity: 1; }
+}

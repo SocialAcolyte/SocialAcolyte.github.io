@@ -1,0 +1,294 @@
+/* ─── Moodboard — a pinboard of images on an endless sheet of paper ─────
+   Without JS: the cards as a plain grid of prints. With JS (.is-live): a
+   window onto a pannable, zoomable board. Namespace: .mb-  */
+
+[data-moodboard] {
+  --mb-board: var(--paper-2, #e9e5da);
+  --mb-dot: rgba(74, 71, 68, .2);
+  --mb-card: #fbf9f4;
+  --mb-ink: var(--ink, #141312);
+  --mb-ink-2: var(--ink-2, #4a4744);
+  --mb-ink-3: var(--ink-3, #8a857d);
+  --mb-rule: var(--rule, #cfcac0);
+  --mb-accent: var(--accent, #c96f4a);
+  --mb-brass: #b8913f;
+  --mb-hand: "Caveat", "Homemade Apple", cursive;
+  --mb-sans: var(--sans, Inter, system-ui, sans-serif);
+  --mb-height: min(84svh, 880px);
+  --mb-radius: 4px;
+  --mb-shadow: 38, 28, 18;
+  position: relative;
+  color: var(--mb-ink);
+  font-family: var(--mb-sans);
+}
+
+/* ── no JS: a grid of prints ── */
+[data-moodboard] .mb-cards {
+  margin: 0; padding: 0; list-style: none;
+}
+[data-moodboard]:not(.is-live) .mb-cards {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: clamp(14px, 2.4vw, 28px); align-items: start;
+  padding: clamp(14px, 3vw, 32px);
+  background: var(--mb-board); border-radius: var(--mb-radius);
+}
+[data-moodboard]:not(.is-live) .mb-cards li {
+  background: var(--mb-card); padding: 8px 8px 10px;
+  box-shadow: 0 1px 1.5px rgba(var(--mb-shadow), .2), 0 4px 10px -3px rgba(var(--mb-shadow), .16);
+  font-family: var(--mb-hand); font-size: 19px; text-align: center; color: #3b342c;
+}
+[data-moodboard]:not(.is-live) .mb-cards li:nth-child(3n+1) { transform: rotate(-1.4deg); }
+[data-moodboard]:not(.is-live) .mb-cards li:nth-child(3n+2) { transform: rotate(1.1deg); }
+[data-moodboard]:not(.is-live) .mb-cards img { display: block; width: 100%; height: auto; }
+[data-moodboard]:not(.is-live) .mb-cards li[data-label]::after { content: attr(data-label); display: block; padding-top: 6px; }
+
+/* with scripts on, hold the window's place (and keep the plain grid from
+   flashing) until the board takes over */
+@media (scripting: enabled) {
+  [data-moodboard]:not(.is-live) {
+    height: var(--mb-height); overflow: hidden;
+    background: var(--mb-board); border-radius: var(--mb-radius);
+    box-shadow: inset 0 0 0 1px var(--mb-rule);
+  }
+  [data-moodboard]:not(.is-live) .mb-cards { visibility: hidden; }
+}
+
+/* ── live: the window ── */
+[data-moodboard].is-live {
+  height: var(--mb-height);
+  overflow: hidden; overflow: clip;
+  background: var(--mb-board);
+  border-radius: var(--mb-radius);
+  box-shadow: inset 0 0 0 1px var(--mb-rule), inset 0 1px 3px rgba(var(--mb-shadow), .06);
+  touch-action: pan-y;
+  user-select: none; -webkit-user-select: none; -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  isolation: isolate;
+  cursor: grab;
+  outline: none;
+}
+[data-moodboard].is-live:focus-visible { box-shadow: inset 0 0 0 1px var(--mb-rule), 0 0 0 2px var(--mb-accent); }
+[data-moodboard].is-full {
+  position: fixed; inset: 0; z-index: 1000;
+  height: auto; border-radius: 0;
+  box-shadow: none;
+  touch-action: none;
+}
+[data-moodboard].is-grabbing, [data-moodboard].is-grabbing * { cursor: grabbing !important; }
+[data-moodboard].is-space .mb-world, [data-moodboard].is-space .mb-card { cursor: grab; }
+[data-moodboard].is-marquee, [data-moodboard].is-marquee * { cursor: crosshair !important; }
+
+.mb-grid {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image: radial-gradient(circle at center, var(--mb-dot) 0, var(--mb-dot) .9px, transparent 1.25px);
+  background-size: 24px 24px;
+}
+.mb-world {
+  position: absolute; left: 0; top: 0; width: 0; height: 0;
+  transform-origin: 0 0;
+}
+.mb-world.is-moving { will-change: transform; }
+.is-live .mb-cards { position: absolute; left: 0; top: 0; }
+
+/* ── a card: a paper print ── */
+.is-live .mb-card {
+  --lift: 0;
+  position: absolute; left: 0; top: 0;
+  box-sizing: border-box;
+  padding: var(--pad, 10px) var(--pad, 10px) calc(var(--pad, 10px) + var(--lab, 0px));
+  background:
+    linear-gradient(170deg, rgba(255, 255, 255, .55), rgba(255, 255, 255, 0) 40%, rgba(120, 100, 70, .035)),
+    var(--mb-card);
+  transform-origin: 0 0;
+  touch-action: none;
+  cursor: grab;
+  outline: none;
+  box-shadow:
+    inset 0 0 0 .5px rgba(var(--mb-shadow), .1),
+    0 .5px 1px rgba(var(--mb-shadow), .22),
+    0 3px 7px -2px rgba(var(--mb-shadow), .17);
+}
+/* the lifted shadow: longer, softer and further off as the card rises */
+.is-live .mb-card::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  box-shadow: 0 22px 40px -10px rgba(var(--mb-shadow), .42), 0 8px 14px -6px rgba(var(--mb-shadow), .22);
+  opacity: var(--lift);
+  transform: translateY(calc(var(--lift) * 5px));
+}
+.is-live .mb-card.is-held { will-change: transform; }
+.is-live .mb-card img {
+  display: block; max-width: none;
+  pointer-events: none;
+  -webkit-user-drag: none;
+  box-shadow: 0 0 0 .5px rgba(var(--mb-shadow), .14);
+}
+.is-live.is-kbd .mb-card:focus {
+  outline: calc(2px / var(--mb-z, 1)) solid var(--mb-accent);
+  outline-offset: calc(4px / var(--mb-z, 1));
+}
+.is-live .mb-card.is-gone { opacity: 0; transition: opacity .26s ease; }
+.is-live .mb-card.is-gone::before { opacity: 0; }
+
+.mb-label {
+  position: absolute; left: var(--pad); right: var(--pad); bottom: 0;
+  height: calc(var(--lab) + var(--pad));
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mb-hand); font-size: var(--hand, 23px); line-height: 1;
+  color: #2f2a24; white-space: nowrap;
+  transform: rotate(-1.2deg);
+  pointer-events: none;
+}
+
+/* ── the brass pin ── */
+.mb-pin {
+  position: absolute; left: 50%; top: calc(var(--pad) * .5 + 2px);
+  width: 30px; height: 30px; margin: -15px 0 0 -15px;
+  cursor: pointer;
+  /* stays legible when you zoom out */
+  transform: scale(max(1, calc(.62 / var(--mb-z, 1))));
+}
+.mb-pin i { position: absolute; display: block; border-radius: 50%; pointer-events: none; }
+.mb-pin-head {
+  left: 7.5px; top: 7.5px; width: 15px; height: 15px;
+  box-sizing: border-box;
+  border: 1px dashed var(--mb-ink-3);
+  opacity: 0; transition: opacity .2s ease;
+}
+.mb-pin-shadow {
+  left: 12px; top: 13px; width: 13px; height: 7px; opacity: 0;
+  background: rgba(var(--mb-shadow), .5);
+  filter: blur(1.4px);
+  transform: rotate(32deg); transform-origin: 2px 3px;
+}
+@media (hover: hover) {
+  .is-live .mb-card:not(.is-pinned):hover .mb-pin-head { opacity: .5; }
+  .is-live .mb-card:not(.is-pinned) .mb-pin:hover .mb-pin-head { opacity: .9; }
+}
+.is-live .mb-card[aria-selected="true"]:not(.is-pinned) .mb-pin-head { opacity: .55; }
+.is-live .mb-card.is-held:not(.is-pinned) .mb-pin-head { opacity: 0; }
+.is-pinned .mb-pin-head {
+  opacity: 1; border: 0;
+  background: radial-gradient(circle at 36% 30%, #fff7dc 0, #f0d389 16%, #c9a04b 42%, #94702c 74%, #5e4416 100%);
+  box-shadow:
+    0 0 0 .5px rgba(70, 46, 12, .55),
+    inset -1px -1.5px 2px rgba(60, 38, 8, .45),
+    inset .8px .8px 1px rgba(255, 250, 225, .6);
+}
+.is-pinned .mb-pin-shadow { opacity: 1; }
+.is-pinning .mb-pin-head { animation: mb-pin-head .34s cubic-bezier(.25, .7, .25, 1); }
+.is-pinning .mb-pin-shadow { animation: mb-pin-shadow .34s cubic-bezier(.25, .7, .25, 1); }
+.is-unpinning .mb-pin-head { animation: mb-unpin .26s ease-out; }
+@keyframes mb-pin-head { from { transform: translate(-6px, -11px) scale(1.55); } }
+@keyframes mb-pin-shadow { from { transform: translate(6px, 8px) rotate(32deg) scale(1.6, 1.3); opacity: .2; filter: blur(3px); } }
+@keyframes mb-unpin {
+  from { opacity: 1; border: 0; transform: none;
+    background: radial-gradient(circle at 36% 30%, #fff7dc 0, #f0d389 16%, #c9a04b 42%, #94702c 74%, #5e4416 100%); }
+  to { opacity: 0; border: 0; transform: translate(-6px, -11px) scale(1.5);
+    background: radial-gradient(circle at 36% 30%, #fff7dc 0, #f0d389 16%, #c9a04b 42%, #94702c 74%, #5e4416 100%); }
+}
+
+/* ── overlay: selection, hover, guides, marquee (screen pixels, always crisp) ── */
+.mb-over {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  pointer-events: none; overflow: visible;
+}
+.mb-o-sel { fill: none; stroke: var(--mb-accent); stroke-width: 1.5; stroke-linejoin: round; }
+.mb-o-hover { fill: none; stroke: var(--mb-accent); stroke-width: 1; stroke-opacity: .45; }
+.mb-o-group { fill: none; stroke: var(--mb-accent); stroke-width: 1; stroke-opacity: .55; stroke-dasharray: 3 4; }
+.mb-o-guide { stroke: var(--mb-accent); stroke-width: 1; shape-rendering: crispEdges; }
+.mb-o-x { stroke: var(--mb-accent); stroke-width: 1.25; fill: none; }
+.mb-o-marquee { fill: var(--mb-accent); fill-opacity: .07; stroke: var(--mb-accent); stroke-width: 1; stroke-opacity: .8; }
+
+/* the long-press ring that turns a press on paper into a marquee */
+.mb-hold {
+  position: absolute; left: 0; top: 0; width: 44px; height: 44px; margin: -22px 0 0 -22px;
+  border-radius: 50%; pointer-events: none; opacity: 0;
+  box-shadow: inset 0 0 0 1.25px var(--mb-accent);
+}
+.mb-hold.is-on { animation: mb-hold .46s cubic-bezier(.3, .6, .3, 1) .14s both; }
+@keyframes mb-hold { from { opacity: 0; transform: scale(1.7); } 70% { opacity: .9; } to { opacity: .85; transform: scale(.55); } }
+
+/* ── chrome: toolbar, minimap, full screen, toast ── */
+.mb-bar, .mb-mini, .mb-full, .mb-toast {
+  position: absolute; z-index: 2;
+  background: var(--paper, #f3f0e8);
+  box-shadow: 0 0 0 1px var(--mb-rule), 0 6px 16px -10px rgba(var(--mb-shadow), .35);
+  border-radius: 9px;
+  cursor: default;
+}
+.mb-bar {
+  left: 12px; bottom: 12px;
+  display: flex; align-items: center; gap: 1px; padding: 3px;
+  touch-action: manipulation;
+}
+.mb-sep { width: 1px; height: 18px; margin: 0 3px; background: var(--mb-rule); }
+.mb-btn {
+  appearance: none; border: 0; margin: 0; padding: 0;
+  display: grid; place-items: center;
+  width: 32px; height: 32px; border-radius: 6px;
+  background: transparent; color: var(--mb-ink-2);
+  font: 500 11.5px/1 var(--mb-sans); font-variant-numeric: tabular-nums; letter-spacing: .01em;
+  cursor: pointer;
+  transition: background-color .15s ease, color .15s ease, opacity .15s ease;
+  touch-action: manipulation;
+}
+.mb-btn svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+.mb-btn:hover { background: var(--mb-board); color: var(--mb-ink); }
+.mb-btn:active { background: var(--mb-rule); }
+.mb-btn:disabled { opacity: .32; pointer-events: none; }
+.mb-btn:focus-visible { outline: 2px solid var(--mb-accent); outline-offset: -2px; }
+.mb-btn[hidden] { display: none; }
+.mb-pct { width: 46px; }
+.mb-restore { position: relative; }
+.mb-restore::after {
+  content: attr(data-n); position: absolute; right: 2px; top: 2px;
+  min-width: 13px; height: 13px; border-radius: 7px; padding: 0 3px; box-sizing: border-box;
+  background: var(--mb-accent); color: #fff; font: 600 9px/13px var(--mb-sans); text-align: center;
+}
+.mb-full { top: 12px; right: 12px; width: 38px; height: 38px; display: grid; place-items: center; color: var(--mb-ink-2); }
+.mb-full:hover { background: var(--paper, #f3f0e8); }
+.mb-mini {
+  right: 12px; bottom: 12px;
+  width: 176px; height: 118px;
+  overflow: hidden; cursor: pointer; touch-action: none;
+  background: color-mix(in srgb, var(--mb-board) 55%, var(--paper, #f3f0e8));
+}
+.mb-mini canvas { display: block; width: 100%; height: 100%; }
+.mb-mini.is-active { cursor: grabbing; }
+.mb-toast {
+  left: 50%; bottom: 60px; z-index: 3; max-width: calc(100% - 24px); box-sizing: border-box;
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 14px; border-radius: 99px;
+  font: 450 12.5px/1.2 var(--mb-sans); color: var(--mb-ink-2); white-space: nowrap;
+  opacity: 0; transform: translate(-50%, 6px); pointer-events: none;
+  transition: opacity .25s ease, transform .35s cubic-bezier(.2, .7, .2, 1);
+}
+.mb-toast.is-on { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; }
+.mb-toast-btn {
+  appearance: none; border: 0; background: none; padding: 2px 0; margin: 0;
+  font: 600 12.5px/1.2 var(--mb-sans); color: var(--mb-accent); cursor: pointer;
+}
+.mb-toast-btn[hidden] { display: none; }
+.mb-sr {
+  position: absolute !important; width: 1px; height: 1px; margin: -1px; padding: 0; border: 0;
+  overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+}
+
+/* phones: fewer buttons (pinch zooms), a smaller map */
+@media (max-width: 560px) {
+  [data-moodboard] { --mb-height: min(70svh, 640px); }
+  .mb-zout, .mb-zin, .mb-pct, .mb-redo, .mb-bar .mb-sep:nth-of-type(2) { display: none; }
+  .mb-bar { left: 8px; bottom: 8px; }
+  .mb-mini { right: 8px; bottom: 8px; width: 104px; height: 72px; }
+  .mb-full { top: 8px; right: 8px; }
+  .mb-toast { bottom: 92px; }
+  .mb-btn { width: 36px; height: 34px; }
+}
+.is-full .mb-bar { bottom: max(12px, env(safe-area-inset-bottom)); }
+.is-full .mb-mini { bottom: max(12px, env(safe-area-inset-bottom)); }
+.is-full .mb-full { top: max(12px, env(safe-area-inset-top)); }
+
+@media (prefers-reduced-motion: reduce) {
+  .mb-toast, .mb-btn, .mb-pin-head { transition: none; }
+  .mb-hold.is-on { animation: none; opacity: .85; transform: scale(.55); transition: opacity 0s .46s; }
+}

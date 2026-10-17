@@ -1,0 +1,107 @@
+/* DROP-CAP-GILT styles. The cap starts ink-grey; when the host gains
+     .is-gilt a gold gradient sweeps across it once, and the vine underline
+     beneath the first line draws itself in. All motion is paint-only, so the
+     animation itself causes no layout shift.
+
+     Custom properties (all optional):
+     --dcg-size           cap font-size                    (default 5.6em)
+     --dcg-ink            cap colour before gilding        (default --ink-2)
+     --dcg-gold           gilded gold                      (default #b98a1e)
+     --dcg-gold-light     sheen band in the sweep          (default #f0d489)
+     --dcg-gold-deep      shadow edge of the gold          (default #7c5f14)
+     --dcg-vine           vine stroke / leaf colour        (default gold-deep)
+     --dcg-vine-height    vine strip height                (default 14px)
+     --dcg-duration       gold sweep time                  (default 1.8s)
+     --dcg-vine-duration  vine draw time                   (default 1.4s)
+     --dcg-vine-delay     vine draw delay after sweep      (default .45s)
+     --dcg-ease           easing for both                  (default ease-out-ish) */
+
+[data-drop-cap] {
+  position: relative;
+}
+
+.dcg-cap {
+  float: left;
+  font-family: var(--serif, Georgia, 'Times New Roman', serif);
+  font-weight: 600;
+  font-size: var(--dcg-size, 5.6em);
+  line-height: .8;
+  padding: .07em .14em 0 0;
+  color: var(--dcg-ink, var(--ink-2, #4a4744));
+}
+
+/* Fallback path (no background-clip:text): the cap simply warms to gold. */
+[data-drop-cap].is-gilt .dcg-cap {
+  color: var(--dcg-gold, #b98a1e);
+  transition: color var(--dcg-duration, 1.8s) var(--dcg-ease, cubic-bezier(.33, 0, .2, 1));
+}
+
+@supports ((background-clip: text) or (-webkit-background-clip: text)) {
+  .dcg-cap {
+    color: transparent;
+    /* Left-to-right: gold, sheen band, then ink-grey. The background is
+       twice the letter's width; at rest the visible window sits on the
+       grey half, and gilding slides it to the gold half so the sheen
+       passes across the letter once. */
+    background-image: linear-gradient(100deg,
+      var(--dcg-gold-deep, #7c5f14) 0%,
+      var(--dcg-gold, #b98a1e) 18%,
+      var(--dcg-gold-light, #f0d489) 32%,
+      var(--dcg-ink, var(--ink-2, #4a4744)) 51%,
+      var(--dcg-ink, var(--ink-2, #4a4744)) 100%);
+    background-size: 200% 100%;
+    background-position: 100% 0;
+    background-repeat: no-repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+  [data-drop-cap].is-gilt .dcg-cap {
+    color: transparent;
+    background-position: 0% 0;
+    transition: background-position var(--dcg-duration, 1.8s) var(--dcg-ease, cubic-bezier(.33, 0, .2, 1));
+  }
+}
+
+/* The vine: absolutely positioned, so it reserves no space and shifts no
+   layout. JS sets its `left` (just past the cap) and `top` (just under the
+   first-line baseline); it stretches to the paragraph's right edge. */
+.dcg-vine {
+  position: absolute;
+  right: 0;
+  height: var(--dcg-vine-height, 14px);
+  width: auto;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.dcg-vine .dcg-stem {
+  fill: none;
+  stroke: var(--dcg-vine, var(--dcg-gold-deep, #7c5f14));
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+[data-drop-cap].is-gilt .dcg-vine .dcg-stem {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset var(--dcg-vine-duration, 1.4s) var(--dcg-ease, cubic-bezier(.33, 0, .2, 1)) var(--dcg-vine-delay, .45s);
+}
+
+.dcg-vine .dcg-leaf {
+  fill: var(--dcg-vine, var(--dcg-gold-deep, #7c5f14));
+  opacity: 0;
+}
+
+[data-drop-cap].is-gilt .dcg-vine .dcg-leaf {
+  opacity: .9;
+  transition: opacity .9s ease 1.15s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-drop-cap].is-gilt .dcg-cap,
+  [data-drop-cap].is-gilt .dcg-vine .dcg-stem,
+  [data-drop-cap].is-gilt .dcg-vine .dcg-leaf {
+    transition: none;
+  }
+}

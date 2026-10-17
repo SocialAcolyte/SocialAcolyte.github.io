@@ -1,0 +1,117 @@
+/* ─── Spiral — a paragraph wound onto a clay disc (pretext-spiral.js) ──
+   The <p> is the real text and stays in the DOM. Without JS (or WebGL) it
+   is a quiet column of prose. Once the disc is live the paragraph is
+   visually hidden (still read aloud, still found by find) and the disc and
+   its reading line take the stage. Namespace: .ps-  */
+
+[data-pretext-spiral], .ps {
+  --ps-size: min(calc(100vw - 2 * var(--gutter, 16px)), 68svh, 660px);
+  --ps-ink: #161311;
+  position: relative;
+  background: var(--paper, #f3f0e8);
+  color: var(--ink, #141312);
+  overflow-x: clip;                /* the disc's shadow may pass the gutter; never a sideways scroll */
+}
+
+.ps-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(22px, 4.2svh, 44px);
+  padding: clamp(28px, 6svh, 64px) var(--gutter, clamp(16px, 3vw, 32px));
+  box-sizing: border-box;
+}
+
+.ps-text, .ps-legend {
+  max-width: 34em;
+  margin: 0 auto;
+  font-family: var(--ps-serif, var(--serif, "Cormorant Garamond", Georgia, serif));
+  font-size: clamp(18px, 2.2vw, 21px);
+  line-height: 1.5;
+  text-wrap: pretty;
+  color: var(--ink, #141312);
+}
+.ps-legend {
+  font-family: var(--sans, Inter, system-ui, sans-serif);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-3, #8a857d);
+  text-align: center;
+}
+
+/* The disc. The canvas overhangs it (shadow, needle); the box is the face. */
+.ps-disc {
+  position: relative;
+  flex: none;
+  width: var(--ps-size);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  outline: none;
+  cursor: grab;
+  touch-action: pan-y;             /* vertical swipes scroll the page */
+  margin-top: calc(var(--ps-size) * 0.065);   /* room for the pointer, so needle + disc + line sit centred as one group */
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.ps-disc.is-dragging { cursor: grabbing; }
+.ps-canvas { position: absolute; display: block; pointer-events: none; }
+.ps-disc:focus-visible::after {
+  content: "";
+  position: absolute;
+  inset: -7px;
+  border-radius: 50%;
+  border: 1.5px solid var(--accent, #c96f4a);
+  pointer-events: none;
+}
+
+/* The reading line: the same words set flat, sliding as the disc turns. */
+.ps-reader {
+  position: relative;
+  width: min(100%, calc(var(--ps-size) * 1.3));
+  height: 2.1em;
+  overflow: hidden;
+  font-family: var(--ps-serif, var(--serif, "Cormorant Garamond", Georgia, serif));
+  font-style: italic;
+  font-size: clamp(17px, 1.9vw, 21px);
+  line-height: 2.1em;
+  white-space: nowrap;
+  color: var(--ink-3, #8a857d);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 30%, #000 70%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 30%, #000 70%, transparent);
+  user-select: none;
+  -webkit-user-select: none;
+}
+.ps-reader::before {               /* a fine tick over the word being read, like the needle */
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 1px;
+  height: 0.32em;
+  background: var(--ink, #141312);
+}
+.ps-line { display: inline-block; will-change: transform; }
+.ps-w { transition: color 0.35s ease; }
+.ps-w.is-on { color: var(--ink, #141312); }
+
+/* Live: the paragraph steps aside for the disc. */
+.ps.is-live .ps-text, .ps.is-live .ps-legend {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip-path: inset(50%); white-space: nowrap; padding: 0; margin: 0;
+}
+
+/* pin: a runway; the stage stays put while scrolling turns the disc */
+.ps.ps-pin.is-live { height: var(--ps-runway, 250svh); }
+.ps.ps-pin.is-live .ps-stage { position: sticky; top: 0; height: 100svh; }
+
+/* flow / none: the stage is one screen tall, its group centred in it */
+.ps.ps-flow.is-live .ps-stage, .ps.ps-none.is-live .ps-stage { min-height: 100vh; min-height: 100svh; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ps.ps-pin.is-live { height: auto; }
+  .ps.ps-pin.is-live .ps-stage { position: relative; height: auto; min-height: 100svh; }
+  .ps-w { transition: none; }
+}

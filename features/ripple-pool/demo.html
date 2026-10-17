@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>ripple-pool</title><link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="ripple-pool.css"><style>
+  :root{--paper:#f3f0e8;--paper-2:#e9e5da;--ink:#141312;--ink-3:#8a857d;--rule:#cfcac0;--accent:#c96f4a;--serif:'Cormorant Garamond',Georgia,serif;--sans:Inter,system-ui,sans-serif;--gutter:clamp(16px,3vw,32px)}
+  *{box-sizing:border-box} body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:19px;overflow-x:hidden}
+  .label{margin:0;padding:clamp(28px,6svh,56px) var(--gutter);text-align:center;font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+  .hero img{object-position:38% 70%}
+  .inline{padding:clamp(8px,4svh,48px) var(--gutter) clamp(24px,5svh,48px);display:grid;place-items:center}
+  .basin{width:min(100%,560px);padding:clamp(10px,1.4vw,16px);background:var(--paper-2);box-shadow:inset 0 0 0 1px var(--rule)}
+  .end{height:30svh}
+</style></head><body>
+<main>
+  <section class="hero">
+    <figure data-ripple-pool class="rp-bleed"><img src="assets/milreu-frigidarium.webp" alt=""></figure>
+  </section>
+  <p class="label">touch the water</p>
+  <section class="inline">
+    <div class="basin">
+      <figure data-ripple-pool data-rain="9000"><img src="assets/napoli-fish-ducks.webp" alt="" width="2000" height="2051"></figure>
+    </div>
+  </section>
+  <div class="end"></div>
+</main>
+<script type="module" src="ripple-pool.js"></script>
+</body></html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>pretext-spiral</title><link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400..700;1,400..700&family=EB+Garamond:wght@400..800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="pretext-spiral.css"><style>
+  :root{--paper:#f3f0e8;--ink:#141312;--ink-3:#8a857d;--serif:'Cormorant Garamond',Georgia,serif;--sans:Inter,system-ui,sans-serif;--gutter:clamp(16px,3vw,32px)}
+  *{box-sizing:border-box} body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:19px;overflow-x:hidden}
+  .spacer{height:62svh;display:grid;place-items:center;font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+  .ps-text{font-weight:500}
+  .coin{--ps-size:min(calc(100vw - 2 * var(--gutter)),46svh,380px)}
+</style></head><body>
+<div class="spacer">turn</div>
+
+<section data-pretext-spiral data-src="assets/clay.webp" data-font="'EB Garamond', serif" data-weight="600">
+  <div class="ps-stage">
+    <p class="ps-text">Someone cut forty-five little stamps: a running man, a plumed head, a child, a fish, a bird in flight, a ship, a hide, a comb, a flower with eight petals. Then one day, in a palace above the plain of the Mesara, they took a disc of the finest clay while it was still soft, drew a spiral on it with a point, and began at the rim. Each sign went in under a thumb, one after another, and every word was closed with a short stroke across the line. They turned the disc as they worked, round and in, round and in, until they came to the middle and the clay was full; then they turned it over and filled the other side. Afterwards it was fired as hard as a tile, and kept. That was more than three and a half thousand years ago. It lay in the ruins of the palace until the summer of 1908, when an Italian archaeologist lifted it out of a basement room beside a broken tablet, and since then it has been read by everyone and by no one. Two hundred and forty-two signs in sixty-one words, and not one of them understood. It has been called a hymn to a mother goddess, a roll of soldiers, a calendar, a contract, a board game, and a fake. Nobody has found another page made with those stamps, or the stamps themselves, though they are the oldest movable type we know of, cut so that a hand could say the same thing again and again. Perhaps they only ever said this. But somebody once held it as you are holding this one, and turned it slowly, and the words came round to them one at a time under the thumb, and they knew exactly what it said.</p>
+  </div>
+</section>
+
+<div class="spacer" style="height:24svh"></div>
+
+<section class="coin" data-pretext-spiral data-src="assets/bronze.webp" data-material="bronze" data-from="centre" data-scroll="flow" data-font="'EB Garamond', serif" data-weight="600" data-lead="1.18">
+  <div class="ps-stage">
+    <p class="ps-legend">And this too shall pass</p>
+    <p class="ps-text">A king, the story goes, asked his wise men for a ring that would make a sad man glad and a glad man sad. They argued for a year. Then the youngest went down to the market, to an old engraver who worked in a doorway with a lamp and a file, and came back with a plain band of bronze. The king turned it in his fingers and read what was cut round the edge, and was quiet for a long time. He wore it at his wedding and at his son's burial, at the signing of the peace and on the night the city burned, on his good days and on his bad ones, and it was true on all of them. When he was old he gave it to a beggar at the gate, who sold it for bread.</p>
+  </div>
+</section>
+
+<div class="spacer" style="height:18svh"></div>
+<script type="module" src="pretext-spiral.js"></script>
+</body></html>

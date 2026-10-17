@@ -220,6 +220,36 @@ a.row:hover .kd, a.row:hover .yr { color: var(--paper-2); }
 .person-lines.is-hovering .pl-text { opacity: .45; }
 .person-lines.is-hovering li.is-active .pl-text { opacity: 1; }
 
+/* ─── Quote — assembled word by word (quote.js) ───────────────────
+   Pinned stage; the canvas takes over once live. Without JS the quote is
+   plain centred text; with reduced motion it is the finished sentence. */
+
+.quote { position: relative; height: 260svh; background: var(--paper); }
+.quote-stage {
+  position: sticky; top: 0; height: 100svh; overflow: hidden;
+  display: grid; place-items: center; touch-action: pan-y;
+}
+.quote-src {
+  grid-area: 1 / 1; margin: 0; padding: 0 var(--gutter); text-align: center;
+  font-family: var(--serif); font-weight: 400; font-size: clamp(30px, 7vw, 84px); line-height: 1.08;
+  max-width: 16em; text-wrap: balance;
+}
+.quote-by {
+  grid-area: 1 / 1; align-self: end; margin: 0 0 clamp(36px, 9svh, 90px);
+  font-family: var(--sans); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3);
+  opacity: var(--by, 1);
+}
+.quote-canvas { grid-area: 1 / 1; display: none; touch-action: pan-y; }
+.quote.is-live .quote-canvas { display: block; }
+.quote.is-live .quote-src {
+  position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); padding: 0;
+}
+.quote.is-live .quote-by { opacity: var(--by, 0); }
+@media (prefers-reduced-motion: reduce) {
+  .quote { height: auto; }
+  .quote-stage { position: relative; height: 100svh; }
+}
+
 /* ─── Four tiles ──────────────────────────────────────────────── */
 
 .tiles {
@@ -430,7 +460,7 @@ a.row:hover .kd, a.row:hover .yr { color: var(--paper-2); }
 }
 .details-word h2 {
   margin: 0 auto; font-family: var(--serif); font-weight: 400; letter-spacing: -.01em;
-  font-size: calc(var(--ring) * .2); line-height: 1.02; max-width: calc(var(--ring) * 1.05);
+  font-size: clamp(20px, 4.6vw, 50px); line-height: 1.04; max-width: 11em;
   text-wrap: balance;
 }
 .details-word h2 em { font-style: italic; }
@@ -445,7 +475,8 @@ a.row:hover .kd, a.row:hover .yr { color: var(--paper-2); }
   padding: calc(var(--cw) * .035);
   background: #fbf8f0;
   border: 1px solid rgba(20, 19, 18, .28);
-  box-shadow: 0 1px 2px rgba(20, 19, 18, .18), 0 10px 26px -12px rgba(20, 19, 18, .45);
+  box-shadow: 0 1px 2px rgba(20, 19, 18, .18),
+              calc(var(--tx, 0) * 7px) calc(10px + var(--ty, 0) * 7px) 26px -12px rgba(20, 19, 18, .45);
   will-change: transform;
 }
 .d-card img {

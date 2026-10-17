@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>pretext-gloss</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400..700;1,400..700&family=EB+Garamond:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="pretext-gloss.css">
+<style>
+  :root {
+    --paper: #f3f0e8; --paper-2: #e9e5da; --ink: #141312; --ink-2: #4a4744; --ink-3: #8a857d;
+    --rule: #cfcac0;
+  }
+  * { box-sizing: border-box; }
+  html { background: var(--paper); }
+  body { margin: 0; background: var(--paper); color: var(--ink); -webkit-text-size-adjust: 100%; }
+  .desk { padding: clamp(28px, 6vw, 88px) clamp(10px, 3vw, 40px) clamp(64px, 10vw, 140px); }
+  .label {
+    margin: 0 auto clamp(18px, 3vw, 34px); text-align: center;
+    font: 500 11px/1 'EB Garamond', serif; letter-spacing: .26em; text-transform: uppercase; color: var(--ink-3);
+  }
+  /* The frame is what the grip resizes; the page fills it. */
+  .frame { position: relative; margin: 0 auto; width: min(100%, 1120px); }
+  .grip {
+    position: absolute; top: 50vh; right: -26px; width: 18px; height: 72px; margin-top: -36px;
+    border: 0; padding: 0; background: none; cursor: ew-resize; touch-action: none; display: none;
+    color: var(--ink-3);
+  }
+  .grip::before {
+    content: ""; position: absolute; left: 7px; top: 0; bottom: 0; width: 4px; border-radius: 4px;
+    background: currentColor; opacity: .45; transition: opacity .25s, transform .25s;
+  }
+  .grip:hover::before, .grip:focus-visible::before, .grip.is-dragging::before { opacity: .9; transform: scaleY(1.08); }
+  .grip:focus-visible { outline: none; }
+  .grip:focus-visible::after { content: ""; position: absolute; inset: -6px -2px; border-radius: 12px; box-shadow: 0 0 0 1.5px var(--ink-2); }
+  .grip-read {
+    position: absolute; right: -26px; top: calc(50vh + 46px); width: 18px; text-align: center;
+    font: 500 10px/1 'EB Garamond', serif; letter-spacing: .08em; color: var(--ink-3);
+    opacity: 0; transition: opacity .3s; pointer-events: none; font-variant-numeric: tabular-nums;
+    writing-mode: vertical-rl;
+  }
+  .grip.is-dragging + .grip-read { opacity: 1; }
+  .grip-wrap { position: sticky; top: 0; height: 0; }
+  @media (hover: hover) and (pointer: fine) and (min-width: 760px) { .grip { display: block; } }
+</style>
+</head>
+<body>
+<main class="desk">
+  <p class="label">pretext-gloss</p>
+
+  <div class="frame" id="frame">
+    <div class="grip-wrap">
+      <button class="grip" id="grip" type="button" role="slider" aria-label="Page width"
+              aria-valuemin="320" aria-valuemax="1120" aria-valuenow="1120"></button>
+      <span class="grip-read" id="grip-read" aria-hidden="true"></span>
+    </div>
+
+    <article class="pg" data-pretext-gloss data-initial="assets/initial-t.webp" lang="en">
+      <header class="pg-head">
+        <span class="pg-head-l">Cap. I.</span>
+        <span class="pg-head-c">Ecclesiastes</span>
+        <span class="pg-head-r">117</span>
+      </header>
+
+      <div class="pg-main">
+        <p><span data-lemma="preacher">The words of the Preacher</span>, the son of David, <span data-lemma="king">king in Jerusalem</span>. <span data-lemma="vanity">Vanity of vanities</span>, saith the Preacher, vanity of vanities; all is vanity. What profit hath a man of all his labour which he taketh <span data-lemma="sun">under the sun</span>?</p>
+        <p><span data-lemma="generation">One generation passeth away</span>, and another generation cometh: but <span data-lemma="earth">the earth abideth for ever</span>. The sun also ariseth, and the sun goeth down, and <span data-lemma="hasteth">hasteth to his place</span> where he arose. <span data-lemma="wind">The wind goeth toward the south</span>, and turneth about unto the north; it whirleth about continually, and the wind returneth again according to his circuits. All the rivers run into the sea; yet <span data-lemma="sea">the sea is not full</span>; unto the place from whence the rivers come, thither they return again.</p>
+        <p>All things are full of labour; <span data-lemma="utter">man cannot utter it</span>: <span data-lemma="eye">the eye is not satisfied with seeing</span>, nor the ear filled with hearing. The thing that hath been, it is that which shall be; and that which is done is that which shall be done: and there is <span data-lemma="new">no new thing under the sun</span>. Is there any thing whereof it may be said, <span data-lemma="see">See, this is new</span>? it hath been already of old time, which was before us. There is <span data-lemma="remembrance">no remembrance of former things</span>; neither shall there be any remembrance of things that are to come with those that shall come after.</p>
+      </div>
+
+      <aside class="pg-gloss" aria-label="Glossa">
+        <p data-gloss="preacher"><b>The words of the Preacher.</b> The Hebrew name is Qoheleth, from qahal, to gather or call together: the speaker is one who assembles, whether listeners to hear him or sayings to keep. The Greek translators made him Ekklesiastes, a man of the assembly, and the Latin kept the Greek word for its title, though Jerome in his commentary called him Concionator, the one who addresses the gathering. The form is feminine, as the names of offices sometimes are in Hebrew, and the speaker gives it to himself only seven times. Tradition gives the book to Solomon in old age, as it gives him the Song in his youth and the Proverbs in his prime; the text itself never once says his name.</p>
+        <p data-gloss="vanity"><b>Vanity of vanities.</b> The word is hevel, breath: the vapour seen on a cold morning, the warmth of a word in the air, gone before it can be held. Doubled, it becomes a superlative in the Hebrew manner, as the holy of holies is the holiest place and the song of songs the finest song; so this is the most breath of all breath. The Latin vanitas vanitatum made it emptiness, and the English followed; mist or smoke may stand closer, for the thing it names is not worthless but brief. Hevel is also the name of Abel, whose life is the shortest in Genesis. The word comes some thirty-eight times in these twelve chapters, and it opens and closes the book like a breath drawn and let go.</p>
+        <p data-gloss="sun"><b>Under the sun.</b> A phrase this book uses twenty-nine times and no other book of the Bible uses at all. It marks the field of the inquiry: what can be seen by daylight, in this life, by a man who will not argue from beyond it. Phoenician kings had the same words carved on their coffins, cursing whoever disturbed their bones to have no seed among the living under the sun, so the phrase was an old name for the world of the living before the Preacher took it up. Elsewhere he says under heaven, and means much the same.</p>
+        <p data-gloss="hasteth"><b>Hasteth to his place.</b> The verb is sha&rsquo;af, to pant: the word for a runner out of breath, or for the wild ass in Jeremiah that snuffs up the wind. The sun does not glide back to the east by night but hurries there gasping, to rise again where it rose before; the picture is not of serenity but of labour without arrival. Some old interpreters heard eagerness in it, the sun longing for its place; most heard weariness, and the verses that follow give them reason.</p>
+        <p data-gloss="sea"><b>The sea is not full.</b> The old puzzle of the natural philosophers: every river runs down into the sea, and the sea rises no higher. Aristotle answered it in his Meteorologica with the sun&rsquo;s heat drawing the water up as vapour, to fall again as rain, and many Christian readers took this verse to know the same thing. The Hebrew is barer: to the place where the rivers go, there they go again. The circle is the point, not the mechanism; nothing is gained by all that running, and nothing, at least, is lost.</p>
+        <p data-gloss="utter"><b>Man cannot utter it.</b> All things are full of labour; or, as the words may as well be read, all words are weary. The Hebrew devarim means both words and things, and the verse lets the reader hear both at once: things are too wearisome to tell, and words are worn out with the telling. The Preacher, whose trade is words, admits at the outset that they will not be adequate, and then goes on for twelve chapters, which is the honest practice of every writer.</p>
+        <p data-gloss="see"><b>See, this is new?</b> The Preacher hears the objection before anyone makes it, and answers in the same breath: it hath been already of old time. What seems new is only unremembered, which is the matter of the verse that follows. Readers in every century have heard the question asked of their own century&rsquo;s wonders, and have found it harder to answer than it looks.</p>
+      </aside>
+
+      <aside class="pg-gloss" aria-label="Postilla">
+        <p data-gloss="king"><b>King in Jerusalem.</b> Solomon is never named, and the kingship is soon set aside: after the second chapter the speaker talks like a subject who watches kings from below, who has seen the tears of the oppressed and the poor wise man forgotten. Hence the old opinion, already in the Talmud, that the book was written down by Hezekiah and his company, the same men who copied out the proverbs of Solomon; and the newer one, that the royal name is a robe the author puts on to make his trial of pleasure and of wisdom with the largest means a man could have. Either way the robe is worn lightly. A king who has had everything is the right witness that everything is not enough.</p>
+        <p data-gloss="generation"><b>One generation passeth away.</b> The going of the first clause is the going of death, as we too say that a man has passed, or is gone; the coming of the second is birth. Between the two words lies a whole life, and the sentence does not stop for it. The generations follow one another as the rivers of the seventh verse follow one another to the sea, and with the same result.</p>
+        <p data-gloss="earth"><b>The earth abideth for ever.</b> The men go and the ground stays. One might expect the sentence to comfort: the field outlasts its ploughman, the house its builder, something remains. But it is set here as a reproach, for what abides is not the one who laboured. The stage is permanent and the players are not, and the earth stands only to watch the generations cross it, as a pavement is worn by feet it never remembers. Even its abiding is a kind of standing still: the verb is the verb to stand, and the earth stands while the sun runs.</p>
+        <p data-gloss="wind"><b>The wind goeth toward the south.</b> The Hebrew withholds its subject: going to the south, and turning to the north, turning, turning goes, and only then, the wind. One reads through half the circuit before knowing what is turning. The sun keeps its course from east to west; the wind goes round by north and south, the other two quarters, so that between them the whole compass is traced and nothing is reached. Allegorists saw in its circuits the restlessness of the soul; a sailor sees only the wind, which always comes back.</p>
+        <p data-gloss="eye"><b>The eye is not satisfied with seeing.</b> The senses are named as the first of all labourers, and the most tireless. The eye is never full, as the sea is never full; it takes in the world without end and is no fuller afterwards. Montaigne, who had sayings of the Preacher painted on the beams of his library, knew the hunger well, and wrote that our appetite is irresolute and uncertain, able neither to keep a thing nor to enjoy it rightly. The verse does not condemn seeing. It says only that seeing is not arriving.</p>
+        <p data-gloss="new" data-hand><b>No new thing under the sun.</b> The most quoted of the Preacher&rsquo;s sayings, and the most argued with. Every age that believed in its own novelty has had to step around it, and every age has found at last its novelties already catalogued. Yet the sentence is less a law of nature than a confession: it is the voice of one who has tried the new, in gardens and in houses, in singers and in silver, and found each new thing old by the second morning. That is why it is quoted with a smile, and why the smile does not last.</p>
+        <p data-gloss="remembrance"><b>No remembrance of former things.</b> Here is the deeper reason that nothing seems new: not that nothing happens, but that nothing is kept. The generations of the fourth verse return, now without their names. The ancients are forgotten by those who come after them, and those who come after us will be forgotten in their turn. It is the saddest verse of the passage and the most honest; and the page on which it stands, with readers of many centuries gathered round it in the margins, is the one answer to it the Preacher did not foresee.</p>
+      </aside>
+
+      <footer class="pg-foot"><span class="pg-catch">I the</span></footer>
+    </article>
+  </div>
+</main>
+
+<script type="module" src="pretext-gloss.js"></script>
+<script type="module">
+  // Demo only: a grip on the page's edge to change its width, so the page
+  // reflows live. Arrow keys work too (it is a slider).
+  const frame = document.getElementById('frame');
+  const grip = document.getElementById('grip');
+  const read = document.getElementById('grip-read');
+  const MIN = 320;
+  const max = () => Math.min(1120, frame.parentElement.clientWidth - parseFloat(getComputedStyle(frame.parentElement).paddingLeft) * 2);
+  let w = null;
+  const set = (v) => {
+    w = Math.round(Math.max(MIN, Math.min(max(), v)));
+    frame.style.width = w + 'px';
+    grip.setAttribute('aria-valuenow', w);
+    grip.setAttribute('aria-valuetext', w + ' pixels');
+    read.textContent = w;
+  };
+  let x0 = 0, w0 = 0, id = null;
+  grip.addEventListener('pointerdown', (e) => {
+    id = e.pointerId; grip.setPointerCapture(id); x0 = e.clientX; w0 = frame.getBoundingClientRect().width;
+    grip.classList.add('is-dragging'); read.textContent = Math.round(w0); e.preventDefault();
+  });
+  grip.addEventListener('pointermove', (e) => {
+    if (e.pointerId !== id) return;
+    // The page is centred, so the edge moves half as far as the width changes.
+    set(w0 + (e.clientX - x0) * 2);
+  });
+  const end = (e) => { if (e.pointerId !== id) return; id = null; grip.classList.remove('is-dragging'); };
+  grip.addEventListener('pointerup', end);
+  grip.addEventListener('pointercancel', end);
+  grip.addEventListener('keydown', (e) => {
+    const cur = frame.getBoundingClientRect().width, step = e.shiftKey ? 80 : 20;
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') set(cur - step);
+    else if (e.key === 'ArrowRight' || e.key === 'ArrowUp') set(cur + step);
+    else if (e.key === 'Home') set(MIN);
+    else if (e.key === 'End') set(max());
+    else return;
+    e.preventDefault();
+  });
+  addEventListener('resize', () => { if (w !== null) set(w); });
+</script>
+</body>
+</html>

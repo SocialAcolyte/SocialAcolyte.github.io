@@ -1,0 +1,48 @@
+/* ─── stitch-type — a heading sewn in silk on linen ───────────────────
+   The section is the cloth; the heading is laid out by CSS as normal and the
+   JS sews over it. Without JS the heading is plain ink on linen; once live its
+   ink turns transparent (still selectable, still read aloud) and an
+   aria-hidden canvas carries the stitches. */
+
+.st {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  place-items: center;
+  padding: var(--st-pad, clamp(56px, 12vw, 160px)) var(--gutter, clamp(16px, 3vw, 32px));
+  background-color: var(--st-cloth, #cdbfa6);
+  background-image: var(--st-ground, url("assets/linen.webp"));
+  background-size: var(--st-ground-size, 512px 512px);
+  background-blend-mode: var(--st-blend, normal);
+  touch-action: pan-y;
+  overflow: hidden;
+}
+.st-text {
+  position: relative;
+  margin: 0;
+  max-width: 12em;
+  font-family: var(--st-font, var(--serif, "Cormorant Garamond", Georgia, serif));
+  font-weight: var(--st-weight, 700);
+  font-style: var(--st-style, normal);
+  font-size: var(--st-size, clamp(76px, 19vw, 248px));
+  line-height: var(--st-leading, .98);
+  letter-spacing: var(--st-tracking, -0.01em);
+  text-align: center;
+  text-wrap: balance;
+  color: var(--st-ink, var(--ink, #141312));
+}
+.st-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+.st.is-live .st-text { color: transparent; }
+/* Optional: with <html class="st-js"> (one inline line in <head>) the ink waits
+   unseen while the stitches are prepared, so it never flashes up and vanishes.
+   If the script never arrives, it comes back by itself after 3s. */
+.st-js .st:not(.is-live):not(.is-off) .st-text { color: transparent; animation: st-reveal 0s 3s forwards; }
+@keyframes st-reveal { to { color: var(--st-ink, var(--ink, #141312)); } }
+.st.is-live .st-text::selection { color: transparent; background: rgba(255, 250, 235, .35); }

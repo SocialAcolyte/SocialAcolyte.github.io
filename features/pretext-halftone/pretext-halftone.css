@@ -1,0 +1,57 @@
+/* ─── Halftone — a portrait made of the weight of words (pretext-halftone.js) ──
+   The <p> is the real text and stays in the DOM. Without JS it is a plain
+   justified column of prose; once the script has set it, the canvas takes
+   over and the paragraph is visually hidden (still read aloud, still found
+   by find-in-page). Scroll mode is a tall runway with a pinned stage; view
+   and static modes sit in the flow. */
+
+[data-pretext-halftone], .ph {
+  position: relative;
+  background: var(--paper, #f3f0e8);
+  color: var(--ink, #141312);
+}
+.ph-stage {
+  display: grid;
+  place-items: center;
+  padding: clamp(16px, 4svh, 40px) var(--gutter, clamp(16px, 3vw, 32px));
+  touch-action: pan-y;
+}
+.ph-text {
+  grid-area: 1 / 1;
+  max-width: 34em;
+  margin: 0 auto;
+  font-family: var(--ph-serif, "Fraunces", Georgia, serif);
+  font-weight: 400;
+  font-size: clamp(17px, 2vw, 20px);
+  line-height: 1.5;
+  text-align: justify;
+  hyphens: auto;
+  color: var(--ink, #141312);
+}
+.ph-canvas {
+  grid-area: 1 / 1;
+  display: none;
+  touch-action: pan-y;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.ph.is-carrying .ph-canvas { touch-action: none; }
+
+/* Scroll: the portrait condenses over the runway; the block stays put. */
+.ph.ph-scroll.is-live { height: var(--ph-runway, 260svh); }
+.ph.ph-scroll.is-live .ph-stage {
+  position: sticky; top: 0; height: 100svh; box-sizing: border-box; overflow: hidden;
+}
+
+.ph.is-live .ph-canvas { display: block; }
+.ph.is-live .ph-text {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip-path: inset(50%); white-space: nowrap; padding: 0; margin: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ph.ph-scroll.is-live { height: auto; }
+  .ph.ph-scroll.is-live .ph-stage { position: relative; height: 100svh; }
+}

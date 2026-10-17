@@ -1,0 +1,96 @@
+/* ─── Inscription — Roman letters cut into a broken stone (pretext-inscription.js)
+   The blockquote is the real text and stays in the DOM. Without JS (or
+   WebGL) it is a quiet edition: the Latin in capitals, each row's English
+   beneath it in italics. Once the stone is cut, the canvas takes over, the
+   text is visually hidden (still read aloud, still found by ctrl+F), and the
+   translation of the row under the pointer or finger appears beneath. */
+
+[data-pretext-inscription], .pi {
+  position: relative;
+  margin: 0;
+  color: var(--ink, #141312);
+  --pi-stone: #ddd6c8;
+  --pi-paint: #94402a;
+}
+.pi-text {
+  margin: 0 auto;
+  max-width: 40em;
+  padding: 0;
+  text-align: center;
+  quotes: none;
+}
+.pi-row { margin: 0 0 1.1em; }
+.pi-la {
+  display: block;
+  font-family: var(--pi-caps, "Cinzel", "Trajan Pro", Georgia, serif);
+  font-weight: 700;
+  letter-spacing: .08em;
+  font-size: clamp(17px, 2.2vw, 24px);
+  line-height: 1.35;
+  text-transform: uppercase;
+}
+.pi-row:first-child .pi-la { font-size: 1.4em; }
+.pi-en {
+  display: block;
+  margin-top: .3em;
+  font-family: var(--serif, "Cormorant Garamond", Georgia, serif);
+  font-style: italic;
+  font-size: clamp(16px, 1.9vw, 19px);
+  color: var(--ink-2, #4a4744);
+}
+
+/* live: the stone, and a line beneath it for the translation */
+.pi-stage { display: none; }
+.pi.is-live .pi-stage {
+  display: flex; justify-content: center;
+  touch-action: pan-y;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none; user-select: none;
+}
+.pi-canvas { display: block; touch-action: pan-y; }
+.pi.is-live .pi-text {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip-path: inset(50%); white-space: nowrap; padding: 0; margin: 0;
+}
+.pi-say {
+  display: none;
+  position: relative;
+  margin: .4em auto 0;
+  max-width: 34em;
+  min-height: 3.3em;
+  padding: 0 var(--gutter, 16px);
+  text-align: center;
+}
+.pi.is-live .pi-say { display: block; }
+.pi-say > span {
+  position: absolute; left: 0; right: 0; top: 0;
+  padding: 0 var(--gutter, 16px);
+  transition: opacity .5s ease, transform .6s cubic-bezier(.2, .7, .2, 1);
+}
+.pi-hint {
+  font-family: var(--sans, Inter, system-ui, sans-serif);
+  font-size: 11px; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--ink-3, #8a857d);
+  padding-top: .55em !important;
+}
+.pi-tr {
+  font-family: var(--serif, "Cormorant Garamond", Georgia, serif);
+  font-style: italic;
+  font-size: clamp(17px, 1.9vw, 21px);
+  line-height: 1.3;
+  color: var(--ink-2, #4a4744);
+  opacity: 0; transform: translateY(4px);
+}
+.pi-say.is-reading .pi-tr { opacity: 1; transform: none; }
+.pi-say.is-reading .pi-hint { opacity: 0; }
+
+.pi:focus { outline: none; }
+.pi:focus-visible .pi-stage { outline: 2px solid var(--accent, #c96f4a); outline-offset: 2px; border-radius: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .pi-say > span { transition: none; }
+}
+@media print {
+  .pi.is-live .pi-stage, .pi.is-live .pi-say { display: none; }
+  .pi.is-live .pi-text { position: static; width: auto; height: auto; clip-path: none; white-space: normal; }
+}

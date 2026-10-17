@@ -1,0 +1,35 @@
+/* ─── ripple-pool // water over a mosaic (ripple-pool.js) ─────────────
+   The figure is the pool. Size it however you like: the <img> sets the size
+   (natural ratio), or give the figure a height and the img object-fit: cover.
+   The canvas lies exactly over the img and takes the same crop. Without JS or
+   WebGL the img is all there is. */
+
+[data-ripple-pool] {
+  position: relative; margin: 0; overflow: hidden;
+  background: var(--rp-floor, var(--paper-2, #e9e5da));
+  -webkit-tap-highlight-color: transparent; -webkit-user-select: none; user-select: none;
+}
+[data-ripple-pool] > img { display: block; width: 100%; height: auto; }
+.rp-canvas {
+  position: absolute; inset: 0; width: 100%; height: 100%; display: block;
+  pointer-events: none;
+}
+/* the rim: a breath of shadow where the water meets the edge */
+[data-ripple-pool]::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  box-shadow: var(--rp-rim, inset 0 0 0 1px rgba(20, 19, 18, .07), inset 0 2px 18px rgba(20, 19, 18, .14));
+}
+[data-ripple-pool].is-live > img { opacity: 0; }
+[data-ripple-pool]:focus { outline: none; }
+[data-ripple-pool]:focus-visible {
+  outline: 2px solid var(--accent, #c96f4a); outline-offset: -6px;
+}
+
+/* full-bleed pool: a screen of water */
+.rp-bleed { width: 100%; height: 100svh; }
+.rp-bleed > img { height: 100%; object-fit: cover; }
+
+@media print {
+  .rp-canvas { display: none; }
+  [data-ripple-pool].is-live > img { opacity: 1; }
+}

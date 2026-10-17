@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>loupe</title><link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="loupe.css"><style>
+  :root{--paper:#f3f0e8;--paper-2:#e9e5da;--ink:#141312;--ink-2:#4a4744;--ink-3:#8a857d;--rule:#cfcac0;--serif:'Cormorant Garamond',Georgia,serif;--sans:Inter,system-ui,sans-serif;--gutter:clamp(16px,3vw,32px)}
+  *{box-sizing:border-box} html{background:var(--paper)} body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:19px}
+  .label{height:clamp(84px,14svh,140px);display:grid;place-items:center;font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+  .room{display:grid;place-items:center;padding:0 var(--gutter)}
+  .hero{width:min(1120px,100%,calc(84svh * 1.0266));margin:0}
+  .leaf{width:min(480px,100%,calc(80svh * 0.697));margin:0}
+  .gap{height:clamp(120px,26svh,280px)}
+  .end{height:clamp(110px,22svh,220px)}
+</style></head><body>
+<div class="label">loupe</div>
+
+<section class="room">
+  <figure class="hero" data-loupe data-zoom="2.4" data-rest="0.585,0.66">
+    <img src="assets/unicorn-fountain.webp" width="3755" height="3658" alt="A woven hunting scene: hunters and hounds gather around a fountain where a white unicorn kneels among flowering trees.">
+  </figure>
+</section>
+
+<div class="gap"></div>
+
+<section class="room">
+  <figure class="leaf" data-loupe data-zoom="2.4" data-rest="0.64,0.3">
+    <img src="assets/discomedusae.webp" width="1784" height="2560" alt="A plate of jellyfish drawn in fine colour: trailing pink tentacles, blue and orange bells, a yellow medusa and a frilled blue disc.">
+  </figure>
+</section>
+
+<div class="end"></div>
+<script type="module" src="loupe.js"></script>
+</body></html>

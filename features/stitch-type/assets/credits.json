@@ -1,0 +1,19 @@
+[
+ {
+  "file": "assets/bayeux.webp",
+  "source": "File:Bayeux Tapestry Scene 39 (cropped).png",
+  "url": "https://commons.wikimedia.org/wiki/File:Bayeux_Tapestry_Scene_39_(cropped).png",
+  "license": "Public domain",
+  "author": "Université de Caen Normandie · CNRS · ENSICAEN d'après la campagne photographique 2017 de la Fabrique de patrimoines en Normandie.",
+  "width": 3840,
+  "height": 2652,
+  "note": "cropped band (rows 380-2300), re-encoded webp q86"
+ },
+ {
+  "file": "assets/linen.webp",
+  "source": "procedural",
+  "license": "CC0 (made for this component)",
+  "author": "generated: seamless plain-weave linen with slubs, 1536px tile shown at 512px",
+  "url": ""
+ }
+]

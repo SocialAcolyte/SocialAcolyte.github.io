@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>pretext-inscription</title><link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Cormorant+Garamond:ital,wght@0,400..600;1,400..600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="pretext-inscription.css"><style>
+  :root{--paper:#f3f0e8;--ink:#141312;--ink-2:#4a4744;--ink-3:#8a857d;--serif:'Cormorant Garamond',Georgia,serif;--sans:Inter,system-ui,sans-serif;--gutter:clamp(16px,3vw,32px)}
+  *{box-sizing:border-box} html{background:var(--paper)} body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:19px;overflow-x:hidden}
+  .label{font-family:var(--sans);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);text-align:center}
+  .top{padding:clamp(28px,6svh,64px) 0 clamp(14px,3svh,28px)}
+  .slab{max-width:1180px;margin:0 auto;padding:0 var(--gutter)}
+  .gap{height:30svh}
+  .corner{max-width:420px;margin:0 auto;padding:0 var(--gutter)}
+  .end{height:30svh}
+</style></head><body>
+<p class="label top">Lapis</p>
+
+<div class="slab">
+  <figure data-pretext-inscription>
+    <blockquote class="pi-text" lang="la">
+      <p class="pi-row"><span class="pi-la">HOSPES QVOD DEICO PAVLLVM EST ASTA AC PELLEGE</span> <span class="pi-en" lang="en">Stranger, what I have to say is short: stop and read it through.</span></p>
+      <p class="pi-row"><span class="pi-la">HEIC EST SEPVLCRVM HAV PVLCRVM PVLCRAI FEMINAE</span> <span class="pi-en" lang="en">Here is the unlovely tomb of a lovely woman.</span></p>
+      <p class="pi-row"><span class="pi-la">NOMEN PARENTES NOMINARVNT CLAVDIAM</span> <span class="pi-en" lang="en">Her parents named her Claudia.</span></p>
+      <p class="pi-row"><span class="pi-la">SVOM MAREITVM CORDE DEILEXIT SOVO</span> <span class="pi-en" lang="en">She loved her husband with all her heart.</span></p>
+      <p class="pi-row"><span class="pi-la">GNATOS DVOS CREAVIT HORVNC ALTERVM</span> <span class="pi-en" lang="en">She bore two sons, and of them she leaves one</span></p>
+      <p class="pi-row"><span class="pi-la">IN TERRA LINQVIT ALIVM SVB TERRA LOCAT</span> <span class="pi-en" lang="en">on the earth; the other she has laid beneath it.</span></p>
+      <p class="pi-row"><span class="pi-la">SERMONE LEPIDO TVM AVTEM INCESSV COMMODO</span> <span class="pi-en" lang="en">She was charming in speech, and graceful in her walk.</span></p>
+      <p class="pi-row"><span class="pi-la">DOMVM SERVAVIT LANAM FECIT DIXI ABEI</span> <span class="pi-en" lang="en">She kept the house. She worked the wool. I have spoken. Go on your way.</span></p>
+    </blockquote>
+  </figure>
+</div>
+
+<div class="gap"></div>
+
+<div class="corner">
+  <figure data-pretext-inscription data-break="light" data-hedera data-aspect="0.6" data-seed="12" data-tracking="0.1">
+    <blockquote class="pi-text" lang="la">
+      <p class="pi-row" data-fit><span class="pi-la">M AGRIPPA L F</span> <span class="pi-en" lang="en">Marcus Agrippa, son of Lucius,</span></p>
+      <p class="pi-row" data-fit><span class="pi-la">COS TERTIVM</span> <span class="pi-en" lang="en">consul for the third time,</span></p>
+      <p class="pi-row" data-fit><span class="pi-la">FECIT</span> <span class="pi-en" lang="en">made this.</span></p>
+    </blockquote>
+  </figure>
+</div>
+
+<div class="end"></div>
+<script type="module" src="pretext-inscription.js"></script>
+</body></html>

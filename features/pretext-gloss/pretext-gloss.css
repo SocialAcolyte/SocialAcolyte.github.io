@@ -1,0 +1,235 @@
+/* pretext-gloss // the glossed page. Namespace: .pg- */
+
+.pg {
+  --pg-sheet: #f7f2e5;
+  --pg-ink: var(--ink, #1a1612);
+  --pg-ink-2: var(--ink-2, #4a4744);
+  --pg-ink-3: var(--ink-3, #8a857d);
+  --pg-rubric: #a3361f;
+  --pg-dim: #b9b1a3;
+  --pg-wash: rgba(196, 72, 38, .16);
+  --pg-main-font: 'Cormorant Garamond', 'EB Garamond', Garamond, 'Times New Roman', serif;
+  --pg-main-weight: 600;
+  --pg-gloss-font: 'EB Garamond', Garamond, 'Times New Roman', serif;
+  --pg-gloss-weight: 400;
+  --pg-vellum: url('assets/vellum.webp');
+  --pg-vellum-strength: .75;
+
+  position: relative;
+  box-sizing: border-box;
+  /* A recto: the inner margin (left) narrower than the outer, the foot deepest. */
+  padding: 5% 8.5% 8.5% 6.5%;
+  color: var(--pg-ink);
+  background-color: var(--pg-sheet);
+  border-radius: 2px;
+  box-shadow:
+    0 1px 1px rgba(64, 44, 20, .06),
+    0 2px 6px -2px rgba(64, 44, 20, .10),
+    0 30px 60px -36px rgba(64, 44, 20, .38);
+  isolation: isolate;
+  overflow-wrap: break-word;
+}
+/* Vellum: a real leaf's blank margin, flattened and tiled at two scales so
+   the repeat never lines up; plus the darker, handled edges of a sheet. */
+.pg::before, .pg::after {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; border-radius: inherit;
+}
+.pg::before {
+  background-image: var(--pg-vellum), var(--pg-vellum);
+  background-size: 520px auto, 731px auto;
+  background-position: 0 0, 173px 291px;
+  mix-blend-mode: multiply;
+  opacity: var(--pg-vellum-strength);
+}
+.pg::after {
+  background:
+    radial-gradient(130% 95% at 50% 46%, transparent 62%, rgba(150, 112, 62, .10) 100%),
+    linear-gradient(90deg, rgba(120, 90, 50, .05), transparent 3%, transparent 97%, rgba(120, 90, 50, .06));
+}
+
+/* ---- running head, catchword ------------------------------------------- */
+.pg-head {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 1em;
+  margin: 0 0 clamp(14px, 2.6%, 30px);
+  font-family: var(--pg-gloss-font); color: var(--pg-ink-2);
+  font-size: clamp(11px, 1.15vw, 14px);
+}
+.pg-head-l { font-style: italic; letter-spacing: .02em; }
+.pg-head-c {
+  font-family: var(--pg-main-font); font-weight: 600; color: var(--pg-rubric);
+  text-transform: uppercase; letter-spacing: .34em; margin-right: -.34em; font-size: 1.12em;
+}
+.pg-head-r { font-variant-numeric: oldstyle-nums; letter-spacing: .04em; }
+.pg-foot {
+  display: flex; justify-content: flex-end;
+  margin-top: clamp(8px, 1.4%, 16px);
+  font-family: var(--pg-gloss-font); font-size: clamp(11px, 1.1vw, 13px); color: var(--pg-ink-2);
+}
+.pg-catch { letter-spacing: .02em; }
+
+/* ---- the source (also the page without JS) ------------------------------ */
+.pg-main { font-family: var(--pg-main-font); font-weight: var(--pg-main-weight); font-size: 1.32rem; line-height: 1.5; }
+.pg-main p { margin: 0 0 .6em; }
+.pg-gloss { font-family: var(--pg-gloss-font); font-weight: var(--pg-gloss-weight); font-size: .94rem; line-height: 1.45; color: var(--pg-ink); }
+.pg-gloss p { margin: 0 0 .5em; }
+.pg-gloss b { font-weight: 600; }
+.pg:not(.is-folio):not(.is-stack) .pg-gloss { margin-top: 1.4em; padding-top: 1em; border-top: 1px solid rgba(120, 100, 70, .25); }
+@media (min-width: 760px) {
+  .pg:not(.is-folio):not(.is-stack) { display: grid; grid-template-columns: 1fr 1fr; column-gap: 2.4em; }
+  .pg:not(.is-folio):not(.is-stack) > .pg-head,
+  .pg:not(.is-folio):not(.is-stack) > .pg-main,
+  .pg:not(.is-folio):not(.is-stack) > .pg-foot { grid-column: 1 / -1; }
+}
+/* Once laid out, the source stays for screen readers, find-in-page and the
+   keyboard (its key links), but is not drawn. */
+.pg.is-folio > .pg-main, .pg.is-folio > .pg-gloss {
+  position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0;
+}
+.pg.is-stack > .pg-main, .pg.is-stack > .pg-gloss { display: none; }
+.pg-ref, .pg-ref-k {
+  position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+}
+
+/* ---- the folio ---------------------------------------------------------- */
+.pg-block {
+  position: relative;
+  font-kerning: normal;
+  -webkit-font-smoothing: antialiased;
+}
+.pg-ln {
+  position: absolute; left: 0; top: 0; margin: 0;
+  white-space: nowrap;
+  text-align: justify; text-align-last: justify;
+  transition: color .4s ease;
+}
+.pg-ln.is-last { text-align-last: left; }
+.pg-ln-m { font-family: var(--pg-main-font); font-weight: var(--pg-main-weight); color: var(--pg-ink); }
+.pg-ln-c { font-family: var(--pg-gloss-font); font-weight: var(--pg-gloss-weight); color: var(--pg-ink); }
+.pg-ln span, .pg-ln sup { transition: color .4s ease, opacity .4s ease, background-size .5s cubic-bezier(.3, .7, .2, 1), text-decoration-color .4s ease; }
+
+/* Superscript keys move by position, not vertical-align, so they never
+   push the line box off the baseline grid. */
+.pg-key {
+  position: relative; top: -.52em; line-height: 0; vertical-align: baseline;
+  font-size: .6em; font-weight: 600; color: var(--pg-rubric);
+  font-family: var(--pg-gloss-font); font-style: normal;
+  margin: 0 .04em 0 .02em;
+}
+.pg-ln-c .pg-key { font-size: .72em; top: -.42em; margin: 0 .16em 0 0; }
+.pg-pil { color: var(--pg-rubric); font-weight: 500; }
+.pg-sc { font-variant-caps: all-small-caps; letter-spacing: .05em; }
+.pg-lab { color: var(--pg-rubric); font-variant-caps: all-small-caps; letter-spacing: .06em; font-weight: 600; }
+.pg-glem {
+  text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .2em;
+  text-decoration-color: color-mix(in srgb, var(--pg-rubric) 70%, transparent);
+  text-decoration-skip-ink: auto;
+}
+.pg-lemma {
+  background-image: linear-gradient(var(--pg-wash), var(--pg-wash));
+  background-repeat: no-repeat; background-position: 0 86%; background-size: 0% .46em;
+}
+.pg-g, .pg-lemma, .pg-ln-m .pg-key { cursor: pointer; }
+
+/* The drop initial: grey until the page settles, then the colour comes up. */
+.pg-ini {
+  position: absolute; display: block; pointer-events: none; user-select: none;
+  mix-blend-mode: multiply;
+  filter: grayscale(1) contrast(1.04) brightness(1.04);
+  transition: filter 2.4s cubic-bezier(.3, .6, .2, 1), opacity .45s ease;
+}
+.pg-block.is-bloomed .pg-ini { filter: none; }
+.pg-ini-letter {
+  position: absolute; pointer-events: none;
+  font-family: var(--pg-main-font); font-weight: 600; color: var(--pg-rubric); line-height: 1;
+}
+
+/* A reader's hand in the margin. */
+.pg-hand { position: absolute; pointer-events: none; color: var(--pg-ink-2); overflow: visible; transition: opacity .4s ease; }
+
+/* ---- lit: one gloss and its lemma -------------------------------------- */
+.pg-block.is-lit .pg-ln { color: var(--pg-dim); }
+.pg-block.is-lit .pg-ln .pg-key, .pg-block.is-lit .pg-ln .pg-pil, .pg-block.is-lit .pg-ln .pg-lab { color: color-mix(in srgb, var(--pg-rubric) 38%, var(--pg-sheet)); }
+.pg-block.is-lit .pg-glem { text-decoration-color: color-mix(in srgb, var(--pg-rubric) 25%, transparent); }
+.pg-block.is-lit .pg-ini { opacity: .42; }
+.pg-block.is-lit .pg-hand { opacity: .4; }
+.pg-block.is-lit .pg-hand.is-on { opacity: 1; color: var(--pg-ink); }
+.pg-block.is-lit .pg-ln .is-on { color: var(--pg-ink); }
+.pg-block.is-lit .pg-ln .pg-key.is-on { color: var(--pg-rubric); }
+.pg-block.is-lit .pg-ln .pg-glem.is-on { text-decoration-color: var(--pg-rubric); }
+.pg-lemma.is-on { background-size: 100% .46em; }
+
+.pg-thread { position: absolute; left: 0; top: 0; overflow: visible; pointer-events: none; }
+.pg-thread path {
+  fill: none; stroke: var(--pg-rubric); stroke-width: 1.25; stroke-linecap: round;
+  stroke-dasharray: 1 1; stroke-dashoffset: 1; opacity: .9;
+}
+/* a halo of vellum under the hairline, so it lies over the words, not through them */
+.pg-thread path.pg-halo { stroke: var(--pg-sheet); stroke-width: 5; opacity: .82; }
+.pg-thread circle { fill: none; stroke: var(--pg-rubric); stroke-width: 1; opacity: 0; transform-box: fill-box; transform-origin: center; transform: scale(.4); }
+.pg-thread.is-drawn path { stroke-dashoffset: 0; transition: stroke-dashoffset .62s cubic-bezier(.35, .6, .2, 1) .08s; }
+.pg-thread.is-drawn circle { opacity: .9; transform: scale(1); transition: opacity .3s ease, transform .45s cubic-bezier(.3, .7, .2, 1); }
+.pg-thread.is-drawn circle.pg-to { transition-delay: .5s; }
+
+.pg-ln-m .pg-key.is-focus, .pg-ln-c .pg-key.is-focus { outline: 1.5px solid var(--pg-ink); outline-offset: 3px; border-radius: 50%; }
+
+/* First appearance: the lines come up like ink, top to bottom. */
+.pg-block.is-veiled .pg-ln, .pg-block.is-veiled .pg-ini, .pg-block.is-veiled .pg-hand { opacity: 0; }
+.pg-block.is-inking .pg-ln { animation: pg-ink .9s cubic-bezier(.3, .6, .25, 1) both; }
+.pg-block.is-inking .pg-ini, .pg-block.is-inking .pg-hand { animation: pg-ink 1.2s ease both; }
+@keyframes pg-ink { from { opacity: 0; } to { opacity: 1; } }
+
+/* ---- stacked (phones): the text, and the glosses folded under it -------- */
+.pg.is-stack { --pg-stack-size: 21px; padding: 26px 20px 30px; }
+.pg-stack { font-family: var(--pg-main-font); max-width: 34em; margin: 0 auto; }
+.pg-s-p {
+  margin: 0; font-weight: var(--pg-main-weight); font-size: var(--pg-stack-size, 21px); line-height: 1.5;
+  hyphens: auto; -webkit-hyphens: auto; text-wrap: pretty;
+}
+.pg-s-p .pg-key { font-size: .62em; }
+.pg-s-p .pg-lemma { cursor: pointer; -webkit-tap-highlight-color: transparent; hyphens: manual; -webkit-hyphens: manual; }
+.pg-s-p a.pg-key { text-decoration: none; padding: .6em .25em; margin: -.6em -.1em; }
+.pg-s-ini { float: left; margin: .32em .42em 0 -.04em; mix-blend-mode: multiply; filter: grayscale(1); transition: filter 2.4s cubic-bezier(.3, .6, .2, 1); }
+.pg-stack.is-bloomed .pg-s-ini { filter: none; }
+.pg-s-d { margin: .55em 0 1.35em; }
+.pg-s-d > summary {
+  list-style: none; cursor: pointer; display: flex; align-items: center; gap: .7em;
+  padding: .55em 0; font-family: var(--pg-gloss-font); font-size: 13px; color: var(--pg-rubric);
+  letter-spacing: .14em; text-transform: uppercase; -webkit-tap-highlight-color: transparent;
+}
+.pg-s-d > summary::-webkit-details-marker { display: none; }
+.pg-s-d > summary::before, .pg-s-d > summary::after { content: ""; height: 1px; flex: 1; background: color-mix(in srgb, var(--pg-rubric) 30%, transparent); }
+.pg-s-sum { display: inline-flex; align-items: center; gap: .55em; }
+.pg-s-keys { letter-spacing: .3em; text-transform: none; font-style: italic; }
+.pg-s-tog { position: relative; width: 9px; height: 9px; flex: none; }
+.pg-s-tog::before, .pg-s-tog::after { content: ""; position: absolute; left: 0; right: 0; top: 4px; height: 1px; background: currentColor; transition: transform .35s cubic-bezier(.3, .7, .2, 1); }
+.pg-s-tog::after { transform: rotate(90deg); }
+.pg-s-d[open] .pg-s-tog::after { transform: rotate(0deg); }
+.pg-s-d > summary:focus-visible { outline: 1.5px solid var(--pg-ink); outline-offset: 2px; border-radius: 2px; }
+.pg-s-body { padding: .2em 0 .3em; }
+.pg-s-g {
+  margin: 0 0 .85em; padding: .5em .6em .55em 1.25em; text-indent: -.85em;
+  font-family: var(--pg-gloss-font); font-weight: var(--pg-gloss-weight); font-size: 16px; line-height: 1.5; color: var(--pg-ink);
+  hyphens: auto; -webkit-hyphens: auto; text-wrap: pretty;
+  border-radius: 3px; transition: background-color .45s ease, color .45s ease;
+}
+.pg-s-g .pg-key { font-size: .74em; margin-right: .3em; top: -.4em; }
+.pg-s-g .pg-glem { text-decoration: underline; }
+.pg-s-g .pg-side { font-variant-caps: all-small-caps; letter-spacing: .08em; color: var(--pg-ink-3); text-indent: 0; }
+.pg-stack.is-lit .pg-s-g.is-on { background-color: color-mix(in srgb, var(--pg-rubric) 8%, transparent); }
+.pg-stack .pg-lemma.is-on { background-size: 100% .46em; }
+.pg-s-p a.pg-key:focus-visible { outline: 1.5px solid var(--pg-ink); outline-offset: 1px; border-radius: 3px; }
+@supports (interpolate-size: allow-keywords) {
+  .pg-s-d { interpolate-size: allow-keywords; }
+  .pg-s-d::details-content { height: 0; overflow: clip; transition: height .5s cubic-bezier(.3, .7, .2, 1), content-visibility .5s allow-discrete; }
+  .pg-s-d[open]::details-content { height: auto; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pg-ln, .pg-ln span, .pg-ln sup, .pg-ini, .pg-s-ini, .pg-s-g, .pg-hand { transition: none !important; }
+  .pg-ini, .pg-s-ini { filter: none; }
+  .pg-thread.is-drawn path, .pg-thread.is-drawn circle { transition: none !important; }
+  .pg-block.is-veiled .pg-ln, .pg-block.is-veiled .pg-ini, .pg-block.is-veiled .pg-hand { opacity: 1; }
+  .pg-block.is-inking .pg-ln, .pg-block.is-inking .pg-ini, .pg-block.is-inking .pg-hand { animation: none; }
+  .pg-s-d::details-content { transition: none !important; }
+}

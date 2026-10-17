@@ -1,0 +1,23 @@
+[
+ {
+  "file": "assets/unicorn-in-captivity.webp",
+  "title": "The Unicorn Rests in a Garden (from the Unicorn Tapestries)",
+  "date": "1495–1505, South Netherlandish",
+  "source": "The Metropolitan Museum of Art, The Cloisters Collection, Open Access (CC0)",
+  "url": "https://www.metmuseum.org/art/collection/search/467642",
+  "objectID": 467642,
+  "image": "https://images.metmuseum.org/CRDImages/cl/original/DP118991.jpg",
+  "license": "CC0 1.0 (public domain)",
+  "note": "Cut out of the grey museum background along its real bound edge (soft 1px alpha), resized to 2000px wide."
+ },
+ {
+  "file": "assets/bayeux-scene-40.webp",
+  "title": "Bayeux Tapestry, scene 40 (cropped): the knights hurry to Hastings to seize food",
+  "date": "11th century",
+  "source": "Wikimedia Commons, File:Bayeux Tapestry Scene 40 (cropped).png",
+  "url": "https://commons.wikimedia.org/wiki/File:Bayeux_Tapestry_Scene_40_(cropped).png",
+  "author": "Photograph: Université de Caen Normandie · CNRS · ENSICAEN, after the 2017 photographic campaign of La Fabrique de patrimoines en Normandie",
+  "license": "Public domain",
+  "note": "3840px Commons thumbnail; the mounting strip below the hem cropped off."
+ }
+]

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>hanging-tapestry</title><link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="hanging-tapestry.css"><style>
+  :root{--paper:#f3f0e8;--paper-2:#e9e5da;--ink:#141312;--ink-3:#8a857d;--rule:#cfcac0;--accent:#c96f4a;--sans:Inter,system-ui,sans-serif;--gutter:clamp(16px,3vw,32px)}
+  *{box-sizing:border-box}
+  html{background:var(--paper)}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);overflow-x:hidden}
+  /* the wall: paper with the faintest plaster grain */
+  main{background:
+      radial-gradient(120% 70% at 50% 0%, rgba(255,252,244,.55), rgba(255,252,244,0) 60%),
+      var(--paper)}
+  .room{min-height:100svh;display:grid;place-items:center;padding:clamp(24px,6svh,64px) var(--gutter)}
+  .hang-1{width:min(100%,62svh,600px)}
+  .label{margin:clamp(18px,3svh,32px) 0 0;text-align:center;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+  .gap{height:28svh}
+  .room-2{min-height:80svh}
+  .hang-2{width:min(100%,1180px)}
+  .end{height:36svh}
+</style></head><body>
+<main>
+  <section class="room">
+    <div class="hang-1">
+      <figure data-hanging-tapestry data-bloom>
+        <img src="assets/unicorn-in-captivity.webp" alt="" width="2000" height="2862">
+      </figure>
+      <p class="label">pull the cloth</p>
+    </div>
+  </section>
+  <div class="gap"></div>
+  <section class="room room-2">
+    <div class="hang-2">
+      <figure data-hanging-tapestry data-hang="loops" data-fringe="tassels" data-grain=".55">
+        <img src="assets/bayeux-scene-40.webp" alt="" width="3840" height="1260">
+      </figure>
+    </div>
+  </section>
+  <div class="end"></div>
+</main>
+<script type="module" src="hanging-tapestry.js"></script>
+</body></html>

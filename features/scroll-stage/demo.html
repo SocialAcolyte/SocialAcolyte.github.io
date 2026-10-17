@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>scroll-stage</title><link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="scroll-stage.css">
+<style>
+  :root{--paper:#f3f0e8;--paper-2:#e9e5da;--ink:#141312;--ink-2:#4a4744;--ink-3:#8a857d;--rule:#cfcac0;--accent:#c96f4a;
+        --serif:'Cormorant Garamond',Georgia,serif;--sans:Inter,system-ui,sans-serif;--gutter:clamp(16px,3vw,32px)}
+  *{box-sizing:border-box} html,body{margin:0} body{background:var(--paper);color:var(--ink);font-family:var(--serif);overflow-x:hidden}
+  .spacer{height:62svh;display:grid;place-items:center;font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+  .spacer em{font-style:normal;display:block;margin-top:10px;text-align:center;opacity:.7}
+
+  /* ── The scene: a sea in a toy theatre ─────────────────────────────── */
+  .th { --ss-scene-paper:#ebe3d1; }
+  .th-scene { position:absolute; inset:0; transform-origin:50% 72%; }
+  .th-scene > * { position:absolute; display:block; pointer-events:none; }
+  .th-scene > img { width:auto; height:auto; max-width:none; }
+  .th-sky { inset:0;
+    background: radial-gradient(120% 70% at 50% 100%, #e6dcc6 0%, #ece4d2 45%, #efe8d8 100%); }
+  .th-sky::before { /* Hiroshige's bokashi: a vermilion band that blooms in */
+    content:""; position:absolute; left:0; right:0; top:0; height:34%;
+    background: linear-gradient(#cf6c4f 0%, rgba(214,120,88,.72) 26%, rgba(226,170,130,.28) 62%, rgba(236,228,210,0) 100%);
+    opacity: var(--bloom, 0); }
+  .th-sky::after { /* paper grain */
+    content:""; position:absolute; inset:0; opacity:.5; mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .5 0 0 0 0 .42 0 0 0 .5 0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  .th .th-moon { width:min(10.5%, 18svh); aspect-ratio:1; left:65%; top:17%; }
+  /* A woodblock moon: bare paper, with the sky printed darker around it
+     (bokashi). At night the shading lifts and the disc glows. */
+  .th-moon::before { content:""; position:absolute; inset:-80%; border-radius:50%;
+    background: radial-gradient(closest-side, rgba(110,96,78,.13) 36%, rgba(110,96,78,.06) 62%, rgba(110,96,78,0) 100%);
+    opacity: calc(1 - var(--glow, 0)); }
+  .th-moon::after { content:""; position:absolute; inset:0; border-radius:50%;
+    background: #f8f3e6; /* flat, like bare paper left by the block */
+    box-shadow: 0 0 0 1px rgba(90, 76, 60, calc(.32 * (1 - var(--glow, 0)))),
+                0 0 calc(var(--glow, 0) * 70px) calc(var(--glow, 0) * 16px) rgba(255, 232, 182, .5); }
+  .th .th-birds { width:13%; left:17%; top:9%; mix-blend-mode:multiply; }
+  .th .th-great { width:94%; left:-3%; bottom:-10%; }
+  .th .th-ship { width:13%; aspect-ratio:1200/881; left:47%; bottom:24.5%; transform-origin:50% 92%;
+    /* the engraving is a mask; its ink is a colour the keys can change */
+    background:var(--ink, rgb(46,42,38));
+    -webkit-mask:url(assets/ship-ink.webp) 0 0/100% 100% no-repeat; mask:url(assets/ship-ink.webp) 0 0/100% 100% no-repeat; }
+  .th .th-curl { display:none; }  /* a phone-only foreground wave */
+  .th-dim { inset:0; background: linear-gradient(#1d2850, #2c3760 50%, #4a3a4c); mix-blend-mode:multiply; opacity:0; }
+  .th-light { inset:0; background: radial-gradient(80% 40% at 50% 104%, rgba(255,214,150,.55), rgba(255,214,150,0) 70%);
+    mix-blend-mode:soft-light; opacity:0; }
+  .th img { -webkit-user-drag:none; user-select:none; }
+  /* Engravings start as ink on paper and the colour arrives mid-scene
+     (gray keys). Without JS, and under reduced motion, it is in colour. */
+
+  @media (max-width: 699px) {
+    .th .th-moon { width:24%; left:63%; top:14%; }
+    .th .th-birds { width:30%; left:8%; top:12%; }
+    .th .th-great { width:225%; left:-66%; bottom:-4%; }
+    .th .th-ship { width:30%; left:40%; bottom:19.5%; }
+    .th .th-curl { display:block; height:auto; width:46%; right:-12%; bottom:-7%; }
+  }
+</style></head><body>
+
+<div class="spacer">scroll</div>
+
+<section class="th" data-scroll-stage data-name="the wave" data-length="760svh" data-still=".64">
+  <div class="ss-stage ss-proscenium">
+    <div class="ss-frame">
+      <div class="ss-opening">
+
+        <div class="th-scene" data-name="camera"
+             data-keys='{"0":{"s":1.1,"y":"2%"}, ".3":{"s":1,"y":"0%","ease":"out"}, ".86":{"s":1.05,"y":"-1%","ease":"inOutSine"}}'>
+          <div class="th-sky" data-name="sky" aria-hidden="true"
+               data-keys='{".42":{"--bloom":0}, ".64":{"--bloom":1,"ease":"inOutSine"}}'></div>
+
+          <img class="th-birds" data-name="birds" src="assets/birds.webp" alt="" aria-hidden="true" width="426" height="389"
+               data-keys='{"0":{"x":"-60%","y":"30%","gray":1}, ".9":{"x":"190%","y":"-25%","ease":"linear"}, ".42":{"gray":1}, ".6":{"gray":0}}'
+               data-keys-sm='{"0":{"x":"-40%","y":"20%"}, ".9":{"x":"140%","y":"-20%","ease":"linear"}}'>
+
+          <div class="th-ship" data-name="ship" aria-hidden="true"
+               data-keys='{"0":{"x":"-120%","y":"0%","r":0,"o":1,"--ink":"rgb(46,42,38)"},".18":{"x":"-120%","r":[0,"inOutSine"],"y":["0.0%","inOutSine"]},".25":{"r":[2.2,"inOutSine"],"y":["-2.0%","inOutSine"]},".32":{"r":[-1.8,"inOutSine"],"y":["1.6%","inOutSine"]},".39":{"r":[2.4,"inOutSine"],"y":["-2.2%","inOutSine"]},".42":{"--ink":"rgb(46,42,38)"},".46":{"r":[-2,"inOutSine"],"y":["1.8%","inOutSine"]},".53":{"r":[2.2,"inOutSine"],"y":["-2.0%","inOutSine"]},".6":{"r":[-1.9,"inOutSine"],"y":["1.7%","inOutSine"],"--ink":"rgb(27,48,92)"},".67":{"r":[2.1,"inOutSine"],"y":["-1.9%","inOutSine"]},".74":{"r":[-1.7,"inOutSine"],"y":["1.5%","inOutSine"]},".81":{"r":[1.6,"inOutSine"],"y":["-1.4%","inOutSine"]},".88":{"r":[0,"inOutSine"],"y":["0.0%","inOutSine"]},".9":{"x":"190%","ease":"linear"}}'
+               data-keys-sm='{"0":{"x":"-120%"},".18":{"x":"-120%"},".9":{"x":"130%","ease":"linear"}}'></div>
+
+          <img class="th-great" data-name="great wave" src="assets/wave-great.webp" alt="" aria-hidden="true" width="2560" height="1699"
+               data-keys='{"0":{"x":"-3%","y":"34%","s":0.97,"gray":1}, ".44":{"y":"0%","s":1,"gray":1,"ease":"out"}, ".6":{"gray":0}, "1":{"x":"2%","ease":"linear"}}'
+               data-keys-sm='{"0":{"x":"-4%","y":"30%"}, "1":{"x":"6%","ease":"linear"}}'>
+
+          <img class="th-curl" data-name="curl" src="assets/wave-curl.webp" alt="" aria-hidden="true" width="541" height="717"
+               data-keys='{"0":{"x":"14%","y":"60%","gray":1}, ".5":{"y":"0%","ease":"out"}, "1":{"x":"-8%","ease":"linear"}, ".46":{"gray":1}, ".64":{"gray":0}}'>
+
+          <div class="th-light" data-name="footlights" aria-hidden="true"
+               data-keys='{"0":{"o":0}, ".2":{"o":1}, ".8":{"o":1}, ".9":{"o":0}}'></div>
+          <div class="th-dim" data-name="dusk" aria-hidden="true"
+               data-keys='{"0":{"o":0.55}, ".22":{"o":0,"ease":"out"}, ".76":{"o":0}, ".9":{"o":0.92,"ease":"inOutSine"}}'></div>
+          <div class="th-moon" data-name="moon" aria-hidden="true"
+               data-keys='{"0":{"y":"90%","o":0}, ".12":{"o":1}, ".62":{"y":"0%","ease":"out"}, ".78":{"--glow":0}, ".9":{"--glow":1}}'
+               data-keys-sm='{"0":{"y":"70%"}, ".62":{"y":"0%","ease":"out"}}'></div>
+        </div>
+
+        <div class="ss-curtain ss-curtain--l" data-name="curtain L" aria-hidden="true"
+             data-keys='{"0":{"sx":1}, ".2":{"sx":0.15,"ease":"inOut"}, ".9":{"sx":0.15}, "1":{"sx":1,"ease":"inOut"}}'></div>
+        <div class="ss-curtain ss-curtain--r" data-name="curtain R" aria-hidden="true"
+             data-keys='{"0":{"sx":1}, ".2":{"sx":0.15,"ease":"inOut"}, ".9":{"sx":0.15}, "1":{"sx":1,"ease":"inOut"}}'></div>
+        <div class="ss-fringe" aria-hidden="true"></div>
+        <div class="ss-valance" aria-hidden="true"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="spacer">fin</div>
+<script type="module" src="scroll-stage.js"></script>
+</body></html>

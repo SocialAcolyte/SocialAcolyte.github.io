@@ -1,0 +1,30 @@
+[
+  {
+    "file": "initial-t.webp",
+    "title": "Manuscript Leaf with the Holy Trinity in an Initial T, from a Missal",
+    "author": "South German, ca. 1390",
+    "museum": "The Metropolitan Museum of Art, 55.18.5 (Gift of Harry G. Friedman, 1955)",
+    "source": "https://www.metmuseum.org/art/collection/search/468478",
+    "original": "https://images.metmuseum.org/CRDImages/md/original/sf55-18-5s1.jpg",
+    "license": "CC0 (Met Open Access, public domain)",
+    "notes": "Cropped to the painted initial (the T in gold on blue, its red frame); the vellum outside the paint made transparent with a soft edge."
+  },
+  {
+    "file": "vellum.webp",
+    "title": "Manuscript Leaf with the Trinity in an Initial T, from an Antiphonary",
+    "author": "Master of the Riccardiana Lactantius, Italian, second half 15th century",
+    "museum": "The Metropolitan Museum of Art, 96.32.6 (Gift of Louis L. Lorillard, 1896)",
+    "source": "https://www.metmuseum.org/art/collection/search/469053",
+    "original": "https://images.metmuseum.org/CRDImages/md/original/sf96-32-6s1.jpg",
+    "license": "CC0 (Met Open Access, public domain)",
+    "notes": "A blank stretch of the leaf's lower margin, flattened (divided by its own blur) and made seamless, used as a faint multiply texture."
+  },
+  {
+    "text": "Ecclesiastes 1:1-11, King James Version (1611 text in its 1769 spelling)",
+    "license": "Public domain (outside the United Kingdom; Crown patent within it)"
+  },
+  {
+    "text": "The two commentaries (Glossa and Postilla)",
+    "license": "Original prose written for this component; use it freely."
+  }
+]

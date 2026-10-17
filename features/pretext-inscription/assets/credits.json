@@ -1,0 +1,20 @@
+[
+  {
+    "file": "marble.webp",
+    "used_for": "the stone's veining (its luminance only, around a warm tint)",
+    "title": "White Carrara Marble (Apuan Marble Formation, Tertiary metamorphism of Jurassic limestones; Carbonera Quarry, Tuscany, Italy)",
+    "author": "James St. John",
+    "source": "https://commons.wikimedia.org/wiki/File:White_Carrara_Marble_(Apuan_Marble_Formation,_Tertiary_metamorphism_of_Jurassic_limestones;_Carbonera_Quarry,_Tuscany,_Italy)_(14618707748).jpg",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0/",
+    "notes": "Commons thumbnail at 1280x1460, saved as WebP; otherwise unmodified."
+  },
+  {
+    "text": "Epitaph of Claudia, Rome, 2nd century BC (CIL VI 15346 = CIL I² 1211). Latin text public domain; English translation written for this component.",
+    "used_for": "the demo's large fragment"
+  },
+  {
+    "text": "Dedication on the Pantheon's pronaos, Rome (CIL VI 896): M·AGRIPPA·L·F·COS·TERTIVM·FECIT. Public domain.",
+    "used_for": "the demo's small block"
+  }
+]

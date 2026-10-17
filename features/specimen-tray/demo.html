@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>specimen-tray</title><link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Homemade+Apple&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="specimen-tray.css"><style>
+  :root{--paper:#f3f0e8;--ink:#141312;--ink-3:#8a857d;--accent:#c96f4a;--sans:Inter,system-ui,sans-serif;--gutter:clamp(12px,3vw,32px)}
+  *{box-sizing:border-box} body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);overflow-x:hidden}
+  .spacer{height:70svh;display:grid;place-items:center;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+</style></head><body>
+<div class="spacer">scroll</div>
+<section data-specimen-tray data-label="Tray IV">
+  <div class="sp-stage">
+    <ul class="sp-tray" aria-label="A drawer of shells, coins and a beetle">
+      <li data-no="1147" data-size="1.25"><img src="assets/nautilus.webp" alt="A nautilus shell"></li>
+      <li data-no="0382" data-size="0.95" data-back="assets/cone-cedonulli-back.webp"><img src="assets/cone-cedonulli.webp" alt="A cone shell"></li>
+      <li data-no="0907" data-size="0.92" data-weight="1.2" data-back="assets/cowrie-tiger-underside.webp"><img src="assets/cowrie-tiger.webp" alt="A tiger cowrie"></li>
+      <li data-no="0911" data-size="0.86" data-weight="1.2"><img src="assets/cowrie-tiger-side.webp" alt="A tiger cowrie, seen from the side"></li>
+      <li data-no="0045" data-size="0.8" data-weight="1.1"><img src="assets/turban.webp" alt="A turban shell"></li>
+      <li data-no="2734" data-size="0.72" data-weight="0.6"><img src="assets/beetle-rhagonycha.webp" alt="A soldier beetle"></li>
+      <li data-no="3318" data-size="0.6" data-weight="2.6" data-back="assets/tetradrachm-alexander-reverse.webp"><img src="assets/tetradrachm-alexander.webp" alt="A silver tetradrachm of Alexander the Great"></li>
+      <li data-no="3320" data-size="0.62" data-weight="2.6" data-back="assets/tetradrachm-lysimachos-reverse.webp"><img src="assets/tetradrachm-lysimachos.webp" alt="A silver tetradrachm of Lysimachos"></li>
+      <li data-no="3341" data-size="0.6" data-weight="2.6" data-back="assets/tetradrachm-demetrios-reverse.webp"><img src="assets/tetradrachm-demetrios.webp" alt="A silver tetradrachm of Demetrios Poliorketes"></li>
+      <li data-no="3402" data-size="0.56" data-weight="2.6" data-back="assets/tetradrachm-parthian-reverse.webp"><img src="assets/tetradrachm-parthian.webp" alt="A Parthian silver tetradrachm"></li>
+      <li data-no="2210" data-size="0.46" data-weight="2.6" data-back="assets/denarius-brutus-reverse.webp"><img src="assets/denarius-brutus.webp" alt="A silver denarius of Brutus"></li>
+      <li data-no="2216" data-size="0.46" data-weight="2.6" data-back="assets/stater-philip-ii-reverse.webp"><img src="assets/stater-philip-ii.webp" alt="A gold stater"></li>
+      <li data-no="2219" data-size="0.5" data-weight="2.6" data-back="assets/stater-gold-reverse.webp"><img src="assets/stater-gold.webp" alt="A gold stater of Lysimachos"></li>
+      <li data-no="0916" data-size="0.72" data-weight="1.2"><img src="assets/cowrie-tiger-end.webp" alt="A tiger cowrie, seen end on"></li>
+    </ul>
+  </div>
+</section>
+<div class="spacer">end</div>
+<script>{const m=/[?&]seed=(\d+)/.exec(location.search);if(m)document.querySelector('[data-specimen-tray]').dataset.seed=m[1]}</script>
+<script type="module" src="specimen-tray.js"></script>
+</body></html>

@@ -1,0 +1,47 @@
+/* ─── Calligram — a paragraph poured into a vessel (pretext-calligram.js) ──
+   The <p> is the real text and stays in the DOM. Without JS it is a quiet
+   column of prose; once the script has poured it, the canvas takes over and
+   the paragraph is visually hidden (still read aloud, still selectable via
+   find). Scroll mode is a tall runway with a pinned stage; static mode is
+   just the vessel in the flow. */
+
+[data-pretext-calligram], .pc {
+  position: relative;
+  background: var(--paper, #f3f0e8);
+  color: var(--ink, #141312);
+}
+.pc-stage {
+  display: grid;
+  place-items: center;
+  padding: clamp(28px, 6svh, 64px) var(--gutter, clamp(16px, 3vw, 32px));
+  touch-action: pan-y;
+}
+.pc-text {
+  grid-area: 1 / 1;
+  max-width: 34em;
+  margin: 0 auto;
+  font-family: var(--pc-serif, var(--serif, "Cormorant Garamond", Georgia, serif));
+  font-weight: 500;
+  font-size: clamp(18px, 2.2vw, 22px);
+  line-height: 1.45;
+  text-wrap: pretty;
+  color: var(--ink, #141312);
+}
+.pc-canvas { grid-area: 1 / 1; display: none; touch-action: pan-y; }
+
+/* Scroll: the colour rises over the runway; the vessel stays put. */
+.pc.pc-scroll.is-live { height: var(--pc-runway, 240svh); }
+.pc.pc-scroll.is-live .pc-stage {
+  position: sticky; top: 0; height: 100svh; box-sizing: border-box; overflow: hidden;
+}
+
+.pc.is-live .pc-canvas { display: block; }
+.pc.is-live .pc-text {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip-path: inset(50%); white-space: nowrap; padding: 0; margin: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pc.pc-scroll.is-live { height: auto; }
+  .pc.pc-scroll.is-live .pc-stage { position: relative; height: 100svh; }
+}

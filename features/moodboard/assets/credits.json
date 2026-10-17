@@ -1,0 +1,321 @@
+{
+ "note": "Copied from library/ornaments (see library/ornaments/credits.json). lg/ files are the library webps downscaled to 2000px on the long side.",
+ "images": [
+  {
+   "id": "aureus-nero",
+   "sm": "sm/aureus-nero.jpg",
+   "source": "https://commons.wikimedia.org/wiki/File:01986_Aureus_of_Nero,_Po%C5%82aniec,_grave_goods,_Gassowski_1986.jpg",
+   "title": "File:01986 Aureus of Nero, Po\u0142aniec, grave goods, Gassowski 1986.jpg",
+   "license": "Public domain",
+   "author": "Kultura pradziejowa na ziemiach Polski, 1986, Warszawa",
+   "library": "ornaments/coins/01986-aureus-of-nero-po-aniec-grave-goods-gassow.webp"
+  },
+  {
+   "id": "decadrachm-syracuse",
+   "sm": "sm/decadrachm-syracuse.jpg",
+   "lg": "lg/decadrachm-syracuse.webp",
+   "source": "https://commons.wikimedia.org/wiki/File:Silver_decadrachm_of_Arethusa,_minted_in_Syracuse_(405-400_BCE).jpg",
+   "title": "File:Silver decadrachm of Arethusa, minted in Syracuse (405-400 BCE).jpg",
+   "license": "CC0",
+   "author": "American Numismatic Society",
+   "library": "ornaments/coins/silver-decadrachm-of-arethusa-minted-in-syracuse.webp"
+  },
+  {
+   "id": "denarius-augustus",
+   "sm": "sm/denarius-augustus.jpg",
+   "lg": "lg/denarius-augustus.webp",
+   "source": "https://commons.wikimedia.org/wiki/File:Silver_Denarius_of_Augustus_(MANTIS).jpg",
+   "title": "File:Silver Denarius of Augustus (MANTIS).jpg",
+   "license": "CC0",
+   "author": "American Numismatic Society",
+   "library": "ornaments/coins/silver-denarius-of-augustus-mantis.webp"
+  },
+  {
+   "id": "solidus-irene",
+   "sm": "sm/solidus-irene.jpg",
+   "source": "https://commons.wikimedia.org/wiki/File:Solidus_of_Irene.png",
+   "title": "File:Solidus of Irene.png",
+   "license": "CC BY-SA 2.5",
+   "author": "CNG Coins",
+   "library": "ornaments/coins/solidus-of-irene.webp"
+  },
+  {
+   "id": "moon-engraving",
+   "sm": "sm/moon-engraving.jpg",
+   "lg": "lg/moon-engraving.webp",
+   "source": "https://commons.wikimedia.org/wiki/File:Astronomy;_the_surface_of_the_moon._Engraving._Wellcome_V0024724.jpg",
+   "title": "File:Astronomy; the surface of the moon. Engraving. Wellcome V0024724.jpg",
+   "license": "CC BY 4.0",
+   "author": "",
+   "library": "ornaments/engravings/astronomy-the-surface-of-the-moon-engraving-well.webp"
+  },
+  {
+   "id": "dore-wondrous-cold",
+   "sm": "sm/dore-wondrous-cold.jpg",
+   "lg": "lg/dore-wondrous-cold.webp",
+   "source": "https://commons.wikimedia.org/wiki/File:Dore_-_it_was_wondrous_cold.jpg",
+   "title": "File:Dore - it was wondrous cold.jpg",
+   "license": "Public domain",
+   "author": "Gustave Dor\u00e9",
+   "library": "ornaments/engravings/dore-it-was-wondrous-cold.webp"
+  },
+  {
+   "id": "mosaic-milreu",
+   "sm": "sm/mosaic-milreu.jpg",
+   "lg": "lg/mosaic-milreu.webp",
+   "source": "https://commons.wikimedia.org/wiki/File:Detail_of_mosaic_in_the_frigidarium_of_the_baths_showing_marine_fauna,_including_fishes,_mussels_and_urchins,_Roman_Ruins_of_Milreu,_a_luxurious_rural_villa_transformed_into_a_prosperous_farm_in_the_3rd_century,_Portugal_(12741949343).jpg",
+   "title": "File:Detail of mosaic in the frigidarium of the baths showing marine fauna, including fishes, mussels and urchins, Roman Ruins of Milreu, a luxurious rural villa transformed into a prosperous farm in the 3rd century, Portugal (12741949343).jpg",
+   "license": "CC BY-SA 2.0",
+   "author": "Carole Raddato from FRANKFURT, Germany",
+   "library": "ornaments/mosaics/detail-of-mosaic-in-the-frigidarium-of-the-baths.webp"
+  },
+  {
+   "id": "mosaic-fish-ducks",
+   "sm": "sm/mosaic-fish-ducks.jpg",
+   "lg": "lg/mosaic-fish-ducks.webp",
+   "source": "https://commons.wikimedia.org/wiki/File:Fish_ducks_MAN_Napoli_Inv109371.jpg",
+   "title": "File:Fish ducks MAN Napoli Inv109371.jpg",
+   "license": "Public domain",
+   "author": "",
+   "library": "ornaments/mosaics/fish-ducks-man-napoli-inv109371.webp"
+  },
+  {
+   "id": "haeckel-actiniae",
+   "sm": "sm/haeckel-actiniae.jpg",
+   "lg": "lg/haeckel-actiniae.webp",
+   "source": "https://commons.wikimedia.org/wiki/File:Haeckel_Actiniae.jpg",
+   "title": "File:Haeckel Actiniae.jpg",
+   "license": "Public domain",
+   "author": "Ernst Haeckel",
+   "library": "ornaments/natural/haeckel-actiniae.webp"
+  },
+  {
+   "id": "haeckel-discomedusae",
+   "sm": "sm/haeckel-discomedusae.jpg",
+   "lg": "lg/haeckel-discomedusae.webp",
+   "source": "https://commons.wikimedia.org/wiki/File:Haeckel_Discomedusae_8.jpg",
+   "title": "File:Haeckel Discomedusae 8.jpg",
+   "license": "Public domain",
+   "author": "Original: Ernst Haeckel. Scan: Ragesoss. Cleanup: Ilmari Karonen.",
+   "library": "ornaments/natural/haeckel-discomedusae-8.webp"
+  },
+  {
+   "id": "haeckel-prosobranchia",
+   "sm": "sm/haeckel-prosobranchia.jpg",
+   "lg": "lg/haeckel-prosobranchia.webp",
+   "source": "https://commons.wikimedia.org/wiki/File:Haeckel_Prosobranchia.jpg",
+   "title": "File:Haeckel Prosobranchia.jpg",
+   "license": "Public domain",
+   "author": "Ernst Haeckel",
+   "library": "ornaments/natural/haeckel-prosobranchia.webp"
+  },
+  {
+   "id": "merian-peppers",
+   "sm": "sm/merian-peppers.jpg",
+   "lg": "lg/merian-peppers.webp",
+   "source": "https://commons.wikimedia.org/wiki/File:Maria_Sibylla_Merian_-_plant_study_with_peppers.jpg",
+   "title": "File:Maria Sibylla Merian - plant study with peppers.jpg",
+   "license": "Public domain",
+   "author": "Maria Sibylla Merian",
+   "library": "ornaments/natural/maria-sibylla-merian-plant-study-with-peppers.webp"
+  },
+  {
+   "id": "bairei-peony",
+   "sm": "sm/bairei-peony.jpg",
+   "lg": "lg/bairei-peony.webp",
+   "source": "https://commons.wikimedia.org/wiki/File:Bairei_kach%C5%8D_gafu,_Spring_13,_Chinese_peony_and_cranes.jpg",
+   "title": "File:Bairei kach\u014d gafu, Spring 13, Chinese peony and cranes.jpg",
+   "license": "Public domain",
+   "author": "K\u014dno Bairei",
+   "library": "ornaments/prints/bairei-kach-gafu-spring-13-chinese-peony-and-cra.webp"
+  },
+  {
+   "id": "great-wave",
+   "sm": "sm/great-wave.jpg",
+   "lg": "lg/great-wave.webp",
+   "source": "https://commons.wikimedia.org/wiki/File:Great_Wave_off_Kanagawa2.jpg",
+   "title": "File:Great Wave off Kanagawa2.jpg",
+   "license": "Public domain",
+   "author": "After Katsushika Hokusai",
+   "library": "ornaments/prints/great-wave-off-kanagawa2.webp"
+  },
+  {
+   "id": "zeshin-peony",
+   "sm": "sm/zeshin-peony.jpg",
+   "lg": "lg/zeshin-peony.webp",
+   "source": "https://commons.wikimedia.org/wiki/File:Peony_by_Shibata_Zeshin_from_Comparing_Flowers,_Volume_6.JPG",
+   "title": "File:Peony by Shibata Zeshin from Comparing Flowers, Volume 6.JPG",
+   "license": "Public domain",
+   "author": "Shibata Zeshin",
+   "library": "ornaments/prints/peony-by-shibata-zeshin-from-comparing-flowers-v.webp"
+  },
+  {
+   "id": "hiroshige-satta",
+   "sm": "sm/hiroshige-satta.jpg",
+   "lg": "lg/hiroshige-satta.webp",
+   "source": "https://commons.wikimedia.org/wiki/File:Print,_Great_Wave_at_Satta_Beach,_Suruga,_from_the_series_The_Thirty-Six_Views_of_Fuji_(Fuji_Sanjuroku_Kei),_1858_(CH_18562709).jpg",
+   "title": "File:Print, Great Wave at Satta Beach, Suruga, from the series The Thirty-Six Views of Fuji (Fuji Sanjuroku Kei), 1858 (CH 18562709).jpg",
+   "license": "Public domain",
+   "author": "Utagawa Hiroshige",
+   "library": "ornaments/prints/print-great-wave-at-satta-beach-suruga-from-the.webp"
+  },
+  {
+   "id": "carnelian-anubis",
+   "sm": "sm/carnelian-anubis.jpg",
+   "lg": "lg/carnelian-anubis.webp",
+   "source": "https://commons.wikimedia.org/wiki/File:Carnelian_intaglio-_Standing_Anubis_MET_DP280596.jpg",
+   "title": "File:Carnelian intaglio- Standing Anubis MET DP280596.jpg",
+   "license": "CC0",
+   "author": "",
+   "library": "ornaments/seals/carnelian-intaglio-standing-anubis-met-dp280596.webp"
+  },
+  {
+   "id": "cone-cedonulli",
+   "sm": "sm/cone-cedonulli.jpg",
+   "lg": "lg/cone-cedonulli.webp",
+   "source": "https://commons.wikimedia.org/wiki/File:Conus_cedonulli_Linnaeus,_1767_-_Bailey-Matthews_Shell_Museum_(1).jpg",
+   "title": "File:Conus cedonulli Linnaeus, 1767 - Bailey-Matthews Shell Museum (1).jpg",
+   "license": "CC BY-SA 4.0",
+   "author": "James St. John",
+   "library": "ornaments/shells/conus-cedonulli-linnaeus-1767-bailey-matthews-sh.webp"
+  },
+  {
+   "id": "cowrie-tiger",
+   "sm": "sm/cowrie-tiger.jpg",
+   "lg": "lg/cowrie-tiger.webp",
+   "source": "https://commons.wikimedia.org/wiki/File:Cypraea_tigris_02.jpg",
+   "title": "File:Cypraea tigris 02.jpg",
+   "license": "CC BY-SA 3.0",
+   "author": "H. Zell",
+   "library": "ornaments/shells/cypraea-tigris-02.webp"
+  },
+  {
+   "id": "nautilus-weston",
+   "sm": "sm/nautilus-weston.jpg",
+   "lg": "lg/nautilus-weston.webp",
+   "source": "https://commons.wikimedia.org/wiki/File:Nautilus_Shell,_1927,_by_Edward_Weston,_edit.jpg",
+   "title": "File:Nautilus Shell, 1927, by Edward Weston, edit.jpg",
+   "license": "Public domain",
+   "author": "Edward Weston",
+   "library": "ornaments/shells/nautilus-shell-1927-by-edward-weston-edit.webp"
+  },
+  {
+   "id": "beetle-green",
+   "sm": "sm/beetle-green.jpg",
+   "lg": "lg/beetle-green.webp",
+   "source": "https://commons.wikimedia.org/wiki/File:Heterorrhina_elegans_(Beetle).jpg",
+   "title": "File:Heterorrhina elegans (Beetle).jpg",
+   "license": "CC BY-SA 4.0",
+   "author": "Sarveshkp",
+   "library": "ornaments/shells/heterorrhina-elegans-beetle.webp"
+  },
+  {
+   "id": "stamp-greece",
+   "sm": "sm/stamp-greece.jpg",
+   "lg": "lg/stamp-greece.webp",
+   "source": "https://commons.wikimedia.org/wiki/File:Greece-1913-0.10.jpg",
+   "title": "File:Greece-1913-0.10.jpg",
+   "license": "Public domain",
+   "author": "G. Iakovides (1853-1932) &amp; I. Svoronos (1863-1922)",
+   "library": "ornaments/stamps/greece-1913-0-10.webp"
+  },
+  {
+   "id": "stamp-iceland",
+   "sm": "sm/stamp-iceland.jpg",
+   "lg": "lg/stamp-iceland.webp",
+   "source": "https://commons.wikimedia.org/wiki/File:ISL_1938_MiNr0193_pm_B002c.jpg",
+   "title": "File:ISL 1938 MiNr0193 pm B002c.jpg",
+   "license": "Public domain",
+   "author": "Royal Danish Post",
+   "library": "ornaments/stamps/isl-1938-minr0193-pm-b002c.webp"
+  },
+  {
+   "id": "stamp-monaco",
+   "sm": "sm/stamp-monaco.jpg",
+   "source": "https://commons.wikimedia.org/wiki/File:Monaco_1950_Mi_405_stamp_(75th_anniversary_of_the_UPU._Globe_and_the_Prince%27s_Palace_of_Monaco).jpg",
+   "title": "File:Monaco 1950 Mi 405 stamp (75th anniversary of the UPU. Globe and the Prince's Palace of Monaco).jpg",
+   "license": "Public domain",
+   "author": "\"La Poste Monaco\" (LPM), contemporary under supervision of the \"Ministry of Finances and Economy\" of Monaco",
+   "library": "ornaments/stamps/monaco-1950-mi-405-stamp-75th-anniversary-of-the.webp"
+  },
+  {
+   "id": "stamp-egypt",
+   "sm": "sm/stamp-egypt.jpg",
+   "source": "https://commons.wikimedia.org/wiki/File:Post_Stamp_Egypt.jpg",
+   "title": "File:Post Stamp Egypt.jpg",
+   "license": "Public domain",
+   "author": "Post of Egypt; uploaded by Anizotropia",
+   "library": "ornaments/stamps/post-stamp-egypt.webp"
+  },
+  {
+   "id": "stamp-levant",
+   "sm": "sm/stamp-levant.jpg",
+   "lg": "lg/stamp-levant.webp",
+   "source": "https://commons.wikimedia.org/wiki/File:Stamp_Austrian_PO_Turkish_1908_2pi.jpg",
+   "title": "File:Stamp Austrian PO Turkish 1908 2pi.jpg",
+   "license": "Public domain",
+   "author": "",
+   "library": "ornaments/stamps/stamp-austrian-po-turkish-1908-2pi.webp"
+  },
+  {
+   "id": "unicorn-tapestry",
+   "sm": "sm/unicorn-tapestry.jpg",
+   "lg": "lg/unicorn-tapestry.webp",
+   "source": "https://commons.wikimedia.org/wiki/File:The_Hunt_of_the_Unicorn_Tapestry_1.jpg",
+   "title": "File:The Hunt of the Unicorn Tapestry 1.jpg",
+   "license": "Public domain",
+   "author": "Unknown authorUnknown author",
+   "library": "ornaments/textiles/the-hunt-of-the-unicorn-tapestry-1.webp"
+  },
+  {
+   "id": "bayeux",
+   "sm": "sm/bayeux.jpg",
+   "lg": "lg/bayeux.webp",
+   "source": "https://commons.wikimedia.org/wiki/File:Bayeux_Tapestry_Scene_39_(cropped).png",
+   "title": "File:Bayeux Tapestry Scene 39 (cropped).png",
+   "license": "Public domain",
+   "author": "Universit\u00e9 de Caen Normandie \u00b7 CNRS \u00b7 ENSICAEN d'apr\u00e8s la campagne photographique 2017 de la Fabrique de patrimoines en Normandie.",
+   "library": "ornaments/textiles/bayeux-tapestry-scene-39-cropped.webp"
+  },
+  {
+   "id": "iznik-panel",
+   "sm": "sm/iznik-panel.jpg",
+   "lg": "lg/iznik-panel.webp",
+   "source": "https://commons.wikimedia.org/wiki/File:Tile_panel,_Iznik,_Turkey,_16th_century_AD,_glazed_ceramic_-_Cinquantenaire_Museum_-_Brussels,_Belgium_-_DSC09080.jpg",
+   "title": "File:Tile panel, Iznik, Turkey, 16th century AD, glazed ceramic - Cinquantenaire Museum - Brussels, Belgium - DSC09080.jpg",
+   "license": "Public domain",
+   "author": "Daderot",
+   "library": "ornaments/textiles/tile-panel-iznik-turkey-16th-century-ad-glazed-c.webp"
+  },
+  {
+   "id": "ardabil-carpet",
+   "sm": "sm/ardabil-carpet.jpg",
+   "lg": "lg/ardabil-carpet.webp",
+   "source": "https://commons.wikimedia.org/wiki/File:Ardabil_Carpet.jpg",
+   "title": "File:Ardabil Carpet.jpg",
+   "license": "Public domain",
+   "author": "Unknown authorUnknown authordhdfhg",
+   "library": "ornaments/textiles/ardabil-carpet.webp"
+  },
+  {
+   "id": "lekythos",
+   "sm": "sm/lekythos.jpg",
+   "lg": "lg/lekythos.webp",
+   "source": "https://commons.wikimedia.org/wiki/File:Follower_of_the_Seireniske_Painter_-_ARV_707_10_-_boy_and_partridges_-_Rhodos_AM_12403_-_01.jpg",
+   "title": "File:Follower of the Seireniske Painter - ARV 707 10 - boy and partridges - Rhodos AM 12403 - 01.jpg",
+   "license": "CC BY-SA 4.0",
+   "author": "ArchaiOptix",
+   "library": "ornaments/vessels/follower-of-the-seireniske-painter-arv-707-10-bo.webp"
+  },
+  {
+   "id": "panathenaic",
+   "sm": "sm/panathenaic.jpg",
+   "lg": "lg/panathenaic.webp",
+   "source": "https://commons.wikimedia.org/wiki/File:Terracotta_Panathenaic_prize_amphora_MET_DT5492.jpg",
+   "title": "File:Terracotta Panathenaic prize amphora MET DT5492.jpg",
+   "license": "CC0",
+   "author": "Euphiletos Painter",
+   "library": "ornaments/vessels/terracotta-panathenaic-prize-amphora-met-dt5492.webp"
+  }
+ ]
+}

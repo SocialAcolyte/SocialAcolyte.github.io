@@ -1,0 +1,38 @@
+[
+ {
+  "file": "assets/hydrangea-dish.webp",
+  "title": "Dish with Hydrangeas",
+  "date": "ca. 1690–1730",
+  "culture": "Japan, Edo period",
+  "medium": "Porcelain with celadon glaze and underglaze blue decoration (Hizen ware, Nabeshima type)",
+  "source": "The Metropolitan Museum of Art, object 52279, accession 1975.268.556",
+  "url": "https://www.metmuseum.org/art/collection/search/52279",
+  "image": "https://images.metmuseum.org/CRDImages/as/original/DP244345.jpg",
+  "license": "CC0 (The Metropolitan Museum of Art, Open Access)",
+  "note": "Cut out from its grey ground (GrabCut, then a smoothed outline redrawn antialiased and pulled in a few pixels; the shadow under the foot trimmed), resized to 1600px."
+ },
+ {
+  "file": "assets/celadon-dish.webp",
+  "title": "Large Dish (Ōzara) with Plants",
+  "date": "ca. 1640s",
+  "culture": "Japan, Edo period",
+  "medium": "Porcelaneous stoneware with celadon glaze (Arita ware, Ko Imari type)",
+  "source": "The Metropolitan Museum of Art, object 49291, accession 2002.447.37",
+  "url": "https://www.metmuseum.org/art/collection/search/49291",
+  "image": "https://images.metmuseum.org/CRDImages/as/original/DP-43886-001.jpg",
+  "license": "CC0 (The Metropolitan Museum of Art, Open Access)",
+  "note": "Cut out from its grey ground as above, resized to 1600px."
+ },
+ {
+  "file": "assets/twin-fish-bowl.webp",
+  "title": "Bowl with two fish",
+  "date": "13th century",
+  "culture": "China, Southern Song dynasty",
+  "medium": "Stoneware with celadon glaze and biscuit relief (Longquan ware)",
+  "source": "The Metropolitan Museum of Art, object 51989, accession 11.142.3",
+  "url": "https://www.metmuseum.org/art/collection/search/51989",
+  "image": "https://images.metmuseum.org/CRDImages/as/original/DP-46050-005.jpg",
+  "license": "CC0 (The Metropolitan Museum of Art, Open Access)",
+  "note": "Cut out from its grey ground as above, resized to 1600px."
+ }
+]
