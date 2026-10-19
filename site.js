@@ -122,7 +122,13 @@
                 img.style.aspectRatio = st.r;
                 img.addEventListener('load', () => window.dispatchEvent(new Event('scroll')), { once: true });
                 f.appendChild(img);
-                row.appendChild(f);
+                const item = document.createElement('div');
+                item.className = 'stamp-item';
+                const cap = document.createElement('p');
+                cap.className = 'stamp-cap';
+                cap.innerHTML = `<b>${st.label || ''}</b><span>${st.meta || ''}</span>`;
+                item.append(f, cap);
+                row.appendChild(item);
             });
         });
 

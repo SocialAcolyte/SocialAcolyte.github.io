@@ -35,37 +35,51 @@
   {
    "lg": "ornaments/stamps/penny-black-postage-stamps-met-dp328201.webp",
    "sm": "ornaments/stamps/sm/penny-black-postage-stamps-met-dp328201.jpg",
-   "r": 0.847
+   "r": 0.847,
+   "label": "Penny Black",
+   "meta": "Great Britain, 1840"
   },
   {
    "lg": "ornaments/stamps/stamp-greece-large-hermes-5l.webp",
    "sm": "ornaments/stamps/sm/stamp-greece-large-hermes-5l.jpg",
-   "r": 0.847
+   "r": 0.847,
+   "label": "Large Hermes Head, 5 lepta",
+   "meta": "Greece, 1861"
   },
   {
    "lg": "ornaments/stamps/lhh-10-lepta-du-tirage-de-paris-1861.webp",
    "sm": "ornaments/stamps/sm/lhh-10-lepta-du-tirage-de-paris-1861.jpg",
-   "r": 0.853
+   "r": 0.853,
+   "label": "Large Hermes Head, 10 lepta",
+   "meta": "Greece, 1861"
   },
   {
    "lg": "ornaments/stamps/stamp-of-greece-1896-olympic-games-5l.webp",
    "sm": "ornaments/stamps/sm/stamp-of-greece-1896-olympic-games-5l.jpg",
-   "r": 0.85
+   "r": 0.85,
+   "label": "First Olympic Games, 5 lepta",
+   "meta": "Greece, 1896"
   },
   {
    "lg": "ornaments/stamps/stamp-of-greece-1896-olympic-games-40l.webp",
    "sm": "ornaments/stamps/sm/stamp-of-greece-1896-olympic-games-40l.jpg",
-   "r": 0.628
+   "r": 0.628,
+   "label": "First Olympic Games, 40 lepta",
+   "meta": "Greece, 1896"
   },
   {
    "lg": "ornaments/stamps/penny-black.webp",
    "sm": "ornaments/stamps/sm/penny-black.jpg",
-   "r": 0.86
+   "r": 0.86,
+   "label": "Penny Black",
+   "meta": "Great Britain, 1840"
   },
   {
    "lg": "ornaments/stamps/two-penny-blue-postage-stamps-met-sf2002-236-2-i.webp",
    "sm": "ornaments/stamps/sm/two-penny-blue-postage-stamps-met-sf2002-236-2-i.jpg",
-   "r": 0.844
+   "r": 0.844,
+   "label": "Two Penny Blue",
+   "meta": "Great Britain, 1840"
   }
  ]
 }

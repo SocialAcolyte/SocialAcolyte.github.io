@@ -14,9 +14,20 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!-- ?v= is a cache-buster: bump it whenever site.css / site.js change -->
-    <link rel="stylesheet" href="site.css?v=21">
+    <link rel="stylesheet" href="site.css?v=22">
 </head>
 <body>
+
+<!-- ═══ Top bar — thin, frosted, fixed for the whole page ═══ -->
+<nav class="topbar" aria-label="Site">
+    <a class="tb-me" href="/"><img src="ornaments/hero/pfp.webp" alt="" width="22" height="22" decoding="async">Connor Hood</a>
+    <div class="tb-links">
+        <a href="https://x.com/SocialAcolyte" rel="me">X</a>
+        <a href="https://github.com/SocialAcolyte" rel="me">GitHub</a>
+        <a href="/resume.html">CV</a>
+    </div>
+</nav>
+
 
 <!-- ═══ Opening — one flower mosaic, full screen and still, under the name ═══ -->
 <header class="pan">
@@ -117,21 +128,21 @@
     </section>
 
     <!-- ═══ Procession — a long strip of figures slides past while you scroll ═══ -->
-    <section class="procession" aria-hidden="true" data-scroll="procession">
+    <section class="procession" aria-label="Statues" data-scroll="procession">
         <div class="procession-stage">
             <div class="procession-track">
-                <img src="ornaments/md/nike-samothrace.jpg" alt="" loading="lazy" decoding="async">
-                <img src="ornaments/md/laocoon.jpg" alt="" loading="lazy" decoding="async">
-                <img src="ornaments/md/discobolus.jpg" alt="" loading="lazy" decoding="async">
-                <img src="ornaments/md/venus-milo.jpg" alt="" loading="lazy" decoding="async">
-                <img src="ornaments/md/apollo-belvedere.jpg" alt="" loading="lazy" decoding="async">
-                <img src="ornaments/md/artemision-bronze.jpg" alt="" loading="lazy" decoding="async">
-                <img src="ornaments/md/dying-gaul.jpg" alt="" loading="lazy" decoding="async">
-                <img src="ornaments/md/barberini-faun.jpg" alt="" loading="lazy" decoding="async">
-                <img src="ornaments/md/farnese-hercules.jpg" alt="" loading="lazy" decoding="async">
-                <img src="ornaments/md/kritios-boy.jpg" alt="" loading="lazy" decoding="async">
-                <img src="ornaments/md/riace-bronze-a.jpg" alt="" loading="lazy" decoding="async">
-                <img src="ornaments/md/hermes-praxiteles.jpg" alt="" loading="lazy" decoding="async">
+                <figure><img src="ornaments/md/nike-samothrace.jpg" alt="" loading="lazy" decoding="async"><figcaption><b>Nike of Samothrace</b><span>Louvre, Paris</span></figcaption></figure>
+                <figure><img src="ornaments/md/laocoon.jpg" alt="" loading="lazy" decoding="async"><figcaption><b>Laocoön and His Sons</b><span>Vatican Museums</span></figcaption></figure>
+                <figure><img src="ornaments/md/discobolus.jpg" alt="" loading="lazy" decoding="async"><figcaption><b>Discobolus</b><span>Palazzo Massimo, Rome</span></figcaption></figure>
+                <figure><img src="ornaments/md/venus-milo.jpg" alt="" loading="lazy" decoding="async"><figcaption><b>Venus de Milo</b><span>Louvre, Paris</span></figcaption></figure>
+                <figure><img src="ornaments/md/apollo-belvedere.jpg" alt="" loading="lazy" decoding="async"><figcaption><b>Apollo Belvedere</b><span>Vatican Museums</span></figcaption></figure>
+                <figure><img src="ornaments/md/artemision-bronze.jpg" alt="" loading="lazy" decoding="async"><figcaption><b>Artemision Bronze</b><span>National Archaeological Museum, Athens</span></figcaption></figure>
+                <figure><img src="ornaments/md/dying-gaul.jpg" alt="" loading="lazy" decoding="async"><figcaption><b>Dying Gaul</b><span>Capitoline Museums, Rome</span></figcaption></figure>
+                <figure><img src="ornaments/md/barberini-faun.jpg" alt="" loading="lazy" decoding="async"><figcaption><b>Barberini Faun</b><span>Glyptothek, Munich</span></figcaption></figure>
+                <figure><img src="ornaments/md/farnese-hercules.jpg" alt="" loading="lazy" decoding="async"><figcaption><b>Farnese Hercules</b><span>Archaeological Museum, Naples</span></figcaption></figure>
+                <figure><img src="ornaments/md/kritios-boy.jpg" alt="" loading="lazy" decoding="async"><figcaption><b>Kritios Boy</b><span>Acropolis Museum, Athens</span></figcaption></figure>
+                <figure><img src="ornaments/md/riace-bronze-a.jpg" alt="" loading="lazy" decoding="async"><figcaption><b>Riace Bronze A</b><span>Reggio Calabria</span></figcaption></figure>
+                <figure><img src="ornaments/md/hermes-praxiteles.jpg" alt="" loading="lazy" decoding="async"><figcaption><b>Hermes of Praxiteles</b><span>Archaeological Museum, Olympia</span></figcaption></figure>
             </div>
         </div>
     </section>
@@ -1018,7 +1029,7 @@ const __feat = document.getElementById('feat-stained-glass');
     <span>© 2026</span>
 </footer>
 
-<script src="site.js?v=14" defer></script>
+<script src="site.js?v=15" defer></script>
 <script src="effects.js?v=5" defer></script>
 <script type="module" src="wrap.js?v=5"></script>
 <script src="details.js?v=9" defer></script>
