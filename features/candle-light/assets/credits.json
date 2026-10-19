@@ -1,0 +1,13 @@
+[
+  {
+    "files": ["magdalen.webp", "magdalen-unlit.webp", "magdalen-light.webp", "magdalen-grain.webp", "magdalen.json"],
+    "title": "The Penitent Magdalen",
+    "artist": "Georges de La Tour (French, Vic-sur-Seille 1593-1652 Lunéville)",
+    "date": "ca. 1640",
+    "source": "https://www.metmuseum.org/art/collection/search/436839",
+    "image": "https://images.metmuseum.org/CRDImages/ep/original/DP-27910-001.jpg",
+    "credit": "The Metropolitan Museum of Art, Gift of Mr. and Mrs. Charles Wrightsman, 1978 (accession 1978.517, object 436839)",
+    "licence": "CC0 (Met Open Access, public domain)",
+    "notes": "Cropped to the painted canvas and scaled to 1800 px wide. magdalen-unlit.webp is a patch with both painted flames removed (masked and filled from the neighbouring mirror glass); magdalen-light.webp is a derived light-influence map; magdalen-grain.webp is a high-pass of the canvas texture round the mirror; magdalen.json is the rig (flame positions, mirror clip). Prepared offline with Python/Pillow."
+  }
+]

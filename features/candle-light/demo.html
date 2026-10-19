@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>candle-light</title><link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="candle-light.css"><style>
+  :root{--paper:#f3f0e8;--paper-2:#e9e5da;--ink:#141312;--ink-2:#4a4744;--ink-3:#8a857d;--rule:#cfcac0;--accent:#c96f4a;--serif:'Cormorant Garamond',Georgia,serif;--sans:Inter,system-ui,sans-serif;--gutter:clamp(16px,3vw,32px)}
+  *{box-sizing:border-box}
+  html{background:var(--paper)}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:clamp(19px,1.1vw + 13px,22px);line-height:1.55;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+  .label{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+
+  /* the wall: the painting hangs in an ebonised frame on the paper */
+  .wall{display:grid;place-items:center;padding:clamp(28px,7svh,72px) var(--gutter) clamp(36px,7svh,64px)}
+  .frame{
+    width:min(100%, calc((82svh - 2 * var(--fw)) * .6886 + 2 * var(--fw)));
+    --fw:clamp(9px,1.1vw,15px);
+    margin:0;padding:var(--fw);
+    background:linear-gradient(135deg,#2b221b,#120e0b 45%,#211912);
+    box-shadow:
+      inset 0 0 0 1px rgba(255,236,200,.06),
+      inset 0 0 0 calc(var(--fw) - 2px) #17110d,
+      0 1px 0 rgba(255,255,255,.5),
+      0 26px 50px -30px rgba(20,19,18,.6),
+      0 4px 10px -4px rgba(20,19,18,.35);
+  }
+  /* the gilt sight-edge round the canvas */
+  .frame img{outline:1px solid #6b5332;outline-offset:0}
+
+  /* the essay under it */
+  article{padding:0 var(--gutter) clamp(72px,14svh,140px)}
+  .col{max-width:35rem;margin:0 auto}
+  article h1{font-weight:400;font-size:clamp(40px,5.2vw,64px);line-height:1;letter-spacing:-.01em;margin:.1em 0 .55em;text-align:center}
+  article h1 em{font-weight:300}
+  article .label{text-align:center;margin:0}
+  article p{margin:0 0 1.05em;hyphens:auto;-webkit-hyphens:auto}
+  article p.first::first-letter{float:left;font-size:4.1em;line-height:.8;padding:.06em .08em 0 0;font-weight:400}
+  .end{text-align:center;color:var(--ink-3);margin-top:2.4em}
+</style></head><body>
+<main>
+  <section class="wall">
+    <figure class="frame" data-candle-light data-rig="assets/magdalen.json">
+      <img src="assets/magdalen.webp" alt="" aria-hidden="true" width="1800" height="2614">
+    </figure>
+  </section>
+
+  <article>
+    <div class="col">
+      <p class="label">Before electricity</p>
+      <h1>A Few Feet <em>of</em> Light</h1>
+
+      <p class="first">For most of history the light people read by was rendered fat. A tallow candle was dipped, layer on layer, from melted mutton or beef suet. It smoked, it smelled of the kitchen, it slumped in a warm room and ran down its own side, and its twisted cotton wick did not burn away but stood up into the flame and charred, so that within a quarter of an hour the light had sunk to a dull and smoking red. Someone had to trim it with snuffers, a pair of scissors with a little box on one blade to catch the hot end; to snuff a candle meant then not to put it out but to cut it back so that it burned bright again. Beeswax needed far less of this. It burned clear and steady, smelled faintly of honey, and cost several times as much, so it went to altars, courts and the rich, and everyone else sat in the smell of tallow.</p>
+
+      <p>A candle is a smaller light than we remember. The unit of luminous intensity, the candela, is still roughly one candle’s worth, and it falls away with the square of the distance: a page held a foot from the flame gets about ten lux, at three feet barely one, where an office desk today gets five hundred. So a candle did not light a room so much as a few feet of it. Inside that circle were the hands, the page, a face. Outside it the room went on as a collection of rumours: the glint of a jug, the pale edge of a door, the dark.</p>
+
+      <p>Georges de La Tour, working in Lorraine through the war, plague and famine of the 1630s and 40s, painted that circle again and again, and was strangely shy of the flame at its centre. Often he hid it: behind a raised hand whose fingers glow red where the light comes through them, behind a sleeve, a book, the shoulder of a child, so that we see only what it touches. When he did show it, it stands tall and perfectly still, a pale tongue with a dark heart. Here he paints it twice, the candle on the table and its double in the black glass behind, both as motionless as a flame only is in a shut room at night.</p>
+
+      <p>Reading by one candle had its own manners. You held the book close and the candle closer, turned the page toward the flame, and kept still, because a candle in still air hardly moves: the hot gas rising off it draws a steady current in at its foot, and that current stands the flame upright and long. It is a draught that makes it flicker. A door in another room, a sleeve passing, someone laughing too near, and the flame lies over and shortens, the light on the page shudders and drops, and if it goes too far a thread of grey smoke climbs from the wick and the room is gone until someone brings a light from the fire.</p>
+      <p class="end label">Fin</p>
+    </div>
+  </article>
+</main>
+<script type="module" src="candle-light.js"></script>
+</body></html>

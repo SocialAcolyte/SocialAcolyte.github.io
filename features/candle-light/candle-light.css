@@ -1,0 +1,34 @@
+/* ─── candle-light // a candlelit painting whose candle is alive (candle-light.js) ───
+   The figure is the painting; style it as a frame if you like (padding,
+   background). The canvas lies exactly over the <img>. Two gradient layers
+   (multiply, then screen) let the candle's light fall past the frame onto the
+   page round it; they never take input. Without JS or WebGL the <img> is all
+   there is. */
+
+[data-candle-light] {
+  position: relative;
+  touch-action: pan-y;               /* sideways swipe = a draught; vertical still scrolls */
+  -webkit-tap-highlight-color: transparent;
+  --cl-spill-mul: 255 194 124;       /* the warm cast on paper (multiply) */
+  --cl-spill-scr: 255 140 52;        /* the glow lifting ink and frame (screen) */
+}
+[data-candle-light] > img { display: block; width: 100%; height: auto; }
+.cl-canvas {
+  position: absolute; left: 0; top: 0; width: 100%; height: 100%;
+  display: block; pointer-events: none; z-index: 2;
+}
+[data-candle-light].is-live > img { visibility: hidden; }
+.cl-spill {
+  position: absolute; pointer-events: none; z-index: 1;
+  background-repeat: no-repeat;
+  will-change: opacity, transform;
+}
+.cl-spill-mul { mix-blend-mode: multiply; }
+.cl-spill-scr { mix-blend-mode: screen; }
+[data-candle-light]:focus { outline: none; }
+[data-candle-light]:focus-visible { outline: 2px solid var(--accent, #c96f4a); outline-offset: 6px; }
+
+@media print {
+  .cl-canvas, .cl-spill { display: none; }
+  [data-candle-light].is-live > img { visibility: visible; }
+}

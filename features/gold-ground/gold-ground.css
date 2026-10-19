@@ -1,0 +1,24 @@
+/* ─── gold-ground // a gold mosaic that glints as you pass (gold-ground.js) ───
+   The figure is the wall. The <img> sets its size (natural ratio), or give the
+   figure a height and the img object-fit: cover; the canvas takes the same crop.
+   Without JS or WebGL the img is all there is. */
+
+[data-gold-ground] {
+  position: relative; margin: 0; overflow: hidden;
+  background: var(--gg-floor, var(--paper-2, #e9e5da));
+}
+[data-gold-ground] > img { display: block; width: 100%; height: auto; }
+.gg-canvas {
+  position: absolute; inset: 0; width: 100%; height: 100%; display: block;
+  pointer-events: none;
+}
+[data-gold-ground].is-live > img { opacity: 0; }
+
+/* full-bleed band: a strip of wall across the page */
+.gg-band { width: 100%; height: min(92svh, max(52vw, min(72svh, 640px))); }
+.gg-band > img { height: 100%; object-fit: cover; }
+
+@media print {
+  .gg-canvas { display: none; }
+  [data-gold-ground].is-live > img { opacity: 1; }
+}

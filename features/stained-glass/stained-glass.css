@@ -1,0 +1,33 @@
+/* ─── stained-glass // sunlight through a glass panel, in colour (stained-glass.js) ──
+   Two canvases over the content: a multiply layer (the room's faint shade, the
+   shadows of lead and paint, the glass's colour laid over the paper) and over it
+   a screen layer (the coloured light itself). They never take input. On <body>
+   (or data-attach="viewport") they are fixed to the screen and the page scrolls
+   under the light; on any other element they cover it and scroll with it.
+   The panel in the page ([data-sg-glass]) stands above the light, as the window
+   it comes from, and dims with it when a cloud passes. Without JS the panel is
+   simply a picture. */
+
+.sg-canvas {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  display: block; pointer-events: none;
+  mix-blend-mode: screen;
+  z-index: var(--sg-z, 3);
+}
+.sg-canvas.sg-mul { mix-blend-mode: multiply; }
+.sg-canvas.sg-viewport { position: fixed; }
+:where(.sg-host) { position: relative; }
+
+/* the window: above the light it throws, in full sun while the room is in
+   shade, set into the page by a hairline and the faintest reveal */
+.sg-glass {
+  position: relative;
+  z-index: calc(var(--sg-z, 3) + 1);
+  filter: brightness(calc(.58 + .42 * var(--sg-sun, 1))) saturate(calc(.78 + .22 * var(--sg-sun, 1)))
+    drop-shadow(0 0 .6px rgba(20, 19, 18, .55)) drop-shadow(0 1.5px 2.5px rgba(20, 19, 18, .16));
+}
+
+@media print {
+  .sg-canvas { display: none; }
+  .sg-glass { filter: none; }
+}

@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script class="st-js-flag">document.documentElement.classList.add('st-js')</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="description" content="Social Acolyte — Connor Hood. Data, robotics, and the road to general intelligence.">
@@ -15,32 +14,24 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!-- ?v= is a cache-buster: bump it whenever site.css / site.js change -->
-    <link rel="stylesheet" href="site.css?v=18">
+    <link rel="stylesheet" href="site.css?v=21">
 </head>
 <body>
 
-<!-- ═══ Opening — a flower mosaic opens from the centre as you scroll; colour pools
-     around the pointer (or the phone's tilt) and spreads until it fills the image ═══ -->
-<header class="pan" data-scroll="pan">
-    <div class="pan-stage">
-        <div class="bloom" aria-hidden="true">
-            <div class="bloom-move">
-                <img class="bloom-grey" alt="" decoding="async" fetchpriority="high">
-                <img class="bloom-colour" alt="" decoding="async">
-            </div>
-        </div>
-        <div class="pan-veil" aria-hidden="true"></div>
-        <div class="title">
-            <h1 class="الاسم">Social Acolyte</h1>
-            <nav class="title-links" aria-label="elsewhere">
-                <a href="https://x.com/SocialAcolyte" rel="me">X</a>
-                <a href="https://github.com/SocialAcolyte" rel="me">GitHub</a>
-                <a href="https://www.linkedin.com/in/connor-m-hood/" rel="me">LinkedIn</a>
-                <a href="/resume.html">CV</a>
-            </nav>
-        </div>
-        <span class="pan-cue" aria-hidden="true">↓</span>
+<!-- ═══ Opening — one flower mosaic, full screen and still, under the name ═══ -->
+<header class="pan">
+    <img class="pan-img" alt="" decoding="async" fetchpriority="high">
+    <div class="pan-veil" aria-hidden="true"></div>
+    <div class="title">
+        <h1 class="الاسم">Social Acolyte</h1>
+        <nav class="title-links" aria-label="elsewhere">
+            <a href="https://x.com/SocialAcolyte" rel="me">X</a>
+            <a href="https://github.com/SocialAcolyte" rel="me">GitHub</a>
+            <a href="https://www.linkedin.com/in/connor-m-hood/" rel="me">LinkedIn</a>
+            <a href="/resume.html">CV</a>
+        </nav>
     </div>
+    <span class="pan-cue" aria-hidden="true">↓</span>
 </header>
 
 <main>
@@ -92,6 +83,15 @@
         </ol>
     </section>
 
+    <!-- ═══ Album — three rows of perforated stamps slide in opposite directions as you scroll ═══ -->
+    <section class="album" data-scroll="album" aria-hidden="true">
+        <div class="album-stage">
+            <div class="album-row" data-dir="1"></div>
+            <div class="album-row" data-dir="-1"></div>
+            <div class="album-row" data-dir="1"></div>
+        </div>
+    </section>
+
     <!-- ═══ Plate — the armor drawing, alone on the paper ═══ -->
     <section class="plate-solo" aria-hidden="true">
         <img src="ornaments/stickers/armor.png" alt="" loading="lazy" decoding="async">
@@ -135,6 +135,15 @@
             </div>
         </div>
     </section>
+
+    <!-- ═══ Weaves — four textile tiles ═══ -->
+    <section class="tiles tiles--weaves" aria-label="weaves">
+        <a class="tile" href="https://en.wikipedia.org/wiki/Coptic_textiles"><span class="tile-img"><img data-pool="textile" data-match="coptic" alt="" loading="lazy"></span><span class="tile-label">Coptic</span></a>
+        <a class="tile" href="https://en.wikipedia.org/wiki/Persian_carpet"><span class="tile-img"><img data-pool="textile" data-match="ardabil|layla|persian" alt="" loading="lazy"></span><span class="tile-label">Persian</span></a>
+        <a class="tile" href="https://en.wikipedia.org/wiki/Pietra_dura"><span class="tile-img"><img data-pool="textile" data-match="pietra|florence|florentine" alt="" loading="lazy"></span><span class="tile-label">Florentine</span></a>
+        <a class="tile" href="https://en.wikipedia.org/wiki/Byzantine_silk"><span class="tile-img"><img data-pool="textile" data-match="byzantine|silk|theodora" alt="" loading="lazy"></span><span class="tile-label">Byzantine</span></a>
+    </section>
+
 
     <!-- ═══ Mosaic band — mono until it reaches the middle of the screen, then blooms into colour ═══ -->
     <section class="band band--tall" data-scroll="band">
@@ -181,76 +190,6 @@
         <img class="band-img" src="ornaments/lg/nile-mosaic.jpg" alt="" loading="lazy" decoding="async">
     </section>
 
-    <!-- ═══ Quote — a sentence assembles itself as you scroll; touch or pointer pushes the words about (quote.js, pretext) ═══ -->
-    <section class="quote" data-quote aria-label="Quote">
-        <div class="quote-stage">
-            <p class="quote-src">The details are not the details. They make the design.</p>
-            <p class="quote-by">Charles Eames</p>
-        </div>
-    </section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     <!-- ═══ feature: ripple-pool (features/ripple-pool; delete this block to remove it) ═══ -->
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
@@ -281,217 +220,16 @@
 </div>
     </section>
     <script type="module" src="features/ripple-pool/ripple-pool.js"></script>
+    <script type="module" src="features/ripple-pool/sound.js"></script>
+    <style>
+.sfs-toggle{opacity:0 !important;pointer-events:none}
+html.rp-in-view .sfs-toggle{opacity:.82 !important;pointer-events:auto}
+    </style>
+    <script>
+{const s=document.getElementById('feat-ripple-pool');new IntersectionObserver(([e])=>document.documentElement.classList.toggle('rp-in-view',e.isIntersecting)).observe(s)}
+    </script>
     <!-- /feature: ripple-pool -->
 
-    <!-- ═══ feature: light-rays (features/light-rays; delete this block to remove it) ═══ -->
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="features/light-rays/light-rays.css">
-    <style>
-#feat-light-rays{--paper:#f3f0e8;--paper-2:#e9e5da;--ink:#141312;--ink-2:#4a4744;--ink-3:#8a857d;--rule:#cfcac0;--accent:#c96f4a;--serif:'Cormorant Garamond',Georgia,serif;--sans:Inter,system-ui,sans-serif;--gutter:clamp(16px,3vw,32px)}
-@media (prefers-color-scheme:dark){#feat-light-rays{--paper:#151413;--paper-2:#1d1b19;--ink:#ebe6dc;--ink-2:#b9b2a6;--ink-3:#7d776e;--rule:#34312d}}
-#feat-light-rays *{box-sizing:border-box}
-#feat-light-rays{background:var(--paper)}
-#feat-light-rays{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:clamp(19px,1.25vw + 12px,22px);line-height:1.55;overflow-x:hidden;-webkit-font-smoothing:antialiased}
-#feat-light-rays .label{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
-#feat-light-rays article{padding:clamp(56px,14svh,140px) var(--gutter) clamp(64px,12svh,120px)}
-#feat-light-rays .col{max-width:36rem;margin:0 auto}
-#feat-light-rays .masthead{text-align:center;margin-bottom:clamp(40px,8svh,80px)}
-#feat-light-rays .masthead h1{font-weight:400;font-size:clamp(46px,7.4vw,96px);line-height:.98;letter-spacing:-.012em;margin:.35em 0 .3em}
-#feat-light-rays .masthead h1 em{font-weight:300}
-#feat-light-rays .masthead .dek{font-style:italic;color:var(--ink-2);font-size:1.12em;margin:0 auto;max-width:28rem}
-#feat-light-rays article h2{font-weight:500;font-size:1.5em;line-height:1.15;margin:2.2em 0 .6em}
-#feat-light-rays article p{margin:0 0 1.05em;hyphens:auto;-webkit-hyphens:auto}
-#feat-light-rays article p.first::first-letter{float:left;font-size:4.1em;line-height:.8;padding:.06em .08em 0 0;font-weight:400}
-#feat-light-rays .x-light-rays-plate{margin:clamp(36px,7svh,64px) auto;max-width:52rem}
-#feat-light-rays .x-light-rays-plate img{display:block;width:100%;height:auto;filter:grayscale(1) contrast(1.06);mix-blend-mode:multiply}
-@media (prefers-color-scheme:dark){#feat-light-rays .x-light-rays-plate img{mix-blend-mode:normal;filter:grayscale(1) contrast(1.02) brightness(.86)}}
-#feat-light-rays .x-light-rays-plate.narrow{max-width:26rem}
-#feat-light-rays blockquote{margin:2em 0;padding:0;text-align:center;font-style:italic;font-weight:300;font-size:clamp(1.55em,3.4vw,2.05em);line-height:1.18;color:var(--ink)}
-#feat-light-rays blockquote::before, #feat-light-rays blockquote::after{content:"";display:block;width:2.6rem;height:1px;background:var(--rule);margin:0 auto .7em}
-#feat-light-rays blockquote::after{margin:.7em auto 0}
-#feat-light-rays .end{text-align:center;color:var(--ink-3);margin-top:2.4em}
-#feat-light-rays .gallery{min-height:100svh;display:grid;place-items:center;background:var(--paper-2);padding:clamp(56px,10svh,110px) var(--gutter)}
-#feat-light-rays .frame{width:min(78vw,520px);padding:clamp(14px,2.4vw,26px);background:#2a2420;box-shadow:0 1px 0 rgba(255,255,255,.08) inset,0 22px 50px -24px rgba(20,19,18,.55),0 3px 8px -3px rgba(20,19,18,.35)}
-#feat-light-rays .frame .mat{background:#efe9dc;padding:clamp(14px,2.6vw,30px)}
-#feat-light-rays .frame img{display:block;width:100%;height:auto}
-#feat-light-rays .grove{min-height:100svh;display:grid;place-items:center;text-align:center;padding:clamp(56px,10svh,110px) var(--gutter)}
-#feat-light-rays .grove h2{font-weight:300;font-style:italic;font-size:clamp(56px,10vw,132px);line-height:1;margin:0 0 .25em;letter-spacing:-.01em}
-#feat-light-rays .tail{height:22svh}
-#feat-light-rays .ctl{position:fixed;right:max(12px,env(safe-area-inset-right));bottom:max(12px,env(safe-area-inset-bottom));z-index:20;font-family:var(--sans);font-size:11px;color:var(--ink-2)}
-#feat-light-rays .ctl-toggle{display:none;width:36px;height:36px;border-radius:50%;border:1px solid var(--rule);background:var(--paper);color:var(--ink-2);cursor:pointer;padding:0}
-#feat-light-rays .ctl-toggle svg{display:block;margin:auto}
-#feat-light-rays .ctl-panel{display:grid;grid-template-columns:auto 132px;gap:7px 10px;align-items:center;padding:12px 14px;background:color-mix(in srgb,var(--paper) 88%,transparent);border:1px solid var(--rule);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
-#feat-light-rays .ctl-panel label{letter-spacing:.1em;text-transform:uppercase;font-size:10px;color:var(--ink-3)}
-#feat-light-rays .ctl select, #feat-light-rays .ctl input{width:100%;font:inherit;color:var(--ink);accent-color:var(--accent)}
-#feat-light-rays .ctl select{background:transparent;border:1px solid var(--rule);padding:3px 4px;font-size:12px}
-#feat-light-rays .ctl :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-@media (max-width:640px){#feat-light-rays .ctl-toggle{display:block;margin-left:auto}
-#feat-light-rays .ctl-panel{display:none;margin-bottom:8px}
-#feat-light-rays .ctl.open .ctl-panel{display:grid}
-#feat-light-rays .ctl .ctl-panel input, #feat-light-rays .ctl .ctl-panel select{font-size:16px}
-#feat-light-rays .ctl-panel{grid-template-columns:auto 150px}}
-#feat-light-rays{overflow:visible !important;overflow-x:clip !important;position:relative}
-#feat-light-rays .ctl{opacity:0;pointer-events:none;transition:opacity .3s}#feat-light-rays.in-view .ctl{opacity:1;pointer-events:auto}
-    </style>
-    <section class="feat-embed" id="feat-light-rays" data-feature="light-rays" aria-label="light-rays">
-<div>
-  <article data-light-rays data-attach="viewport" data-preset="window" data-branch="olive" data-drift=".6" data-clouds=".55" data-motes=".55">
-    <div class="col">
-      <header class="masthead">
-        <div class="label">An essay on windows</div>
-        <h1>The Shape <em>of a Room’s</em> Light</h1>
-        <p class="dek">On panes, lattices and leaves, and what the sun keeps of each on its way to the floor.</p>
-      </header>
-
-      <p class="first" data-drop-cap>Every patch of sunlight on a floor is a picture of the window it came through. The panes are there, and the glazing bars between them, and the sill, all leaning the same way and stretched long by the lowness of the sun. You can read the hour from it the way you read a sundial: in the morning it lies short and close to the wall, by late afternoon it has crept out across the boards and turned to the colour of honey.</p>
-      <p>But it is never quite a copy. Look along a patch from the wall outward and its edges change. Where the light has only just passed the sill they are sharp enough to cut paper. Further out, where it has travelled a long way from the top of the window, they go soft, as if drawn in chalk and then brushed with a sleeve.</p>
-
-      <h2>Half a degree</h2>
-      <p>The reason is the sun itself, which is not a point but a disc, a little over half a degree across. Every edge of a window casts not one shadow but a whole fan of them, one from each part of that disc, and the fan widens with distance. Near the sill the fan has had no room to open. A couple of metres out it has spread by about two centimetres, and the edge you see is that spread: the penumbra, the place where part of the sun is hidden and part is not.</p>
-      <p>This is why the thin bars of a sash window throw crisp lines close to the wall and almost nothing further out. A bar narrower than the penumbra cannot hide the whole sun from anywhere; its shadow thins to a faint grey seam and then disappears, while the heavy meeting rail in the middle holds on for much longer.</p>
-
-      <figure class="x-light-rays-plate"><img src="features/light-rays/assets/hammershoi-moonlight-strandgade.webp" alt="" aria-hidden="true" width="2400" height="1916"></figure>
-
-      <p>Vilhelm Hammershøi painted the rooms of his flat at Strandgade 30 in Copenhagen for more than a decade, and again and again he painted this: a window, a door, and the window set down on the floor as a skewed grid of pale light. He left out almost everything else. The furniture went, then most of the people. What stayed was the light keeping its appointment with the boards.</p>
-      <p>Vermeer’s rooms are lit almost always from the left, through tall leaded casements that we see only in part. He paints what the light does once it is inside: how it lies along a sleeve, a brass basin, a map on the wall, and how the far side of the room falls away into a cool, blue-grey shade. The window is the source of everything and is barely shown.</p>
-
-      <blockquote>A shadow keeps the shape of what cast it only as far as the sun allows.</blockquote>
-
-      <h2>Glass, stone and leaves</h2>
-      <p>Roman glaziers cast their panes in flat moulds, and the glass came out thick, faintly green and full of small bubbles; it let in light rather than a view. The Pantheon needed no glass at all. Its oculus, some nine metres across, throws a single great disc of sun onto the coffers of the dome, and through the day that disc walks slowly round the inside of the building like the hand of a clock.</p>
-
-      <figure class="x-light-rays-plate narrow"><img src="features/light-rays/assets/vermeer-water-pitcher.webp" alt="" aria-hidden="true" width="2000" height="2250"></figure>
-
-      <p>In the hot cities of India and the Islamic world the window was often stone, carved through into a jali: a screen of interlocking stars and polygons that keeps out the glare and the eyes of the street and lets the air move. The light that comes through a jali is the pattern itself, printed across the floor in stars. Close to the screen each star is perfect. Further out the points blunt and fill, and the farthest stars become simple round spots of light.</p>
-      <p>Those round spots are the same thing that happens under a tree. A gap between leaves is a pinhole, and a pinhole makes a picture of whatever is bright beyond it, which on a clear day is the sun. So the dapples on a path in summer are not leaf-shaped at all. They are dozens of small round suns, stretched into ovals when the sun is low, overlapping where the canopy is thin, trembling when the wind moves the branches. A text attributed to Aristotle already asks why sunlight through a square hole makes a round patch, and during an eclipse every one of those suns becomes a crescent.</p>
-      <p>Thin cloud changes all of it at once. The light dims, but it also softens: the sun’s disc swells into a bright haze, every penumbra widens, the jali’s stars round off and the dapples blur into one another. Then the cloud passes, the edges come back, and the room is exactly as it was.</p>
-      <p class="end label">Fin</p>
-    </div>
-  </article>
-
-  <section class="gallery" data-light-rays data-preset="lattice" data-sun="-40 32" data-at=".46 .5" data-clouds=".4" data-motes=".45">
-    <div class="frame"><div class="mat"><img src="features/light-rays/assets/the-hunt-of-the-unicorn-tapestry-1.webp" alt="" aria-hidden="true" width="3755" height="3658"></div></div>
-  </section>
-
-  <section class="grove" data-light-rays data-preset="leaves" data-wind=".6" data-clouds=".3" data-motes=".35">
-    <div>
-      <h2>Komorebi</h2>
-      <div class="label">sunlight through leaves</div>
-    </div>
-  </section>
-  <div class="tail"></div>
-</div>
-
-<div class="ctl" id="light-rays-ctl">
-  <button class="ctl-toggle" type="button" aria-expanded="false" aria-controls="light-rays-light-rays-ctl-panel" aria-label="Light controls">
-    <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="3.4" fill="none" stroke="currentColor" stroke-width="1.2"/><g stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><path d="M9 1.5v2M9 14.5v2M1.5 9h2M14.5 9h2M3.7 3.7l1.4 1.4M12.9 12.9l1.4 1.4M3.7 14.3l1.4-1.4M12.9 5.1l1.4-1.4"/></g></svg>
-  </button>
-  <div class="ctl-panel" id="light-rays-light-rays-ctl-panel">
-    <label for="light-rays-c-preset">Light</label>
-    <select id="light-rays-c-preset"><option value="window">window</option><option value="arch">arch</option><option value="lattice">lattice</option><option value="leaves">leaves</option></select>
-    <label for="light-rays-c-sun">Sun</label><input id="light-rays-c-sun" type="range" min="0" max="1" step=".01" value=".35">
-    <label for="light-rays-c-clouds">Clouds</label><input id="light-rays-c-clouds" type="range" min="0" max="1" step=".01" value=".55">
-    <label for="light-rays-c-warmth">Warmth</label><input id="light-rays-c-warmth" type="range" min="0" max="1" step=".01" value=".6">
-  </div>
-</div>
-    </section>
-    <script type="module">
-const __feat = document.getElementById('feat-light-rays');
-
-  import './features/light-rays/light-rays.js';
-  const art = __feat.querySelector('article[data-light-rays]');
-  const all = () => [...__feat.querySelectorAll('[data-light-rays]')].map((el) => el.lightRays).filter(Boolean);
-  const $ = (id) => document.getElementById(id);
-  const ctl = $('light-rays-ctl');
-  ctl.querySelector('.ctl-toggle').addEventListener('click', (e) => {
-    const open = ctl.classList.toggle('open');
-    e.currentTarget.setAttribute('aria-expanded', open);
-  });
-  $('light-rays-c-preset').addEventListener('change', (e) => art.lightRays && art.lightRays.set({ preset: e.target.value, branch: e.target.value === 'leaves' ? 'none' : 'olive' }));
-  // the sun slider is the time of day: high and white at noon, low and long toward evening
-  $('light-rays-c-sun').addEventListener('input', (e) => {
-    const k = Number(e.target.value);
-    const wide = innerWidth >= innerHeight;
-    if (art.lightRays) art.lightRays.set({ sun: [(wide ? -72 : -42) + 30 * k, 50 - 34 * k] });
-  });
-  $('light-rays-c-clouds').addEventListener('input', (e) => all().forEach((l) => l.set({ clouds: Number(e.target.value) })));
-  $('light-rays-c-warmth').addEventListener('input', (e) => all().forEach((l) => l.set({ warmth: Number(e.target.value) })));
-
-    </script>
-    <script>
-{const s=document.getElementById('feat-light-rays');new IntersectionObserver(([e])=>s.classList.toggle('in-view',e.isIntersecting)).observe(s)}
-    </script>
-    <!-- fog: the window-light sections sit in a soft grey mist that drifts behind the text, in light and dark mode alike -->
-    <style>
-#feat-light-rays{--paper:#a9a6a0;--paper-2:#b4b1ab;--ink:#181715;--ink-2:#33312e;--ink-3:#4c4944;--rule:#8b8781;background:var(--paper);color:var(--ink);color-scheme:light}
-#feat-light-rays article,#feat-light-rays section{background:transparent !important}
-#feat-light-rays{position:relative;z-index:0}
-#feat-light-rays .lr-fog{position:sticky;top:0;height:100vh;height:100svh;margin-bottom:-100vh;margin-bottom:-100svh;z-index:-1;pointer-events:none;overflow:hidden}
-#feat-light-rays .lr-fog canvas{display:block;width:100%;height:100%;filter:blur(14px);transform:scale(1.1)}
-#feat-light-rays .plate img{mix-blend-mode:multiply;filter:grayscale(1) contrast(1.05)}
-    </style>
-    <script>
-{
-  const sec = document.getElementById('feat-light-rays');
-  const host = document.createElement('div');
-  host.className = 'lr-fog'; host.setAttribute('aria-hidden', 'true');
-  const cv = document.createElement('canvas');
-  host.appendChild(cv); sec.prepend(host);
-  const ctx = cv.getContext('2d');
-  // Low resolution on purpose: fog has no edges, and the blur hides the grid.
-  const W = 128, H = 72; cv.width = W; cv.height = H;
-  const img = ctx.createImageData(W, H);
-  const P = new Uint8Array(512), R = new Float32Array(256);
-  for (let i = 0; i < 256; i++) { P[i] = i; R[i] = Math.random(); }
-  for (let i = 255; i > 0; i--) { const j = (Math.random() * (i + 1)) | 0; [P[i], P[j]] = [P[j], P[i]]; }
-  for (let i = 0; i < 256; i++) P[i + 256] = P[i];
-  const sm = (t) => t * t * (3 - 2 * t);
-  const h = (x, y) => R[P[(x & 255) + P[y & 255]]];
-  const noise = (x, y) => {
-    const xi = Math.floor(x), yi = Math.floor(y), u = sm(x - xi), v = sm(y - yi);
-    const a = h(xi, yi), b = h(xi + 1, yi), c = h(xi, yi + 1), d = h(xi + 1, yi + 1);
-    return a + (b - a) * u + (c - a) * v + (a - b - c + d) * u * v;
-  };
-  const fbm = (x, y) => { let s = 0, a = .5; for (let o = 0; o < 5; o++) { s += a * noise(x, y); x = x * 2.03 + 17; y = y * 2.03 + 9; a *= .5; } return s; };
-  // two greys: the hollows and the bright wisps
-  const lo = [150, 147, 141], hi = [222, 219, 213];
-  const draw = (t) => {
-    const d = img.data;
-    for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
-      const px = x / H * 2.2, py = y / H * 2.2;
-      // domain warp so the fog rolls and folds instead of sliding as one sheet
-      const qx = fbm(px + t * .018, py), qy = fbm(px + 5.2, py + 1.3 - t * .012);
-      let f = fbm(px + 1.8 * qx + t * .03, py + 1.8 * qy);
-      f = sm(Math.min(1, Math.max(0, (f - .28) / .5)));
-      f *= .82 + .18 * (y / H);               // a little denser low down, as fog lies
-      const i = (y * W + x) * 4;
-      d[i] = lo[0] + (hi[0] - lo[0]) * f; d[i + 1] = lo[1] + (hi[1] - lo[1]) * f; d[i + 2] = lo[2] + (hi[2] - lo[2]) * f; d[i + 3] = 255;
-    }
-    ctx.putImageData(img, 0, 0);
-  };
-  const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let on = false, raf = 0, last = 0;
-  const t0 = performance.now() - Math.random() * 6e5;
-  const loop = (now) => {
-    raf = 0;
-    if (!on || document.hidden) return;
-    if (now - last > 50) { last = now; draw((now - t0) / 1000); }   // ~20fps is plenty for fog
-    raf = requestAnimationFrame(loop);
-  };
-  draw((performance.now() - t0) / 1000);
-  if (!calm) {
-    new IntersectionObserver(([e]) => { on = e.isIntersecting; if (on && !raf) raf = requestAnimationFrame(loop); }).observe(sec);
-    document.addEventListener('visibilitychange', () => { if (on && !document.hidden && !raf) raf = requestAnimationFrame(loop); });
-  }
-}
-    </script>
-    <!-- the gilded drop cap (features/drop-cap-gilt) opens the essay -->
-    <link rel="stylesheet" href="features/drop-cap-gilt/drop-cap-gilt.css">
-    <style>
-#feat-light-rays article p.first[data-drop-cap]::first-letter{float:none;font-size:inherit;line-height:inherit;padding:0;font-weight:inherit}
-    </style>
-    <script type="module" src="features/drop-cap-gilt/drop-cap-gilt.js"></script>
-    <!-- /feature: light-rays -->
 
     <!-- ═══ feature: loupe (features/loupe; delete this block to remove it) ═══ -->
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
@@ -691,23 +429,23 @@ const __feat = document.getElementById('feat-light-rays');
 #feat-pretext-halftone *{box-sizing:border-box}
 #feat-pretext-halftone{margin:0;background:var(--paper);color:var(--ink);overflow-x:hidden}
 #feat-pretext-halftone .spacer{height:70svh;display:grid;place-items:center;font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
-#feat-pretext-halftone .wave .ph-text{color:#18233a}
+#feat-pretext-halftone .cross .ph-text{color:#1a2444}
 #feat-pretext-halftone{overflow:visible !important;overflow-x:clip !important;position:relative}
     </style>
     <section class="feat-embed" id="feat-pretext-halftone" data-feature="pretext-halftone" aria-label="pretext-halftone">
 <div class="spacer">scroll</div>
 
-<section data-pretext-halftone data-src="features/pretext-halftone/assets/eutyches.webp" data-crop="0 0 1 0.83" data-crop-tall="0.07 0 0.93 1" data-focus="0.55 0.47" data-gamma="1.35" data-local="0.25">
+<section data-pretext-halftone data-src="features/pretext-halftone/assets/daphni-pantocrator.jpg" data-crop="0.04 0.03 0.96 0.74" data-crop-tall="0.1 0.02 0.9 0.92" data-focus="0.42 0.4" data-gamma="1.2" data-local="0.3">
   <div class="ph-stage">
-    <p class="ph-text">They painted him while he was alive, most likely, and hung the picture in the house, where it watched the family eat and argue and light the lamps for years before it was needed. When he died it was taken down, trimmed to fit, and bound into the linen over his face, so that the body went into the dark looking out. This was the custom in the Fayum, the wide green basin west of the Nile where a branch of the river runs off into a lake, in the first centuries after Rome took Egypt from the last of the Ptolemies. The people there were a mixture nobody bothered to untangle: the grandchildren of Greek soldiers settled on the land by the old kings, Egyptians who had married them, Romans, Jews, Syrians, veterans of the legions given plots to farm. They spoke Greek in the market and wrote their leases and their letters in it, kept the crocodile god of the lake alongside Isis and Serapis, and went to their graves in the old way, dried with natron, wrapped in linen and resin, as Egyptians had for three thousand years. Only the face was new. Where an older age had set a calm gilded mask over the dead, the same serene face for everyone, these families wanted the face itself: this boy, this nose, the small closed mouth, the ears that stand out a little from the cropped dark hair. The paint is wax. Beeswax, bleached in the sun and melted with a little resin, mixed while warm with ground earths and minerals, yellow and red ochre, umber, lead white, the black of soot and burnt bone, and laid onto a thin board of lime or fig wood with a brush and a heated metal spatula. Wax sets as it cools, so the painter worked fast and in small strokes, and you can still see them: the cheeks built up in short warm touches that follow the turn of the face, the hair pulled down in long strokes from the crown, a single fleck of pure white in each eye, which is where the light lives. Wax does not yellow and crack the way oil does. Kept dry in the sand it holds its colour very nearly as it was laid, which is why these faces seem so near, nearer than anything else that has come down to us from the ancient world. The eyes are the first thing and the last. They are too large, larger than any child's, dark and wide open under heavy brows, and they do not quite meet yours; they look a little past you, the way a person looks who is listening. Painters all over the Fayum made them so, on purpose, and nobody can now say exactly why: to make the dead alert, perhaps, or to give them the gaze of someone who already sees the next world. Across the neck of his white tunic someone has written in Greek, in small black letters, a name, Eutyches, which means the lucky one, a name often given to slaves and kept by them when they were freed. Who wrote it, and for whom, is not certain. We know almost nothing else: not his parents, nor how old he was when he died, nor whether the painter was a friend of the family or a craftsman in the town who turned out a dozen of these a month from a stock of eyes and noses and fashionable curls. About a thousand portraits like his survive, most of them from the cemeteries at Hawara and er-Rubayat, dug out of the sand in the nineteenth century, many cut from their mummies by dealers and sold to collectors in Europe as paintings, which is what they had become. Hundreds of faces: men with curled beards in the fashion of Hadrian, women with gold wreaths and pearl earrings and their hair in braided crowns, soldiers with sword belts across the chest, old men, young wives, children, all of them staring out of their wooden boards as if from a row of windows. Then, over a few generations, the custom faded. The faces grew flatter and more alike, the eyes larger still, until they were less like anyone in particular and more like a holy type, and the same large still eyes, painted in the same hot wax on the same small wooden panels, turned up again on the first icons of the saints. The boy was not a saint. He was a child in a provincial town on the edge of the desert, with a freedman's name and a clean white tunic and his hair cut short for the summer, and someone who loved him paid a painter to keep his face. It has been kept. Nineteen hundred years on he still has the look of a boy who has just been called in from outside and is waiting, politely, to be told why.</p>
+    <p class="ph-text">He looks down from the top of the dome, from the one place in the church where nobody can stand. The monastery of Daphni sits beside the old Sacred Way from Athens to Eleusis, among pines, on ground where a sanctuary of Apollo once stood. Its church was covered in mosaic around the year 1100, and in the dome the setters put Christ Pantokrator, the ruler of all, as Byzantine churches by then had learned to do. He holds the book of the Gospels against his chest, bound in gold and studded with stones. The halo behind his head carries a cross, and the letters at his shoulders, IC XC, are the first and last letters of his name in Greek. He is not gentle here. Most Pantokrators look out with a calm that is meant to steady whoever looks up; this one frowns, the eyes turned aside, the brows drawn together, the mouth set, and people have argued for a long time over whether he is grieving or judging. The mosaicists worked on the curve of the dome from scaffolding, an arm's length from the face, and they made it to be seen from far below: the eyes larger than life, the lines of the nose and the brow heavy and plain, the shadows laid in rows of dark stones so that from the floor they would read as flesh. Earthquakes have shaken the church more than once. By the end of the nineteenth century much of the mosaic had come loose, and restorers took whole sections down and set them back, stone by stone. Where stones are lost the plaster shows through in pale patches at the edge of the gold, as if the ground had worn thin and the wall were coming up beneath it.</p>
   </div>
 </section>
 
 <div class="spacer"></div>
 
-<section class="wave" data-pretext-halftone data-src="features/pretext-halftone/assets/great-wave.webp" data-focus="0.36 0.42" data-morph="view" data-lines="100">
+<section class="cross" data-pretext-halftone data-src="features/pretext-halftone/assets/galla-placidia-cross.jpg" data-focus="0.48 0.42" data-morph="view" data-lines="100">
   <div class="ph-stage">
-    <p class="ph-text">He was past seventy when he made it, and he signed it with one of the many names he gave himself over a long life, the old man mad about painting. It is the first of the thirty-six views of Mount Fuji, a set of prints for the pleasure of ordinary people in Edo, sold for about the price of a double bowl of noodles. Three long boats are carrying fish to the city market, eight rowers to a boat, and the men have shipped their oars and lie flat against the hulls, because there is nothing else to do. The sea has risen into a wall above them and is about to fall. Its crest breaks into claws of foam, and the foam blows off it in flakes like snow, and far off, under all of it, small and still and white, is the mountain. Hokusai drew the picture in ink on thin paper. The paper was pasted face down on a block of cherry wood, and a carver cut away everything that was not line, leaving the drawing standing up in relief and destroying it in the process. More blocks were cut for each colour. A printer brushed the colour onto the wood, laid damp paper over it, and rubbed the back with a flat pad of coiled cord until the colour came through, one block after another, each aligned to the last by a notch and a corner cut into the wood. The blue is new. It is Prussian blue, a pigment first made by accident in a Berlin laboratory, carried to Japan by Dutch and Chinese ships, and cheap enough by then to use freely; it does not fade the way the old blues from dayflower did, and it gave the printers a deep, cold, wet colour the sea had never had on paper before. Thousands of impressions were pulled, until the blocks wore down and the fine lines of the spray began to break and blur, and the earliest prints, with the sharpest foam, are the ones collectors now look for. They were pinned to walls and folded into albums, some went to Europe in the holds of trading ships, and the painters of Paris found them there and could not stop looking. The wave has been falling ever since, and has never fallen, and the boats are still in the trough, and the mountain still waits, as patient as snow.</p>
+    <p class="ph-text">The building is small, a cross of brick hardly bigger than a large room, and from outside it could pass for a storehouse. Galla Placidia, daughter of the emperor Theodosius, sister of one emperor and mother of another, governed the western empire from Ravenna for her young son in the years after 425, and the chapel carries her name, though she most likely died and was buried in Rome. Inside, every wall and vault is mosaic, and the day comes in only through narrow windows of thin alabaster, so the room is dim and blue and gold. At the top of the dome is a sky. Hundreds of gold stars, each with eight points, are set on a deep blue ground in rings that grow smaller toward the summit, so that the vault seems higher than it is, and at the centre of the rings stands a single gold cross. In the four corners below it are the living creatures that came to stand for the evangelists: the man, the lion, the ox and the eagle. The cross is not a crucifix. There is no body on it and no wound. It is the sign in the heavens, the cross that was to appear in the sky at the end of time, and Christians of the fifth century were still slow to show Christ dying. They showed the cross as a victory instead, plain gold among stars, turned toward the east, the side from which the light of the morning comes.</p>
   </div>
 </section>
 
@@ -716,35 +454,6 @@ const __feat = document.getElementById('feat-light-rays');
     <script type="module" src="features/pretext-halftone/pretext-halftone.js"></script>
     <!-- /feature: pretext-halftone -->
 
-    <!-- ═══ feature: pretext-tesserae (features/pretext-tesserae; delete this block to remove it) ═══ -->
-    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400..800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="features/pretext-tesserae/pretext-tesserae.css">
-    <style>
-#feat-pretext-tesserae{--paper:#f3f0e8;--ink:#141312;--ink-3:#8a857d;--accent:#c96f4a;--serif:'EB Garamond',Georgia,serif;--sans:Inter,system-ui,sans-serif;--gutter:clamp(16px,3vw,32px)}
-#feat-pretext-tesserae *{box-sizing:border-box}
-#feat-pretext-tesserae{background:var(--paper)}
-#feat-pretext-tesserae{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);overflow-x:hidden}
-#feat-pretext-tesserae .spacer{height:96svh;display:grid;place-items:center;font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
-#feat-pretext-tesserae .gap{height:34svh}
-#feat-pretext-tesserae{overflow:visible !important;overflow-x:clip !important;position:relative}
-    </style>
-    <section class="feat-embed" id="feat-pretext-tesserae" data-feature="pretext-tesserae" aria-label="pretext-tesserae">
-<div class="spacer">scroll</div>
-
-<figure data-pretext-tesserae data-src="features/pretext-tesserae/assets/neptune.webp" data-src-narrow="features/pretext-tesserae/assets/neptune-tall.webp" data-colours="2" data-wash="0.92" data-font="'EB Garamond', serif" data-weight="800" data-tracking="-0.01">
-  <p class="tes-text">You came in from the street out of the heat and the noise of the port, paid your coin to the doorkeeper, left your clothes with a slave you trusted, and walked out across the sea. It was underfoot the whole time: a white floor as long as a ship, and on it, in black, the god of the sea driving four horses that are horses only as far as the chest, and after that are fish, their tails thrashing and looping into coils. He stands upright with a trident in one hand and the reins loose in the other, and his cloak blows out behind him in a great hoop, as if the wind were coming from the direction he is going. Around him the whole of his household rides along: tritons blowing on shells, sea nymphs lying back on the scaly necks of monsters as if on couches, dolphins, a sea bull, a sea panther, a sea goat with a curled horn, and between them all the little leafy sprays that stand for waves. Nobody had to be told who they were. The town lived by the water. Every sack of grain that fed the city upriver came through this harbour, and the men who carried it, counted it, taxed it and shipped it bathed here after work and walked over this god twice a day. The baths were begun in the reign of Hadrian and finished under his successor, and the floor was laid at the same time, by a workshop that did nothing else, in the way that had become the fashion in this town and nowhere else quite so well: no colour at all, only black stone and white. White limestone for the ground, black for the figures, and the details drawn back into the black with lines of white, so that a muscle, a mane, a fin or the scales of a tail are a few white stones in a row. It is the cheapest way to make a mosaic and the hardest to make a good one, because there is nowhere to hide. Every outline shows. The mosaicists laid the figures first, a row of black stones hugging each edge, then another inside it, and only then filled in the bodies; the white was laid last, in long straight rows across the floor, with the rows near each figure bending a little to follow it, like water moving round a post. Seen from the gallery above, which is where you are meant to see it from, the whole thing reads at once, the god and his horses in the middle and the rabble of the sea around them, like a drawing in ink on a page. Down on the floor, with your feet on it, it is only stones, thousands of them, each a little square of black or white no bigger than a fingernail, set by hand in a bed of mortar one at a time. The water was let out when the town emptied, the roofs fell in, and the river silted up the harbour and moved the coast two miles away. The floor stayed. It is still there, in the open air, and on a hot afternoon the god drives his horses across it toward a sea that is no longer anywhere in sight.</p>
-</figure>
-
-<div class="gap"></div>
-
-<figure data-pretext-tesserae data-src="features/pretext-tesserae/assets/iznik-panel.webp" data-colours="5" data-font="'EB Garamond', serif" data-weight="800" data-tracking="-0.01">
-  <p class="tes-text">In the town by the lake the kilns were never cold. The tiles were not clay at all but stone, white quartz from the river crushed to a flour and mixed with ground glass and a little white clay to make it hold, so that when it was fired it rang like a cup and took the colours the way snow takes ink. The designs came from the palace in Istanbul, drawn on paper by the court painters and sent out along the road with the orders: so many tiles for a mosque, so many for a tomb, so many for the walls of a room where the sultan would sit for an hour on a summer evening and never come again. At the workshop they pricked the drawings along every line and laid them on the tiles and pounced charcoal through the holes, so the same tulip could be put down a thousand times and still be drawn by hand. Then the painters went over it. Black for the outlines, with a brush of a few hairs. Cobalt, which was dug in Persia and came along the caravan roads, for the rosettes and the deep blue of the borders. Turquoise and a cool green from copper for the long serrated leaves that bend as if a wind were going through the wall. And last, the red. Nobody else in the world could make it. It was a clay from the mountains in the east, rich in iron, and it had to be laid on so thick that you can feel it standing up under the glaze with your fingertip, like sealing wax, and fired at exactly the heat that would fix it without turning it to brown or leaving it to run. For fifty years they made it perfectly, and then the orders fell away and the masters died and the red went thin and muddy, and it was never made again. A tile panel is put up the way a mosaic is laid: one square at a time, from a plan, into a bed of mortar, each tile carrying a piece of a flower that only exists when all of them are in place. You can still see the joints. The lattice runs across them in red ribbons strung with small white blossoms, and in each opening there is a tulip, or a carnation, or a hyacinth with its head bowed, or a great blue rosette turning like a wheel, and the whole thing repeats upward toward a ceiling it was never hung under. Somebody pried it off a wall, at some point, carefully, and packed it in straw. It hangs now in a museum in Brussels, where the light is grey and the visitors come in wet coats, and every one of them who stops in front of it is standing for a moment in a garden in spring four hundred and fifty years ago, where it is warm and nothing is ever going to die.</p>
-</figure>
-
-<div class="spacer"></div>
-    </section>
-    <script type="module" src="features/pretext-tesserae/pretext-tesserae.js"></script>
-    <!-- /feature: pretext-tesserae -->
 
     <!-- ═══ feature: pretext-spiral (features/pretext-spiral; delete this block to remove it) ═══ -->
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400..700;1,400..700&family=EB+Garamond:wght@400..800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
@@ -966,91 +675,6 @@ const __feat = document.getElementById('feat-light-rays');
     <script type="module" src="features/pretext-inscription/pretext-inscription.js"></script>
     <!-- /feature: pretext-inscription -->
 
-    <!-- ═══ feature: stitch-type (features/stitch-type; delete this block to remove it) ═══ -->
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="features/stitch-type/stitch-type.css">
-    <style>
-#feat-stitch-type{--paper:#f3f0e8;--paper-2:#e9e5da;--ink:#141312;--ink-3:#8a857d;--serif:'Cormorant Garamond',Georgia,serif;--sans:Inter,system-ui,sans-serif;--gutter:clamp(16px,3vw,32px)}
-#feat-stitch-type *{box-sizing:border-box}
-#feat-stitch-type{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);overflow-x:hidden}
-#feat-stitch-type .label{height:46svh;display:grid;place-items:end center;padding-bottom:7svh;font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
-#feat-stitch-type .label.end{place-items:center;height:40svh;padding:0}
-#feat-stitch-type .cloth{min-height:100svh}
-@media (max-width:600px){#feat-stitch-type .cloth .st-text{font-size:31vw;max-width:3.4em;line-height:.92}}
-#feat-stitch-type .x-stitch-type-band{position:relative;height:min(54vw,82svh);overflow:hidden;margin:0;background:var(--paper-2)}
-#feat-stitch-type .x-stitch-type-band img{position:absolute;top:50%;left:0;width:118vw;height:auto;max-width:none;display:block;margin-top:-29.5vw;
-    transform:translate3d(var(--bx,0px),0,0);filter:grayscale(var(--bg,1)) contrast(1.04);will-change:transform}
-#feat-stitch-type .hoop-room{min-height:100svh;display:grid;place-items:center;padding:12svh var(--gutter)}
-#feat-stitch-type .hoop{position:relative;width:min(86vw,74svh,700px);aspect-ratio:1;border-radius:50%}
-#feat-stitch-type .hoop::before, #feat-stitch-type .hoop::after{content:"";position:absolute;border-radius:50%;pointer-events:none}
-#feat-stitch-type .hoop::before{inset:calc(-1*var(--ring));z-index:2;
-    --ring:clamp(12px,2.6vw,22px);
-    background:
-      radial-gradient(circle closest-side,transparent calc(100% - var(--ring)),rgba(60,30,8,.28) calc(100% - var(--ring) + 1px),rgba(255,236,200,.22) calc(100% - var(--ring)*.62),rgba(255,236,200,.05) calc(100% - var(--ring)*.35),rgba(60,30,8,.32) 100%),
-      repeating-radial-gradient(circle at 50% 50%, rgba(90,52,22,.0) 0 2px, rgba(90,52,22,.10) 2px 3px, rgba(255,240,210,.06) 3px 5px),
-      conic-gradient(from 20deg,#c99a63,#ddb27a,#c18f58,#d8ab73,#b8844e,#d6a86f,#c99a63);
-    -webkit-mask:radial-gradient(circle closest-side,transparent calc(100% - var(--ring)),#000 calc(100% - var(--ring) + 1px));
-            mask:radial-gradient(circle closest-side,transparent calc(100% - var(--ring)),#000 calc(100% - var(--ring) + 1px));
-    box-shadow:0 18px 40px -16px rgba(40,24,10,.45),0 2px 6px rgba(40,24,10,.25)}
-#feat-stitch-type .hoop::after{inset:0;z-index:3;box-shadow:0 0 0 1.5px rgba(70,40,15,.55),inset 0 0 0 1px rgba(255,235,200,.25),inset 0 6px 14px rgba(0,0,0,.35)}
-#feat-stitch-type .hoop .st{position:absolute;inset:0;border-radius:50%;padding:0;min-height:0;
-    --st-cloth:#2a3550;--st-blend:multiply;--st-ink:#c9a24a}
-#feat-stitch-type .hoop .st-text{font-style:italic;font-weight:600;font-size:min(29vw,25svh,180px);max-width:2.7em;line-height:.8}
-#feat-stitch-type .screw{position:absolute;z-index:4;left:50%;top:0;width:clamp(26px,5vw,40px);height:clamp(30px,6vw,46px);transform:translate(-50%,-78%);
-    border-radius:5px;background:linear-gradient(90deg,#7a5a2a,#e8cf8e 35%,#b38a45 60%,#6d4f24);box-shadow:0 4px 10px rgba(40,24,10,.35)}
-#feat-stitch-type .screw::after{content:"";position:absolute;left:50%;top:-38%;width:58%;aspect-ratio:1;transform:translateX(-50%);border-radius:50%;
-    background:radial-gradient(circle at 35% 30%,#f4e2a8,#b38a45 55%,#6d4f24);box-shadow:0 2px 4px rgba(40,24,10,.35)}
-@media (max-width:600px){#feat-stitch-type .x-stitch-type-band{height:62svh}
-#feat-stitch-type .x-stitch-type-band img{top:0;margin:0;height:100%;width:auto}}
-@media (prefers-reduced-motion: reduce){#feat-stitch-type .x-stitch-type-band img{transform:none;filter:none}}
-#feat-stitch-type{overflow:visible !important;overflow-x:clip !important;position:relative}
-    </style>
-    <section class="feat-embed" id="feat-stitch-type" data-feature="stitch-type" aria-label="stitch-type">
-<div class="label">scroll</div>
-
-<section class="st cloth" data-stitch-type data-thread="#8f1d22">
-  <h1 class="st-text">Hand made</h1>
-</section>
-
-<figure class="x-stitch-type-band" aria-hidden="true"><img src="features/stitch-type/assets/bayeux.webp" alt=""></figure>
-
-<div class="hoop-room">
-  <div class="hoop">
-    <section class="st" data-stitch-type data-thread="#b5832e, #ecd08a, #c7922f, #8f6420" data-transfer="#ece6d6">
-      <h2 class="st-text">with care</h2>
-    </section>
-    <span class="screw" aria-hidden="true"></span>
-  </div>
-</div>
-<div class="label end">end</div>
-    </section>
-    <script type="module" src="features/stitch-type/stitch-type.js"></script>
-    <script>
-{
-const __feat = document.getElementById('feat-stitch-type');
-
-  // demo ornament only: the Bayeux band drifts sideways and earns its colour mid-screen
-  (() => {
-    const band = __feat.querySelector('.x-stitch-type-band'), img = band.querySelector('img');
-    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    let raf = 0;
-    const go = () => {
-      raf = 0;
-      const r = band.getBoundingClientRect(), vh = innerHeight;
-      const t = Math.min(1, Math.max(0, (vh - r.top) / (vh + r.height)));
-      const extra = Math.max(0, img.getBoundingClientRect().width - r.width);
-      img.style.setProperty('--bx', (-extra * t).toFixed(1) + 'px');
-      const mid = 1 - Math.min(1, Math.abs((r.top + r.height / 2) - vh / 2) / (vh * 0.45));
-      img.style.setProperty('--bg', (1 - Math.min(1, mid * 1.6)).toFixed(3));
-    };
-    addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(go); }, { passive: true });
-    addEventListener('resize', go); img.complete ? go() : img.addEventListener('load', go);
-  })();
-
-}
-    </script>
-    <!-- /feature: stitch-type -->
-
 
     <!-- ═══ feature: kintsugi (features/kintsugi; delete this block to remove it) ═══ -->
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
@@ -1155,10 +779,228 @@ const __feat = document.getElementById('feat-moodboard');
     <!-- /feature: moodboard -->
 
 
+    <!-- ═══ feature: gold-ground (features/gold-ground; delete this block to remove it) ═══ -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="features/gold-ground/gold-ground.css">
+    <style>
+#feat-gold-ground{--paper:#f3f0e8;--paper-2:#e9e5da;--ink:#141312;--ink-2:#4a4744;--ink-3:#8a857d;--rule:#cfcac0;--accent:#c96f4a;--serif:'Cormorant Garamond',Georgia,serif;--sans:Inter,system-ui,sans-serif;--gutter:clamp(16px,3vw,32px)}
+#feat-gold-ground *{box-sizing:border-box}
+#feat-gold-ground{-webkit-text-size-adjust:100%}
+#feat-gold-ground{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:clamp(19px,1.35vw + 13px,22px);line-height:1.5;overflow-x:hidden}
+#feat-gold-ground .essay{max-width:34em;margin:0 auto;padding:0 var(--gutter)}
+#feat-gold-ground .essay p{margin:0 0 1.05em;text-wrap:pretty;hyphens:auto}
+#feat-gold-ground .opening{padding-top:clamp(64px,16svh,160px)}
+#feat-gold-ground h1{font-weight:400;font-size:clamp(40px,6vw,72px);line-height:1;letter-spacing:-.01em;margin:0 0 clamp(28px,5svh,48px)}
+#feat-gold-ground .kicker{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin:0 0 18px}
+#feat-gold-ground .wall{margin:clamp(40px,8svh,88px) 0}
+#feat-gold-ground .panel{margin:clamp(32px,6svh,64px) auto;width:min(100%,560px);padding:clamp(10px,1.6vw,18px);background:var(--paper-2);box-shadow:inset 0 0 0 1px var(--rule)}
+#feat-gold-ground .panel figure{box-shadow:0 1px 0 rgba(20,19,18,.06)}
+#feat-gold-ground .end{height:28svh}
+#feat-gold-ground{overflow:visible !important;overflow-x:clip !important;position:relative}
+    #feat-gold-ground [data-gold-ground]{position:relative;overflow:hidden}#feat-gold-ground [data-gold-ground]>img{width:100%;height:auto}#feat-gold-ground .gg-canvas{position:absolute;inset:0;width:100%;height:100%}
+    </style>
+    <section class="feat-embed" id="feat-gold-ground" data-feature="gold-ground" aria-label="gold-ground">
+<div>
+  <article class="essay opening">
+    <p class="kicker">Hagia Sophia · Constantinople</p>
+    <h1>Gold under glass</h1>
+    <p>A gold tessera is a sandwich. The glassmaker poured out a cake of molten glass, usually with a little green or amber in it, and while it was still warm laid a leaf of gold across it, beaten so thin that a breath would lift it. Over the leaf went a second skin of clear glass, much thinner, which Italian workshops still call the cartellina, the little card: sometimes blown as a bubble and cut open, sometimes poured. The whole was put back in the furnace until the two glasses fused and the gold was sealed between them, safe from the air and from a thousand years of lamp smoke. When it had cooled, the cake was set on a small iron blade fixed in a block, the hardie, and broken with a hammer into cubes about the size of a fingernail. Every cube in the vaults of Ravenna and Constantinople went under that hammer one at a time.</p>
+    <p>The setters worked a patch at a time, as much wet lime plaster as they could fill before it went hard, over a drawing brushed onto the coat beneath. They pressed each cube in with a thumb, and they did not press them flat. In a gold ground the cubes lean, forward, back, to one side, none quite in line with its neighbour, and the joints between them are left open so that each one meets the light by itself. High in a vault the field was often tipped down toward the floor, where the people stood. None of this survives in a photograph, which is taken in one light from one place. It is a surface made for an eye that moves.</p>
+  </article>
 
 
+  <article class="essay">
+    <p>It was lit by oil lamps hung on chains and by candles carried in procession, small flames that moved, and by people who moved under them. Walk the length of the nave with a taper and the wall answers cube by cube: one flares and goes out, the next takes it up, and a spark seems to keep pace beside you through the gold, always just ahead. Procopius, describing Justinian's new church in Constantinople, wrote that you would think the place was not lit from outside by the sun, but that the light was born inside it. He was looking at gold that had been set to do exactly that.</p>
 
+    <div class="panel">
+      <figure data-gold-ground data-distance="1.2" data-window=".7"><img src="features/gold-ground/assets/deesis.webp" alt="" width="1490" height="1400"></figure>
+    </div>
 
+    <p>In Hagia Sophia, seven centuries later, the setters laid the ground behind this face in overlapping fans, like the scales of a fish, so that even the empty gold has a grain. Most of these churches face east, and the apse is the first part of them the morning finds. Before sunrise the gold is a dull brown under the lamps. Then a low, level light comes in through the east windows and across the marble floor, and the gold above takes it at a glancing angle from below, the angle the setters tipped it to meet, so that every cube sends a little of the day back down into the church. The night office was timed to end at first light, with the hymn that begins <i>Glory to you who have shown us the light</i>, and its last verses were sung under a vault that was slowly catching. By mid morning the sun is high, the angle has passed, and the gold settles back to a warm and even glow.</p>
+  </article>
+  <div class="end"></div>
+</div>
+    </section>
+    <script type="module" src="features/gold-ground/gold-ground.js"></script>
+    <!-- /feature: gold-ground -->
+
+    <!-- ═══ feature: pretext-burn (features/pretext-burn; delete this block to remove it) ═══ -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400..600;1,400..600&family=Homemade+Apple&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="features/pretext-burn/pretext-burn.css">
+    <style>
+#feat-pretext-burn{--paper:#f3f0e8;--ink:#141312;--ink-2:#4a4744;--ink-3:#8a857d;--serif:'Cormorant Garamond',Georgia,serif;--sans:Inter,system-ui,sans-serif;--gutter:clamp(16px,3vw,32px)}
+#feat-pretext-burn *{box-sizing:border-box}
+#feat-pretext-burn{background:var(--paper)}
+#feat-pretext-burn{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);overflow-x:hidden}
+#feat-pretext-burn .prose{max-width:34rem;margin:0 auto;padding:22svh var(--gutter) 14svh;font-size:clamp(19px,2.1vw,22px);line-height:1.55;font-weight:500;color:#2a2724;text-wrap:pretty}
+#feat-pretext-burn .prose.after{padding:12svh var(--gutter) 30svh}
+#feat-pretext-burn .prose p{margin:0}
+#feat-pretext-burn .prose p::first-letter{font-size:1.02em}
+#feat-pretext-burn .mark{display:block;margin:0 0 2.2em;font-family:var(--sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+#feat-pretext-burn{overflow:visible !important;overflow-x:clip !important;position:relative}
+    </style>
+    <section class="feat-embed" id="feat-pretext-burn" data-feature="pretext-burn" aria-label="pretext-burn">
+<div class="prose">
+  <span class="mark" aria-hidden="true">On paper</span>
+  <p>Good writing paper was once made of rags: worn linen shirts and bedsheets, left in damp heaps until they rotted soft, then beaten for hours in a trough of water until the fibres came apart, lifted on a wire mould and pressed between felts. Hold such a sheet to the light and you can still see the mould in it, fine lines close together and stronger ones an inch apart. Rag paper does not flare like newsprint. Put a corner to a flame and it smoulders. The heat runs ahead of the fire and browns the sheet as the cellulose gives up its water; then a thin edge of embers creeps forward, faster along the fibres than across them, and leaves behind a black skin of carbon that shrinks and cracks like glaze. The carbon burns more slowly still, and what is left at the end is ash, the little mineral the fibres held and the chalk the papermaker added: grey, nearly weightless, keeping the shape of the page until a breath lifts it.</p>
+</div>
+
+<section data-pretext-burn>
+  <div class="pb-stage">
+    <article class="pb-letter">
+      <p class="pb-date">Hollins Farm, 3rd October</p>
+      <p class="pb-greet">Dear Nell,</p>
+      <p>The pears are in, the light goes by six, and the swallows left on Tuesday, all at once, the way they do. It seems the season for saying things.</p>
+      <p>When you came to help with the lambing that first spring, I learned the sound of your step on the yard stones before I learned your face. I have listened for it ever since. I never said so, because you had Tom, and then the children, and because it never asked for anything. It was only true, and I wanted one other person to know it, once.</p>
+      <p>Don't answer this. Read it at the kitchen table, put it in the range, and let us go on as we were: the eggs on Fridays, the crossword over the wall.</p>
+      <p class="pb-close">With my love, which is old and quiet,</p>
+      <p class="pb-sign">Alice</p>
+    </article>
+  </div>
+</section>
+
+<div class="prose after">
+  <p>Most letters of this kind were burned, as they asked to be. Cassandra Austen, late in her life, burned the greater part of her sister's letters and cut passages out of others. Dickens made a bonfire of twenty years of his correspondence in the field at Gad's Hill, and his boys roasted onions in the ashes. Others were kept against instructions, in a drawer, under the lining paper, folded in three along creases that went brown. Fire is less thorough than it looks. Iron-gall ink leaves its iron behind when the paper goes, and on the grey ash of a burned page the writing can often still be read, rust on ash, for as long as no one touches it.</p>
+</div>
+    </section>
+    <script type="module" src="features/pretext-burn/pretext-burn.js"></script>
+    <!-- /feature: pretext-burn -->
+
+    <!-- ═══ feature: stained-glass (features/stained-glass; delete this block to remove it) ═══ -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="features/stained-glass/stained-glass.css">
+    <style>
+#feat-stained-glass{--paper:#f3f0e8;--paper-2:#e9e5da;--ink:#141312;--ink-2:#4a4744;--ink-3:#8a857d;--rule:#cfcac0;--accent:#c96f4a;--serif:'Cormorant Garamond',Georgia,serif;--sans:Inter,system-ui,sans-serif;--gutter:clamp(16px,3vw,32px)}
+#feat-stained-glass *{box-sizing:border-box}
+#feat-stained-glass{background:var(--paper)}
+#feat-stained-glass{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:clamp(19px,1.25vw + 12px,22px);line-height:1.55;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+#feat-stained-glass .label{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+#feat-stained-glass article{padding:clamp(48px,10svh,120px) var(--gutter) clamp(64px,14svh,140px)}
+#feat-stained-glass .col{max-width:36rem;margin:0 auto}
+#feat-stained-glass .opening{display:grid;grid-template-columns:auto minmax(0,30rem);gap:clamp(36px,6vw,96px);align-items:center;justify-content:center;max-width:64rem;margin:0 auto clamp(48px,10svh,110px)}
+#feat-stained-glass .window{margin:0;position:relative;width:clamp(150px,19vw,290px)}
+#feat-stained-glass .window img{display:block;width:100%;height:auto}
+#feat-stained-glass .masthead h1{font-weight:400;font-size:clamp(46px,6.6vw,92px);line-height:.98;letter-spacing:-.012em;margin:.35em 0 .32em}
+#feat-stained-glass .masthead h1 em{font-weight:300}
+#feat-stained-glass .masthead .dek{font-style:italic;color:var(--ink-2);font-size:1.12em;margin:0;max-width:26rem}
+@media (max-width:720px){#feat-stained-glass .opening{grid-template-columns:1fr;justify-items:center;text-align:center;gap:clamp(30px,6svh,48px)}
+#feat-stained-glass .masthead .dek{margin:0 auto}
+#feat-stained-glass .window{width:min(40vw,180px)}}
+#feat-stained-glass article h2{font-weight:500;font-size:1.5em;line-height:1.15;margin:2.2em 0 .6em}
+#feat-stained-glass article p{margin:0 0 1.05em;hyphens:auto;-webkit-hyphens:auto}
+#feat-stained-glass article p.first::first-letter{float:left;font-size:4.1em;line-height:.8;padding:.06em .08em 0 0;font-weight:400}
+#feat-stained-glass blockquote{margin:2em 0;padding:0;text-align:center;font-style:italic;font-weight:300;font-size:clamp(1.55em,3.4vw,2.05em);line-height:1.18;color:var(--ink)}
+#feat-stained-glass blockquote::before, #feat-stained-glass blockquote::after{content:"";display:block;width:2.6rem;height:1px;background:var(--rule);margin:0 auto .7em}
+#feat-stained-glass blockquote::after{margin:.7em auto 0}
+#feat-stained-glass .end{text-align:center;color:var(--ink-3);margin-top:2.4em}
+#feat-stained-glass .tail{height:18svh}
+#feat-stained-glass{overflow:visible !important;overflow-x:clip !important;position:relative}
+    </style>
+    <section class="feat-embed" id="feat-stained-glass" data-feature="stained-glass" aria-label="stained-glass">
+<div>
+  <article data-stained-glass data-attach="viewport">
+    <div class="opening">
+      <figure class="window"><img src="features/stained-glass/assets/adoration-virgin-and-child.webp" alt="" aria-hidden="true" width="1100" height="2060" data-sg-glass></figure>
+      <header class="masthead">
+        <div class="label">An essay on glass</div>
+        <h1>The Colour<br> <em>on the Floor</em></h1>
+        <p class="dek">On ash and sand, flashed ruby and silver stain, and the light a window lets fall across the stones.</p>
+      </header>
+    </div>
+
+    <div class="col">
+      <p class="first">On a clear morning in a church with old glass, the window is only half the work. The other half lies on the floor: a patch of colour thrown down across the stones, ruby and blue and straw-yellow, leaning the way the sun leans and stretched long by its lowness. Close under the wall you can follow the lead lines in it and almost make out a figure. A few paces further out the lines have gone, and the colours have run together into pools, as if someone had spilt them there and walked away.</p>
+
+      <h2>Ash and sand</h2>
+      <p>The glass began in the forest. Theophilus, a monk who wrote down the crafts of his workshop early in the twelfth century, tells the glassmaker to take two parts of beechwood ash to one of sand, washed clean of earth and stones, and melt them together in a pot of clay. The ash gave potash, which brings the melting point of sand down within reach of a wood fire. It also made a softer, less stable glass than the Romans’ soda glass, which is why the outer face of so many medieval windows is pitted and crusted like the top of a loaf. Colour went into the pot with the batch: cobalt for blue, copper for green, manganese for purple, iron for the yellows and the murky greens, so that each colour runs right through the sheet. Glaziers still call it pot-metal.</p>
+      <p>A flat sheet started as a bubble. For muff glass the blower swung a long gather into a cylinder, cut off its ends, slit it down one side and laid it back in the furnace to open out flat; for crown glass, later, he spun the bubble on an iron rod until it flashed open into a wide disc, thick in the middle where the rod had been. Either way it came out uneven, full of small seeds of air and streaks where the batch had not quite mixed, and every flaw changes the light that passes through. Red was the hard one. Copper ruby is so dense that a sheet thick enough to handle looks black against the sky, so it was laid on as a skin: a gather of clear glass dipped into the red and blown out with it, clear on one face and flashed with red on the other. Old ruby seen close is dozens of thin layers wavering like the grain of wood, and it throws the deepest colour in the window.</p>
+
+      <blockquote>Paint does not colour the light. It stops it.</blockquote>
+
+      <h2>Iron, paint and lead</h2>
+      <p>The design was drawn full size on a whitewashed table, every piece and every lead line, and the glass laid over it to be cut. There was no diamond to score it. The glazier drew a red-hot iron along the line he wanted, wetted it so the glass cracked after the iron, then nibbled the edge to shape with a hooked grozing iron, which leaves a row of small bites you can still see on old pieces. Faces, hands, folds of cloth and the leaves of the border were painted on in grisaille, a paste of ground glass and iron oxide in wine or gum, and fired in a kiln until it fused into the surface. That is why a saint’s features arrive on the floor as fine brown shadows and not as colour.</p>
+      <p>Around 1300 someone found that a compound of silver, painted on the back of a clear piece and fired, turned the glass yellow, from the pale of a lemon to a deep orange depending on the heat. Silver stain changed the trade: a golden crown and a white face could now be one piece, with no lead between them, and fourteenth-century windows grew lighter and more silvery. Then every piece was fitted into cames, strips of cast lead grooved on both sides to take the glass, soldered with tin at each joint and braced with iron bars. The heavy black lines that hold a window together are part of its drawing.</p>
+      <p>It is often said that old windows are thicker at the bottom because glass is a slow liquid that has sagged over the centuries. It isn’t, and it hasn’t. Glass at the temperature of a church is so stiff that it would take far longer than the age of the universe to move a visible distance; Roman cups and old telescope lenses have kept their shapes. Panes are thicker along one edge because muff and crown glass came out uneven, and a sensible glazier set the heavy edge at the bottom. Now and then a piece turns up with its thick edge at the top, set by one who wasn’t.</p>
+      <p>And then the light moves. A church is built with its altar to the east, so the morning sun comes in through the choir and lays its colours down the length of the nave, long and pale. By noon the sun is high in the south and the patches are short and bright, close under the aisle windows, the blue and the red lying on the stone like rugs. Through the afternoon they lengthen again and swing toward the east, climbing the bases of the piers and folding over the step of a pew, and when a cloud crosses the sun they fade and soften and then come back exactly as they were. Nobody designed that part. The glaziers made the window to be looked at; the floor was a gift.</p>
+      <p class="end label">Fin</p>
+    </div>
+  </article>
+  <div class="tail"></div>
+</div>
+    </section>
+    <script>
+{
+const __feat = document.getElementById('feat-stained-glass');
+
+  // a different light of the pair on some visits: the Virgin under the star, or the three kings
+  const pick = new URLSearchParams(location.search).get('panel');
+  if (pick === 'kings' || (!pick && Math.random() < 0.5)) __feat.querySelector('[data-sg-glass]').src = 'features/stained-glass/assets/adoration-three-kings.webp';
+
+}
+    </script>
+    <script type="module" src="features/stained-glass/stained-glass.js"></script>
+    <!-- /feature: stained-glass -->
+
+    <!-- ═══ feature: candle-light (features/candle-light; delete this block to remove it) ═══ -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="features/candle-light/candle-light.css">
+    <style>
+#feat-candle-light{--paper:#f3f0e8;--paper-2:#e9e5da;--ink:#141312;--ink-2:#4a4744;--ink-3:#8a857d;--rule:#cfcac0;--accent:#c96f4a;--serif:'Cormorant Garamond',Georgia,serif;--sans:Inter,system-ui,sans-serif;--gutter:clamp(16px,3vw,32px)}
+#feat-candle-light *{box-sizing:border-box}
+#feat-candle-light{background:var(--paper)}
+#feat-candle-light{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:clamp(19px,1.1vw + 13px,22px);line-height:1.55;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+#feat-candle-light .label{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+#feat-candle-light .wall{display:grid;place-items:center;padding:clamp(28px,7svh,72px) var(--gutter) clamp(36px,7svh,64px)}
+#feat-candle-light .frame{
+    width:min(100%, calc((82svh - 2 * var(--fw)) * .6886 + 2 * var(--fw)));
+    --fw:clamp(9px,1.1vw,15px);
+    margin:0;padding:var(--fw);
+    background:linear-gradient(135deg,#2b221b,#120e0b 45%,#211912);
+    box-shadow:
+      inset 0 0 0 1px rgba(255,236,200,.06),
+      inset 0 0 0 calc(var(--fw) - 2px) #17110d,
+      0 1px 0 rgba(255,255,255,.5),
+      0 26px 50px -30px rgba(20,19,18,.6),
+      0 4px 10px -4px rgba(20,19,18,.35);
+  }
+#feat-candle-light .frame img{outline:1px solid #6b5332;outline-offset:0}
+#feat-candle-light article{padding:0 var(--gutter) clamp(72px,14svh,140px)}
+#feat-candle-light .col{max-width:35rem;margin:0 auto}
+#feat-candle-light article h1{font-weight:400;font-size:clamp(40px,5.2vw,64px);line-height:1;letter-spacing:-.01em;margin:.1em 0 .55em;text-align:center}
+#feat-candle-light article h1 em{font-weight:300}
+#feat-candle-light article .label{text-align:center;margin:0}
+#feat-candle-light article p{margin:0 0 1.05em;hyphens:auto;-webkit-hyphens:auto}
+#feat-candle-light article p.first::first-letter{float:left;font-size:4.1em;line-height:.8;padding:.06em .08em 0 0;font-weight:400}
+#feat-candle-light .end{text-align:center;color:var(--ink-3);margin-top:2.4em}
+#feat-candle-light{overflow:visible !important;overflow-x:clip !important;position:relative}
+    </style>
+    <section class="feat-embed" id="feat-candle-light" data-feature="candle-light" aria-label="candle-light">
+<div>
+  <section class="wall">
+    <figure class="frame" data-candle-light data-rig="features/candle-light/assets/magdalen.json">
+      <img src="features/candle-light/assets/magdalen.webp" alt="" aria-hidden="true" width="1800" height="2614">
+    </figure>
+  </section>
+
+  <article>
+    <div class="col">
+      <p class="label">Before electricity</p>
+      <h1>A Few Feet <em>of</em> Light</h1>
+
+      <p class="first">For most of history the light people read by was rendered fat. A tallow candle was dipped, layer on layer, from melted mutton or beef suet. It smoked, it smelled of the kitchen, it slumped in a warm room and ran down its own side, and its twisted cotton wick did not burn away but stood up into the flame and charred, so that within a quarter of an hour the light had sunk to a dull and smoking red. Someone had to trim it with snuffers, a pair of scissors with a little box on one blade to catch the hot end; to snuff a candle meant then not to put it out but to cut it back so that it burned bright again. Beeswax needed far less of this. It burned clear and steady, smelled faintly of honey, and cost several times as much, so it went to altars, courts and the rich, and everyone else sat in the smell of tallow.</p>
+
+      <p>A candle is a smaller light than we remember. The unit of luminous intensity, the candela, is still roughly one candle’s worth, and it falls away with the square of the distance: a page held a foot from the flame gets about ten lux, at three feet barely one, where an office desk today gets five hundred. So a candle did not light a room so much as a few feet of it. Inside that circle were the hands, the page, a face. Outside it the room went on as a collection of rumours: the glint of a jug, the pale edge of a door, the dark.</p>
+
+      <p>Georges de La Tour, working in Lorraine through the war, plague and famine of the 1630s and 40s, painted that circle again and again, and was strangely shy of the flame at its centre. Often he hid it: behind a raised hand whose fingers glow red where the light comes through them, behind a sleeve, a book, the shoulder of a child, so that we see only what it touches. When he did show it, it stands tall and perfectly still, a pale tongue with a dark heart. Here he paints it twice, the candle on the table and its double in the black glass behind, both as motionless as a flame only is in a shut room at night.</p>
+
+      <p>Reading by one candle had its own manners. You held the book close and the candle closer, turned the page toward the flame, and kept still, because a candle in still air hardly moves: the hot gas rising off it draws a steady current in at its foot, and that current stands the flame upright and long. It is a draught that makes it flicker. A door in another room, a sleeve passing, someone laughing too near, and the flame lies over and shortens, the light on the page shudders and drops, and if it goes too far a thread of grey smoke climbs from the wick and the room is gone until someone brings a light from the fire.</p>
+      <p class="end label">Fin</p>
+    </div>
+  </article>
+</div>
+    </section>
+    <script type="module" src="features/candle-light/candle-light.js"></script>
+    <!-- /feature: candle-light -->
 
     <!-- ═══ Four tiles ═══ -->
     <section class="tiles" aria-label="more">
@@ -1176,11 +1018,10 @@ const __feat = document.getElementById('feat-moodboard');
     <span>© 2026</span>
 </footer>
 
-<script src="site.js?v=12" defer></script>
+<script src="site.js?v=14" defer></script>
 <script src="effects.js?v=5" defer></script>
 <script type="module" src="wrap.js?v=5"></script>
 <script src="details.js?v=9" defer></script>
-<script type="module" src="quote.js?v=4"></script>
 
 <!-- Surface easter egg — only visible when the extension is active -->
 <a class="srf-gem" href="https://www.theatlantic.com/magazine/archive/1945/07/as-we-may-think/303881/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1">

@@ -50,8 +50,6 @@ img { display: block; max-width: 100%; }
   padding: 0 var(--gutter) clamp(56px, 12vh, 120px);
   color: #fff;
   text-align: center;
-  opacity: calc(1 - var(--p, 0) * 3.2);
-  transform: translateY(calc(var(--p, 0) * -60px));
   pointer-events: auto;
 }
 .الاسم {
@@ -220,36 +218,6 @@ a.row:hover .kd, a.row:hover .yr { color: var(--paper-2); }
 .person-lines.is-hovering .pl-text { opacity: .45; }
 .person-lines.is-hovering li.is-active .pl-text { opacity: 1; }
 
-/* ─── Quote — assembled word by word (quote.js) ───────────────────
-   Pinned stage; the canvas takes over once live. Without JS the quote is
-   plain centred text; with reduced motion it is the finished sentence. */
-
-.quote { position: relative; height: 260svh; background: var(--paper); }
-.quote-stage {
-  position: sticky; top: 0; height: 100svh; overflow: hidden;
-  display: grid; place-items: center; touch-action: pan-y;
-}
-.quote-src {
-  grid-area: 1 / 1; margin: 0; padding: 0 var(--gutter); text-align: center;
-  font-family: var(--serif); font-weight: 400; font-size: clamp(30px, 7vw, 84px); line-height: 1.08;
-  max-width: 16em; text-wrap: balance;
-}
-.quote-by {
-  grid-area: 1 / 1; align-self: end; margin: 0 0 clamp(36px, 9svh, 90px);
-  font-family: var(--sans); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3);
-  opacity: var(--by, 1);
-}
-.quote-canvas { grid-area: 1 / 1; display: none; touch-action: pan-y; }
-.quote.is-live .quote-canvas { display: block; }
-.quote.is-live .quote-src {
-  position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); padding: 0;
-}
-.quote.is-live .quote-by { opacity: var(--by, 0); }
-@media (prefers-reduced-motion: reduce) {
-  .quote { height: auto; }
-  .quote-stage { position: relative; height: 100svh; }
-}
-
 /* ─── Four tiles ──────────────────────────────────────────────── */
 
 .tiles {
@@ -301,45 +269,20 @@ a.row:hover .kd, a.row:hover .yr { color: var(--paper-2); }
 }
 
 
-/* ─── Opening pan ─────────────────────────────────────────────── */
+/* ─── Opening ─────────────────────────────────────────────────── */
 
-.pan { position: relative; height: 220svh; background: #15120e; }
-.pan-stage {
-  position: sticky;
-  top: 0;
-  height: 100svh;
-  overflow: hidden;
-}
-/* Opening mosaic. site.js sets:
-   --open  radius of the soft circle the mosaic shows through (grows with scroll)
-   --mx/--my  where the colour pool sits (pointer or tilt), --pool its radius
-   --dx/--dy  small parallax shift toward the pointer, --zoom slow pull-back */
-.bloom {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  -webkit-mask-image: radial-gradient(circle at 50% 46%, #000 calc(var(--open, 0%) - 10%), transparent var(--open, 0%));
-          mask-image: radial-gradient(circle at 50% 46%, #000 calc(var(--open, 0%) - 10%), transparent var(--open, 0%));
-}
-.bloom-move {
-  position: absolute;
-  inset: -4%;
-  transform: translate3d(var(--dx, 0px), var(--dy, 0px), 0) scale(var(--zoom, 1.12));
-  will-change: transform;
-}
-.bloom-move img {
+.pan { position: relative; height: 100svh; overflow: hidden; background: #15120e; }
+.pan-img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
   max-width: none;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1.4s ease;
 }
-.bloom-grey { filter: grayscale(1) contrast(1.08) brightness(.92); }
-.bloom-colour {
-  -webkit-mask-image: radial-gradient(circle at var(--mx, 50%) var(--my, 46%), #000 calc(var(--pool, 0px) * .45), transparent var(--pool, 0px));
-          mask-image: radial-gradient(circle at var(--mx, 50%) var(--my, 46%), #000 calc(var(--pool, 0px) * .45), transparent var(--pool, 0px));
-}
+.pan-img.is-in { opacity: 1; }
 
 /* profile picture, beside the name in the portrait section */
 .pfp {
@@ -356,7 +299,7 @@ a.row:hover .kd, a.row:hover .yr { color: var(--paper-2); }
 .pan-veil {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,.45) 100%);
+  background: linear-gradient(to bottom, transparent 45%, rgba(0,0,0,.5) 100%);
   pointer-events: none;
 }
 .pan-cue {
@@ -370,7 +313,7 @@ a.row:hover .kd, a.row:hover .yr { color: var(--paper-2); }
   letter-spacing: .3em;
   text-transform: uppercase;
   color: #fff;
-  opacity: calc(1 - var(--p, 0) * 6);
+  opacity: .8;
   animation: cue 2.4s ease-in-out infinite;
 }
 @keyframes cue { 50% { transform: translate(-50%, 6px); } }
@@ -622,8 +565,73 @@ a.row:hover .kd, a.row:hover .yr { color: var(--paper-2); }
   .tiles { grid-template-columns: repeat(4, 1fr); }
 }
 
+/* ─── Album — stamps ──────────────────────────────────────────── */
+
+.album { position: relative; height: 260svh; background: var(--paper); border-top: 1px solid var(--rule); }
+.album-stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+  display: grid;
+  align-content: center;
+  gap: clamp(18px, 4vh, 44px);
+}
+.album-row {
+  display: flex;
+  align-items: center;
+  gap: clamp(14px, 2.4vw, 34px);
+  width: max-content;
+  padding: 0 6vw;
+  transform: translate3d(var(--x, 0px), 0, 0);
+  will-change: transform;
+}
+
+/* A stamp: paper margin with perforated edges. The holes come from a mask:
+   a solid centre plus a band of dots that punches round holes along every edge. */
+.stamp {
+  --hole: 3px;
+  --pitch: 10px;
+  flex: none;
+  margin: 0;
+  padding: 11px;
+  background: #fbf8f1;
+  box-shadow: 0 8px 22px rgba(40, 30, 15, .16);
+  -webkit-mask-image: linear-gradient(#000 0 0), radial-gradient(circle, transparent var(--hole), #000 calc(var(--hole) + .5px));
+          mask-image: linear-gradient(#000 0 0), radial-gradient(circle, transparent var(--hole), #000 calc(var(--hole) + .5px));
+  -webkit-mask-size: calc(100% - var(--pitch)) calc(100% - var(--pitch)), var(--pitch) var(--pitch);
+          mask-size: calc(100% - var(--pitch)) calc(100% - var(--pitch)), var(--pitch) var(--pitch);
+  -webkit-mask-position: center, calc(var(--pitch) / -2) calc(var(--pitch) / -2);
+          mask-position: center, calc(var(--pitch) / -2) calc(var(--pitch) / -2);
+  -webkit-mask-repeat: no-repeat, round;
+          mask-repeat: no-repeat, round;
+  transform: rotate(var(--tilt, 0deg)) translateY(30px) scale(.94);
+  opacity: 0;
+  transition: transform .9s var(--ease), opacity .9s var(--ease);
+  transition-delay: var(--delay, 0ms);
+}
+.album.is-in .stamp { opacity: 1; transform: rotate(var(--tilt, 0deg)); }
+.stamp img {
+  display: block;
+  height: clamp(110px, 17svh, 190px);
+  width: auto;
+  max-width: none;
+}
+.album-row:nth-child(2) .stamp img { height: clamp(130px, 21svh, 230px); }
+.stamp:hover { transform: rotate(0deg) scale(1.08); transition-delay: 0ms; z-index: 1; }
+
+/* ─── Weaves — textile tiles fill their frames ─────────────────── */
+
+.tiles--weaves { border-top: 1px solid var(--rule); }
+.tiles--weaves .tile-img { padding: 0; }
+.tiles--weaves .tile-img img { width: 100%; height: 100%; object-fit: cover; filter: none; mix-blend-mode: normal; opacity: 0; transition: opacity .8s var(--ease), transform .6s var(--ease); }
+.tiles--weaves .tile-img img.is-in { opacity: 1; }
+.tiles--weaves .tile:hover .tile-img img { transform: scale(1.06); }
+
 @media (prefers-reduced-motion: reduce) {
-  .pan { height: 100svh; }
+  .album { height: auto; }
+  .album-stage { position: static; height: auto; padding: 10vh 0; }
+  .stamp, .tiles--weaves .tile-img img { opacity: 1; transform: none; }
   .band-text span, .band-text em { opacity: 1; transform: none; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .cell img { opacity: 1; }

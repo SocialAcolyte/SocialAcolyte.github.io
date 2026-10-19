@@ -1,5 +1,5 @@
 /*
- *  SITE LAYER // flower-mosaic opening, image pools, scroll scenes, portrait rotation
+ *  SITE LAYER // opening mosaic, image pools, scroll scenes, portrait rotation
  *  Vanilla, no dependencies. effects.js (letter swap, click burst) runs alongside.
  */
 
@@ -103,13 +103,49 @@
         });
     }
 
-    /* --- Scroll scenes: opening pan, mosaic bloom, procession --------
+    /* --- Collections from ornaments/pools.json ------------------------
+       Stamps for the album and textiles for the weave tiles. */
+
+    fetch('ornaments/pools.json').then((r) => r.json()).then((P) => {
+        const stamps = shuffle(P.stamps || []);
+        document.querySelectorAll('.album-row').forEach((row, ri) => {
+            // each row gets a rotated slice of the collection, doubled so it's long enough to slide
+            const slice = stamps.slice(ri * 3).concat(stamps.slice(0, ri * 3));
+            slice.concat(slice).forEach((st, i) => {
+                const f = document.createElement('figure');
+                f.className = 'stamp';
+                f.style.setProperty('--tilt', ((Math.random() - 0.5) * 6).toFixed(1) + 'deg');
+                f.style.setProperty('--delay', (i * 40) + 'ms');
+                const img = new Image();
+                img.alt = ''; img.loading = 'lazy'; img.decoding = 'async';
+                img.src = st.lg;
+                img.style.aspectRatio = st.r;
+                img.addEventListener('load', () => window.dispatchEvent(new Event('scroll')), { once: true });
+                f.appendChild(img);
+                row.appendChild(f);
+            });
+        });
+
+        // each weave tile shows a textile of its own kind (data-match), else any unused one
+        const textiles = shuffle(P.textiles || []);
+        const used = new Set();
+        document.querySelectorAll('img[data-pool="textile"]').forEach((img) => {
+            const re = new RegExp(img.dataset.match || '.', 'i');
+            const pick = textiles.find((t) => !used.has(t) && re.test(t.lg))
+                || textiles.find((t) => !used.has(t)) || textiles[0];
+            if (!pick) return;
+            used.add(pick);
+            img.src = pick.lg;
+            fadeIn(img);
+        });
+        window.dispatchEvent(new Event('scroll'));
+    }).catch(() => {});
+
+    /* --- Scroll scenes: mosaic bloom, album, procession --------
        One rAF loop reads each scene's position and writes CSS variables. */
 
     const clamp01 = (v) => Math.min(1, Math.max(0, v));
     const ease = (t) => t * t * (3 - 2 * t);
-    const pan = document.querySelector('[data-scroll="pan"]');
-    let bloomProgress = 0;
     const bands = [...document.querySelectorAll('[data-scroll="band"]')];
     const proc = document.querySelector('[data-scroll="procession"]');
     const track = proc?.querySelector('.procession-track');
@@ -124,14 +160,6 @@
         const vh = window.innerHeight;
         const vw = document.documentElement.clientWidth;
 
-        // opening: publish scroll progress (title fade + flower growth read it)
-        if (pan) {
-            const r = pan.getBoundingClientRect();
-            const p = clamp01(-r.top / (r.height - vh));
-            pan.style.setProperty('--p', p.toFixed(3));
-            bloomProgress = p;
-        }
-
         // bands: parallax drift + bloom into colour near the middle of the screen
         for (const b of bands) {
             const r = b.getBoundingClientRect();
@@ -141,6 +169,19 @@
             b.style.setProperty('--bloom', ease(bloom).toFixed(3));
             b.style.setProperty('--t', clamp01(bloom * 1.8).toFixed(3));
             b.querySelector('.band-img')?.style.setProperty('--py', (centre * r.height * 0.12).toFixed(1) + 'px');
+        }
+
+        // album: rows of stamps slide in opposite directions while the album is pinned
+        const album = document.querySelector('[data-scroll="album"]');
+        if (album) {
+            const r = album.getBoundingClientRect();
+            const p = clamp01(-r.top / Math.max(1, r.height - vh));
+            if (r.top < vh * 0.7) album.classList.add('is-in');
+            for (const row of album.querySelectorAll('.album-row')) {
+                const extra = Math.max(0, row.scrollWidth - vw);
+                const x = Number(row.dataset.dir) > 0 ? -p * extra : -(1 - p) * extra;
+                row.style.setProperty('--x', x.toFixed(1) + 'px');
+            }
         }
 
         // procession: vertical scroll becomes sideways travel
@@ -166,92 +207,15 @@
         queue();
     }
 
-    /* --- Opening: the flower mosaic ----------------------------------
-       A random flower mosaic opens as a soft circle on arrival and widens
-       with scroll until it fills the screen. It sits in black and white;
-       colour pools around the pointer (or wherever the phone's tilt
-       points) and the pool grows with scroll until it covers everything. */
+    /* --- Opening: one flower mosaic, a different one each visit ------ */
 
-    const bloom = document.querySelector('.bloom');
-    if (bloom) {
+    const opening = document.querySelector('.pan-img');
+    if (opening) {
         // high-resolution webp, so the mosaic stays crisp on large and retina screens
         const FLOWERS = ['flower-06', 'flower-07', 'flower-08', 'flower-18', 'flower-20', 'flower-23',
-            'flower-44', 'flower-46', 'florence-pietra-dura', 'cuerda-seca-tiles', 'blake-flowers', 'floral-brooch']
-            .map((n) => `ornaments/flowers/${n}.webp`);
-        const src = FLOWERS[Math.floor(Math.random() * FLOWERS.length)];
-        const grey = bloom.querySelector('.bloom-grey');
-        const colour = bloom.querySelector('.bloom-colour');
-        grey.src = src;
-        colour.src = src;
-
-        // pointer position as a fraction of the screen; rests at the centre
-        const aim = { x: 0.5, y: 0.46, tx: 0.5, ty: 0.46 };
-        let intro = REDUCED ? 1 : 0, introStart = 0, visible = true, running = false;
-
-        function frame(now) {
-            running = false;
-            if (intro < 1) {
-                if (!introStart) introStart = now;
-                intro = Math.min(1, (now - introStart) / 1800);
-            }
-            aim.x += (aim.tx - aim.x) * 0.08;
-            aim.y += (aim.ty - aim.y) * 0.08;
-
-            const p = bloomProgress;
-            const e = ease(intro);
-            const vmax = Math.max(window.innerWidth, window.innerHeight);
-            // the window onto the mosaic: a third of the screen on arrival, all of it by mid-scroll
-            const open = 34 * e + p * 120;                                      // % of the farthest corner
-            const pool = (0.16 + p * 1.6) * vmax * (0.6 + 0.4 * e);              // colour pool radius, px
-            bloom.style.setProperty('--open', open.toFixed(2) + '%');
-            bloom.style.setProperty('--mx', (aim.x * 100).toFixed(2) + '%');
-            bloom.style.setProperty('--my', (aim.y * 100).toFixed(2) + '%');
-            bloom.style.setProperty('--pool', pool.toFixed(1) + 'px');
-            bloom.style.setProperty('--dx', ((0.5 - aim.x) * 28).toFixed(1) + 'px');
-            bloom.style.setProperty('--dy', ((0.46 - aim.y) * 22).toFixed(1) + 'px');
-            bloom.style.setProperty('--zoom', (1.14 - 0.1 * p).toFixed(4));
-
-            const settling = intro < 1 || Math.abs(aim.tx - aim.x) + Math.abs(aim.ty - aim.y) > 0.002;
-            if (settling && visible) kick();
-        }
-        function kick() {
-            if (!running && visible) { running = true; requestAnimationFrame(frame); }
-        }
-
-        grey.addEventListener('load', kick, { once: true });
-        if (grey.complete) kick();
-        window.addEventListener('scroll', kick, { passive: true });
-        new IntersectionObserver((en) => { visible = en[0].isIntersecting; kick(); }).observe(bloom);
-
-        if (!REDUCED) {
-            window.addEventListener('pointermove', (ev) => {
-                if (ev.pointerType === 'touch') return;
-                aim.tx = ev.clientX / window.innerWidth;
-                aim.ty = ev.clientY / window.innerHeight;
-                kick();
-            }, { passive: true });
-            document.addEventListener('mouseleave', () => { aim.tx = 0.5; aim.ty = 0.46; kick(); });
-
-            // phone: tilt steers the colour pool, from however it was first held
-            let base = null;
-            const onTilt = (ev) => {
-                if (ev.beta == null || ev.gamma == null) return;
-                if (!base) base = { b: ev.beta, g: ev.gamma };
-                aim.tx = 0.5 + Math.max(-1, Math.min(1, (ev.gamma - base.g) / 20)) * 0.45;
-                aim.ty = 0.46 + Math.max(-1, Math.min(1, (ev.beta - base.b) / 20)) * 0.4;
-                kick();
-            };
-            const listenTilt = () => window.addEventListener('deviceorientation', onTilt, { passive: true });
-            if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
-                // iOS asks permission, and only from a tap
-                window.addEventListener('touchend', function ask() {
-                    DeviceOrientationEvent.requestPermission().then((st) => { if (st === 'granted') listenTilt(); }).catch(() => {});
-                    window.removeEventListener('touchend', ask);
-                }, { passive: true });
-            } else {
-                listenTilt();
-            }
-        }
+            'flower-44', 'flower-46', 'florence-pietra-dura', 'cuerda-seca-tiles', 'blake-flowers', 'floral-brooch'];
+        opening.src = `ornaments/flowers/${FLOWERS[Math.floor(Math.random() * FLOWERS.length)]}.webp`;
+        fadeIn(opening);
     }
 
     /* --- Surface extension easter egg -------------------------------- */

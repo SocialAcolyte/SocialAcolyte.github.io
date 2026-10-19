@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>stained-glass</title><link rel="icon" href="data:,">
+<meta name="color-scheme" content="light">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="stained-glass.css"><style>
+  :root{--paper:#f3f0e8;--paper-2:#e9e5da;--ink:#141312;--ink-2:#4a4744;--ink-3:#8a857d;--rule:#cfcac0;--accent:#c96f4a;--serif:'Cormorant Garamond',Georgia,serif;--sans:Inter,system-ui,sans-serif;--gutter:clamp(16px,3vw,32px)}
+  *{box-sizing:border-box}
+  html{background:var(--paper)}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:clamp(19px,1.25vw + 12px,22px);line-height:1.55;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+  .label{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+
+  article{padding:clamp(48px,10svh,120px) var(--gutter) clamp(64px,14svh,140px)}
+  .col{max-width:36rem;margin:0 auto}
+
+  /* the opening: the window, and the title beside it */
+  .opening{display:grid;grid-template-columns:auto minmax(0,30rem);gap:clamp(36px,6vw,96px);align-items:center;justify-content:center;max-width:64rem;margin:0 auto clamp(48px,10svh,110px)}
+  .window{margin:0;position:relative;width:clamp(150px,19vw,290px)}
+  .window img{display:block;width:100%;height:auto}
+  .masthead h1{font-weight:400;font-size:clamp(46px,6.6vw,92px);line-height:.98;letter-spacing:-.012em;margin:.35em 0 .32em}
+  .masthead h1 em{font-weight:300}
+  .masthead .dek{font-style:italic;color:var(--ink-2);font-size:1.12em;margin:0;max-width:26rem}
+  @media (max-width:720px){
+    .opening{grid-template-columns:1fr;justify-items:center;text-align:center;gap:clamp(30px,6svh,48px)}
+    .masthead .dek{margin:0 auto}
+    .window{width:min(40vw,180px)}
+  }
+
+  article h2{font-weight:500;font-size:1.5em;line-height:1.15;margin:2.2em 0 .6em}
+  article p{margin:0 0 1.05em;hyphens:auto;-webkit-hyphens:auto}
+  article p.first::first-letter{float:left;font-size:4.1em;line-height:.8;padding:.06em .08em 0 0;font-weight:400}
+  blockquote{margin:2em 0;padding:0;text-align:center;font-style:italic;font-weight:300;font-size:clamp(1.55em,3.4vw,2.05em);line-height:1.18;color:var(--ink)}
+  blockquote::before,blockquote::after{content:"";display:block;width:2.6rem;height:1px;background:var(--rule);margin:0 auto .7em}
+  blockquote::after{margin:.7em auto 0}
+  .end{text-align:center;color:var(--ink-3);margin-top:2.4em}
+  .tail{height:18svh}
+</style></head><body>
+<main>
+  <article data-stained-glass data-attach="viewport">
+    <div class="opening">
+      <figure class="window"><img src="assets/adoration-virgin-and-child.webp" alt="" aria-hidden="true" width="1100" height="2060" data-sg-glass></figure>
+      <header class="masthead">
+        <div class="label">An essay on glass</div>
+        <h1>The Colour<br> <em>on the Floor</em></h1>
+        <p class="dek">On ash and sand, flashed ruby and silver stain, and the light a window lets fall across the stones.</p>
+      </header>
+    </div>
+
+    <div class="col">
+      <p class="first">On a clear morning in a church with old glass, the window is only half the work. The other half lies on the floor: a patch of colour thrown down across the stones, ruby and blue and straw-yellow, leaning the way the sun leans and stretched long by its lowness. Close under the wall you can follow the lead lines in it and almost make out a figure. A few paces further out the lines have gone, and the colours have run together into pools, as if someone had spilt them there and walked away.</p>
+
+      <h2>Ash and sand</h2>
+      <p>The glass began in the forest. Theophilus, a monk who wrote down the crafts of his workshop early in the twelfth century, tells the glassmaker to take two parts of beechwood ash to one of sand, washed clean of earth and stones, and melt them together in a pot of clay. The ash gave potash, which brings the melting point of sand down within reach of a wood fire. It also made a softer, less stable glass than the Romans’ soda glass, which is why the outer face of so many medieval windows is pitted and crusted like the top of a loaf. Colour went into the pot with the batch: cobalt for blue, copper for green, manganese for purple, iron for the yellows and the murky greens, so that each colour runs right through the sheet. Glaziers still call it pot-metal.</p>
+      <p>A flat sheet started as a bubble. For muff glass the blower swung a long gather into a cylinder, cut off its ends, slit it down one side and laid it back in the furnace to open out flat; for crown glass, later, he spun the bubble on an iron rod until it flashed open into a wide disc, thick in the middle where the rod had been. Either way it came out uneven, full of small seeds of air and streaks where the batch had not quite mixed, and every flaw changes the light that passes through. Red was the hard one. Copper ruby is so dense that a sheet thick enough to handle looks black against the sky, so it was laid on as a skin: a gather of clear glass dipped into the red and blown out with it, clear on one face and flashed with red on the other. Old ruby seen close is dozens of thin layers wavering like the grain of wood, and it throws the deepest colour in the window.</p>
+
+      <blockquote>Paint does not colour the light. It stops it.</blockquote>
+
+      <h2>Iron, paint and lead</h2>
+      <p>The design was drawn full size on a whitewashed table, every piece and every lead line, and the glass laid over it to be cut. There was no diamond to score it. The glazier drew a red-hot iron along the line he wanted, wetted it so the glass cracked after the iron, then nibbled the edge to shape with a hooked grozing iron, which leaves a row of small bites you can still see on old pieces. Faces, hands, folds of cloth and the leaves of the border were painted on in grisaille, a paste of ground glass and iron oxide in wine or gum, and fired in a kiln until it fused into the surface. That is why a saint’s features arrive on the floor as fine brown shadows and not as colour.</p>
+      <p>Around 1300 someone found that a compound of silver, painted on the back of a clear piece and fired, turned the glass yellow, from the pale of a lemon to a deep orange depending on the heat. Silver stain changed the trade: a golden crown and a white face could now be one piece, with no lead between them, and fourteenth-century windows grew lighter and more silvery. Then every piece was fitted into cames, strips of cast lead grooved on both sides to take the glass, soldered with tin at each joint and braced with iron bars. The heavy black lines that hold a window together are part of its drawing.</p>
+      <p>It is often said that old windows are thicker at the bottom because glass is a slow liquid that has sagged over the centuries. It isn’t, and it hasn’t. Glass at the temperature of a church is so stiff that it would take far longer than the age of the universe to move a visible distance; Roman cups and old telescope lenses have kept their shapes. Panes are thicker along one edge because muff and crown glass came out uneven, and a sensible glazier set the heavy edge at the bottom. Now and then a piece turns up with its thick edge at the top, set by one who wasn’t.</p>
+      <p>And then the light moves. A church is built with its altar to the east, so the morning sun comes in through the choir and lays its colours down the length of the nave, long and pale. By noon the sun is high in the south and the patches are short and bright, close under the aisle windows, the blue and the red lying on the stone like rugs. Through the afternoon they lengthen again and swing toward the east, climbing the bases of the piers and folding over the step of a pew, and when a cloud crosses the sun they fade and soften and then come back exactly as they were. Nobody designed that part. The glaziers made the window to be looked at; the floor was a gift.</p>
+      <p class="end label">Fin</p>
+    </div>
+  </article>
+  <div class="tail"></div>
+</main>
+<script>
+  // a different light of the pair on some visits: the Virgin under the star, or the three kings
+  const pick = new URLSearchParams(location.search).get('panel');
+  if (pick === 'kings' || (!pick && Math.random() < 0.5)) document.querySelector('[data-sg-glass]').src = 'assets/adoration-three-kings.webp';
+</script>
+<script type="module" src="stained-glass.js"></script>
+</body></html>

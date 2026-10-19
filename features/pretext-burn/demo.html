@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>pretext-burn</title><link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400..600;1,400..600&family=Homemade+Apple&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="pretext-burn.css"><style>
+  :root{--paper:#f3f0e8;--ink:#141312;--ink-2:#4a4744;--ink-3:#8a857d;--serif:'Cormorant Garamond',Georgia,serif;--sans:Inter,system-ui,sans-serif;--gutter:clamp(16px,3vw,32px)}
+  *{box-sizing:border-box}
+  html{background:var(--paper)}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);overflow-x:hidden}
+  .prose{max-width:34rem;margin:0 auto;padding:22svh var(--gutter) 14svh;font-size:clamp(19px,2.1vw,22px);line-height:1.55;font-weight:500;color:#2a2724;text-wrap:pretty}
+  .prose.after{padding:12svh var(--gutter) 30svh}
+  .prose p{margin:0}
+  .prose p::first-letter{font-size:1.02em}
+  .mark{display:block;margin:0 0 2.2em;font-family:var(--sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+</style></head><body>
+
+<div class="prose">
+  <span class="mark" aria-hidden="true">On paper</span>
+  <p>Good writing paper was once made of rags: worn linen shirts and bedsheets, left in damp heaps until they rotted soft, then beaten for hours in a trough of water until the fibres came apart, lifted on a wire mould and pressed between felts. Hold such a sheet to the light and you can still see the mould in it, fine lines close together and stronger ones an inch apart. Rag paper does not flare like newsprint. Put a corner to a flame and it smoulders. The heat runs ahead of the fire and browns the sheet as the cellulose gives up its water; then a thin edge of embers creeps forward, faster along the fibres than across them, and leaves behind a black skin of carbon that shrinks and cracks like glaze. The carbon burns more slowly still, and what is left at the end is ash, the little mineral the fibres held and the chalk the papermaker added: grey, nearly weightless, keeping the shape of the page until a breath lifts it.</p>
+</div>
+
+<section data-pretext-burn>
+  <div class="pb-stage">
+    <article class="pb-letter">
+      <p class="pb-date">Hollins Farm, 3rd October</p>
+      <p class="pb-greet">Dear Nell,</p>
+      <p>The pears are in, the light goes by six, and the swallows left on Tuesday, all at once, the way they do. It seems the season for saying things.</p>
+      <p>When you came to help with the lambing that first spring, I learned the sound of your step on the yard stones before I learned your face. I have listened for it ever since. I never said so, because you had Tom, and then the children, and because it never asked for anything. It was only true, and I wanted one other person to know it, once.</p>
+      <p>Don't answer this. Read it at the kitchen table, put it in the range, and let us go on as we were: the eggs on Fridays, the crossword over the wall.</p>
+      <p class="pb-close">With my love, which is old and quiet,</p>
+      <p class="pb-sign">Alice</p>
+    </article>
+  </div>
+</section>
+
+<div class="prose after">
+  <p>Most letters of this kind were burned, as they asked to be. Cassandra Austen, late in her life, burned the greater part of her sister's letters and cut passages out of others. Dickens made a bonfire of twenty years of his correspondence in the field at Gad's Hill, and his boys roasted onions in the ashes. Others were kept against instructions, in a drawer, under the lining paper, folded in three along creases that went brown. Fire is less thorough than it looks. Iron-gall ink leaves its iron behind when the paper goes, and on the grey ash of a burned page the writing can often still be read, rust on ash, for as long as no one touches it.</p>
+</div>
+
+<script type="module" src="pretext-burn.js"></script>
+</body></html>

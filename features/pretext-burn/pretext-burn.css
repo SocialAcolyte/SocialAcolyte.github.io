@@ -1,0 +1,72 @@
+/* ─── Burn — a letter that burns as you scroll (pretext-burn.js) ──────────
+   The letter is real text and stays in the DOM. Without JS (or WebGL2) it is
+   a sheet of ivory paper with the letter written on it. Once the paper is
+   ready, the section becomes a tall runway with a pinned stage; the canvas
+   takes over and the letter is visually hidden (still read aloud, still
+   found by ctrl+F, printed). */
+
+[data-pretext-burn], .pb {
+  position: relative;
+  color: var(--ink, #141312);
+}
+.pb-stage {
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding: clamp(28px, 6svh, 64px) var(--gutter, clamp(16px, 3vw, 32px));
+}
+.pb-letter {
+  box-sizing: border-box;
+  width: min(100%, 34em);
+  margin: 0 auto;
+  padding: clamp(24px, 6vw, 56px) clamp(22px, 5.5vw, 52px);
+  font-family: var(--pb-hand, "Homemade Apple", "Segoe Script", cursive);
+  font-size: clamp(13px, 1.7vw, 16px);
+  line-height: 2.05;
+  color: var(--pb-ink, #2a1d14);
+  background: var(--pb-sheet, #f7f0df);
+  box-shadow: 0 1px 2px rgba(60, 40, 20, .12), 0 10px 26px -12px rgba(60, 40, 20, .35);
+}
+.pb-letter p { margin: 0; }
+.pb-letter p + p { margin-top: .35em; }
+.pb-letter .pb-date { text-align: right; margin-bottom: 1em; }
+.pb-letter .pb-greet + p { text-indent: 0; }
+.pb-letter p:not([class]) { text-indent: 2em; }
+.pb-letter .pb-close { margin-top: 1em; padding-left: 36%; }
+.pb-letter .pb-sign { padding-left: 54%; }
+
+.pb-canvas { display: none; }
+
+/* live: a runway; the sheet stays put while it burns */
+.pb.is-live { height: var(--pb-runway, 460svh); }
+.pb.is-live .pb-stage {
+  position: sticky; top: 0;
+  height: 100svh; box-sizing: border-box;
+  padding: 0; overflow: hidden;
+  touch-action: pan-y;
+}
+.pb.is-live .pb-canvas {
+  display: block;
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+}
+.pb.is-live .pb-letter {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip-path: inset(50%); white-space: nowrap; padding: 0; margin: 0;
+  box-shadow: none; background: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pb.is-live { height: auto; }
+  .pb.is-live .pb-stage { position: relative; }
+}
+@media print {
+  .pb.is-live { height: auto; }
+  .pb.is-live .pb-stage { position: static; height: auto; padding: 0; }
+  .pb.is-live .pb-canvas { display: none; }
+  .pb.is-live .pb-letter {
+    position: static; width: auto; height: auto; overflow: visible;
+    clip-path: none; white-space: normal; padding: 2em;
+  }
+}

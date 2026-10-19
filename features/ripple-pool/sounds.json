@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "toggle": true,
+  "sounds": [
+    {
+      "name": "shimmer-m4",
+      "file": "assets/sounds/shimmer-m4.mp3",
+      "on": "press",
+      "target": "[data-ripple-pool]",
+      "volume": 0.15,
+      "vary": 3.0,
+      "source": {
+        "kind": "bank",
+        "id": "shimmer/m4",
+        "seed": 661058652,
+        "pitch_st": 0,
+        "dur_x": 1.0
+      },
+      "credit": "earshot sound bank shimmer/m4 (seed 661058652), synthesized in code: github.com/Leonxlnx/earshot (MIT), no recording"
+    },
+    {
+      "name": "shimmer-m5",
+      "file": "assets/sounds/shimmer-m5.mp3",
+      "on": "drag",
+      "target": "[data-ripple-pool]",
+      "volume": 0.15,
+      "vary": 1.5,
+      "source": {
+        "kind": "bank",
+        "id": "shimmer/m5",
+        "seed": 87989972,
+        "pitch_st": 0,
+        "dur_x": 1.0
+      },
+      "credit": "earshot sound bank shimmer/m5 (seed 87989972), synthesized in code: github.com/Leonxlnx/earshot (MIT), no recording"
+    }
+  ]
+}

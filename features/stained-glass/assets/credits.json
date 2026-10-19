@@ -1,0 +1,26 @@
+{
+  "adoration-virgin-and-child.webp": {
+    "title": "The Adoration of the Magi (the Virgin and Child under the star)",
+    "maker": "Unknown glazier, German",
+    "date": "ca. 1290–1300",
+    "medium": "Pot-metal glass and vitreous paint",
+    "collection": "The Metropolitan Museum of Art, The Cloisters Collection, 2003",
+    "source": "https://www.metmuseum.org/art/collection/search/477362",
+    "licence": "CC0 1.0 (Met Open Access, public domain)",
+    "processing": "Cut out from its black photographic background along the panel's own outer lead came; resized to 1100 px wide.",
+    "place": "Altenberg an der Lahn, Germany (convent church)",
+    "dimensions": "76.8 × 35.6 cm"
+  },
+  "adoration-three-kings.webp": {
+    "title": "The Adoration of the Magi (Caspar, Melchior and Balthasar)",
+    "maker": "Unknown glazier, German",
+    "date": "ca. 1290–1300",
+    "medium": "Pot-metal glass and vitreous paint",
+    "collection": "The Metropolitan Museum of Art, The Cloisters Collection, 2003",
+    "source": "https://www.metmuseum.org/art/collection/search/476318",
+    "licence": "CC0 1.0 (Met Open Access, public domain)",
+    "processing": "Cut out from its black photographic background along the panel's own outer lead came; resized to 1100 px wide.",
+    "place": "Altenberg an der Lahn, Germany (convent church)",
+    "dimensions": "76.5 × 35.6 cm"
+  }
+}

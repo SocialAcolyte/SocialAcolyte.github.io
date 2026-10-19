@@ -1,18 +1,18 @@
 [
   {
-    "file": "eutyches.webp",
-    "note": "the panel cropped to head, shoulders and tunic (x 9-91%, y 10-72% of the Met image); the museum-black surround at the chipped corners filled with the panel's own ground colour; resized. Used only as a tone map (never shown).",
-    "source": "Portrait of the Boy Eutyches, Roman period, 100-150 CE, encaustic on wood, accession 18.9.2 (object 547951)",
-    "url": "https://www.metmuseum.org/art/collection/search/547951",
-    "author": "The Metropolitan Museum of Art, Open Access",
-    "license": "CC0"
+    "file": "daphni-pantocrator.jpg",
+    "note": "copied from StyleFeatures library/ornaments/mosaics, resized to 1100px; used only as a tone map (never shown)",
+    "source": "File:Christ Pantocrator Daphni Monastery.jpg",
+    "url": "https://commons.wikimedia.org/wiki/File:Christ_Pantocrator_Daphni_Monastery.jpg",
+    "author": "Unknown",
+    "license": "Public domain"
   },
   {
-    "file": "great-wave.webp",
-    "note": "copied from library/ornaments/prints, the right fifth cropped off, resized; used only as a tone map (never shown)",
-    "source": "File:Great Wave off Kanagawa2.jpg",
-    "url": "https://commons.wikimedia.org/wiki/File:Great_Wave_off_Kanagawa2.jpg",
-    "author": "After Katsushika Hokusai",
-    "license": "Public domain"
+    "file": "galla-placidia-cross.jpg",
+    "note": "from ornaments/lg/galla-placidia-stars.jpg: rotated 46 degrees so the cross stands upright and cropped to the cross and its stars; used only as a tone map (never shown)",
+    "source": "File:Mausoleum of Galla Placidia mosaics (Ravenna).jpg",
+    "url": "https://commons.wikimedia.org/wiki/File:Mausoleum_of_Galla_Placidia_mosaics_(Ravenna).jpg",
+    "author": "Petar Milošević",
+    "license": "CC BY-SA 4.0"
   }
 ]
