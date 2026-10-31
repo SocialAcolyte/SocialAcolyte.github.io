@@ -1,0 +1,26 @@
+# Cloudflare Pages response headers.
+# Images rarely change, so browsers keep them for a year.
+# CSS/JS get a day: index.html cache-busts with ?v=N, but the older pages don't.
+# HTML stays short so new deploys show up right away.
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+/ornaments/*
+  Cache-Control: public, max-age=31536000
+
+/tarot/*
+  Cache-Control: public, max-age=31536000
+
+/images/*
+  Cache-Control: public, max-age=31536000
+
+/*.css
+  Cache-Control: public, max-age=86400
+
+/*.js
+  Cache-Control: public, max-age=86400
