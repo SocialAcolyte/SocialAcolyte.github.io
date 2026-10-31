@@ -1,0 +1,51 @@
+/* ─── wet-on-wet — a Homer watercolour painted as you scroll ────────────────
+   Without JS (or with reduced motion) the stage shows the finished painting as an
+   <img>, a sheet lying on the page. Live, a canvas covers the stage and draws the
+   sheet (its real, slightly irregular edge and a tight shadow) itself: the stage is
+   pinned while the section scrolls past (the runway) and the painting is made on it;
+   on a phone it goes in close and follows the brush. */
+
+[data-wet-on-wet], .ww {
+  position: relative;
+  background: var(--paper, #f3f0e8);
+}
+.ww-stage {
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding: clamp(14px, 6svh, 64px) var(--ww-gutter, var(--gutter, clamp(12px, 3vw, 32px)));
+  box-sizing: border-box;
+}
+.ww-img {
+  grid-area: 1 / 1;
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: min(100%, 1400px);
+  max-height: 88svh;
+  /* a sheet of Whatman paper lying on the page */
+  box-shadow: 0 1px 2px rgba(40, 30, 18, .10), 0 6px 22px -10px rgba(40, 30, 18, .22);
+}
+.ww-canvas { display: none; position: absolute; inset: 0; }
+
+.ww.is-live .ww-canvas { display: block; }
+.ww.is-live .ww-img { visibility: hidden; }
+
+.ww.ww-scroll.is-live { height: var(--ww-runway, 350svh); }
+.ww.ww-scroll.is-live .ww-stage {
+  position: sticky; top: 0; height: 100svh; overflow: hidden;
+}
+.ww:not(.ww-scroll) .ww-stage { min-height: min(100svh, 980px); }
+
+@media (prefers-reduced-motion: reduce) {
+  .ww.ww-scroll.is-live { height: auto; }
+  .ww.ww-scroll.is-live .ww-stage { position: relative; height: auto; }
+  .ww.is-live .ww-canvas { display: none; }
+  .ww.is-live .ww-img { visibility: visible; }
+}
+@media print {
+  .ww.ww-scroll.is-live { height: auto; }
+  .ww.ww-scroll.is-live .ww-stage { position: static; height: auto; }
+  .ww.is-live .ww-canvas { display: none; }
+  .ww.is-live .ww-img { visibility: visible; }
+}

@@ -1,0 +1,66 @@
+/* ─── Kintsugi — a dish that breaks and is mended with gold (kintsugi.js) ───
+   Namespace .kt-. Without JS, [data-kintsugi] is a sheet of paper with the
+   dish lying in the middle of it. With JS a canvas covers the sheet: the
+   dish breaks across it, the shards come to rest on it, and the gold is
+   drawn on it.
+
+   Theme on the element or any parent:
+     --kt-gold         the gold (its mid tone)
+     --kt-gold-deep    gold in shadow           --kt-gold-light  its highlight
+     --kt-lacquer      the red urushi showing at the seam's edge
+     --kt-body         the porcelain body seen in a break
+     --kt-size         dish diameter, as a share of the sheet's shorter side
+                       (and --kt-size-narrow on phones)
+     --kt-aspect       the sheet's shape (and --kt-aspect-narrow on phones)  */
+
+[data-kintsugi], .kt {
+  --kt-gold: #c9a04a;
+  --kt-gold-deep: #6e4c16;
+  --kt-gold-light: #fff1c6;
+  --kt-lacquer: #7a2818;
+  --kt-body: #fbf9f4;
+  --kt-size: .7;
+  position: relative;
+  display: grid; place-items: center;
+  width: 100%; min-width: 0; margin: 0;
+  contain: inline-size;        /* the photo's 1600px never props the page open */
+  aspect-ratio: var(--kt-aspect, 16 / 10);
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none; user-select: none; -webkit-touch-callout: none;
+  touch-action: manipulation;
+}
+@media (max-width: 640px) {
+  [data-kintsugi], .kt { aspect-ratio: var(--kt-aspect-narrow, 1 / 1.1); --kt-size: var(--kt-size-narrow, .72); }
+}
+[data-kintsugi] > img, .kt > img {
+  display: block;
+  width: auto; height: auto;
+  max-width: calc(var(--kt-size) * 100%);
+  max-height: calc(var(--kt-size) * 100%);
+  filter: drop-shadow(0 6px 10px rgba(38, 30, 22, .18));
+  -webkit-user-drag: none;
+}
+.kt.is-live > img { visibility: hidden; }
+.kt-canvas {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  pointer-events: none;
+}
+.kt[role="button"] { cursor: pointer; }
+.kt[aria-disabled="true"] { cursor: default; }
+.kt:focus { outline: none; }
+
+/* focus: a hairline ring around the dish, not a box round the sheet */
+.kt-ring {
+  position: absolute; left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 1.5px solid var(--ink-2, #4a4744);
+  opacity: 0; pointer-events: none;
+  transition: opacity .25s ease;
+}
+.kt:focus-visible .kt-ring { opacity: .7; }
+
+.kt-live {
+  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; border: 0;
+  overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+}

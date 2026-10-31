@@ -1,0 +1,55 @@
+/* ─── Loupe — a reading glass lying on a print (loupe.js) ──────────
+   Without JS the figure is just the image, in colour. Once live, the print
+   turns black and white on the paper and the glass shows it in colour. */
+
+[data-loupe], .lp { position: relative; }
+[data-loupe] > img,
+[data-loupe] > picture > img, .lp > img, .lp > picture > img { display: block; width: 100%; height: auto; }
+
+.lp { outline: none; -webkit-tap-highlight-color: transparent; }
+.lp.is-mono img {
+  filter: var(--lp-mono, grayscale(1) contrast(1.07) brightness(1.02));
+  mix-blend-mode: multiply;
+}
+.lp:focus-visible { outline: 1px solid var(--ink-2, #4a4744); outline-offset: 12px; }
+
+.lp-stage { position: absolute; overflow: hidden; pointer-events: none; z-index: 1; }
+.lp-canvas, .lp-glass, .lp-hit, .lp-zoom { position: absolute; left: 0; top: 0; will-change: transform; }
+.lp-canvas { display: block; }
+
+/* The touch target that rides with the glass. Mouse and pen never need it. */
+.lp-hit { border-radius: 50%; touch-action: none; pointer-events: none; }
+@media (any-pointer: coarse) { .lp.is-live .lp-hit { pointer-events: auto; } }
+
+/* Fallback lens when WebGL2 is not there: round, magnified, in colour. */
+.lp-glass {
+  border-radius: 50%;
+  background-repeat: no-repeat;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, .55),
+    0 0 0 2px rgba(20, 19, 18, .18),
+    inset 6px 9px 14px -6px rgba(20, 19, 18, .35),
+    inset -4px -6px 12px -6px rgba(255, 255, 255, .5),
+    calc(6px + 10px * var(--lp-lift, 0)) calc(9px + 14px * var(--lp-lift, 0)) calc(14px + 22px * var(--lp-lift, 0)) -4px rgba(20, 19, 18, .28);
+}
+
+/* The magnification, shown briefly while it changes. */
+.lp-zoom {
+  font: 500 11px/1 var(--sans, Inter, system-ui, sans-serif);
+  letter-spacing: .08em; font-variant-numeric: tabular-nums;
+  color: var(--ink-2, #4a4744);
+  background: var(--paper, #f3f0e8);
+  padding: 5px 8px 4px; border-radius: 99px;
+  opacity: 0; transition: opacity .6s ease;
+  white-space: nowrap;
+}
+.lp-zoom.is-on { opacity: .92; transition-duration: .15s; }
+
+.lp-sr {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip-path: inset(50%); white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lp-zoom { transition: none; }
+}

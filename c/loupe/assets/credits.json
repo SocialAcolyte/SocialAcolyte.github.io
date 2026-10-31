@@ -1,0 +1,22 @@
+[
+  {
+    "file": "assets/unicorn-fountain.webp",
+    "source": "File:The Hunt of the Unicorn Tapestry 1.jpg",
+    "url": "https://commons.wikimedia.org/wiki/File:The_Hunt_of_the_Unicorn_Tapestry_1.jpg",
+    "license": "Public domain",
+    "author": "Unknown author (South Netherlandish, c. 1495-1505)",
+    "width": 3755,
+    "height": 3658,
+    "note": "background of the photograph cut away to transparency; otherwise unaltered"
+  },
+  {
+    "file": "assets/discomedusae.webp",
+    "source": "File:Haeckel Discomedusae 8.jpg",
+    "url": "https://commons.wikimedia.org/wiki/File:Haeckel_Discomedusae_8.jpg",
+    "license": "Public domain",
+    "author": "Original: Ernst Haeckel. Scan: Ragesoss. Cleanup: Ilmari Karonen.",
+    "width": 1784,
+    "height": 2560,
+    "note": "white paper of the scan made transparent (colour to alpha); otherwise unaltered"
+  }
+]

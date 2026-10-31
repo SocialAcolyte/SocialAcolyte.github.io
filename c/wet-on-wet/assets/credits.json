@@ -1,0 +1,15 @@
+[
+  {
+    "file": "sloop.webp",
+    "derived": ["sloop-wash.webp", "sloop-wet.webp", "sloop-mid.webp", "sloop-fill.webp", "sloop-lines.webp", "sloop-mapa.webp", "sloop-mapb.webp", "sloop.json"],
+    "title": "Sloop, Nassau",
+    "artist": "Winslow Homer (American, 1836-1910)",
+    "date": "1899",
+    "medium": "Watercolor and graphite on off-white wove paper, 37.8 x 54.3 cm",
+    "source": "https://www.metmuseum.org/art/collection/search/11139",
+    "image": "https://images.metmuseum.org/CRDImages/ad/original/DP119112.jpg",
+    "institution": "The Metropolitan Museum of Art, New York",
+    "license": "CC0 (Met Open Access, public domain)",
+    "notes": "Cropped to the sheet and resampled to 2400 px. The separation into washes, the pencil drawing and the time maps are ours (derived, see README)."
+  }
+]

@@ -1,0 +1,36 @@
+/* ─── raking-light // a carved surface under a low lamp (raking-light.js) ───
+   The figure is the surface. Its <img> sets the size and is what shows
+   without JS or WebGL. Two kinds:
+     data-kind="object"   a cut-out lying on the page (default). The canvas
+                          reaches past it to draw the shadow it throws on the
+                          paper; it never takes input and never widens the page.
+     data-kind="surface"  a rectangle of wall. Give the figure a height and the
+                          img object-fit: cover if you want a crop; the light
+                          takes the same crop. */
+
+[data-raking-light] {
+  position: relative; margin: 0;
+  -webkit-tap-highlight-color: transparent;
+  /* a sideways drag turns the lamp; a vertical one still scrolls the page */
+  touch-action: pan-y;
+}
+[data-raking-light] > img {
+  display: block; width: 100%; height: auto;
+  -webkit-user-select: none; user-select: none;
+}
+.rl-canvas {
+  position: absolute; left: 0; top: 0; display: block;
+  pointer-events: none;
+}
+[data-raking-light][data-kind="surface"] { overflow: hidden; background: var(--rl-ground, var(--paper-2, #e9e5da)); }
+[data-raking-light][data-kind="surface"] .rl-canvas { width: 100%; height: 100%; }
+[data-raking-light].is-live > img { opacity: 0; }
+
+[data-raking-light]:focus { outline: none; }
+[data-raking-light]:focus-visible { outline: 2px solid var(--accent, #c96f4a); outline-offset: 6px; border-radius: 2px; }
+[data-raking-light][data-kind="surface"]:focus-visible { outline-offset: -6px; }
+
+@media print {
+  .rl-canvas { display: none; }
+  [data-raking-light].is-live > img { opacity: 1; }
+}

@@ -1,0 +1,5 @@
+[data-peony-print]{display:block;background:#f3efe6;--pp-runway:640svh}
+.pp-stage{position:sticky;top:0;height:100svh;display:grid;place-items:center;overflow:hidden;touch-action:pan-y;background:#f3efe6}
+.pp-img{display:block;height:min(94svh,150vw);width:auto;max-width:94vw;object-fit:contain;box-shadow:0 1px 2px rgba(60,50,35,.18),0 12px 40px rgba(60,50,35,.14)}
+.pp-canvas{display:block;box-shadow:0 1px 2px rgba(60,50,35,.20),0 12px 40px rgba(60,50,35,.15)}
+@media (prefers-reduced-motion:reduce){[data-peony-print]{--pp-runway:auto}.pp-stage{position:static;height:auto;padding:4svh 0}}

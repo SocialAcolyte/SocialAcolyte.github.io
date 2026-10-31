@@ -1,0 +1,40 @@
+[
+ {
+  "file": "assets/round-tablet.webp",
+  "also": ["assets/round-tablet-albedo.webp", "assets/round-tablet-normal.png"],
+  "title": "Cuneiform tablet: student exercise tablet",
+  "date": "ca. 20th–16th century BCE",
+  "culture": "Babylonian, Old Babylonian period",
+  "medium": "Clay",
+  "source": "The Metropolitan Museum of Art, object 321878, accession 86.11.251",
+  "url": "https://www.metmuseum.org/art/collection/search/321878",
+  "image": "https://images.metmuseum.org/CRDImages/an/original/DP360672.jpg",
+  "license": "CC0 (The Metropolitan Museum of Art, Open Access)",
+  "note": "Cut out from its grey backdrop (colour threshold seeding GrabCut, outline smoothed, anti-aliased alpha pulled in 2 px), resized to 956 px. Albedo and normal/height maps derived from this photo (see README)."
+ },
+ {
+  "file": "assets/omen-fragment.webp",
+  "also": ["assets/omen-fragment-albedo.webp", "assets/omen-fragment-normal.png"],
+  "title": "Cuneiform tablet: commentary on Enuma Anu Enlil, tablet 5",
+  "date": "ca. late 1st millennium BCE",
+  "culture": "Babylonian",
+  "medium": "Clay",
+  "source": "The Metropolitan Museum of Art, object 321874, accession 86.11.503",
+  "url": "https://www.metmuseum.org/art/collection/search/321874",
+  "image": "https://images.metmuseum.org/CRDImages/an/original/DP-442-001.jpg",
+  "license": "CC0 (The Metropolitan Museum of Art, Open Access)",
+  "note": "Cut out as above, resized to 1150 px. Albedo and normal/height maps derived from this photo."
+ },
+ {
+  "file": "assets/nimrud-relief.webp",
+  "also": ["assets/nimrud-relief-albedo.webp", "assets/nimrud-relief-normal.png"],
+  "title": "Relief panel (Ashurnasirpal II with attendants and a winged genie; Standard Inscription)",
+  "date": "ca. 883–859 BCE",
+  "culture": "Assyrian, Neo-Assyrian period; from the Northwest Palace, Nimrud (ancient Kalhu)",
+  "medium": "Gypsum alabaster",
+  "source": "The Metropolitan Museum of Art, photograph DP-346-001, donated to Wikimedia Commons by the Met",
+  "url": "https://commons.wikimedia.org/wiki/File:Relief_panel_MET_DP-346-001-JPG_Original_300dpi.jpg",
+  "license": "CC0 (The Metropolitan Museum of Art, Open Access)",
+  "note": "Fetched at 3840 px via tools/fetch_commons.py (library/ornaments/reliefs/). Cropped to a band (frame and lower ledge removed), resized to 2400 px. Albedo and normal/height maps derived from this photo."
+ }
+]
