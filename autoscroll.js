@@ -25,19 +25,22 @@ function go() {
 function tick(t) {
   if (held || locked) return;
   if (last) {
-    // somebody else moved the page (scrollbar drag, anchor, find): hand it over
-    if (Math.abs(scrollY - pos) > 3) { hold(); return; }
+    // somebody else moved the page (scrollbar drag, anchor, find): hand it over.
+    // Phones report the new position a frame late, so allow a few steps of slack.
+    if (Math.abs(scrollY - pos) > 40) { hold(); return; }
     // a touch slower while the painting is being painted
     const homer = document.querySelector('.homer')?.getBoundingClientRect();
     const k = homer && homer.top < innerHeight && homer.bottom > 0 ? .7 : 1;
     pos = Math.min(max(), pos + SPEED * k * Math.min(.05, (t - last) / 1000));
-    scrollTo(0, pos);
+    scrollTo({ top: pos, behavior: 'instant' });   // instant: never a glide, whatever the css says
     if (pos >= max() - 1) { held = true; return; }          // the end: stay put
   }
   last = t; raf = requestAnimationFrame(tick);
 }
 
 ['wheel', 'touchstart', 'touchmove'].forEach((e) => addEventListener(e, () => hold(), { passive: true }));
+// a flick keeps coasting after the finger lifts: wait for it to settle
+addEventListener('scroll', () => { if (held && !locked) hold(); }, { passive: true });
 addEventListener('keydown', (e) => { if (['ArrowDown', 'ArrowUp', 'PageDown', 'PageUp', 'Home', 'End', ' '].includes(e.key)) hold(); });
 addEventListener('pointerdown', (e) => { if (e.target === document.documentElement) hold(); });   // scrollbar
 document.addEventListener('visibilitychange', () => { if (document.hidden) { held = true; clearTimeout(timer); } else if (!locked) hold(1200); });
