@@ -1,0 +1,21 @@
+/* ── the hero, six ways ─────────────────────────────────────────────────────── */
+.hero{position:relative;height:100svh;min-height:560px;overflow:hidden;isolation:isolate}
+.hero h1{margin:0;font-weight:400;font-family:var(--serif);font-variation-settings:"opsz" 72}
+.hero p{margin:0;font:400 clamp(14px,1.2vw,17px)/1.45 var(--sans);color:var(--ink-2)}
+
+/* 3 · columns ────────────────────────────────────────────────────────────── */
+.c-wall{position:absolute;inset:52px 0 0;display:flex;gap:clamp(8px,1vw,14px);padding:0 clamp(8px,1vw,14px)}
+.c-col{flex:1;min-width:0;overflow:hidden;position:relative}
+.c-run{display:flex;flex-direction:column;gap:clamp(8px,1vw,14px);will-change:transform;animation:cup var(--d,100s) linear infinite}
+.c-col.dn .c-run{animation-name:cdn}
+.c-col figure{margin:0;flex:none;aspect-ratio:3/4}
+.c-col img{display:block;width:100%;height:100%;object-fit:cover;filter:saturate(.9)}
+@keyframes cup{from{transform:translateY(0)}to{transform:translateY(-50%)}}
+@keyframes cdn{from{transform:translateY(-50%)}to{transform:translateY(0)}}
+.c-band{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);background:var(--paper);padding:clamp(14px,2.6svh,28px) var(--gutter) clamp(16px,2.8svh,30px);
+  display:flex;align-items:flex-end;justify-content:space-between;gap:24px;box-shadow:0 0 0 .5px var(--ink)}
+.c-band h1{font-size:clamp(54px,10.4vw,176px);line-height:.86;letter-spacing:-.03em;white-space:nowrap}
+.c-band p{max-width:15em;text-align:right;margin-bottom:.4em}
+@media (max-width:720px){.c-band{flex-direction:column;align-items:flex-start;gap:8px}.c-band h1{font-size:clamp(50px,16.5vw,92px)}.c-band p{text-align:left}}
+
+@media (prefers-reduced-motion:reduce){.c-run{animation:none}}

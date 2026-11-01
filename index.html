@@ -15,41 +15,29 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&family=Inter+Tight:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="c/wet-on-wet/wet-on-wet.css">
-<link rel="stylesheet" href="c/peony-print/peony-print.css">
-<link rel="stylesheet" href="c/loupe/loupe.css">
-<link rel="stylesheet" href="c/raking-light/raking-light.css">
-<link rel="stylesheet" href="c/kintsugi/kintsugi.css">
 <link rel="stylesheet" href="home.css">
+<link rel="stylesheet" href="hero.css">
 </head>
 <body>
 
 <header class="bar">
   <a class="bar-name" href="/"><img class="pfp" src="img/pfp.webp" alt="" width="28" height="28">Social <em>Acolyte</em></a>
-  <nav><a href="https://x.com/SocialAcolyte">X</a><a href="https://github.com/SocialAcolyte">GitHub</a><a href="https://www.linkedin.com/in/connor-m-hood/">LinkedIn</a><a href="/resume.html">CV</a></nav>
+  <nav><button class="auto" id="auto" type="button" aria-pressed="true" aria-label="Autoscroll">Auto <i></i></button><a href="https://x.com/SocialAcolyte">X</a><a href="https://github.com/SocialAcolyte">GitHub</a><a href="https://www.linkedin.com/in/connor-m-hood/">LinkedIn</a><a href="/resume.html">CV</a></nav>
 </header>
 
 <main>
   <!-- 1. The name, under one living piece -->
-  <section class="hero" aria-label="Social Acolyte">
-    <!-- one StyleFeatures piece each visit, in turn: peony print, loupe, raking light, kintsugi -->
-    <div class="stage" id="stage"><span class="stage-wash" aria-hidden="true"></span></div>
-    <div class="hero-words">
-      <h1>Social <em>Acolyte</em></h1>
-      <div class="hero-side"><p>Connor Hood. I make tools, and the data that teaches machines.</p><p class="hero-credit" id="hero-credit"></p></div>
-    </div>
-  </section>
+  <section class="hero" id="hero" aria-label="Social Acolyte"></section>
 
   <!-- 2. The main things -->
   <section class="main-things" aria-labelledby="h-things">
     <h2 class="eyebrow" id="h-things">From SocialAcolyte</h2>
     <div class="things">
-      <a class="thing" href="https://monetshot.pages.dev/" style="--wash:url(img/wash/blue.webp);--e:url(img/edge/e1.png)">
-        <span class="thing-wash" aria-hidden="true"></span>
+      <a class="thing" href="https://monetshot.pages.dev/">
         <span class="thing-img"><img src="img/sibs/monetshot.webp" alt="The Monet Shot site" loading="lazy"></span>
         <span class="thing-cap"><b>Monet <em>Shot</em></b><span>Screen recordings for the Mac that zoom where you click, over a painting. Free, open source.</span></span>
       </a>
-      <a class="thing" href="https://socialacolyte.github.io/stylefeatures/" style="--wash:url(img/wash/sienna.webp);--e:url(img/edge/e4.png)">
-        <span class="thing-wash" aria-hidden="true"></span>
+      <a class="thing" href="https://socialacolyte.github.io/stylefeatures/">
         <span class="thing-img"><img src="img/sibs/stylefeatures.webp" alt="The StyleFeatures site" loading="lazy"></span>
         <span class="thing-cap"><b>Style<em>Features</em></b><span>Sixty-three living pieces for the web, free to take.</span></span>
       </a>
@@ -81,20 +69,14 @@
   </section>
   <p class="homer-cap">Winslow Homer, <em>Sloop, Nassau</em>, 1899. Painted as you scroll.</p>
 
-  <!-- 5. A sketchbook of watercolours, drifting -->
-  <section class="drift" aria-label="Watercolours">
-    <div class="row" id="row-a"></div>
-    <div class="row rev" id="row-b"></div>
-  </section>
-
   <!-- 6. Links -->
   <section class="links" aria-label="Elsewhere">
     <p class="about">I work where data meets machines. I would rather make the data right than make the model loud.</p>
     <ul>
-      <li><a href="https://x.com/SocialAcolyte" style="--wash:url(img/wash/blue.webp)">X</a></li>
-      <li><a href="https://github.com/SocialAcolyte" style="--wash:url(img/wash/green.webp)">GitHub</a></li>
-      <li><a href="https://www.linkedin.com/in/connor-m-hood/" style="--wash:url(img/wash/sienna.webp)">LinkedIn</a></li>
-      <li><a href="/resume.html" style="--wash:url(img/wash/rose.webp)">CV</a></li>
+      <li><a href="https://x.com/SocialAcolyte">X</a></li>
+      <li><a href="https://github.com/SocialAcolyte">GitHub</a></li>
+      <li><a href="https://www.linkedin.com/in/connor-m-hood/">LinkedIn</a></li>
+      <li><a href="/resume.html">CV</a></li>
     </ul>
   </section>
 </main>
@@ -105,6 +87,8 @@
 </footer>
 
 <script type="module" src="home.js"></script>
+<script type="module" src="hero.js"></script>
+<script type="module" src="autoscroll.js"></script>
 <script type="module" src="c/wet-on-wet/wet-on-wet.js"></script>
 </body>
 </html>
